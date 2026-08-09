@@ -1,0 +1,467 @@
+"""
+Mem0 长期记忆服务
+
+实现智能记忆管理：
+- 用户偏好记忆（语言、风格、关注点）
+- 项目上下文记忆（研究主题、关键实体）
+- 对话历史增强（自动提取重要信息）
+- 知识图谱增强（实体关系记忆）
+"""
+
+import os
+from typing import List, Dict, Any, Optional
+from datetime import datetime
+import json
+
+from mem0 import Memory
+from sqlalchemy.orm import Session
+
+from app.models.user import User
+from app.models.document import Document
+from app.models.context import Context
+
+
+class MemoryService:
+    """长期记忆服务"""
+
+    def __init__(self):
+        """初始化Mem0记忆系统"""
+        # Mem0配置
+        config = {
+            "vector_store": {
+                "provider": "chroma",
+                "config": {
+                    "collection_name": "mem0_memories",
+                    "path": os.getenv("MEM0_CHROMA_PATH", "./data/mem0_chroma"),
+                }
+            },
+            "llm": {
+                "provider": "anthropic",
+                "config": {
+                    "model": os.getenv("MEM0_LLM_MODEL", "claude-3-haiku-20240307"),
+                    "api_key": os.getenv("ANTHROPIC_API_KEY", ""),
+                    "temperature": 0.0,
+                }
+            },
+            "embedder": {
+                "provider": "sentence_transformers",
+                "config": {
+                    "model": os.getenv("EMBEDDING_MODEL", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"),
+                }
+            }
+        }
+
+        self.memory = Memory.from_config(config)
+        self.enabled = bool(os.getenv("ANTHROPIC_API_KEY"))
+
+        if not self.enabled:
+            print("⚠️  Mem0记忆系统未启用（缺少ANTHROPIC_API_KEY）")
+
+    async def add_user_preference(
+        self,
+        user_id: str,
+        preference: str,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        添加用户偏好记忆
+
+        Args:
+            user_id: 用户ID
+            preference: 偏好描述（如"用户喜欢详细的学术分析"）
+            metadata: 额外元数据
+
+        Returns:
+            记忆ID和状态
+        """
+        if not self.enabled:
+            return {"status": "disabled", "message": "Mem0未启用"}
+
+        try:
+            # 构建记忆内容
+            memory_text = f"[用户偏好] {preference}"
+
+            # 添加到Mem0
+            result = self.memory.add(
+                messages=[memory_text],
+                user_id=user_id,
+                metadata={
+                    "type": "user_preference",
+                    "timestamp": datetime.utcnow().isoformat(),
+                    **(metadata or {})
+                }
+            )
+
+            return {
+                "status": "success",
+                "memory_id": result.get("id"),
+                "message": "用户偏好已记忆"
+            }
+        except Exception as e:
+            print(f"添加用户偏好失败: {e}")
+            return {"status": "error", "message": str(e)}
+
+    async def add_project_context(
+        self,
+        project_id: int,
+        user_id: str,
+        context: str,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        添加项目上下文记忆
+
+        Args:
+            project_id: 项目ID
+            user_id: 用户ID
+            context: 上下文描述
+            metadata: 额外元数据
+        """
+        if not self.enabled:
+            return {"status": "disabled"}
+
+        try:
+            memory_text = f"[项目上下文 #{project_id}] {context}"
+
+            result = self.memory.add(
+                messages=[memory_text],
+                user_id=user_id,
+                metadata={
+                    "type": "project_context",
+                    "project_id": project_id,
+                    "timestamp": datetime.utcnow().isoformat(),
+                    **(metadata or {})
+                }
+            )
+
+            return {
+                "status": "success",
+                "memory_id": result.get("id"),
+                "message": "项目上下文已记忆"
+            }
+        except Exception as e:
+            print(f"添加项目上下文失败: {e}")
+            return {"status": "error", "message": str(e)}
+
+    async def add_conversation_insight(
+        self,
+        user_id: str,
+        insight: str,
+        session_id: Optional[str] = None,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        从对话中提取并存储洞察
+
+        Args:
+            user_id: 用户ID
+            insight: 洞察内容
+            session_id: 会话ID（可选）
+            metadata: 额外元数据
+        """
+        if not self.enabled:
+            return {"status": "disabled"}
+
+        try:
+            memory_text = f"[对话洞察] {insight}"
+
+            result = self.memory.add(
+                messages=[memory_text],
+                user_id=user_id,
+                metadata={
+                    "type": "conversation_insight",
+                    "session_id": session_id,
+                    "timestamp": datetime.utcnow().isoformat(),
+                    **(metadata or {})
+                }
+            )
+
+            return {
+                "status": "success",
+                "memory_id": result.get("id")
+            }
+        except Exception as e:
+            print(f"添加对话洞察失败: {e}")
+            return {"status": "error", "message": str(e)}
+
+    async def add_entity_memory(
+        self,
+        user_id: str,
+        entity_name: str,
+        entity_type: str,
+        description: str,
+        project_id: Optional[int] = None,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        添加实体记忆（人物、地点、事件）
+
+        Args:
+            user_id: 用户ID
+            entity_name: 实体名称
+            entity_type: 实体类型
+            description: 实体描述
+            project_id: 所属项目ID
+            metadata: 额外元数据
+        """
+        if not self.enabled:
+            return {"status": "disabled"}
+
+        try:
+            memory_text = f"[{entity_type}实体] {entity_name}: {description}"
+
+            result = self.memory.add(
+                messages=[memory_text],
+                user_id=user_id,
+                metadata={
+                    "type": "entity",
+                    "entity_name": entity_name,
+                    "entity_type": entity_type,
+                    "project_id": project_id,
+                    "timestamp": datetime.utcnow().isoformat(),
+                    **(metadata or {})
+                }
+            )
+
+            return {
+                "status": "success",
+                "memory_id": result.get("id")
+            }
+        except Exception as e:
+            print(f"添加实体记忆失败: {e}")
+            return {"status": "error", "message": str(e)}
+
+    async def get_relevant_memories(
+        self,
+        user_id: str,
+        query: str,
+        limit: int = 5,
+        memory_types: Optional[List[str]] = None
+    ) -> List[Dict[str, Any]]:
+        """
+        检索相关记忆
+
+        Args:
+            user_id: 用户ID
+            query: 查询文本
+            limit: 返回数量
+            memory_types: 记忆类型过滤（如["user_preference", "project_context"]）
+
+        Returns:
+            相关记忆列表
+        """
+        if not self.enabled:
+            return []
+
+        try:
+            # 搜索记忆
+            results = self.memory.search(
+                query=query,
+                user_id=user_id,
+                limit=limit
+            )
+
+            # 过滤记忆类型
+            if memory_types and results:
+                filtered = []
+                for mem in results:
+                    metadata = mem.get("metadata", {})
+                    if metadata.get("type") in memory_types:
+                        filtered.append(mem)
+                return filtered[:limit]
+
+            return results or []
+        except Exception as e:
+            print(f"检索记忆失败: {e}")
+            return []
+
+    async def get_all_memories(
+        self,
+        user_id: str,
+        limit: int = 100
+    ) -> List[Dict[str, Any]]:
+        """获取用户所有记忆"""
+        if not self.enabled:
+            return []
+
+        try:
+            memories = self.memory.get_all(user_id=user_id)
+            return memories[:limit] if memories else []
+        except Exception as e:
+            print(f"获取所有记忆失败: {e}")
+            return []
+
+    async def update_memory(
+        self,
+        memory_id: str,
+        new_content: str
+    ) -> Dict[str, Any]:
+        """更新记忆内容"""
+        if not self.enabled:
+            return {"status": "disabled"}
+
+        try:
+            self.memory.update(
+                memory_id=memory_id,
+                data=new_content
+            )
+            return {"status": "success", "message": "记忆已更新"}
+        except Exception as e:
+            print(f"更新记忆失败: {e}")
+            return {"status": "error", "message": str(e)}
+
+    async def delete_memory(
+        self,
+        memory_id: str
+    ) -> Dict[str, Any]:
+        """删除记忆"""
+        if not self.enabled:
+            return {"status": "disabled"}
+
+        try:
+            self.memory.delete(memory_id=memory_id)
+            return {"status": "success", "message": "记忆已删除"}
+        except Exception as e:
+            print(f"删除记忆失败: {e}")
+            return {"status": "error", "message": str(e)}
+
+    async def delete_all_memories(
+        self,
+        user_id: str
+    ) -> Dict[str, Any]:
+        """删除用户所有记忆"""
+        if not self.enabled:
+            return {"status": "disabled"}
+
+        try:
+            self.memory.delete_all(user_id=user_id)
+            return {"status": "success", "message": "所有记忆已删除"}
+        except Exception as e:
+            print(f"删除所有记忆失败: {e}")
+            return {"status": "error", "message": str(e)}
+
+    async def extract_insights_from_conversation(
+        self,
+        user_id: str,
+        conversation_history: List[Dict[str, str]],
+        session_id: Optional[str] = None
+    ) -> List[str]:
+        """
+        从对话历史中自动提取洞察
+
+        Args:
+            user_id: 用户ID
+            conversation_history: 对话历史 [{"role": "user", "content": "..."}]
+            session_id: 会话ID
+
+        Returns:
+            提取的洞察列表
+        """
+        if not self.enabled or not conversation_history:
+            return []
+
+        try:
+            # 构建对话文本
+            conversation_text = "\n".join([
+                f"{msg['role']}: {msg['content']}"
+                for msg in conversation_history[-10:]  # 最近10条消息
+            ])
+
+            # 使用Mem0的智能提取（Mem0会自动分析并提取重要信息）
+            result = self.memory.add(
+                messages=[conversation_text],
+                user_id=user_id,
+                metadata={
+                    "type": "conversation_insight",
+                    "session_id": session_id,
+                    "timestamp": datetime.utcnow().isoformat(),
+                    "auto_extracted": True
+                }
+            )
+
+            # Mem0会返回提取的记忆
+            insights = []
+            if result and isinstance(result, dict):
+                extracted = result.get("results", [])
+                for item in extracted:
+                    if isinstance(item, dict):
+                        insights.append(item.get("memory", ""))
+                    elif isinstance(item, str):
+                        insights.append(item)
+
+            return insights
+        except Exception as e:
+            print(f"提取对话洞察失败: {e}")
+            return []
+
+    async def get_user_profile(
+        self,
+        user_id: str
+    ) -> Dict[str, Any]:
+        """
+        获取用户记忆档案摘要
+
+        Returns:
+            {
+                "preferences": [...],
+                "projects": [...],
+                "entities": [...],
+                "insights": [...]
+            }
+        """
+        if not self.enabled:
+            return {
+                "preferences": [],
+                "projects": [],
+                "entities": [],
+                "insights": []
+            }
+
+        try:
+            all_memories = await self.get_all_memories(user_id, limit=200)
+
+            profile = {
+                "preferences": [],
+                "projects": [],
+                "entities": [],
+                "insights": []
+            }
+
+            for mem in all_memories:
+                metadata = mem.get("metadata", {})
+                mem_type = metadata.get("type")
+                content = mem.get("memory", "")
+
+                if mem_type == "user_preference":
+                    profile["preferences"].append(content)
+                elif mem_type == "project_context":
+                    profile["projects"].append(content)
+                elif mem_type == "entity":
+                    profile["entities"].append(content)
+                elif mem_type == "conversation_insight":
+                    profile["insights"].append(content)
+
+            return profile
+        except Exception as e:
+            print(f"获取用户档案失败: {e}")
+            return {
+                "preferences": [],
+                "projects": [],
+                "entities": [],
+                "insights": []
+            }
+
+    def is_enabled(self) -> bool:
+        """检查Mem0是否启用"""
+        return self.enabled
+
+
+# 全局实例
+memory_service = None
+
+def get_memory_service() -> MemoryService:
+    """获取记忆服务实例（延迟初始化）"""
+    global memory_service
+    if memory_service is None and not os.getenv('TESTING'):
+        memory_service = MemoryService()
+    return memory_service

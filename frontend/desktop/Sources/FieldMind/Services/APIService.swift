@@ -1,0 +1,736 @@
+import Foundation
+
+class APIService: ObservableObject {
+    static let shared = APIService()
+
+    private let baseURL: String
+    private var authToken: String?
+
+    private init() {
+        // 默认连接到本地后端
+        self.baseURL = UserDefaults.standard.string(forKey: "api_base_url") ?? "http://localhost:8000"
+    }
+
+    func setAuthToken(_ token: String?) {
+        self.authToken = token
+        if let token = token {
+            UserDefaults.standard.set(token, forKey: "auth_token")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "auth_token")
+        }
+    }
+
+    func loadAuthToken() {
+        self.authToken = UserDefaults.standard.string(forKey: "auth_token")
+    }
+
+    private func createRequest(url: URL, method: String, body: Data? = nil) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        if let token = authToken {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        request.httpBody = body
+        return request
+    }
+
+    private func performRequest<T: Decodable>(_ request: URLRequest) async throws -> T {
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
+        }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw URLError(.init(rawValue: httpResponse.statusCode))
+        }
+
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return try decoder.decode(T.self, from: data)
+    }
+
+    private func performRequest(_ request: URLRequest) async throws {
+        let (_, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
+        }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw URLError(.init(rawValue: httpResponse.statusCode))
+        }
+    }
+
+    // MARK: - Authentication
+
+    func login(username: String, password: String) async throws -> LoginResponse {
+        let parameters: [String: String] = [
+            "username": username,
+            "password": password
+        ]
+
+        let url = URL(string: "\(baseURL)/api/auth/login")!
+        let body = try JSONEncoder().encode(parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func logout() async throws {
+        let url = URL(string: "\(baseURL)/api/auth/logout")!
+        let request = createRequest(url: url, method: "POST")
+
+        try await performRequest(request)
+        setAuthToken(nil)
+    }
+
+    func getCurrentUser() async throws -> User {
+        let url = URL(string: "\(baseURL)/api/auth/me")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Projects
+
+    func getProjects() async throws -> [Project] {
+        let url = URL(string: "\(baseURL)/api/projects/")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func createProject(name: String, description: String?) async throws -> Project {
+        let parameters = ProjectCreate(name: name, description: description)
+
+        let url = URL(string: "\(baseURL)/api/projects/")!
+        let body = try JSONEncoder().encode(parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func getProject(id: Int) async throws -> Project {
+        let url = URL(string: "\(baseURL)/api/projects/\(id)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func deleteProject(id: Int) async throws {
+        let url = URL(string: "\(baseURL)/api/projects/\(id)")!
+        let request = createRequest(url: url, method: "DELETE")
+
+        try await performRequest(request)
+    }
+
+    // MARK: - Documents
+
+    func getDocuments(projectId: Int) async throws -> [Document] {
+        let url = URL(string: "\(baseURL)/api/projects/\(projectId)/documents")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func uploadDocument(projectId: Int, fileURL: URL) async throws -> DocumentUploadResponse {
+        let url = URL(string: "\(baseURL)/api/documents/upload")!  // 修正路径：移除 v1
+
+        // 读取文件数据
+        let fileData = try Data(contentsOf: fileURL)
+        let filename = fileURL.lastPathComponent
+
+        // 创建multipart/form-data请求
+        let boundary = "Boundary-\(UUID().uuidString)"
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        if let token = authToken {
+            request.addValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
+        // 构建multipart body
+        var body = Data()
+
+        // 添加project_id字段
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"project_id\"\r\n\r\n".data(using: .utf8)!)
+        body.append("\(projectId)\r\n".data(using: .utf8)!)
+
+        // 添加文件字段
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: application/octet-stream\r\n\r\n".data(using: .utf8)!)
+        body.append(fileData)
+        body.append("\r\n".data(using: .utf8)!)
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+
+        request.httpBody = body
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw URLError(.badServerResponse)
+        }
+
+        guard (200...299).contains(httpResponse.statusCode) else {
+            throw URLError(.init(rawValue: httpResponse.statusCode))
+        }
+
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return try decoder.decode(DocumentUploadResponse.self, from: data)
+    }
+
+    func processDocument(id: Int) async throws {
+        let url = URL(string: "\(baseURL)/api/documents/\(id)/process")!
+        let request = createRequest(url: url, method: "POST")
+
+        try await performRequest(request)
+    }
+
+    func deleteDocument(id: Int) async throws {
+        let url = URL(string: "\(baseURL)/api/documents/\(id)")!
+        let request = createRequest(url: url, method: "DELETE")
+
+        try await performRequest(request)
+    }
+
+    func getDocumentStatus(taskId: String) async throws -> TaskStatus {
+        let url = URL(string: "\(baseURL)/api/documents/status/\(taskId)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Contexts
+
+    func getContexts(projectId: Int) async throws -> [Context] {
+        let url = URL(string: "\(baseURL)/api/projects/\(projectId)/contexts")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func createContext(projectId: Int, name: String, description: String?, keywords: [String], level: Int, parentId: Int?) async throws -> Context {
+        let parameters = ContextCreate(
+            projectId: projectId,
+            name: name,
+            description: description,
+            keywords: keywords,
+            level: level,
+            parentId: parentId
+        )
+
+        let url = URL(string: "\(baseURL)/api/contexts/")!
+        let body = try JSONEncoder().encode(parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Chat
+
+    func getChatSessions(projectId: Int) async throws -> [ChatSession] {
+        let url = URL(string: "\(baseURL)/api/chat/sessions?project_id=\(projectId)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func createChatSession(projectId: Int, name: String, documentIds: [Int]) async throws -> ChatSession {
+        let parameters: [String: Any] = [
+            "project_id": projectId,
+            "name": name,
+            "document_ids": documentIds
+        ]
+
+        let url = URL(string: "\(baseURL)/api/chat/sessions")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func sendMessage(sessionId: Int, message: String, framework: String?) async throws -> ChatMessage {
+        let parameters = ChatRequest(sessionId: sessionId, message: message, framework: framework)
+
+        let url = URL(string: "\(baseURL)/api/chat/message")!
+        let body = try JSONEncoder().encode(parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Enhanced Chat with Long Memory
+
+    func sendEnhancedMessage(
+        sessionId: String,
+        message: String,
+        projectId: Int?,
+        useLongMemory: Bool = true,
+        useDeepThinking: Bool = false,
+        skillConfig: SkillChatConfig? = nil,
+        memoryConfig: MemoryChatConfig? = nil
+    ) async throws -> EnhancedChatResponse {
+        let parameters: [String: Any] = [
+            "session_id": sessionId,
+            "message": message,
+            "project_id": projectId as Any,
+            "use_long_memory": useLongMemory,
+            "use_deep_thinking": useDeepThinking,
+            "use_long_context": true,
+            "skill_config": skillConfig?.toDictionary() as Any,
+            "memory_config": memoryConfig?.toDictionary() as Any,
+            "max_tokens": 8192
+        ]
+
+        let url = URL(string: "\(baseURL)/api/chat/enhanced")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func searchMemory(query: String, projectId: Int?, topK: Int = 10) async throws -> MemorySearchResponse {
+        let parameters: [String: Any] = [
+            "query": query,
+            "project_id": projectId as Any,
+            "top_k": topK,
+            "relevance_threshold": 0.7
+        ]
+
+        let url = URL(string: "\(baseURL)/api/memory/search")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func getMemoryStatistics(projectId: Int?) async throws -> MemoryStatistics {
+        var urlString = "\(baseURL)/api/memory/statistics"
+        if let projectId = projectId {
+            urlString += "?project_id=\(projectId)"
+        }
+
+        let url = URL(string: urlString)!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Timeline
+
+    func generateTimeline(projectId: Int, documentIds: [Int]?) async throws -> Timeline {
+        let parameters = TimelineGenerateRequest(projectId: projectId, documentIds: documentIds)
+
+        let url = URL(string: "\(baseURL)/api/timeline/generate")!
+        let body = try JSONEncoder().encode(parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func getTimeline(projectId: Int) async throws -> Timeline {
+        let url = URL(string: "\(baseURL)/api/timeline/?project_id=\(projectId)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Knowledge Graph
+
+    func buildGraph(projectId: Int, documentIds: [Int]?) async throws -> KnowledgeGraph {
+        let parameters = GraphBuildRequest(projectId: projectId, documentIds: documentIds)
+
+        let url = URL(string: "\(baseURL)/api/graph/build")!
+        let body = try JSONEncoder().encode(parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func getGraphStatistics(projectId: Int) async throws -> GraphStatistics {
+        let url = URL(string: "\(baseURL)/api/graph/statistics?project_id=\(projectId)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Skills
+
+    func getSkills() async throws -> [Skill] {
+        let url = URL(string: "\(baseURL)/api/skills/")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func uploadSkill(fileURL: URL) async throws -> SkillUploadResponse {
+        // 简化版：暂不实现文件上传
+        throw URLError(.unsupportedURL)
+    }
+
+    func toggleSkillStatus(id: Int, status: SkillStatus) async throws -> Skill {
+        let parameters: [String: String] = ["status": status.rawValue]
+
+        let url = URL(string: "\(baseURL)/api/skills/\(id)/status")!
+        let body = try JSONEncoder().encode(parameters)
+        let request = createRequest(url: url, method: "PATCH", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func deleteSkill(id: Int) async throws {
+        let url = URL(string: "\(baseURL)/api/skills/\(id)")!
+        let request = createRequest(url: url, method: "DELETE")
+
+        try await performRequest(request)
+    }
+
+    func executeSkill(skillId: Int, projectId: Int, parameters: [String: String]?) async throws -> SkillExecuteResponse {
+        let request = SkillExecuteRequest(skillId: skillId, projectId: projectId, parameters: parameters)
+
+        let url = URL(string: "\(baseURL)/api/skills/\(skillId)/execute")!
+        let body = try JSONEncoder().encode(request)
+        let urlRequest = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(urlRequest)
+    }
+
+    // MARK: - Knowledge Graph Visualization
+
+    func getGraphVisualization(entityId: String? = nil, limit: Int = 100) async throws -> GraphVisualizationResponse {
+        var urlString = "\(baseURL)/api/kg/visualize?limit=\(limit)"
+        if let entityId = entityId {
+            urlString += "&entity_id=\(entityId)"
+        }
+
+        let url = URL(string: urlString)!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func getEntity(entityId: String) async throws -> EntityResponse {
+        let url = URL(string: "\(baseURL)/api/kg/entities/\(entityId)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func createEntity(type: String, properties: [String: Any]) async throws -> EntityResponse {
+        let parameters: [String: Any] = [
+            "entity_type": type,
+            "properties": properties
+        ]
+
+        let url = URL(string: "\(baseURL)/api/kg/entities")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Timeline Events
+
+    func getTimelineEvents(startDate: String? = nil, endDate: String? = nil, category: String? = nil, sort: String = "desc", page: Int = 1, limit: Int = 50) async throws -> TimelineEventListResponse {
+        var urlComponents = URLComponents(string: "\(baseURL)/api/timeline/events")!
+        var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "sort", value: sort),
+            URLQueryItem(name: "page", value: "\(page)"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
+
+        if let startDate = startDate {
+            queryItems.append(URLQueryItem(name: "start_date", value: startDate))
+        }
+        if let endDate = endDate {
+            queryItems.append(URLQueryItem(name: "end_date", value: endDate))
+        }
+        if let category = category {
+            queryItems.append(URLQueryItem(name: "category", value: category))
+        }
+
+        urlComponents.queryItems = queryItems
+        let request = createRequest(url: urlComponents.url!, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func createTimelineEvent(eventData: TimelineEventCreate) async throws -> TimelineEventResponse {
+        let url = URL(string: "\(baseURL)/api/timeline/events")!
+        let body = try JSONEncoder().encode(eventData)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func organizeTimeline(documentIds: [String], grouping: String = "year") async throws -> TimelineOrganizeResponse {
+        let parameters: [String: Any] = [
+            "document_ids": documentIds,
+            "grouping": grouping
+        ]
+
+        let url = URL(string: "\(baseURL)/api/timeline/organize")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "PUT", body: body)
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Reports
+
+    func getReports(status: String? = nil, page: Int = 1, limit: Int = 20) async throws -> [ReportResponse] {
+        var urlString = "\(baseURL)/api/reports?page=\(page)&limit=\(limit)"
+        if let status = status {
+            urlString += "&status=\(status)"
+        }
+
+        let url = URL(string: urlString)!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func getReport(reportId: String) async throws -> ReportResponse {
+        let url = URL(string: "\(baseURL)/api/reports/\(reportId)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func generateReport(title: String, reportType: String, timeRange: [String: String]? = nil, include: [String: Bool], dataSources: [String: [String]], format: String = "docx") async throws -> ReportGenerateResponse {
+        let parameters: [String: Any] = [
+            "title": title,
+            "report_type": reportType,
+            "time_range": timeRange as Any,
+            "include": include,
+            "data_sources": dataSources,
+            "format": format
+        ]
+
+        let url = URL(string: "\(baseURL)/api/reports/generate")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func downloadReport(reportId: String, format: String = "docx") async throws -> URL {
+        let urlString = "\(baseURL)/api/reports/\(reportId)/download?format=\(format)"
+        let url = URL(string: urlString)!
+
+        let (data, _) = try await URLSession.shared.data(from: url)
+
+        // 保存到临时文件
+        let tempDir = FileManager.default.temporaryDirectory
+        let fileURL = tempDir.appendingPathComponent("report_\(reportId).\(format)")
+        try data.write(to: fileURL)
+
+        return fileURL
+    }
+
+    // MARK: - RAG Query
+
+    func ragQuery(question: String, topK: Int = 5, generateAnswer: Bool = true) async throws -> RAGQueryResponse {
+        let parameters: [String: Any] = [
+            "question": question,
+            "top_k": topK,
+            "generate_answer": generateAnswer
+        ]
+
+        let url = URL(string: "\(baseURL)/api/rag/query")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Dashboard Statistics
+
+    func getDashboardStats(projectId: Int) async throws -> DashboardStatsResponse {
+        let url = URL(string: "\(baseURL)/api/projects/\(projectId)/stats")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func getDocumentList(skip: Int = 0, limit: Int = 20) async throws -> DocumentListResponse {
+        let url = URL(string: "\(baseURL)/api/documents/list?skip=\(skip)&limit=\(limit)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Keyword Search ⭐ NEW
+
+    func searchKeyword(projectId: Int, keyword: String, includeVideos: Bool = true, includeAudios: Bool = true, includeDocuments: Bool = true) async throws -> KeywordSearchResponse {
+        let parameters: [String: Any] = [
+            "keyword": keyword,
+            "include_videos": includeVideos,
+            "include_audios": includeAudios,
+            "include_documents": includeDocuments
+        ]
+
+        let url = URL(string: "\(baseURL)/api/keyword-search/projects/\(projectId)/search")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func getTopKeywords(projectId: Int, limit: Int = 50) async throws -> TopKeywordsResponse {
+        let url = URL(string: "\(baseURL)/api/keyword-search/projects/\(projectId)/keywords/top?limit=\(limit)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func getKeywordTimeline(projectId: Int, keyword: String) async throws -> KeywordTimelineResponse {
+        let encodedKeyword = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? keyword
+        let url = URL(string: "\(baseURL)/api/keyword-search/projects/\(projectId)/keywords/timeline?keyword=\(encodedKeyword)")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Creative Analysis ⭐ NEW
+
+    func analyzeCreative(projectId: Int, keywords: [String], mode: String = "creative") async throws -> CreativeAnalysisResponse {
+        let parameters: [String: Any] = [
+            "keywords": keywords,
+            "mode": mode
+        ]
+
+        let url = URL(string: "\(baseURL)/api/creative-analysis/projects/\(projectId)/analyze")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func getCulturalElements(projectId: Int) async throws -> CulturalElementsResponse {
+        let url = URL(string: "\(baseURL)/api/creative-analysis/projects/\(projectId)/cultural-elements")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Business Analysis ⭐ NEW
+
+    func analyzeBusiness(projectId: Int) async throws -> BusinessAnalysisResponse {
+        let url = URL(string: "\(baseURL)/api/business-analysis/projects/\(projectId)/analyze")!
+        let request = createRequest(url: url, method: "POST")
+
+        return try await performRequest(request)
+    }
+
+    func getExistingFormats(projectId: Int) async throws -> ExistingFormatsResponse {
+        let url = URL(string: "\(baseURL)/api/business-analysis/projects/\(projectId)/formats/existing")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func getSynergyAnalysis(projectId: Int) async throws -> SynergyAnalysisResponse {
+        let url = URL(string: "\(baseURL)/api/business-analysis/projects/\(projectId)/synergy")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Workflows ⭐ NEW
+
+    func getWorkflows(workflowType: String? = nil, activeOnly: Bool = true) async throws -> WorkflowListResponse {
+        var urlString = "\(baseURL)/api/v1/workflows?active_only=\(activeOnly)"
+        if let type = workflowType {
+            urlString += "&workflow_type=\(type)"
+        }
+        let url = URL(string: urlString)!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func createWorkflow(name: String, description: String?, workflowType: String, steps: [[String: Any]], config: [String: Any]?) async throws -> WorkflowResponse {
+        let parameters: [String: Any] = [
+            "name": name,
+            "description": description as Any,
+            "workflow_type": workflowType,
+            "steps": steps,
+            "config": config as Any
+        ]
+
+        let url = URL(string: "\(baseURL)/api/v1/workflows")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func executeWorkflow(workflowId: String, projectId: Int?, inputData: [String: Any]) async throws -> WorkflowExecutionResponse {
+        let parameters: [String: Any] = [
+            "project_id": projectId as Any,
+            "input_data": inputData
+        ]
+
+        let url = URL(string: "\(baseURL)/api/v1/workflows/\(workflowId)/execute")!
+        let body = try JSONSerialization.data(withJSONObject: parameters)
+        let request = createRequest(url: url, method: "POST", body: body)
+
+        return try await performRequest(request)
+    }
+
+    func deleteWorkflow(workflowId: String) async throws {
+        let url = URL(string: "\(baseURL)/api/v1/workflows/\(workflowId)")!
+        let request = createRequest(url: url, method: "DELETE")
+
+        try await performRequest(request)
+    }
+
+    // MARK: - Industry Analysis ⭐ NEW
+
+    func getIndustryCategories() async throws -> IndustryCategoryListResponse {
+        let url = URL(string: "\(baseURL)/api/v1/industry/categories")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    func getIndustryDetails(category: String) async throws -> IndustryDetailResponse {
+        let url = URL(string: "\(baseURL)/api/v1/industry/\(category)/details")!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+
+    // MARK: - Skills (Report Frameworks) ⭐ NEW
+
+    func getSkills(status: String? = nil, category: String? = nil) async throws -> SkillListResponse {
+        var urlString = "\(baseURL)/api/v1/skills"
+        var queryItems: [String] = []
+
+        if let status = status {
+            queryItems.append("status=\(status)")
+        }
+        if let category = category {
+            queryItems.append("category=\(category)")
+        }
+
+        if !queryItems.isEmpty {
+            urlString += "?" + queryItems.joined(separator: "&")
+        }
+
+        let url = URL(string: urlString)!
+        let request = createRequest(url: url, method: "GET")
+
+        return try await performRequest(request)
+    }
+}

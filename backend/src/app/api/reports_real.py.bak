@@ -1,0 +1,658 @@
+"""
+报告生成API - 基于真实数据的三级报告
+
+严禁使用模拟数据，必须读写数据库
+"""
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from pydantic import BaseModel
+from typing import List, Optional
+from datetime import datetime
+import logging
+
+from app.core.database import get_db
+from app.models.project import ProjectDocument
+
+router = APIRouter(prefix="/reports", tags=["reports"])
+logger = logging.getLogger(__name__)
+
+
+class ReportRequest(BaseModel):
+    """报告请求"""
+    project_id: int
+    document_ids: Optional[List[int]] = None  # 如果为空，使用所有文档
+    report_level: int  # 1=一度报告, 2=二度报告, 3=三度报告
+
+
+class ReportResponse(BaseModel):
+    """报告响应"""
+    success: bool
+    report_level: int
+    report_content: str
+    documents_used: int
+    generation_method: str  # "template" 或 "llm"
+    message: Optional[str] = None
+
+
+@router.post("/generate", response_model=ReportResponse)
+def generate_report(
+    request: ReportRequest,
+    db: Session = Depends(get_db)
+):
+    """
+    生成三层报告
+
+    一度报告：基于材料的直接分析（文本摘要 + 关键词）
+    二度报告：费孝通框架分析（社会结构与变迁）
+    三度报告：综合多维度分析（SOP + 费孝通 + 关键词趋势）
+    """
+    try:
+        logger.info(f"生成 {request.report_level} 级报告，项目ID={request.project_id}")
+
+        # 1. 获取文档
+        query = db.query(ProjectDocument).filter(
+            ProjectDocument.project_id == request.project_id,
+            ProjectDocument.status == 'completed'
+        )
+
+        if request.document_ids:
+            query = query.filter(ProjectDocument.id.in_(request.document_ids))
+
+        documents = query.all()
+
+        if not documents:
+            return ReportResponse(
+                success=False,
+                report_level=request.report_level,
+                report_content="",
+                documents_used=0,
+                generation_method="none",
+                message="没有可用的文档"
+            )
+
+        logger.info(f"找到 {len(documents)} 个文档")
+
+        # 2. 根据报告级别生成
+        if request.report_level == 1:
+            report_content = generate_level1_report(documents)
+        elif request.report_level == 2:
+            report_content = generate_level2_report(documents)
+        elif request.report_level == 3:
+            report_content = generate_level3_report(documents)
+        else:
+            raise HTTPException(status_code=400, detail="报告级别必须是1、2或3")
+
+        return ReportResponse(
+            success=True,
+            report_level=request.report_level,
+            report_content=report_content,
+            documents_used=len(documents),
+            generation_method="template",  # 当前使用模板，配置LLM后可切换为"llm"
+            message=None
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"生成报告失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+def generate_level1_report(documents: List) -> str:
+    """
+    一度报告：基于材料的直接分析（目标：5000-8000字）
+
+    内容：
+    - 材料来源说明
+    - 完整文档内容展示
+    - 关键词深度分析
+    - 文本结构梳理
+    - 核心议题提炼
+    """
+    report_lines = [
+        "# 一度报告：田野材料直接分析\n",
+        f"**生成时间**：{datetime.now().strftime('%Y年%m月%d日 %H:%M:%S')}\n",
+        f"**分析文档数**：{len(documents)}份\n",
+        f"**报告性质**：基于原始田野材料的直接提取与初步整理，未经理论框架解读\n",
+        "\n---\n",
+        "\n## 第一部分：材料来源与基本情况\n"
+    ]
+
+    # 详细的文档概览
+    total_words = 0
+    for i, doc in enumerate(documents, 1):
+        word_count = doc.word_count or 0
+        total_words += word_count
+
+        created_at = doc.created_at.strftime('%Y-%m-%d %H:%M') if doc.created_at else '未知'
+        file_type = doc.file_type.upper() if doc.file_type else '未知'
+
+        report_lines.append(f"\n### {i}. {doc.filename}\n")
+        report_lines.append(f"- **文件类型**：{file_type}")
+        report_lines.append(f"- **字数统计**：{word_count}字")
+        report_lines.append(f"- **采集时间**：{created_at}")
+
+        if doc.extra_data:
+            if doc.extra_data.get('has_transcript'):
+                report_lines.append("- **备注**：包含音频转录内容")
+            if doc.extra_data.get('chunks_count'):
+                report_lines.append(f"- **文本分块**：{doc.extra_data['chunks_count']}个语义块")
+
+    report_lines.append(f"\n**材料总计**：{len(documents)}份文档，共{total_words}字\n")
+
+    # 关键词深度分析（扩展版）
+    report_lines.append("\n---\n")
+    report_lines.append("\n## 第二部分：核心关键词深度分析\n")
+    report_lines.append("\n本部分通过TF-IDF算法提取材料中的高频关键词，反映田野调查中的核心议题与关注焦点。\n")
+
+    keyword_freq = {}
+    keyword_docs = {}  # 记录每个关键词出现在哪些文档
+
+    for doc in documents:
+        if doc.extra_data and doc.extra_data.get('keywords'):
+            for kw in doc.extra_data['keywords']:
+                word = kw.get('word') if isinstance(kw, dict) else str(kw)
+                weight = kw.get('weight', 1.0) if isinstance(kw, dict) else 1.0
+
+                keyword_freq[word] = keyword_freq.get(word, 0) + weight
+
+                if word not in keyword_docs:
+                    keyword_docs[word] = []
+                keyword_docs[word].append(doc.filename)
+
+    sorted_keywords = sorted(keyword_freq.items(), key=lambda x: x[1], reverse=True)[:30]
+
+    report_lines.append("\n### 2.1 高频关键词统计（Top 30）\n")
+
+    for i, (word, freq) in enumerate(sorted_keywords, 1):
+        doc_list = keyword_docs.get(word, [])
+        doc_count = len(set(doc_list))
+        report_lines.append(f"\n**{i}. {word}**")
+        report_lines.append(f"   - 权重得分：{freq:.2f}")
+        report_lines.append(f"   - 出现文档：{doc_count}份")
+        if doc_count <= 3:
+            report_lines.append(f"   - 来源：{', '.join(set(doc_list))}")
+
+    # 关键词聚类分析
+    report_lines.append("\n### 2.2 关键词主题聚类\n")
+    report_lines.append("\n基于关键词语义相关性，初步识别以下主题簇：\n")
+
+    # 简单的主题分类（基于关键词）
+    culture_words = [w for w, _ in sorted_keywords if any(k in w for k in ['文化', '遗产', '传统', '民族', '习俗', '节庆', '仪式'])]
+    economy_words = [w for w, _ in sorted_keywords if any(k in w for k in ['经济', '收入', '务工', '产业', '土地', '农业'])]
+    social_words = [w for w, _ in sorted_keywords if any(k in w for k in ['村民', '家族', '社区', '关系', '矛盾', '组织'])]
+
+    if culture_words:
+        report_lines.append(f"\n**文化主题簇**（{len(culture_words)}个关键词）")
+        report_lines.append(f"   {', '.join(culture_words[:10])}")
+
+    if economy_words:
+        report_lines.append(f"\n**经济主题簇**（{len(economy_words)}个关键词）")
+        report_lines.append(f"   {', '.join(economy_words[:10])}")
+
+    if social_words:
+        report_lines.append(f"\n**社会主题簇**（{len(social_words)}个关键词）")
+        report_lines.append(f"   {', '.join(social_words[:10])}")
+
+    # 完整材料内容展示
+    report_lines.append("\n---\n")
+    report_lines.append("\n## 第三部分：田野材料完整呈现\n")
+    report_lines.append("\n本部分完整呈现所有田野材料原文，保留材料的原始结构与表达。\n")
+
+    for i, doc in enumerate(documents, 1):
+        report_lines.append(f"\n### 材料 {i}：{doc.filename}\n")
+
+        if doc.text_content:
+            # 完整展示文本内容
+            content_lines = doc.text_content.split('\n')
+
+            report_lines.append(f"\n**全文共{len(content_lines)}段，{len(doc.text_content)}字**\n")
+            report_lines.append("```")
+            report_lines.append(doc.text_content)
+            report_lines.append("```\n")
+        else:
+            report_lines.append("（该文档未提取到文本内容）\n")
+
+    # 材料结构分析
+    report_lines.append("\n---\n")
+    report_lines.append("\n## 第四部分：材料结构与内容梳理\n")
+
+    for i, doc in enumerate(documents, 1):
+        if not doc.text_content:
+            continue
+
+        report_lines.append(f"\n### {i}. {doc.filename} 内容梳理\n")
+
+        # 统计段落结构
+        paragraphs = [p.strip() for p in doc.text_content.split('\n') if p.strip()]
+        report_lines.append(f"\n**段落结构**：全文共{len(paragraphs)}个自然段\n")
+
+        # 提取标题性内容（包含"一、二、三"或数字开头的行）
+        titles = [p for p in paragraphs if any(p.startswith(prefix) for prefix in ['一、', '二、', '三、', '四、', '五、', '1.', '2.', '3.', '（一）', '（二）'])]
+
+        if titles:
+            report_lines.append(f"\n**内容框架**：\n")
+            for title in titles[:10]:
+                report_lines.append(f"- {title}")
+
+        # 句子长度分析
+        sentences = [s.strip() for s in doc.text_content.replace('。', '。\n').replace('！', '！\n').replace('？', '？\n').split('\n') if s.strip()]
+        if sentences:
+            avg_len = sum(len(s) for s in sentences) / len(sentences)
+            report_lines.append(f"\n**语言特征**：平均句长{avg_len:.1f}字，共{len(sentences)}句")
+
+    # 核心议题提炼
+    report_lines.append("\n---\n")
+    report_lines.append("\n## 第五部分：核心议题初步提炼\n")
+    report_lines.append("\n基于以上材料，初步识别以下核心议题（按关键词频次排序）：\n")
+
+    for i, (word, freq) in enumerate(sorted_keywords[:10], 1):
+        report_lines.append(f"\n### 议题 {i}：{word}\n")
+        report_lines.append(f"- **关键词权重**：{freq:.2f}")
+
+        # 查找包含该关键词的文本片段
+        contexts = []
+        for doc in documents:
+            if doc.text_content and word in doc.text_content:
+                # 提取包含关键词的句子
+                sentences = doc.text_content.split('。')
+                for sent in sentences:
+                    if word in sent:
+                        contexts.append(sent.strip() + '。')
+                        if len(contexts) >= 2:
+                            break
+            if len(contexts) >= 2:
+                break
+
+        if contexts:
+            report_lines.append(f"- **相关内容**：")
+            for ctx in contexts[:2]:
+                report_lines.append(f"  > {ctx}")
+
+    # 结论
+    report_lines.append("\n---\n")
+    report_lines.append("\n## 报告总结\n")
+    report_lines.append(f"\n本报告基于{len(documents)}份田野材料（共{total_words}字），")
+    report_lines.append(f"提取了{len(sorted_keywords)}个核心关键词，")
+    report_lines.append(f"完整呈现了材料原文，并初步梳理了内容结构。\n")
+    report_lines.append("\n**一度报告特点**：")
+    report_lines.append("- 忠实呈现材料原貌，未经理论框架解读")
+    report_lines.append("- 通过关键词统计识别高频议题")
+    report_lines.append("- 为后续的二度、三度报告提供材料基础\n")
+    report_lines.append("\n**下一步建议**：")
+    report_lines.append("- 查看二度报告，了解费孝通理论框架的解读")
+    report_lines.append("- 查看三度报告，获得综合分析与行动建议\n")
+
+    return "\n".join(report_lines)
+
+
+def generate_level2_report(documents: List) -> str:
+    """
+    二度报告：费孝通框架深度分析（目标：5000-8000字）
+
+    内容：
+    - 理论框架说明
+    - 四维度深度解读
+    - 材料与理论对话
+    - 乡村社会结构特征
+    - 现代化进程分析
+    """
+    report_lines = [
+        "# 二度报告：费孝通《乡土中国》框架分析\n",
+        f"**生成时间**：{datetime.now().strftime('%Y年%m月%d日 %H:%M:%S')}\n",
+        f"**分析文档数**：{len(documents)}份\n",
+        f"**理论框架**：费孝通《乡土中国》社会学经典理论\n",
+        "\n---\n",
+        "\n## 理论框架说明\n",
+        "\n费孝通先生在《乡土中国》中提出了中国乡村社会的独特结构特征：\n",
+        "\n1. **差序格局**：以自我为中心，按照血缘、地缘关系向外推的同心圆结构",
+        "2. **礼治秩序**：基于传统习俗与道德规范的社会控制机制",
+        "3. **熟人社会**：建立在长期互动基础上的信任与互惠关系网络",
+        "4. **现代化冲击**：传统乡村社会在城市化、工业化进程中的变迁与转型\n",
+        "\n本报告运用上述框架，对田野材料进行二度解读，揭示材料背后的社会结构逻辑。\n",
+        "\n---\n"
+    ]
+
+    # 聚合费孝通框架分析结果
+    fei_dimensions = {
+        'differential_mode': {
+            'name': '差序格局',
+            'description': '血缘与地缘关系网络',
+            'keywords': ['家族', '亲戚', '宗族', '血缘', '地缘', '关系', '人情'],
+            'contexts': []
+        },
+        'ritual_order': {
+            'name': '礼治秩序',
+            'description': '传统规范与社会控制',
+            'keywords': ['规矩', '习俗', '传统', '礼节', '道德', '规范', '仪式'],
+            'contexts': []
+        },
+        'acquaintance_society': {
+            'name': '熟人社会',
+            'description': '信任机制与互惠网络',
+            'keywords': ['熟人', '信任', '口碑', '互助', '面子', '人缘'],
+            'contexts': []
+        },
+        'modernization': {
+            'name': '现代化冲击',
+            'description': '变迁与转型',
+            'keywords': ['外出', '打工', '城市', '流动', '变化', '改变', '年轻人'],
+            'contexts': []
+        }
+    }
+
+    has_fei_analysis = False
+
+    for doc in documents:
+        if doc.extra_data and doc.extra_data.get('skill_results'):
+            fei_result = doc.extra_data['skill_results'].get('fei_xiaotong')
+            if fei_result:
+                has_fei_analysis = True
+                dimensions = fei_result.get('dimensions', {})
+                for dim_key, dim_data in dimensions.items():
+                    if dim_key in fei_dimensions:
+                        fei_dimensions[dim_key]['contexts'].extend(dim_data.get('contexts', []))
+
+    if not has_fei_analysis:
+        report_lines.append("\n⚠️ **注意**：当前文档未完成费孝通框架分析。\n")
+        report_lines.append("建议：在Skill生态页面激活\"费孝通·乡土中国\"框架后重新处理文档。\n")
+        report_lines.append("\n**替代方案**：本报告将基于关键词匹配，尝试从材料中识别费孝通框架相关内容。\n")
+
+        # 使用关键词匹配作为替代方案
+        for doc in documents:
+            if not doc.text_content:
+                continue
+
+            for dim_key, dim_info in fei_dimensions.items():
+                # 检查是否包含该维度的关键词
+                found_keywords = [kw for kw in dim_info['keywords'] if kw in doc.text_content]
+
+                if found_keywords:
+                    # 提取包含关键词的句子
+                    sentences = doc.text_content.replace('。', '。\n').split('\n')
+                    for sent in sentences:
+                        if any(kw in sent for kw in found_keywords):
+                            fei_dimensions[dim_key]['contexts'].append(sent.strip())
+                            if len(fei_dimensions[dim_key]['contexts']) >= 3:
+                                break
+
+    # 生成各维度深度分析
+    for dim_key, dim_info in fei_dimensions.items():
+        report_lines.append(f"\n## {dim_info['name']}：{dim_info['description']}\n")
+
+        # 理论阐释
+        report_lines.append("\n### 理论视角\n")
+
+        if dim_key == 'differential_mode':
+            report_lines.append("\n费孝通指出，中国乡村社会呈现"差序格局"特征，")
+            report_lines.append("即以自我为中心，按照亲疏远近形成的同心圆关系网络。")
+            report_lines.append("在这种格局中，血缘关系是最核心的纽带，")
+            report_lines.append("地缘关系作为补充，共同构成了乡村社会的基本结构。")
+            report_lines.append("个人在处理社会关系时，会根据对方在这个同心圆中的位置，")
+            report_lines.append("调整自己的行为准则和资源分配方式。\n")
+
+        elif dim_key == 'ritual_order':
+            report_lines.append("\n费孝通认为，中国乡村社会的秩序维系，")
+            report_lines.append("主要依靠"礼治"而非"法治"。")
+            report_lines.append("所谓礼治，是指通过传统习俗、道德规范和社会舆论来约束个人行为。")
+            report_lines.append("在这种秩序下，村民的行为准则来自于代代相传的礼仪规范，")
+            report_lines.append("而非成文的法律条文。")
+            report_lines.append("社会控制的力量，主要源于违反传统所带来的道德压力与社会舆论制裁。\n")
+
+        elif dim_key == 'acquaintance_society':
+            report_lines.append("\n费孝通将中国乡村定义为"熟人社会"，")
+            report_lines.append("这是一个建立在长期互动基础上的关系网络。")
+            report_lines.append("在熟人社会中，信任不是通过契约或法律来保障，")
+            report_lines.append("而是建立在长期交往形成的人际关系与口碑之上。")
+            report_lines.append("村民之间的互助、合作与交换，")
+            report_lines.append("都依赖于这种基于熟悉度的信任机制。\n")
+
+        elif dim_key == 'modernization':
+            report_lines.append("\n20世纪以来，中国乡村社会经历了剧烈的现代化转型。")
+            report_lines.append("城市化进程带来了大量农村人口外流，")
+            report_lines.append("工业化改变了传统的农业生产方式，")
+            report_lines.append("市场经济冲击了原有的互惠交换关系。")
+            report_lines.append("费孝通晚年特别关注传统乡村社会结构在现代化进程中的变迁，")
+            report_lines.append("以及如何在保持文化认同的同时实现社会转型。\n")
+
+        # 材料分析
+        report_lines.append("\n### 材料证据\n")
+
+        if dim_info['contexts']:
+            report_lines.append(f"\n在田野材料中，发现**{len(dim_info['contexts'])}处**与{dim_info['name']}相关的内容：\n")
+
+            for i, context in enumerate(dim_info['contexts'][:5], 1):
+                report_lines.append(f"\n**片段 {i}**\n")
+                report_lines.append(f"> {context}\n")
+
+                # 简要分析
+                report_lines.append("**分析**：")
+                if dim_key == 'differential_mode' and any(kw in context for kw in ['家族', '亲戚', '宗族']):
+                    report_lines.append("该片段反映了血缘关系在乡村社会中的核心地位。")
+                elif dim_key == 'ritual_order' and any(kw in context for kw in ['规矩', '习俗', '传统']):
+                    report_lines.append("该片段体现了传统礼治秩序对村民行为的规范作用。")
+                elif dim_key == 'acquaintance_society' and any(kw in context for kw in ['熟人', '信任']):
+                    report_lines.append("该片段展示了熟人社会中的信任机制与互惠关系。")
+                elif dim_key == 'modernization' and any(kw in context for kw in ['外出', '打工', '城市']):
+                    report_lines.append("该片段揭示了现代化进程对传统乡村社会的冲击。")
+                else:
+                    report_lines.append("该片段与费孝通理论框架存在呼应关系。")
+
+        else:
+            report_lines.append(f"\n⚠️ 在当前材料中，**未明确发现**与{dim_info['name']}直接相关的内容。\n")
+            report_lines.append("**可能原因**：")
+            report_lines.append(f"1. 材料采集的焦点不在此维度")
+            report_lines.append(f"2. 相关内容以隐性方式呈现，需要更深入的田野观察")
+            report_lines.append(f"3. 该社区在此维度上的特征不明显\n")
+
+        # 理论对话
+        report_lines.append("\n### 理论对话\n")
+
+        if dim_info['contexts']:
+            report_lines.append(f"\n结合费孝通的{dim_info['name']}理论与田野材料，我们可以看到：\n")
+
+            if dim_key == 'differential_mode':
+                report_lines.append("- 差序格局仍然是理解该社区社会关系的重要框架")
+                report_lines.append("- 血缘与地缘关系继续发挥着资源配置的作用")
+                report_lines.append("- 但现代化进程可能正在重塑这种关系网络的边界与功能\n")
+
+            elif dim_key == 'ritual_order':
+                report_lines.append("- 传统礼治秩序在该社区依然存在一定影响力")
+                report_lines.append("- 习俗与规范仍是村民行为的重要参照")
+                report_lines.append("- 但法治观念的渗透可能正在改变秩序维系的机制\n")
+
+            elif dim_key == 'acquaintance_society':
+                report_lines.append("- 熟人社会的信任机制在该社区仍较为活跃")
+                report_lines.append("- 长期交往形成的关系网络是社会资本的重要来源")
+                report_lines.append("- 但人口流动可能正在削弱这种熟悉度的基础\n")
+
+            elif dim_key == 'modernization':
+                report_lines.append("- 现代化对该社区的冲击明显且持续")
+                report_lines.append("- 传统社会结构正在经历深刻的转型")
+                report_lines.append("- 新旧秩序的交替可能带来社会张力与适应挑战\n")
+
+    # 综合讨论
+    report_lines.append("\n---\n")
+    report_lines.append("\n## 综合讨论：乡村社会结构的延续与变迁\n")
+
+    active_dimensions = [k for k, v in fei_dimensions.items() if v['contexts']]
+
+    if len(active_dimensions) >= 2:
+        report_lines.append(f"\n本报告基于费孝通《乡土中国》框架，分析了{len(documents)}份田野材料。")
+        report_lines.append(f"在四个维度中，有{len(active_dimensions)}个维度在材料中找到了明确证据。\n")
+
+        report_lines.append("\n### 延续性特征\n")
+        report_lines.append("\n分析显示，尽管经历了数十年的现代化进程，")
+        report_lines.append("费孝通所描述的乡村社会结构特征在该社区依然存在延续性：\n")
+
+        if 'differential_mode' in active_dimensions:
+            report_lines.append("- **差序格局**：血缘与地缘关系网络仍是社会互动的基础")
+        if 'ritual_order' in active_dimensions:
+            report_lines.append("- **礼治秩序**：传统规范与习俗继续发挥社会控制作用")
+        if 'acquaintance_society' in active_dimensions:
+            report_lines.append("- **熟人社会**：基于熟悉度的信任机制依然活跃")
+
+        report_lines.append("\n### 变迁性特征\n")
+        report_lines.append("\n同时，材料也揭示了乡村社会在现代化进程中的深刻变迁：\n")
+
+        if 'modernization' in active_dimensions:
+            report_lines.append("- 人口外流导致社区空心化")
+            report_lines.append("- 传统生产方式被现代产业所替代")
+            report_lines.append("- 代际差异加剧，年轻人的价值观与行为模式发生转变")
+            report_lines.append("- 市场经济逻辑冲击传统的互惠交换关系")
+
+        report_lines.append("\n### 理论启示\n")
+        report_lines.append("\n费孝通的理论框架在今天依然具有解释力，")
+        report_lines.append("但需要在新的历史条件下进行创造性转化：\n")
+        report_lines.append("1. **延续与变迁并存**：传统社会结构特征在变迁中寻找新的表达形式")
+        report_lines.append("2. **多元秩序并存**：礼治、法治、市场逻辑交织共存")
+        report_lines.append("3. **关系网络重构**：传统的差序格局在流动性增强的背景下被重新定义")
+
+    else:
+        report_lines.append("\n⚠️ 当前材料中与费孝通框架相关的证据较为有限。")
+        report_lines.append("建议在后续田野调查中，更有意识地关注社会结构维度的内容。\n")
+
+    # 研究建议
+    report_lines.append("\n---\n")
+    report_lines.append("\n## 后续研究建议\n")
+    report_lines.append("\n基于本次分析，提出以下深化研究的方向：\n")
+    report_lines.append("\n1. **补充田野观察**：对材料中证据不足的维度进行针对性调研")
+    report_lines.append("2. **深度访谈**：围绕社会关系、传统习俗、信任机制等主题进行深度访谈")
+    report_lines.append("3. **历时性对比**：收集历史材料，对比乡村社会结构的变迁轨迹")
+    report_lines.append("4. **理论对话**：将田野发现与费孝通之后的乡村研究理论进行对话")
+
+    report_lines.append("\n---\n")
+    report_lines.append("\n**报告说明**：")
+    report_lines.append("\n- 本报告运用费孝通《乡土中国》理论框架对田野材料进行二度解读")
+    report_lines.append("- 报告揭示了材料背后的社会结构逻辑与变迁特征")
+    report_lines.append("- 建议结合三度报告，获得更全面的综合分析与行动建议\n")
+
+    return "\n".join(report_lines)
+
+
+def generate_level3_report(documents: List) -> str:
+    """
+    三度报告：综合多维度分析
+
+    内容：
+    - SOP六维度综合评估
+    - 费孝通框架社会结构分析
+    - 关键词趋势分析
+    - 行动建议
+    """
+    report_lines = [
+        "# 三度报告：综合多维度分析\n",
+        f"生成时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n",
+        f"分析文档数：{len(documents)}\n",
+        "\n整合乡村运营SOP框架、费孝通理论视角与关键词趋势，形成综合评估与行动建议。\n",
+        "\n---\n"
+    ]
+
+    # 1. SOP框架分析
+    report_lines.append("\n## 一、乡村运营SOP框架分析\n")
+
+    sop_dimensions = {
+        'community_research': '社区基础调研',
+        'cultural_assets': '文化资产盘点',
+        'stakeholders': '利益相关方分析',
+        'business_feasibility': '业态可行性评估',
+        'risks': '风险识别',
+        'action_plan': '行动路径规划'
+    }
+
+    sop_summary = {}
+    for doc in documents:
+        if doc.extra_data and doc.extra_data.get('skill_results'):
+            sop_result = doc.extra_data['skill_results'].get('rural_sop')
+            if sop_result:
+                dimensions = sop_result.get('dimensions', {})
+                for dim_key, dim_data in dimensions.items():
+                    if dim_key not in sop_summary:
+                        sop_summary[dim_key] = {'matched_count': 0, 'contexts': []}
+                    sop_summary[dim_key]['matched_count'] += dim_data.get('matched_count', 0)
+                    sop_summary[dim_key]['contexts'].extend(dim_data.get('contexts', []))
+
+    for dim_key, dim_name in sop_dimensions.items():
+        status = "✅ 有发现" if sop_summary.get(dim_key, {}).get('matched_count', 0) > 0 else "⚠️ 缺失"
+        count = sop_summary.get(dim_key, {}).get('matched_count', 0)
+        report_lines.append(f"- **{dim_name}**: {status} ({count}处)")
+
+    # 2. 费孝通框架分析（简要）
+    report_lines.append("\n## 二、社会结构分析（费孝通视角）\n")
+
+    fei_found = False
+    for doc in documents:
+        if doc.extra_data and doc.extra_data.get('skill_results', {}).get('fei_xiaotong'):
+            fei_found = True
+            break
+
+    if fei_found:
+        report_lines.append("基于费孝通《乡土中国》框架，材料中呈现的社会结构特征值得关注。详见二度报告。\n")
+    else:
+        report_lines.append("⚠️ 未进行费孝通框架分析。\n")
+
+    # 3. 关键词趋势
+    report_lines.append("\n## 三、核心议题（关键词聚类）\n")
+
+    keyword_freq = {}
+    for doc in documents:
+        if doc.extra_data and doc.extra_data.get('keywords'):
+            for kw in doc.extra_data['keywords']:
+                word = kw.get('word') if isinstance(kw, dict) else str(kw)
+                weight = kw.get('weight', 1.0) if isinstance(kw, dict) else 1.0
+                keyword_freq[word] = keyword_freq.get(word, 0) + weight
+
+    sorted_keywords = sorted(keyword_freq.items(), key=lambda x: x[1], reverse=True)[:10]
+
+    for word, freq in sorted_keywords:
+        report_lines.append(f"- **{word}** (权重: {freq:.2f})")
+
+    # 4. 行动建议
+    report_lines.append("\n## 四、初步行动建议\n")
+
+    report_lines.append("\n基于以上分析，建议重点关注：\n")
+
+    # 根据SOP完成度给出建议
+    if sop_summary.get('cultural_assets', {}).get('matched_count', 0) > 0:
+        report_lines.append("1. **文化资产活化**：材料中发现文化资源，建议深入盘点并探索转化路径。")
+
+    if sop_summary.get('business_feasibility', {}).get('matched_count', 0) > 0:
+        report_lines.append("2. **业态可行性**：已有业态相关信息，建议进行市场调研与资源匹配度评估。")
+
+    if sop_summary.get('risks', {}).get('matched_count', 0) == 0:
+        report_lines.append("3. **风险识别**：⚠️ 材料中缺少风险相关内容，建议补充调研。")
+
+    if sop_summary.get('action_plan', {}).get('matched_count', 0) == 0:
+        report_lines.append("4. **行动路径**：建议制定短期、中期、长期的具体行动计划。")
+
+    report_lines.append("\n---\n")
+    report_lines.append("\n**说明**：三度报告整合多维度分析结果，提供综合评估与行动建议。如需AI深度解读，请配置LLM API Key。\n")
+
+    return "\n".join(report_lines)
+
+
+@router.get("/preview/{report_level}")
+def preview_report(
+    report_level: int,
+    project_id: int,
+    db: Session = Depends(get_db)
+):
+    """
+    预览报告（快速查看可用数据）
+    """
+    try:
+        docs_count = db.query(ProjectDocument).filter(
+            ProjectDocument.project_id == project_id,
+            ProjectDocument.status == 'completed'
+        ).count()
+
+        return {
+            "report_level": report_level,
+            "available_documents": docs_count,
+            "can_generate": docs_count > 0,
+            "message": f"可以生成报告，基于 {docs_count} 个文档" if docs_count > 0 else "没有可用文档"
+        }
+
+    except Exception as e:
+        logger.error(f"预览报告失败: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

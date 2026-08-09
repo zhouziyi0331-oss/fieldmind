@@ -1,0 +1,29 @@
+"""
+监控系统模块
+
+提供 Prometheus 指标收集和导出功能
+"""
+
+from app.core.monitoring.metrics import (
+    metrics_manager,
+    track_request,
+    track_processing,
+    track_database_operation,
+    track_ai_operation,
+    track_vector_operation,
+    track_graph_operation,
+    record_error,
+    get_metrics_handler,
+)
+
+__all__ = [
+    'metrics_manager',
+    'track_request',
+    'track_processing',
+    'track_database_operation',
+    'track_ai_operation',
+    'track_vector_operation',
+    'track_graph_operation',
+    'record_error',
+    'get_metrics_handler',
+]

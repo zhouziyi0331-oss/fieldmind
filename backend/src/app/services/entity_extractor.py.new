@@ -1,0 +1,262 @@
+"""
+实体提取服务
+
+使用 HanLP 进行中文实体识别
+- 人物 (Person)
+- 地点 (Location)
+- 组织 (Organization)
+- 事件 (Event)
+"""
+
+import os
+from typing import List, Dict, Any
+import hanlp
+
+from sqlalchemy.orm import Session
+from app.models.entity import Entity
+from app.models.document import Document
+
+
+class EntityExtractor:
+    """实体提取器"""
+
+    def __init__(self):
+        """初始化实体提取器"""
+        # HanLP 模型延迟加载
+        self.nlp = None
+        self.model_name = os.getenv(
+            'HANLP_MODEL',
+            'CLOSE_TOK_POS_NER_SRL_DEP_SDP_CON_ELECTRA_BASE_ZH'
+        )
+
+        # 实体类型映射
+        self.entity_type_map = {
+            'PERSON': 'Person',
+            'LOC': 'Location',
+            'GPE': 'Location',  # 地缘政治实体
+            'ORG': 'Organization',
+            'FAC': 'Location',  # 设施
+            'EVENT': 'Event',
+            'WORK_OF_ART': 'CulturalWork',
+            'PRODUCT': 'Product',
+            'DATE': 'Time',
+            'TIME': 'Time'
+        }
+
+    def _ensure_model_loaded(self):
+        """确保模型已加载"""
+        if self.nlp is None:
+            import hanlp
+            model_name = getattr(hanlp.pretrained.mtl, self.model_name, self.model_name)
+            self.nlp = hanlp.load(model_name)
+
+    async def extract_entities(self, text: str) -> List[Dict[str, Any]]:
+        """
+        从文本中提取实体
+
+        Args:
+            text: 输入文本
+
+        Returns:
+            实体列表，每个实体包含 name, type, description, attributes
+        """
+        if not text or len(text.strip()) == 0:
+            return []
+
+        try:
+            # 延迟加载模型
+            self._ensure_model_loaded()
+
+            # 使用 HanLP 进行 NER
+            result = self.nlp(text, tasks='ner')
+
+            entities = []
+            entity_dict = {}  # 用于去重和合并
+
+            if 'ner' in result:
+                for entity_type, entity_name in result['ner']:
+                    # 映射实体类型
+                    mapped_type = self.entity_type_map.get(entity_type, 'Other')
+
+                    # 去重：相同名称和类型的实体只保留一个
+                    key = (entity_name, mapped_type)
+                    if key not in entity_dict:
+                        entity_dict[key] = {
+                            'name': entity_name,
+                            'type': mapped_type,
+                            'description': f'{mapped_type}: {entity_name}',
+                            'attributes': {
+                                'original_type': entity_type,
+                                'source': 'hanlp'
+                            }
+                        }
+
+            entities = list(entity_dict.values())
+            return entities
+
+        except Exception as e:
+            print(f"Entity extraction error: {e}")
+            return []
+
+    async def extract_entities_from_documents(
+        self,
+        db: Session,
+        document_ids: List[int]
+    ) -> List[Dict[str, Any]]:
+        """
+        从多个文档中提取实体
+
+        Args:
+            db: 数据库会话
+            document_ids: 文档 ID 列表
+
+        Returns:
+            实体列表
+        """
+        all_entities = []
+        entity_dict = {}  # 用于跨文档去重
+
+        for doc_id in document_ids:
+            document = db.query(Document).filter(Document.id == doc_id).first()
+            if not document or not document.text_content:
+                continue
+
+            # 提取实体
+            entities = await self.extract_entities(document.text_content)
+
+            for entity in entities:
+                key = (entity['name'], entity['type'])
+
+                if key not in entity_dict:
+                    entity_dict[key] = entity
+                    entity_dict[key]['document_ids'] = [doc_id]
+                else:
+                    # 合并文档 ID
+                    if doc_id not in entity_dict[key]['document_ids']:
+                        entity_dict[key]['document_ids'].append(doc_id)
+
+        all_entities = list(entity_dict.values())
+        return all_entities
+
+    async def extract_and_save_entities(
+        self,
+        db: Session,
+        document_id: int
+    ) -> List[Entity]:
+        """
+        提取实体并保存到数据库
+
+        Args:
+            db: 数据库会话
+            document_id: 文档 ID
+
+        Returns:
+            保存的实体列表
+        """
+        # 获取文档
+        document = db.query(Document).filter(Document.id == document_id).first()
+        if not document or not document.text_content:
+            return []
+
+        # 提取实体
+        entities_data = await self.extract_entities(document.text_content)
+
+        saved_entities = []
+
+        for entity_data in entities_data:
+            # 检查实体是否已存在
+            existing_entity = db.query(Entity).filter(
+                Entity.name == entity_data['name'],
+                Entity.entity_type == entity_data['type']
+            ).first()
+
+            if existing_entity:
+                # 更新现有实体，添加文档 ID
+                import json
+                doc_ids = json.loads(existing_entity.document_ids) if existing_entity.document_ids else []
+                if document_id not in doc_ids:
+                    doc_ids.append(document_id)
+                    existing_entity.document_ids = json.dumps(doc_ids)
+                    db.commit()
+
+                saved_entities.append(existing_entity)
+            else:
+                # 创建新实体
+                entity = Entity(
+                    name=entity_data['name'],
+                    entity_type=entity_data['type'],
+                    description=entity_data.get('description', ''),
+                    attributes=entity_data.get('attributes', {}),
+                    document_ids=[document_id]
+                )
+                db.add(entity)
+                db.commit()
+                db.refresh(entity)
+
+                saved_entities.append(entity)
+
+        return saved_entities
+
+    async def extract_relations(
+        self,
+        text: str,
+        entities: List[Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """
+        提取实体之间的关系
+
+        Args:
+            text: 输入文本
+            entities: 实体列表
+
+        Returns:
+            关系列表，每个关系包含 source, target, relation_type
+        """
+        if not text or not entities:
+            return []
+
+        try:
+            # 延迟加载模型
+            self._ensure_model_loaded()
+
+            # 使用 HanLP 的依存句法分析提取关系
+            result = self.nlp(text, tasks='dep')
+
+            relations = []
+
+            # TODO: 实现更复杂的关系提取逻辑
+            # 这里可以使用依存句法分析结果来推断实体间关系
+            # 例如：主谓关系、动宾关系等
+
+            # 简单示例：基于共现关系
+            entity_names = [e['name'] for e in entities]
+
+            # 在同一个句子中共现的实体可能有关系
+            sentences = text.split('。')
+            for sentence in sentences:
+                entities_in_sentence = [name for name in entity_names if name in sentence]
+
+                # 两两配对
+                for i, source in enumerate(entities_in_sentence):
+                    for target in entities_in_sentence[i+1:]:
+                        relations.append({
+                            'source': source,
+                            'target': target,
+                            'relation_type': 'CO_OCCUR',
+                            'context': sentence[:200]
+                        })
+
+            return relations
+
+        except Exception as e:
+            print(f"Relation extraction error: {e}")
+            return []
+
+
+# 全局实例
+entity_extractor = EntityExtractor()
+
+
+def get_entity_extractor() -> EntityExtractor:
+    """获取实体提取器实例"""
+    return entity_extractor
