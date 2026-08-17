@@ -1,9 +1,10 @@
 """项目对话API端点 - 集成长记忆和深度思考"""
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List
 
 from app.core.database import get_db
+from app.core.exceptions import ResourceNotFoundException, AIServiceException
 from app.models.project import ProjectChatSession, ProjectChatMessage
 from app.schemas.project import (
     ProjectChatSessionCreate, ProjectChatSessionResponse,
@@ -31,7 +32,10 @@ async def send_chat_message(
     ).first()
 
     if not session:
-        raise HTTPException(status_code=404, detail="会话不存在")
+        raise ResourceNotFoundException(
+            resource_type="ChatSession",
+            resource_id=session_id
+        )
 
     # 获取配置
     config = session.config or {}
@@ -65,7 +69,11 @@ async def send_chat_message(
         )
 
         if result.get("error"):
-            raise HTTPException(status_code=500, detail=result.get("answer", "对话失败"))
+            raise AIServiceException(
+                message=result.get("answer", "对话失败"),
+                service="enhanced_chat",
+                details={"error": result.get("error")}
+            )
 
         # 保存用户消息
         user_msg = ProjectChatMessage(
@@ -122,7 +130,11 @@ async def send_chat_message(
 
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=f"对话失败: {str(e)}")
+        raise AIServiceException(
+            message="对话失败",
+            service="enhanced_chat",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/{project_id}/chat-sessions/{session_id}/messages", response_model=List[ProjectChatMessageResponse])
@@ -142,7 +154,10 @@ async def get_chat_messages(
     ).first()
 
     if not session:
-        raise HTTPException(status_code=404, detail="会话不存在")
+        raise ResourceNotFoundException(
+            resource_type="ChatSession",
+            resource_id=session_id
+        )
 
     messages = db.query(ProjectChatMessage).filter(
         ProjectChatMessage.session_id == session_id

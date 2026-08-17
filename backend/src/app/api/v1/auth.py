@@ -1,10 +1,11 @@
 """认证API路由 - 完整实现"""
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from datetime import datetime
 
 from app.core.database import get_db
 from app.core.security import verify_password, get_password_hash, create_tokens, decode_token
+from app.core.exceptions import ValidationException, ResourceNotFoundException
 from app.models.user import User
 from app.schemas.user import (
     UserCreate, UserLogin, UserResponse, TokenResponse, TokenRefresh
@@ -20,17 +21,19 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     # 检查邮箱是否已存在
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered"
+        raise ValidationException(
+            message="Email already registered",
+            field="email",
+            details={"email": user_data.email}
         )
 
     # 检查用户名是否已存在
     existing_username = db.query(User).filter(User.username == user_data.username).first()
     if existing_username:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Username already taken"
+        raise ValidationException(
+            message="Username already taken",
+            field="username",
+            details={"username": user_data.username}
         )
 
     # 创建新用户
@@ -64,23 +67,23 @@ async def login(login_data: UserLogin, db: Session = Depends(get_db)):
         (User.email == login_data.username) | (User.username == login_data.username)
     ).first()
     if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password"
+        raise ValidationException(
+            message="Incorrect username or password",
+            field="credentials"
         )
 
     # 验证密码
     if not verify_password(login_data.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password"
+        raise ValidationException(
+            message="Incorrect email or password",
+            field="credentials"
         )
 
     # 检查用户是否激活
     if not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Account is inactive"
+        raise ValidationException(
+            message="Account is inactive",
+            field="account_status"
         )
 
     # 更新最后登录时间
@@ -118,31 +121,32 @@ async def refresh_token(refresh_data: TokenRefresh, db: Session = Depends(get_db
     payload = decode_token(refresh_data.refresh_token)
 
     if payload is None:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid refresh token"
+        raise ValidationException(
+            message="Invalid refresh token",
+            field="refresh_token"
         )
 
     # 检查token类型
     if payload.get("type") != "refresh":
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token type"
+        raise ValidationException(
+            message="Invalid token type",
+            field="token_type"
         )
 
     user_id = payload.get("sub")
     if not user_id:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token payload"
+        raise ValidationException(
+            message="Invalid token payload",
+            field="token_payload"
         )
 
     # 验证用户仍然存在且激活
     user = db.query(User).filter(User.id == user_id).first()
     if not user or not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User not found or inactive"
+        raise ResourceNotFoundException(
+            resource_type="User",
+            resource_id=user_id,
+            details={"reason": "User not found or inactive"}
         )
 
     # 生成新的访问令牌

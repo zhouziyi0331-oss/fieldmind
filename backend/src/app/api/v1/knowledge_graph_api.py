@@ -3,10 +3,12 @@
 提供图谱构建、查询和可视化接口
 """
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends
 from typing import List, Optional
 from pydantic import BaseModel
 import logging
+
+from app.core.exceptions import ResourceNotFoundException, GraphException
 
 logger = logging.getLogger(__name__)
 
@@ -58,7 +60,11 @@ async def get_graph_stats():
 
     except Exception as e:
         logger.error(f"获取图谱统计失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise GraphException(
+            message="获取图谱统计失败",
+            operation="get_stats",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/data", response_model=GraphDataResponse)
@@ -78,7 +84,11 @@ async def get_graph_data():
 
     except Exception as e:
         logger.error(f"获取图谱数据失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise GraphException(
+            message="获取图谱数据失败",
+            operation="get_data",
+            details={"error": str(e)}
+        )
 
 
 @router.post("/query/related")
@@ -107,7 +117,11 @@ async def query_related_entities(request: EntityQueryRequest):
 
     except Exception as e:
         logger.error(f"查询相关实体失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise GraphException(
+            message="查询相关实体失败",
+            operation="query_related",
+            details={"entity_name": request.entity_name, "error": str(e)}
+        )
 
 
 @router.post("/build/{document_id}")
@@ -136,7 +150,11 @@ async def build_graph_for_document(document_id: int):
         ).fetchone()
 
         if not result or not result[0]:
-            raise HTTPException(status_code=404, detail="文档不存在或无内容")
+            raise ResourceNotFoundException(
+                resource_type="Document",
+                resource_id=document_id,
+                details={"reason": "文档不存在或无内容"}
+            )
 
         text_content = result[0]
 
@@ -156,11 +174,15 @@ async def build_graph_for_document(document_id: int):
             'message': '知识图谱构建成功'
         }
 
-    except HTTPException:
+    except (ResourceNotFoundException, GraphException):
         raise
     except Exception as e:
         logger.error(f"构建知识图谱失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise GraphException(
+            message="构建知识图谱失败",
+            operation="build",
+            details={"document_id": document_id, "error": str(e)}
+        )
 
 
 @router.post("/rebuild")
@@ -210,7 +232,11 @@ async def rebuild_entire_graph():
 
     except Exception as e:
         logger.error(f"重建知识图谱失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise GraphException(
+            message="重建知识图谱失败",
+            operation="rebuild",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/export/html")
@@ -242,4 +268,8 @@ async def export_visualization():
 
     except Exception as e:
         logger.error(f"导出可视化失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise GraphException(
+            message="导出可视化失败",
+            operation="export",
+            details={"error": str(e)}
+        )

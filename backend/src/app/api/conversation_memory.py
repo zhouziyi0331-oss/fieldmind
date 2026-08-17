@@ -78,7 +78,11 @@ async def ask_with_context(
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(
+            message="生成对话回答失败",
+            service="conversation_memory",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/projects/{project_id}/context")
