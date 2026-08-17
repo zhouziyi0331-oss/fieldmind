@@ -2,13 +2,14 @@
 Skills API路由 - 学术方法论框架管理
 """
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any
 import logging
 
 from app.core.database import get_db
 from app.models.project import ProjectDocument, Project
+from app.core.exceptions import ResourceNotFoundException, ValidationException
 
 logger = logging.getLogger(__name__)
 
@@ -127,7 +128,10 @@ async def get_document_skill_results(
     doc = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
 
     if not doc:
-        raise HTTPException(status_code=404, detail="文档不存在")
+        raise ResourceNotFoundException(
+            resource_type="document",
+            resource_id=str(document_id)
+        )
 
     # 检查是否有Skills分析结果
     skills_analysis = None
@@ -164,16 +168,27 @@ async def get_document_single_skill_result(
     doc = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
 
     if not doc:
-        raise HTTPException(status_code=404, detail="文档不存在")
+        raise ResourceNotFoundException(
+            resource_type="document",
+            resource_id=str(document_id)
+        )
 
     # 检查Skills分析结果
     if not doc.extra_data or 'skills_analysis' not in doc.extra_data:
-        raise HTTPException(status_code=404, detail="该文档尚未完成Skills分析")
+        raise ResourceNotFoundException(
+            resource_type="skills_analysis",
+            resource_id=str(document_id),
+            message="该文档尚未完成Skills分析"
+        )
 
     skills_analysis = doc.extra_data['skills_analysis']
 
     if 'results' not in skills_analysis or skill_id not in skills_analysis['results']:
-        raise HTTPException(status_code=404, detail=f"未找到Skill '{skill_id}' 的分析结果")
+        raise ResourceNotFoundException(
+            resource_type="skill_result",
+            resource_id=skill_id,
+            message=f"未找到Skill '{skill_id}' 的分析结果"
+        )
 
     skill_result = skills_analysis['results'][skill_id]
 
@@ -201,7 +216,10 @@ async def get_project_skill_settings(
     project = db.query(Project).filter(Project.id == project_id).first()
 
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException(
+            resource_type="project",
+            resource_id=str(project_id)
+        )
 
     enabled_skills = []
     if project.settings and 'enabled_skills' in project.settings:
@@ -244,7 +262,10 @@ async def update_project_skill_settings(
     project = db.query(Project).filter(Project.id == project_id).first()
 
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException(
+            resource_type="project",
+            resource_id=str(project_id)
+        )
 
     # 验证skill_id
     valid_skills = [
@@ -261,9 +282,10 @@ async def update_project_skill_settings(
     # 检查无效的skill_id
     invalid_skills = [s for s in enabled_skills if s not in valid_skills]
     if invalid_skills:
-        raise HTTPException(
-            status_code=400,
-            detail=f"无效的Skill ID: {invalid_skills}"
+        raise ValidationException(
+            message=f"无效的Skill ID: {invalid_skills}",
+            field="enabled_skills",
+            details={"invalid_skills": invalid_skills, "valid_skills": valid_skills}
         )
 
     # 更新项目设置
