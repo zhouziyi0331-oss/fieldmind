@@ -8,13 +8,14 @@
 3. 如果SQL查询无结果，返回"无相关数据"而非编造
 """
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import func, desc
 from typing import List, Dict, Optional, Any
 from datetime import datetime
 
 from app.core.database import get_db
+from app.core.exceptions import DatabaseException, ValidationException
 from app.models.structured_insight import StructuredInsight, TopicStatistics, EntityStatistics
 from app.models.project import ProjectDocument
 
@@ -77,7 +78,7 @@ def get_topic_distribution(
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"查询失败: {str(e)}")
+        raise DatabaseException(message=f"查询失败: {str(e)}", operation="query", cause=e)
 
 
 @router.get("/projects/{project_id}/top-entities")
@@ -130,7 +131,7 @@ def get_top_entities(
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"查询失败: {str(e)}")
+        raise DatabaseException(message=f"查询失败: {str(e)}", operation="query", cause=e)
 
 
 @router.get("/projects/{project_id}/word-count-stats")
@@ -165,7 +166,7 @@ def get_word_count_stats(
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"查询失败: {str(e)}")
+        raise DatabaseException(message=f"查询失败: {str(e)}", operation="query", cause=e)
 
 
 @router.get("/projects/{project_id}/timeline-distribution")
@@ -221,7 +222,7 @@ def get_timeline_distribution(
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"查询失败: {str(e)}")
+        raise DatabaseException(message=f"查询失败: {str(e)}", operation="query", cause=e)
 
 
 @router.post("/projects/{project_id}/generate-report")
@@ -276,13 +277,13 @@ def generate_report(
         is_valid, errors = HallucinationDetector.validate_report(report_text, facts)
 
         if not is_valid:
-            # 幻觉拦截 - 返回500错误
+            # 幻觉拦截 - 返回验证错误
             logger.error(f"❌ 幻觉检测失败: {errors}")
-            raise HTTPException(
-                status_code=500,
-                detail={
+            raise ValidationException(
+                message="系统检测到生成内容偏离数据源",
+                field="ai_response",
+                details={
                     "error": "幻觉拦截",
-                    "message": "系统检测到生成内容偏离数据源",
                     "errors": errors,
                     "suggestion": "请尝试缩小提问范围或检查数据总量"
                 }
@@ -317,7 +318,7 @@ def generate_report(
         import traceback
         logger.error(f"❌ 生成报告失败: {e}")
         logger.error(traceback.format_exc())
-        raise HTTPException(status_code=500, detail=f"生成报告失败: {str(e)}")
+        raise DatabaseException(message=f"生成报告失败: {str(e)}", operation="generate_report", cause=e)
 
 
 # 添加logger

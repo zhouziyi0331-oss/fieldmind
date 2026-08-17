@@ -3,7 +3,7 @@ Dashboard统计API
 
 提供项目的综合统计数据
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from pydantic import BaseModel
@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 import logging
 
 from app.core.database import get_db
+from app.core.exceptions import ResourceNotFoundException, DatabaseException
 from app.models.project import Project, ProjectDocument, ProjectChatSession, ProjectChatMessage
 
 router = APIRouter(tags=["dashboard"])
@@ -69,7 +70,7 @@ def get_dashboard_stats(
         project = db.query(Project).filter(Project.id == project_id).first()
 
         if not project:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise ResourceNotFoundException("Project", project_id)
 
         # 1. 文档统计
         total_documents = db.query(func.count(ProjectDocument.id)).filter(
@@ -213,7 +214,7 @@ def get_dashboard_stats(
         raise
     except Exception as e:
         logger.error(f"Failed to get dashboard stats: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message=str(e), operation="dashboard", cause=e)
 
 
 @router.get("/timeline/{project_id}")
@@ -258,7 +259,7 @@ def get_project_timeline(
 
     except Exception as e:
         logger.error(f"Failed to get timeline: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message=str(e), operation="dashboard", cause=e)
 
 
 @router.get("/progress/{project_id}")
@@ -312,4 +313,4 @@ def get_project_progress(
 
     except Exception as e:
         logger.error(f"Failed to get progress: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message=str(e), operation="dashboard", cause=e)

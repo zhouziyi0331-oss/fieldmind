@@ -3,13 +3,14 @@ RAG对话API - 真正的向量检索对话
 
 严禁使用模拟数据，必须读写 ChromaDB 和 PostgreSQL
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 import logging
 
 from app.core.database import get_db
+from app.core.exceptions import AIServiceException
 from app.core.rag_engine import rag_engine
 from app.models.project import ProjectDocument
 
@@ -186,7 +187,7 @@ def rag_query(
 
     except Exception as e:
         logger.error(f"RAG查询失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(message=str(e), cause=e)
 
 
 @router.get("/available-documents/{project_id}")
@@ -223,7 +224,7 @@ def get_available_documents(
 
     except Exception as e:
         logger.error(f"获取可用文档失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(message=str(e), cause=e)
 
 
 @router.get("/status")
@@ -263,4 +264,4 @@ def rag_status(db: Session = Depends(get_db)) -> Dict[str, Any]:
 
     except Exception as e:
         logger.error(f"获取RAG状态失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(message=str(e), cause=e)

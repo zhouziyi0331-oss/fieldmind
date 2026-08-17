@@ -5,9 +5,9 @@
 
 ## 总体进度
 - **初始状态**: 237个HTTPException，0个自定义异常
-- **当前状态**: 172个HTTPException，5个文件已迁移
-- **已完成**: 27% (65/237 HTTPExceptions)
-- **剩余文件**: 33个
+- **当前状态**: 151个HTTPException，11个文件已迁移
+- **已完成**: 36% (86/237 HTTPExceptions)
+- **剩余文件**: 27个
 
 ## 已完成的迁移
 
@@ -37,7 +37,7 @@
    - ResourceNotFoundException: 文档列表不存在
    - DatabaseException: 批量处理失败
 
-### 第2批 (当前)
+### 第2批 (Commit: 13a952ab)
 6. **projects.py** ✅ (16个HTTPException)
    - 全部转换为ResourceNotFoundException
    - 项目、文档、上下文、对话会话资源
@@ -47,6 +47,23 @@
    - ValidationException: 文档已存在
    - FileException: 文件操作
    - DatabaseException: 数据库操作
+
+### 第3批 (当前)
+8. **analytics.py** ✅ (6个HTTPException)
+   - DatabaseException: 查询失败、报告生成失败
+   - ValidationException: 幻觉检测失败
+
+9. **skill_config.py** ✅ (8个HTTPException)
+   - ResourceNotFoundException: 项目不存在
+   - ValidationException: 无效技能ID
+   - DatabaseException: 配置操作失败
+
+10. **dashboard.py** ✅ (4个HTTPException)
+    - ResourceNotFoundException: 项目不存在
+    - DatabaseException: 统计查询失败
+
+11. **chat_rag.py** ✅ (3个HTTPException)
+    - AIServiceException: RAG对话失败
 
 ## 迁移策略
 

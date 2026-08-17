@@ -3,7 +3,7 @@ Skill配置管理API
 
 动态控制哪些Skill被启用，影响文档处理流程
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
@@ -11,6 +11,7 @@ import json
 import logging
 
 from app.core.database import get_db
+from app.core.exceptions import ResourceNotFoundException, ValidationException, DatabaseException
 from app.models.project import Project
 
 router = APIRouter(prefix="/skills", tags=["skills"])
@@ -132,7 +133,7 @@ def get_skill_config(
         project = db.query(Project).filter(Project.id == project_id).first()
 
         if not project:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise ResourceNotFoundException("Project", project_id)
 
         # 从项目的extra_data中读取Skill配置
         enabled_skills = []
@@ -156,7 +157,7 @@ def get_skill_config(
         raise
     except Exception as e:
         logger.error(f"Failed to get skill config: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message=str(e), operation="skill_config", cause=e)
 
 
 @router.post("/config")
@@ -173,16 +174,16 @@ def update_skill_config(
         project = db.query(Project).filter(Project.id == request.project_id).first()
 
         if not project:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise ResourceNotFoundException("Project", project_id)
 
         # 验证Skill ID
         valid_skill_ids = [skill['id'] for skill in AVAILABLE_SKILLS]
         invalid_skills = [s for s in request.enabled_skills if s not in valid_skill_ids]
 
         if invalid_skills:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Invalid skill IDs: {', '.join(invalid_skills)}"
+            raise ValidationException(
+                message=f"无效的技能ID: {', '.join(invalid_skills)}",
+                field="enabled_skills"
             )
 
         # 更新项目配置
@@ -208,7 +209,7 @@ def update_skill_config(
         raise
     except Exception as e:
         logger.error(f"Failed to update skill config: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message=str(e), operation="skill_config", cause=e)
 
 
 @router.post("/toggle/{project_id}/{skill_id}")
@@ -225,12 +226,12 @@ def toggle_skill(
         project = db.query(Project).filter(Project.id == project_id).first()
 
         if not project:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise ResourceNotFoundException("Project", project_id)
 
         # 验证Skill ID
         valid_skill_ids = [skill['id'] for skill in AVAILABLE_SKILLS]
         if skill_id not in valid_skill_ids:
-            raise HTTPException(status_code=400, detail=f"Invalid skill ID: {skill_id}")
+            raise ValidationException(message=f"无效的技能ID: {skill_id}", field="skill_id")
 
         # 获取当前配置
         if not project.settings:
@@ -267,4 +268,4 @@ def toggle_skill(
         raise
     except Exception as e:
         logger.error(f"Failed to toggle skill: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message=str(e), operation="skill_config", cause=e)
