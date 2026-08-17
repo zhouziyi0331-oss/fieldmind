@@ -6,7 +6,7 @@
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import logging
 from datetime import datetime
 
@@ -39,7 +39,7 @@ def batch_process_documents(
     request: BatchProcessRequest,
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
-):
+) -> BatchProcessResponse:
     """
     批量处理文档
 
@@ -196,7 +196,7 @@ def batch_process_documents(
 def get_batch_status(
     project_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     获取项目的批量处理状态
 
@@ -246,7 +246,7 @@ def reprocess_failed_documents(
     project_id: int,
     background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     重新处理所有失败的文档
     """
@@ -291,7 +291,7 @@ def process_entire_project(
     force_reprocess: bool = False,
     use_v2_architecture: bool = False,
     db: Session = Depends(get_db)
-):
+) -> BatchProcessResponse:
     """
     处理项目的所有文档
 

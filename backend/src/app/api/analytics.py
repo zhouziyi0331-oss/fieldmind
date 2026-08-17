@@ -11,7 +11,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import func, desc
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 from datetime import datetime
 
 from app.core.database import get_db
@@ -25,7 +25,7 @@ router = APIRouter(tags=["数据分析"])
 def get_topic_distribution(
     project_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     获取主题分布 - 基于SQL COUNT
 
@@ -86,7 +86,7 @@ def get_top_entities(
     entity_type: str = Query("person", description="实体类型: person/location"),
     top_k: int = Query(10, ge=1, le=100),
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     获取Top实体（人物/地点） - 基于SQL COUNT
 
@@ -137,7 +137,7 @@ def get_top_entities(
 def get_word_count_stats(
     project_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     获取字数统计 - 基于SQL SUM/AVG
     """
@@ -172,7 +172,7 @@ def get_word_count_stats(
 def get_timeline_distribution(
     project_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     获取时间线分布 - 基于SQL GROUP BY
     按文档和时间段统计
@@ -229,7 +229,7 @@ def generate_report(
     project_id: int,
     report_type: str = Query("overview", description="报告类型: overview/topic/entity"),
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     生成分析报告 - 反幻觉版本
 
