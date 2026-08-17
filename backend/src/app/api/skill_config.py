@@ -153,7 +153,7 @@ def get_skill_config(
             available_skills=AVAILABLE_SKILLS
         )
 
-    except HTTPException:
+    except ResourceNotFoundException:
         raise
     except Exception as e:
         logger.error(f"Failed to get skill config: {e}")
@@ -205,7 +205,7 @@ def update_skill_config(
             "message": "Skill配置已更新。重新处理文档后生效。"
         }
 
-    except HTTPException:
+    except (ResourceNotFoundException, ValidationException):
         raise
     except Exception as e:
         logger.error(f"Failed to update skill config: {e}")
@@ -264,7 +264,7 @@ def toggle_skill(
             "current_skills": enabled_skills
         }
 
-    except HTTPException:
+    except (ResourceNotFoundException, ValidationException):
         raise
     except Exception as e:
         logger.error(f"Failed to toggle skill: {e}")

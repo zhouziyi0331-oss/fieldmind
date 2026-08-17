@@ -186,7 +186,7 @@ def batch_process_documents(
             message=f"已将{queued}个文档提交到处理队列 ({'v2架构' if request.use_v2_architecture else 'legacy架构'})"
         )
 
-    except HTTPException:
+    except (ResourceNotFoundException, DatabaseException):
         raise
     except Exception as e:
         logger.error(f"批量处理失败: {e}", exc_info=True)

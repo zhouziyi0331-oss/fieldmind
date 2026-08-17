@@ -210,7 +210,7 @@ def get_dashboard_stats(
             project_created=project_created
         )
 
-    except HTTPException:
+    except (ResourceNotFoundException, DatabaseException):
         raise
     except Exception as e:
         logger.error(f"Failed to get dashboard stats: {e}", exc_info=True)
