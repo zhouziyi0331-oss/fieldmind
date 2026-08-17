@@ -3,13 +3,14 @@
 核心功能：在视频/音频/文档中搜索关键词，返回精确时间点
 """
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from pydantic import BaseModel
 
 from app.core.database import get_db
 from app.services.keyword_search_service import KeywordSearchService
+from app.core.exceptions import DatabaseException
 
 
 router = APIRouter(tags=["关键词检索"])
@@ -93,7 +94,11 @@ async def search_by_keyword(
         )
         return results
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"搜索失败: {str(e)}")
+        raise DatabaseException(
+            message="关键词搜索失败",
+            operation="search_keyword",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/projects/{project_id}/keywords/top")

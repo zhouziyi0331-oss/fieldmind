@@ -3,13 +3,14 @@
 分析现有业态 + 建议新业态（基于调研数据，有理有据）
 """
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from pydantic import BaseModel
 
 from app.core.database import get_db
 from app.services.business_analysis_service import BusinessAnalysisService
+from app.core.exceptions import AIServiceException
 
 
 router = APIRouter(tags=["业态分析"])
@@ -88,7 +89,11 @@ async def analyze_business_formats(
         results = await service.analyze_business_formats(project_id)
         return results
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"业态分析失败: {str(e)}")
+        raise AIServiceException(
+            message="业态分析失败",
+            service="business_analysis",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/projects/{project_id}/formats/existing")

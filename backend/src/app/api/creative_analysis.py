@@ -3,13 +3,14 @@
 核心：避免刻板建议，真正结合在地特色的创意思考
 """
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from pydantic import BaseModel
 
 from app.core.database import get_db
 from app.services.creative_analysis_service import CreativeAnalysisService
+from app.core.exceptions import AIServiceException
 
 
 router = APIRouter(tags=["文创分析"])
@@ -88,7 +89,11 @@ async def analyze_creative_possibilities(
         )
         return results
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"文创分析失败: {str(e)}")
+        raise AIServiceException(
+            message="文创分析失败",
+            service="creative_analysis",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/projects/{project_id}/cultural-elements")
