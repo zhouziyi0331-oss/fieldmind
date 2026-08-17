@@ -1,5 +1,5 @@
 """工作流API路由 - 完整实现"""
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from sqlalchemy import desc
 from typing import List, Optional
@@ -14,6 +14,7 @@ from app.schemas.workflow import (
     WorkflowExecuteRequest, WorkflowExecutionResponse, WorkflowType, WorkflowStatus
 )
 from app.middleware.auth import get_current_user
+from app.core.exceptions import ResourceNotFoundException, ValidationException
 
 router = APIRouter(tags=["Workflows"])
 
@@ -114,9 +115,9 @@ async def get_workflow(
     """获取工作流详情"""
     workflow = db.query(Workflow).filter(Workflow.id == workflow_id).first()
     if not workflow:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Workflow not found"
+        raise ResourceNotFoundException(
+            resource_type="workflow",
+            resource_id=workflow_id
         )
 
     return WorkflowResponse.from_orm(workflow)
@@ -132,9 +133,10 @@ async def create_workflow(
     # 检查名称是否已存在
     existing = db.query(Workflow).filter(Workflow.name == workflow_data.name).first()
     if existing:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Workflow '{workflow_data.name}' already exists"
+        raise ValidationException(
+            message=f"Workflow '{workflow_data.name}' already exists",
+            field="name",
+            details={"name": workflow_data.name}
         )
 
     # 创建工作流
@@ -165,15 +167,16 @@ async def execute_workflow(
     """执行工作流"""
     workflow = db.query(Workflow).filter(Workflow.id == workflow_id).first()
     if not workflow:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Workflow not found"
+        raise ResourceNotFoundException(
+            resource_type="workflow",
+            resource_id=workflow_id
         )
 
     if not workflow.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Workflow is not active"
+        raise ValidationException(
+            message="Workflow is not active",
+            field="is_active",
+            details={"workflow_id": workflow_id, "is_active": workflow.is_active}
         )
 
     # 获取项目信息（如果提供）
@@ -227,16 +230,17 @@ async def delete_workflow(
     """删除工作流"""
     workflow = db.query(Workflow).filter(Workflow.id == workflow_id).first()
     if not workflow:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Workflow not found"
+        raise ResourceNotFoundException(
+            resource_type="workflow",
+            resource_id=workflow_id
         )
 
     # 模板工作流不能删除
     if workflow.is_template:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cannot delete template workflows"
+        raise ValidationException(
+            message="Cannot delete template workflows",
+            field="is_template",
+            details={"workflow_id": workflow_id, "is_template": True}
         )
 
     db.delete(workflow)
@@ -255,9 +259,9 @@ async def get_workflow_executions(
     """获取工作流执行历史"""
     workflow = db.query(Workflow).filter(Workflow.id == workflow_id).first()
     if not workflow:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Workflow not found"
+        raise ResourceNotFoundException(
+            resource_type="workflow",
+            resource_id=workflow_id
         )
 
     executions = db.query(WorkflowExecution).filter(
