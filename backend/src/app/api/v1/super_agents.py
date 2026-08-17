@@ -10,7 +10,7 @@ SuperAgent API Routes
 5. Coordinator - 多Agent编排执行
 """
 
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import Dict, Any
 import asyncio
@@ -19,6 +19,7 @@ import uuid
 from datetime import datetime
 
 from app.core.database import get_db
+from app.core.exceptions import AIServiceException
 from app.schemas.agent_schemas import (
     # Knowledge Agent
     KnowledgeAnalysisRequest,
@@ -225,13 +226,10 @@ async def knowledge_analyze(
             error_msg = agent_result.get("error", "Unknown error")
             logger.error(f"[{execution_id}] Knowledge Agent failed: {error_msg}")
 
-            raise HTTPException(
-                status_code=500,
-                detail={
-                    "code": "KNOWLEDGE_AGENT_FAILED",
-                    "message": error_msg,
-                    "execution_id": execution_id
-                }
+            raise AIServiceException(
+                message=error_msg,
+                service="knowledge_agent",
+                details={"execution_id": execution_id, "code": "KNOWLEDGE_AGENT_FAILED"}
             )
 
     except Exception as e:
@@ -342,12 +340,10 @@ async def search_query(
             return APIResponse(success=True, data=response.dict())
 
         else:
-            raise HTTPException(
-                status_code=500,
-                detail={
-                    "code": "SEARCH_AGENT_FAILED",
-                    "message": agent_result.get("error", "Unknown error")
-                }
+            raise AIServiceException(
+                message=agent_result.get("error", "Unknown error"),
+                service="search_agent",
+                details={"execution_id": execution_id, "code": "SEARCH_AGENT_FAILED"}
             )
 
     except Exception as e:
@@ -450,12 +446,10 @@ async def summary_generate(
             return APIResponse(success=True, data=response.dict())
 
         else:
-            raise HTTPException(
-                status_code=500,
-                detail={
-                    "code": "SUMMARY_AGENT_FAILED",
-                    "message": agent_result.get("error", "Unknown error")
-                }
+            raise AIServiceException(
+                message=agent_result.get("error", "Unknown error"),
+                service="summary_agent",
+                details={"execution_id": execution_id, "code": "SUMMARY_AGENT_FAILED"}
             )
 
     except Exception as e:
@@ -572,12 +566,10 @@ async def transcript_process(
             return APIResponse(success=True, data=response.dict())
 
         else:
-            raise HTTPException(
-                status_code=500,
-                detail={
-                    "code": "TRANSCRIPT_AGENT_FAILED",
-                    "message": agent_result.get("error", "Unknown error")
-                }
+            raise AIServiceException(
+                message=agent_result.get("error", "Unknown error"),
+                service="transcript_agent",
+                details={"execution_id": execution_id, "code": "TRANSCRIPT_AGENT_FAILED"}
             )
 
     except Exception as e:
@@ -708,12 +700,10 @@ async def orchestrate_agents(
             return APIResponse(success=True, data=response.dict())
 
         else:
-            raise HTTPException(
-                status_code=500,
-                detail={
-                    "code": "ORCHESTRATION_FAILED",
-                    "message": orchestration_result.get("error", "Unknown error")
-                }
+            raise AIServiceException(
+                message=orchestration_result.get("error", "Unknown error"),
+                service="coordinator",
+                details={"execution_id": execution_id, "code": "ORCHESTRATION_FAILED"}
             )
 
     except Exception as e:
