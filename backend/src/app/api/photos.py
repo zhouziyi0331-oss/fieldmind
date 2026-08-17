@@ -2,7 +2,7 @@
 Photos API - 图片管理（带EXIF元数据支持）
 扩展DocumentService以支持照片特定功能
 """
-from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File, Form
+from fastapi import APIRouter, Depends, Query, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_, and_
 from typing import Optional, List
@@ -18,6 +18,7 @@ from app.core.database import get_db
 from app.models.document import Document
 from app.models.project import ProjectDocument
 from app.config import settings
+from app.core.exceptions import ResourceNotFoundException, ValidationException, FileException
 
 router = APIRouter(tags=["photos"])
 logger = logging.getLogger(__name__)
@@ -192,7 +193,11 @@ async def upload_photo(
         allowed_extensions = {'.jpg', '.jpeg', '.png', '.heic', '.heif', '.raw', '.tiff', '.gif'}
         file_ext = os.path.splitext(file.filename)[1].lower()
         if file_ext not in allowed_extensions:
-            raise HTTPException(status_code=400, detail="不支持的图片格式")
+            raise ValidationException(
+                message="不支持的图片格式",
+                field="file",
+                details={"file_extension": file_ext, "allowed": list(allowed_extensions)}
+            )
 
         # 保存文件
         upload_dir = os.path.join(settings.UPLOAD_DIR, f"project_{project_id}", "photos")
@@ -259,11 +264,15 @@ async def upload_photo(
             "exif": exif_json
         }
 
-    except HTTPException:
+    except (ValidationException, FileException):
         raise
     except Exception as e:
         logger.error(f"❌ 上传照片失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message="上传照片失败",
+            operation="upload",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/photos", response_model=PhotoListResponse)
@@ -376,7 +385,11 @@ async def list_photos(
 
     except Exception as e:
         logger.error(f"❌ 获取照片列表失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message="获取照片列表失败",
+            operation="list",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/photos/stats/{project_id}", response_model=PhotoStatsResponse)
@@ -444,7 +457,11 @@ async def get_photo_stats(
 
     except Exception as e:
         logger.error(f"❌ 获取照片统计失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message="获取照片统计失败",
+            operation="stats",
+            details={"error": str(e)}
+        )
 
 
 @router.delete("/photos/{photo_id}")
@@ -456,7 +473,7 @@ async def delete_photo(
     try:
         doc = db.query(ProjectDocument).filter(ProjectDocument.id == photo_id).first()
         if not doc:
-            raise HTTPException(status_code=404, detail="照片不存在")
+            raise ResourceNotFoundException(resource_type="Photo", resource_id=photo_id)
 
         # 删除文件
         if os.path.exists(doc.file_path):
@@ -469,9 +486,13 @@ async def delete_photo(
         logger.info(f"✅ 删除照片: {doc.filename}")
         return {"status": "success", "message": "照片已删除"}
 
-    except HTTPException:
+    except (ResourceNotFoundException, FileException):
         raise
     except Exception as e:
         db.rollback()
         logger.error(f"❌ 删除照片失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message="删除照片失败",
+            operation="delete",
+            details={"error": str(e), "photo_id": photo_id}
+        )

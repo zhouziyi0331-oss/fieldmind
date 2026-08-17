@@ -312,7 +312,7 @@ def generate_report(
             }
         }
 
-    except HTTPException:
+    except (ValidationException, DatabaseException):
         raise
     except Exception as e:
         import traceback

@@ -2,7 +2,7 @@
 File Manager API - 文件管理（基于路径的虚拟文件夹）
 通过文件路径前缀模拟文件夹结构，无需数据库重构
 """
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from typing import Optional, List
 from pydantic import BaseModel
@@ -12,6 +12,7 @@ import os
 
 from app.core.database import get_db
 from app.models.project import ProjectDocument
+from app.core.exceptions import ResourceNotFoundException, FileException
 
 router = APIRouter(tags=["file-manager"])
 logger = logging.getLogger(__name__)
@@ -257,7 +258,11 @@ async def get_file_tree(
 
     except Exception as e:
         logger.error(f"❌ 获取文件树失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message="获取文件树失败",
+            operation="list",
+            details={"error": str(e)}
+        )
 
 
 @router.post("/folders")
@@ -291,7 +296,11 @@ async def create_folder(
 
     except Exception as e:
         logger.error(f"❌ 创建文件夹失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message="创建文件夹失败",
+            operation="create",
+            details={"error": str(e), "folder_path": request.folder_path}
+        )
 
 
 @router.put("/files/{file_id}/move")
@@ -307,7 +316,7 @@ async def move_file(
     try:
         doc = db.query(ProjectDocument).filter(ProjectDocument.id == file_id).first()
         if not doc:
-            raise HTTPException(status_code=404, detail="文件不存在")
+            raise ResourceNotFoundException(resource_type="File", resource_id=file_id)
 
         from app.config import settings
 
@@ -342,12 +351,16 @@ async def move_file(
             "message": "文件已移动"
         }
 
-    except HTTPException:
+    except ResourceNotFoundException:
         raise
     except Exception as e:
         db.rollback()
         logger.error(f"❌ 移动文件失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message="移动文件失败",
+            operation="move",
+            details={"error": str(e), "file_id": file_id}
+        )
 
 
 @router.delete("/folders")
@@ -402,12 +415,14 @@ async def delete_folder(
             "message": f"已删除文件夹及其中的 {deleted_count} 个文件"
         }
 
-    except HTTPException:
-        raise
     except Exception as e:
         db.rollback()
         logger.error(f"❌ 删除文件夹失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message="删除文件夹失败",
+            operation="delete",
+            details={"error": str(e), "folder_path": folder_path}
+        )
 
 
 @router.get("/folder-contents")
@@ -498,4 +513,8 @@ async def get_folder_contents(
 
     except Exception as e:
         logger.error(f"❌ 获取文件夹内容失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message="获取文件夹内容失败",
+            operation="list",
+            details={"error": str(e), "folder_path": folder_path}
+        )
