@@ -6,7 +6,7 @@ RAG对话API - 真正的向量检索对话
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import logging
 
 from app.core.database import get_db
@@ -37,7 +37,7 @@ class ChatResponse(BaseModel):
 def rag_query(
     request: ChatRequest,
     db: Session = Depends(get_db)
-):
+) -> ChatResponse:
     """
     基于RAG的对话查询
 
@@ -193,7 +193,7 @@ def rag_query(
 def get_available_documents(
     project_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     获取项目中可用于RAG检索的文档列表
 
@@ -227,7 +227,7 @@ def get_available_documents(
 
 
 @router.get("/status")
-def rag_status(db: Session = Depends(get_db)):
+def rag_status(db: Session = Depends(get_db)) -> Dict[str, Any]:
     """
     检查RAG系统状态
     """

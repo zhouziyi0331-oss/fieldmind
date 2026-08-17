@@ -6,7 +6,7 @@ Skill配置管理API
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import json
 import logging
 
@@ -110,7 +110,7 @@ AVAILABLE_SKILLS = [
 
 
 @router.get("/available")
-def get_available_skills():
+def get_available_skills() -> Dict[str, Any]:
     """
     获取所有可用的Skill列表
     """
@@ -124,7 +124,7 @@ def get_available_skills():
 def get_skill_config(
     project_id: int,
     db: Session = Depends(get_db)
-):
+) -> SkillConfigResponse:
     """
     获取项目的Skill配置
     """
@@ -163,7 +163,7 @@ def get_skill_config(
 def update_skill_config(
     request: SkillConfigRequest,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     更新项目的Skill配置
 
@@ -217,7 +217,7 @@ def toggle_skill(
     skill_id: str,
     enabled: bool,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     快速开关单个Skill
     """
