@@ -3,7 +3,7 @@
 
 严禁使用模拟数据，必须读写数据库
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import List, Optional
@@ -13,6 +13,7 @@ import logging
 from app.core.database import get_db
 from app.models.project import ProjectDocument
 from app.services.llm_report_generator import llm_report_generator
+from app.core.exceptions import ValidationException, AIServiceException
 
 router = APIRouter(tags=["reports"])
 logger = logging.getLogger(__name__)
@@ -158,7 +159,10 @@ def generate_report(
         elif request.report_level == 3:
             report_content = generate_level3_report(documents)
         else:
-            raise HTTPException(status_code=400, detail="报告级别必须是1、2或3")
+            raise ValidationException(
+                message="报告级别必须是1、2或3",
+                field="report_level"
+            )
 
         return ReportResponse(
             success=True,
@@ -169,11 +173,15 @@ def generate_report(
             message=None
         )
 
-    except HTTPException:
+    except (ValidationException, AIServiceException):
         raise
     except Exception as e:
         logger.error(f"生成报告失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(
+            message="报告生成失败",
+            service="report_generator",
+            details={"error": str(e)}
+        )
 
 
 def generate_level1_report(documents: List) -> str:
@@ -733,4 +741,8 @@ def preview_report(
 
     except Exception as e:
         logger.error(f"预览报告失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(
+            message="预览报告失败",
+            service="report_generator",
+            details={"error": str(e)}
+        )

@@ -2,13 +2,14 @@
 对话增强记忆 API
 """
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import Optional
 from pydantic import BaseModel
 
 from app.core.database import get_db
 from app.services.conversation_memory_service import ConversationMemoryService
+from app.core.exceptions import AIServiceException
 
 router = APIRouter(tags=["对话增强记忆"])
 
@@ -102,7 +103,11 @@ async def get_project_context(
         return context
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(
+            message="获取项目上下文失败",
+            service="conversation_memory",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/projects/{project_id}/conversations")

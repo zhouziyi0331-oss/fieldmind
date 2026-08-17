@@ -11,7 +11,7 @@
 2. 零预设 - 不使用固定分类、词表、模板
 3. 文档隔离 - 每个文档的发现结果独立存储
 """
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
@@ -19,6 +19,7 @@ import logging
 
 from app.core.database import get_db
 from app.models.project import ProjectDocument, Project
+from app.core.exceptions import ResourceNotFoundException
 
 router = APIRouter(tags=["dynamic-discovery"])
 logger = logging.getLogger(__name__)
@@ -115,7 +116,7 @@ async def get_document_discovery(
     ).first()
 
     if not doc:
-        raise HTTPException(status_code=404, detail="文档不存在")
+        raise ResourceNotFoundException(resource_type="Document", resource_id=document_id)
 
     # 读取动态发现结果
     topics_data = doc.auto_clusters or []
@@ -171,7 +172,7 @@ async def get_project_discovery_summary(
     """
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException(resource_type="Project", resource_id=project_id)
 
     # 获取项目下所有文档
     docs = db.query(ProjectDocument).filter(
