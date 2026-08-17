@@ -54,9 +54,10 @@ async def upload_document(
 
     if not is_audio and not document_converter.is_supported(file.filename):
         allowed_extensions = document_converter.supported_formats() + audio_formats
-        raise HTTPException(
-            status_code=400,
-            detail=f"不支持的文件类型: {file_ext}. 支持: {', '.join(allowed_extensions)}"
+        raise ValidationException(
+            message=f"不支持的文件类型: {file_ext}",
+            field="file",
+            details={"file_extension": file_ext, "allowed_extensions": allowed_extensions}
         )
 
     try:

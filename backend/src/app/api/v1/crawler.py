@@ -1,10 +1,12 @@
 """
 爬虫API路由 - 集成智能爬虫调度
 """
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from typing import Dict, Any, List
 from pydantic import BaseModel, HttpUrl
 from datetime import datetime
+
+from app.core.exceptions import FileException
 
 # from app.tasks.crawler_tasks import (
 #     intelligent_crawl,
@@ -67,7 +69,11 @@ async def crawl_url(request: CrawlRequest) -> Dict[str, Any]:
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"爬取任务提交失败: {str(e)}")
+        raise FileException(
+            message="爬取任务提交失败",
+            operation="crawl",
+            details={"url": str(request.url), "crawler_type": request.crawler_type, "error": str(e)}
+        )
 
 
 @router.post("/batch-crawl")
@@ -102,7 +108,11 @@ async def batch_crawl_urls(request: BatchCrawlRequest) -> Dict[str, Any]:
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"批量爬取失败: {str(e)}")
+        raise FileException(
+            message="批量爬取失败",
+            operation="batch_crawl",
+            details={"url_count": len(request.urls), "error": str(e)}
+        )
 
 
 @router.post("/news")
@@ -129,7 +139,11 @@ async def crawl_news_article(url: HttpUrl, auto_process: bool = True) -> Dict[st
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"新闻爬取失败: {str(e)}")
+        raise FileException(
+            message="新闻爬取失败",
+            operation="crawl_news",
+            details={"url": url_str, "error": str(e)}
+        )
 
 
 @router.post("/government")
@@ -156,7 +170,11 @@ async def crawl_government_document(url: HttpUrl, auto_process: bool = True) -> 
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"政府文件爬取失败: {str(e)}")
+        raise FileException(
+            message="政府文件爬取失败",
+            operation="crawl_government",
+            details={"url": url_str, "error": str(e)}
+        )
 
 
 @router.get("/status/{task_id}")
@@ -182,7 +200,11 @@ async def get_crawl_status(task_id: str) -> Dict[str, Any]:
         return response
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"状态查询失败: {str(e)}")
+        raise FileException(
+            message="状态查询失败",
+            operation="status_check",
+            details={"task_id": task_id, "error": str(e)}
+        )
 
 
 @router.get("/supported-crawlers")

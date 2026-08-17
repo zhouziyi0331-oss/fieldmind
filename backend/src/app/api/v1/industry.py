@@ -1,10 +1,11 @@
 """业态分析API路由 - 完整实现"""
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, status, Query
 from sqlalchemy.orm import Session
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 
 from app.core.database import get_db
+from app.core.exceptions import ResourceNotFoundException
 from app.models.industry import IndustryCategory
 from app.models.user import User
 from app.schemas.industry import (
@@ -67,9 +68,9 @@ async def get_industry_details(
     ).first()
 
     if not industry_cat:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Industry category '{category}' not found"
+        raise ResourceNotFoundException(
+            resource_type="IndustryCategory",
+            resource_id=category
         )
 
     # 如果缓存的分析数据存在且较新，直接返回
@@ -289,9 +290,9 @@ async def get_industry_statistics(
     ).first()
 
     if not industry_cat:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Industry category '{category}' not found"
+        raise ResourceNotFoundException(
+            resource_type="IndustryCategory",
+            resource_id=category
         )
 
     # 查询相关文档
@@ -384,9 +385,9 @@ async def get_industry_trends(
     ).first()
 
     if not industry_cat:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Industry category '{category}' not found"
+        raise ResourceNotFoundException(
+            resource_type="IndustryCategory",
+            resource_id=category
         )
 
     # 查询相关文档

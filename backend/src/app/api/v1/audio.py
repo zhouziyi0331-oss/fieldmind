@@ -2,13 +2,15 @@
 音频API路由 - 集成 Celery 自动任务触发
 """
 
-from fastapi import APIRouter, UploadFile, File, HTTPException, BackgroundTasks
+from fastapi import APIRouter, UploadFile, File, BackgroundTasks
 from typing import Optional, Dict, Any
 from pathlib import Path
 from datetime import datetime
 import uuid
 import shutil
 import os
+
+from app.core.exceptions import ValidationException, FileException
 
 # from app.tasks.audio_tasks import process_audio_chain
 # 暂时注释，避免导入错误
@@ -48,9 +50,10 @@ async def upload_audio(
     file_ext = Path(file.filename).suffix.lower()
 
     if file_ext not in allowed_extensions:
-        raise HTTPException(
-            status_code=400,
-            detail=f"不支持的文件格式。允许的格式: {', '.join(allowed_extensions)}"
+        raise ValidationException(
+            message=f"不支持的文件格式。允许的格式: {', '.join(allowed_extensions)}",
+            field="file",
+            details={"file_extension": file_ext, "allowed_extensions": allowed_extensions}
         )
 
     # 保存文件
@@ -106,7 +109,11 @@ async def get_audio_processing_status(task_id: str) -> Dict[str, Any]:
         return response
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"状态查询失败: {str(e)}")
+        raise FileException(
+            message="状态查询失败",
+            operation="status_check",
+            details={"task_id": task_id, "error": str(e)}
+        )
 
 
 @router.get("/list")
@@ -143,4 +150,8 @@ async def list_audio_files(skip: int = 0, limit: int = 20) -> Dict[str, Any]:
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"列表查询失败: {str(e)}")
+        raise FileException(
+            message="列表查询失败",
+            operation="list",
+            details={"error": str(e)}
+        )
