@@ -1,7 +1,7 @@
 """智能对话API - 基于项目资料的深度学习对话"""
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import Optional
+from typing import Optional, Dict, Any, List
 from datetime import datetime
 import logging
 
@@ -26,7 +26,7 @@ intelligent_agent = IntelligentAgent()
 def create_chat_session(
     session_data: ChatSessionCreate,
     db: Session = Depends(get_db)
-):
+) -> ChatSessionResponse:
     """创建对话会话"""
     try:
         # 验证项目存在
@@ -62,7 +62,7 @@ def create_chat_session(
 def get_chat_session(
     session_id: int,
     db: Session = Depends(get_db)
-):
+) -> ChatSessionResponse:
     """获取对话会话"""
     try:
         session = db.query(ProjectChatSession).filter(ProjectChatSession.id == session_id).first()
@@ -85,7 +85,7 @@ def list_project_sessions(
     skip: int = 0,
     limit: int = 20,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """获取项目的所有对话会话"""
     try:
         query = db.query(ProjectChatSession).filter(ProjectChatSession.project_id == project_id)
@@ -108,7 +108,7 @@ def send_message(
     session_id: int,
     message_data: ChatMessageCreate,
     db: Session = Depends(get_db)
-):
+) -> ChatMessageResponse:
     """
     发送消息并获取AI响应
 
@@ -262,7 +262,7 @@ def get_session_messages(
     skip: int = 0,
     limit: int = 50,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """获取会话的所有消息"""
     try:
         session = db.query(ProjectChatSession).filter(ProjectChatSession.id == session_id).first()
@@ -290,7 +290,7 @@ def get_session_messages(
 def delete_session(
     session_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, str]:
     """删除对话会话"""
     try:
         session = db.query(ProjectChatSession).filter(ProjectChatSession.id == session_id).first()
@@ -316,7 +316,7 @@ def delete_session(
 def evolve_session_skill(
     session_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     进化会话的技能框架
 

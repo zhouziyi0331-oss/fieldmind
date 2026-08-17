@@ -1,7 +1,7 @@
 """文档管理API - 支持项目隔离的文档上传和处理"""
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 import logging
 import os
 from datetime import datetime
@@ -134,7 +134,7 @@ def list_project_documents(
     limit: int = 50,
     status: Optional[str] = None,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """获取项目的所有文档"""
     try:
         query = db.query(ProjectDocument).filter(ProjectDocument.project_id == project_id)
@@ -159,7 +159,7 @@ def list_project_documents(
 def get_documents_status(
     project_id: int,  # 强制必填，不再是Optional
     db: Session = Depends(get_db)
-):
+) -> List[Dict[str, Any]]:
     """
     获取文档处理状态列表（用于前端轮询）
 
@@ -201,7 +201,7 @@ def get_documents_status(
 def get_document(
     document_id: int,
     db: Session = Depends(get_db)
-):
+) -> DocumentResponse:
     """获取文档详情"""
     try:
         logger.info(f"🔍 查询文档 {document_id}")
@@ -225,7 +225,7 @@ def get_document(
 def delete_document(
     document_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, str]:
     """删除文档"""
     try:
         doc = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
@@ -254,7 +254,7 @@ def delete_document(
 
 
 @router.get("/knowledge-base/status")
-def get_knowledge_base_status(db: Session = Depends(get_db)):
+def get_knowledge_base_status(db: Session = Depends(get_db)) -> Dict[str, Any]:
     """
     获取知识库状态
 
@@ -321,7 +321,7 @@ def get_aggregated_keywords(
     project_id: int,  # 强制必填
     top_n: int = 50,
     db: Session = Depends(get_db)
-):
+) -> List[Dict[str, Any]]:
     """
     聚合所有文档的关键词（按词频排序）
 
@@ -393,7 +393,7 @@ def get_aggregated_keywords(
 def get_skill_analysis(
     document_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     获取文档的Skill分析结果
     
@@ -426,7 +426,7 @@ def get_skill_analysis(
 def get_aggregated_skills(
     project_id: int,  # 强制必填
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     聚合所有文档的Skill分析结果
 
@@ -479,7 +479,7 @@ def get_aggregated_skills(
 def get_document_fact_statements(
     document_id: int,
     db: Session = Depends(get_db)
-):
+) -> List[Dict[str, Any]]:
     """
     获取文档的所有fact_statements（带时间戳）
 

@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from pydantic import BaseModel
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 from datetime import datetime, timedelta
 import logging
 
@@ -60,7 +60,7 @@ class DashboardStats(BaseModel):
 def get_dashboard_stats(
     project_id: int,
     db: Session = Depends(get_db)
-):
+) -> DashboardStats:
     """
     获取项目的Dashboard统计数据
     """
@@ -221,7 +221,7 @@ def get_project_timeline(
     project_id: int,
     days: int = 7,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     获取项目的时间线数据（最近N天的活动）
     """
@@ -265,7 +265,7 @@ def get_project_timeline(
 def get_project_progress(
     project_id: int,
     db: Session = Depends(get_db)
-):
+) -> Dict[str, Any]:
     """
     获取项目的整体进度指标
     """
