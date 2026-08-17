@@ -1,5 +1,5 @@
 """技能管理API路由 - 完整实现"""
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form
+from fastapi import APIRouter, Depends, status, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from typing import Optional, List
 import os
@@ -11,6 +11,7 @@ import time
 from pathlib import Path
 
 from app.core.database import get_db
+from app.core.exceptions import ValidationException, ResourceNotFoundException, FileException
 from app.models.skill import Skill, SkillValidation, SkillStatus, SkillCategory
 from app.models.user import User, UserRole
 from app.schemas.skill import (
@@ -225,31 +226,33 @@ async def upload_skill(
     try:
         metadata_dict = json.loads(metadata)
     except json.JSONDecodeError:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid metadata JSON"
+        raise ValidationException(
+            message="Invalid metadata JSON",
+            field="metadata"
         )
 
     # 验证文件类型
     if not file.filename.endswith(('.py', '.zip')):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Only .py and .zip files are allowed"
+        raise ValidationException(
+            message="Only .py and .zip files are allowed",
+            field="file",
+            details={"filename": file.filename}
         )
 
     # 检查技能名称是否已存在
     skill_name = metadata_dict.get('name')
     if not skill_name:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Skill name is required in metadata"
+        raise ValidationException(
+            message="Skill name is required in metadata",
+            field="name"
         )
 
     existing_skill = db.query(Skill).filter(Skill.name == skill_name).first()
     if existing_skill:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Skill '{skill_name}' already exists"
+        raise ValidationException(
+            message=f"Skill '{skill_name}' already exists",
+            field="name",
+            details={"skill_name": skill_name}
         )
 
     # 保存文件
@@ -356,17 +359,17 @@ async def activate_skill(
     """激活技能"""
     skill = db.query(Skill).filter(Skill.id == skill_id).first()
     if not skill:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Skill not found"
+        raise ResourceNotFoundException(
+            resource_type="Skill",
+            resource_id=skill_id
         )
 
     # 检查是否可以激活
     if not skill.can_be_applied:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Skill validation failed, cannot activate",
-            headers={"X-Validation-Errors": json.dumps(skill.validation_result)}
+        raise ValidationException(
+            message="Skill validation failed, cannot activate",
+            field="validation",
+            details={"validation_result": skill.validation_result}
         )
 
     skill.status = SkillStatus.ACTIVE
@@ -384,9 +387,9 @@ async def deactivate_skill(
     """停用技能"""
     skill = db.query(Skill).filter(Skill.id == skill_id).first()
     if not skill:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Skill not found"
+        raise ResourceNotFoundException(
+            resource_type="Skill",
+            resource_id=skill_id
         )
 
     skill.status = SkillStatus.INACTIVE
@@ -404,9 +407,9 @@ async def delete_skill(
     """删除技能"""
     skill = db.query(Skill).filter(Skill.id == skill_id).first()
     if not skill:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Skill not found"
+        raise ResourceNotFoundException(
+            resource_type="Skill",
+            resource_id=skill_id
         )
 
     # 删除文件
@@ -437,9 +440,9 @@ async def test_skill(
     """测试技能"""
     skill = db.query(Skill).filter(Skill.id == skill_id).first()
     if not skill:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Skill not found"
+        raise ResourceNotFoundException(
+            resource_type="Skill",
+            resource_id=skill_id
         )
 
     # 执行测试
@@ -478,9 +481,10 @@ async def get_available_skills_for_task(
 
     category = task_category_map.get(task_type.lower())
     if not category:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Unknown task type: {task_type}"
+        raise ValidationException(
+            message=f"Unknown task type: {task_type}",
+            field="task_type",
+            details={"valid_types": list(task_category_map.keys())}
         )
 
     # 查询激活的、可用的技能

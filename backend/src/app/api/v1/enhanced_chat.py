@@ -2,13 +2,14 @@
 增强对话API路由 - 支持长记忆、技能模型、深度思考
 Enhanced Chat API with Long Memory, Skills, and Deep Thinking
 """
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from typing import Optional, Dict, Any, List
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.core.exceptions import ResourceNotFoundException, AIServiceException, DatabaseException
 from app.services.enhanced_chat_service import enhanced_chat_service
 from app.services.long_memory_service import long_memory_service
 from app.models.chat import ChatSession, ChatMessage
@@ -91,7 +92,10 @@ async def enhanced_chat(
         ).first()
 
         if not session:
-            raise HTTPException(status_code=404, detail="会话不存在")
+            raise ResourceNotFoundException(
+                resource_type="ChatSession",
+                resource_id=request.session_id
+            )
 
         # 保存用户消息
         user_message = ChatMessage(
@@ -161,10 +165,14 @@ async def enhanced_chat(
             'sources': result.get('sources', [])
         }
 
-    except HTTPException:
+    except (ResourceNotFoundException, AIServiceException, DatabaseException):
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"对话处理失败: {str(e)}")
+        raise AIServiceException(
+            message="对话处理失败",
+            service="enhanced_chat",
+            details={"error": str(e)}
+        )
 
 
 @router.post("/chat/enhanced/stream")
@@ -184,7 +192,10 @@ async def enhanced_chat_stream(
         ).first()
 
         if not session:
-            raise HTTPException(status_code=404, detail="会话不存在")
+            raise ResourceNotFoundException(
+                resource_type="ChatSession",
+                resource_id=request.session_id
+            )
 
         # 保存用户消息
         user_message = ChatMessage(
@@ -237,10 +248,14 @@ async def enhanced_chat_stream(
             media_type="text/event-stream"
         )
 
-    except HTTPException:
+    except (ResourceNotFoundException, AIServiceException, DatabaseException):
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(
+            message="流式对话处理失败",
+            service="enhanced_chat_stream",
+            details={"error": str(e)}
+        )
 
 
 @router.post("/chat/sessions")
@@ -275,7 +290,11 @@ async def create_chat_session(
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"创建会话失败: {str(e)}")
+        raise DatabaseException(
+            message="创建会话失败",
+            operation="create_chat_session",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/chat/sessions/{project_id}")
@@ -304,7 +323,11 @@ async def list_chat_sessions(
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message="获取会话列表失败",
+            operation="list_chat_sessions",
+            details={"project_id": project_id, "error": str(e)}
+        )
 
 
 @router.get("/chat/sessions/{session_id}/messages")
@@ -338,7 +361,11 @@ async def get_session_messages(
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message="获取会话消息失败",
+            operation="get_session_messages",
+            details={"session_id": session_id, "error": str(e)}
+        )
 
 
 @router.post("/memory/search")
@@ -360,7 +387,11 @@ async def search_memory(request: MemorySearchRequest):
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"记忆搜索失败: {str(e)}")
+        raise AIServiceException(
+            message="记忆搜索失败",
+            service="long_memory",
+            details={"query": request.query, "error": str(e)}
+        )
 
 
 @router.get("/memory/statistics")
@@ -375,7 +406,11 @@ async def get_memory_statistics(project_id: Optional[int] = None):
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(
+            message="获取记忆统计失败",
+            service="long_memory",
+            details={"project_id": project_id, "error": str(e)}
+        )
 
 
 @router.delete("/chat/sessions/{session_id}")
@@ -388,7 +423,10 @@ async def delete_chat_session(
         session = db.query(ChatSession).filter(ChatSession.id == session_id).first()
 
         if not session:
-            raise HTTPException(status_code=404, detail="会话不存在")
+            raise ResourceNotFoundException(
+                resource_type="ChatSession",
+                resource_id=request.session_id
+            )
 
         db.delete(session)
         db.commit()
@@ -398,7 +436,11 @@ async def delete_chat_session(
             'message': '会话已删除'
         }
 
-    except HTTPException:
+    except (ResourceNotFoundException, DatabaseException):
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message="删除会话失败",
+            operation="delete_chat_session",
+            details={"session_id": session_id, "error": str(e)}
+        )

@@ -1,5 +1,5 @@
 """报告生成API路由 - 完整实现和增强"""
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, status, Query
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 from typing import Optional
@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 
 from app.core.database import get_db
+from app.core.exceptions import ResourceNotFoundException, ValidationException, FileException
 from app.models.report import Report, ReportStatus
 from app.models.user import User
 from app.schemas.report import (
@@ -102,9 +103,9 @@ async def get_report(
     """获取报告详情"""
     report = db.query(Report).filter(Report.id == report_id).first()
     if not report:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Report not found"
+        raise ResourceNotFoundException(
+            resource_type="Report",
+            resource_id=report_id
         )
 
     return ReportResponse.from_orm(report)
@@ -120,21 +121,22 @@ async def download_report(
     """下载报告文件"""
     report = db.query(Report).filter(Report.id == report_id).first()
     if not report:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Report not found"
+        raise ResourceNotFoundException(
+            resource_type="Report",
+            resource_id=report_id
         )
 
     if report.status != ReportStatus.COMPLETED:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Report is not ready for download. Current status: {report.status}"
+        raise ValidationException(
+            message=f"Report is not ready for download. Current status: {report.status}",
+            field="status"
         )
 
     if not report.file_path or not os.path.exists(report.file_path):
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Report file not found"
+        raise FileException(
+            message="Report file not found",
+            operation="download",
+            details={"file_path": report.file_path}
         )
 
     # 确定MIME类型
@@ -163,9 +165,9 @@ async def delete_report(
     """删除报告"""
     report = db.query(Report).filter(Report.id == report_id).first()
     if not report:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Report not found"
+        raise ResourceNotFoundException(
+            resource_type="Report",
+            resource_id=report_id
         )
 
     # 删除文件
@@ -192,9 +194,9 @@ async def generate_summary_document(
     # 这里提供示例实现
 
     if not summary_data.document_ids:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="At least one document ID is required"
+        raise ValidationException(
+            message="At least one document ID is required",
+            field="document_ids"
         )
 
     # 示例摘要

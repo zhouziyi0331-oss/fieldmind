@@ -2,10 +2,12 @@
 RAG API路由 - 三重检索融合
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 from datetime import datetime
+
+from app.core.exceptions import AIServiceException, VectorStoreException
 
 # from app.tasks.rag_tasks import triple_retrieval_query, generate_answer
 # from app.celery_app import celery_app
@@ -48,7 +50,10 @@ async def rag_query(request: RAGQueryRequest) -> Dict[str, Any]:
         retrieval_result = triple_retrieval_query(request.question, request.top_k)
 
         if not retrieval_result.get("success"):
-            raise HTTPException(status_code=500, detail=retrieval_result.get("error"))
+            raise VectorStoreException(
+                message=retrieval_result.get("error", "检索失败"),
+                operation="triple_retrieval"
+            )
 
         response = {
             "success": True,
@@ -68,10 +73,14 @@ async def rag_query(request: RAGQueryRequest) -> Dict[str, Any]:
 
         return response
 
-    except HTTPException:
+    except (VectorStoreException, AIServiceException):
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"RAG查询失败: {str(e)}")
+        raise AIServiceException(
+            message="RAG查询失败",
+            service="rag_query",
+            details={"question": request.question, "error": str(e)}
+        )
 
 
 @router.post("/query-async")
@@ -93,7 +102,11 @@ async def rag_query_async(request: RAGQueryRequest) -> Dict[str, Any]:
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"任务提交失败: {str(e)}")
+        raise AIServiceException(
+            message="任务提交失败",
+            service="rag_query_async",
+            details={"question": request.question, "error": str(e)}
+        )
 
 
 @router.post("/batch-query")
@@ -120,7 +133,11 @@ async def batch_rag_query(request: BatchRAGQueryRequest) -> Dict[str, Any]:
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"批量查询失败: {str(e)}")
+        raise AIServiceException(
+            message="批量查询失败",
+            service="batch_rag_query",
+            details={"question_count": len(request.questions), "error": str(e)}
+        )
 
 
 @router.get("/status/{task_id}")
@@ -146,7 +163,11 @@ async def get_query_status(task_id: str) -> Dict[str, Any]:
         return response
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"状态查询失败: {str(e)}")
+        raise AIServiceException(
+            message="状态查询失败",
+            service="rag_status_check",
+            details={"task_id": task_id, "error": str(e)}
+        )
 
 
 @router.get("/retrieval-stats")
@@ -178,4 +199,8 @@ async def get_retrieval_stats() -> Dict[str, Any]:
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"统计查询失败: {str(e)}")
+        raise VectorStoreException(
+            message="统计查询失败",
+            operation="get_retrieval_stats",
+            details={"error": str(e)}
+        )
