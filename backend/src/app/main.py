@@ -15,6 +15,7 @@ from contextlib import asynccontextmanager
 
 from app.config import settings
 from app.contracts import error_response, ErrorCodes
+from app.core.exception_handlers import register_exception_handlers
 
 # 配置日志
 logging.basicConfig(
@@ -71,44 +72,9 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# ============= 全局异常拦截器（杀死"假装成功"） =============
-
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    """
-    全局异常处理器
-
-    规则：
-    1. 打印完整堆栈到终端（方便调试）
-    2. 返回HTTP 500，且错误信息必须具体
-    3. 严禁返回"系统繁忙"等模糊信息
-    """
-    # 打印完整堆栈
-    logger.error(f"全局异常捕获: {str(exc)}")
-    logger.error(traceback.format_exc())
-
-    # 返回具体错误信息
-    return JSONResponse(
-        status_code=500,
-        content=error_response(
-            code=ErrorCodes.INTERNAL_ERROR,
-            message=f"服务器内部错误: {str(exc)}"
-        )
-    )
-
-
-@app.exception_handler(HTTPException)
-async def http_exception_handler(request: Request, exc: HTTPException):
-    """HTTP异常处理器"""
-    logger.warning(f"HTTP异常: {exc.status_code} - {exc.detail}")
-
-    return JSONResponse(
-        status_code=exc.status_code,
-        content=error_response(
-            code=exc.status_code,
-            message=str(exc.detail)
-        )
-    )
+# ============= 统一异常处理器（使用标准化框架） =============
+register_exception_handlers(app)
+# ============= 结束异常处理器注册 =============
 
 
 # 请求日志中间件

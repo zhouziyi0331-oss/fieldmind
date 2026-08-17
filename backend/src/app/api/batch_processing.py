@@ -3,7 +3,7 @@
 
 优化大批量文档的处理性能，支持legacy和v2架构
 """
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
@@ -11,6 +11,7 @@ import logging
 from datetime import datetime
 
 from app.core.database import get_db
+from app.core.exceptions import ResourceNotFoundException, DatabaseException
 from app.models.project import ProjectDocument
 from app.services.background_tasks import process_document_async
 from app.services.pipeline_status import mark_pipeline_completed, clear_pipeline_status
@@ -58,7 +59,7 @@ def batch_process_documents(
         ).all()
 
         if not documents:
-            raise HTTPException(status_code=404, detail="No documents found")
+            raise ResourceNotFoundException("Document", request.document_ids)
 
         queued = 0
         skipped = 0
@@ -189,7 +190,11 @@ def batch_process_documents(
         raise
     except Exception as e:
         logger.error(f"批量处理失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"批量处理文档失败: {str(e)}",
+            operation="batch_process_documents",
+            cause=e
+        )
 
 
 @router.get("/status")
@@ -238,7 +243,11 @@ def get_batch_status(
 
     except Exception as e:
         logger.error(f"获取批量状态失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取批量处理状态失败: {str(e)}",
+            operation="get_batch_status",
+            cause=e
+        )
 
 
 @router.post("/reprocess-failed")
@@ -281,7 +290,11 @@ def reprocess_failed_documents(
 
     except Exception as e:
         logger.error(f"重新处理失败文档失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"重新处理失败文档失败: {str(e)}",
+            operation="reprocess_failed_documents",
+            cause=e
+        )
 
 
 @router.post("/process-project")
@@ -439,4 +452,8 @@ def process_entire_project(
 
     except Exception as e:
         logger.error(f"处理整个项目失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"处理整个项目失败: {str(e)}",
+            operation="process_entire_project",
+            cause=e
+        )

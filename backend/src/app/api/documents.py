@@ -1,5 +1,5 @@
 """文档管理API - 支持项目隔离的文档上传和处理"""
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
+from fastapi import APIRouter, Depends, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from typing import List, Optional, Dict, Any
 import logging
@@ -7,6 +7,13 @@ import os
 from datetime import datetime
 
 from app.core.database import get_db
+from app.core.exceptions import (
+    ResourceNotFoundException,
+    DatabaseException,
+    FileException,
+    ValidationException,
+    ErrorCode
+)
 from app.models.project import Project, ProjectDocument
 from app.schemas.document import DocumentUploadResponse, DocumentResponse
 from app.services.background_tasks import submit_task
@@ -38,7 +45,7 @@ async def upload_document(
         # 验证项目
         project = db.query(Project).filter(Project.id == project_id).first()
         if not project:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise ResourceNotFoundException("Project", project_id)
 
         # 保存文件
         project_upload_dir = os.path.join(UPLOAD_DIR, f"project_{project_id}")
@@ -119,12 +126,14 @@ async def upload_document(
             message="Document uploaded successfully"
         )
 
-    except HTTPException:
-        raise
     except Exception as e:
         db.rollback()
         logger.error(f"Failed to upload document: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"文档上传失败: {str(e)}",
+            operation="upload_document",
+            cause=e
+        )
 
 
 @router.get("/projects/{project_id}/documents")
@@ -152,7 +161,11 @@ def list_project_documents(
 
     except Exception as e:
         logger.error(f"Failed to list documents for project {project_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取项目文档列表失败: {str(e)}",
+            operation="list_project_documents",
+            cause=e
+        )
 
 
 @router.get("/status")
@@ -194,7 +207,11 @@ def get_documents_status(
 
     except Exception as e:
         logger.error(f"Failed to get documents status: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取文档状态失败: {str(e)}",
+            operation="get_documents_status",
+            cause=e
+        )
 
 
 @router.get("/{document_id}", response_model=DocumentResponse)
@@ -209,16 +226,18 @@ def get_document(
 
         if not doc:
             logger.warning(f"❌ 文档 {document_id} 不存在")
-            raise HTTPException(status_code=404, detail="Document not found")
+            raise ResourceNotFoundException("Document", document_id)
 
         logger.info(f"✅ 找到文档 {document_id}: {doc.filename}")
         return DocumentResponse.model_validate(doc)
 
-    except HTTPException:
-        raise
     except Exception as e:
         logger.error(f"Failed to get document {document_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取文档详情失败: {str(e)}",
+            operation="get_document",
+            cause=e
+        )
 
 
 @router.delete("/{document_id}")
@@ -231,7 +250,7 @@ def delete_document(
         doc = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
 
         if not doc:
-            raise HTTPException(status_code=404, detail="Document not found")
+            raise ResourceNotFoundException("Document", document_id)
 
         # 删除文件
         if os.path.exists(doc.file_path):
@@ -245,12 +264,14 @@ def delete_document(
 
         return {"message": "Document deleted successfully"}
 
-    except HTTPException:
-        raise
     except Exception as e:
         db.rollback()
         logger.error(f"Failed to delete document {document_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"删除文档失败: {str(e)}",
+            operation="delete_document",
+            cause=e
+        )
 
 
 @router.get("/knowledge-base/status")
@@ -311,7 +332,11 @@ def get_knowledge_base_status(db: Session = Depends(get_db)) -> Dict[str, Any]:
 
     except Exception as e:
         logger.error(f"Failed to get knowledge base status: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取知识库状态失败: {str(e)}",
+            operation="get_knowledge_base_status",
+            cause=e
+        )
 
 
 
@@ -383,10 +408,14 @@ def get_aggregated_keywords(
         result.sort(key=lambda x: x['count'], reverse=True)
         
         return result[:top_n]
-    
+
     except Exception as e:
         logger.error(f"Failed to aggregate keywords: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"聚合关键词失败: {str(e)}",
+            operation="get_aggregated_keywords",
+            cause=e
+        )
 
 
 @router.get("/skill/analysis/{document_id}")
@@ -401,25 +430,27 @@ def get_skill_analysis(
     """
     try:
         doc = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
-        
+
         if not doc:
-            raise HTTPException(status_code=404, detail="Document not found")
-        
+            raise ResourceNotFoundException("Document", document_id)
+
         if not doc.extra_data:
             return {"skill_results": {}}
-        
+
         return {
             "document_id": document_id,
             "filename": doc.filename,
             "skill_results": doc.extra_data.get('skill_results', {}),
             "skills_completed": doc.extra_data.get('skills_completed', False)
         }
-    
-    except HTTPException:
-        raise
+
     except Exception as e:
         logger.error(f"Failed to get skill analysis: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取技能分析失败: {str(e)}",
+            operation="get_skill_analysis",
+            cause=e
+        )
 
 
 @router.get("/aggregate/skills")
@@ -472,7 +503,11 @@ def get_aggregated_skills(
 
     except Exception as e:
         logger.error(f"Failed to aggregate skills: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"聚合技能分析失败: {str(e)}",
+            operation="get_aggregated_skills",
+            cause=e
+        )
 
 
 @router.get("/{document_id}/fact-statements")
@@ -489,7 +524,7 @@ def get_document_fact_statements(
         # 验证文档存在
         doc = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
         if not doc:
-            raise HTTPException(status_code=404, detail="Document not found")
+            raise ResourceNotFoundException("Document", document_id)
 
         # 从SQLite数据库查询fact_statements
         import sqlite3
@@ -538,11 +573,13 @@ def get_document_fact_statements(
             "fact_statements": results
         }
 
-    except HTTPException:
-        raise
     except Exception as e:
         logger.error(f"Failed to get fact statements for document {document_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取文档事实陈述失败: {str(e)}",
+            operation="get_document_fact_statements",
+            cause=e
+        )
 
 
 @router.get("/{document_id}/audio")
@@ -561,15 +598,22 @@ async def get_document_audio(
         # 查询文档
         doc = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
         if not doc:
-            raise HTTPException(status_code=404, detail="Document not found")
+            raise ResourceNotFoundException("Document", document_id)
 
         # 检查文件类型
         if doc.file_type not in ['mp3', 'wav', 'm4a', 'flac', 'ogg', 'audio']:
-            raise HTTPException(status_code=400, detail="This document is not an audio file")
+            raise ValidationException(
+                message="此文档不是音频文件",
+                field="file_type"
+            )
 
         # 检查文件是否存在
         if not doc.file_path or not os.path.exists(doc.file_path):
-            raise HTTPException(status_code=404, detail="Audio file not found")
+            raise FileException(
+                error_code=ErrorCode.FILE_NOT_FOUND,
+                message="音频文件不存在",
+                filename=doc.filename
+            )
 
         # 返回音频文件
         return FileResponse(
@@ -578,9 +622,11 @@ async def get_document_audio(
             filename=doc.filename
         )
 
-    except HTTPException:
-        raise
     except Exception as e:
         logger.error(f"Failed to get audio for document {document_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise FileException(
+            message=f"获取音频文件失败: {str(e)}",
+            filename=doc.filename if 'doc' in locals() else None,
+            cause=e
+        )
 

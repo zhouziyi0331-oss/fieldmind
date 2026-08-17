@@ -1,11 +1,18 @@
 """智能对话API - 基于项目资料的深度学习对话"""
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from typing import Optional, Dict, Any, List
 from datetime import datetime
 import logging
 
 from app.core.database import get_db
+from app.core.exceptions import (
+    ResourceNotFoundException,
+    DatabaseException,
+    AIServiceException,
+    ValidationException,
+    ErrorCode
+)
 from app.models.project import Project, ProjectChatSession, ProjectChatMessage, ProjectDocument
 from app.schemas.chat import (
     ChatSessionCreate, ChatMessageCreate, ChatMessageResponse,
@@ -32,7 +39,7 @@ def create_chat_session(
         # 验证项目存在
         project = db.query(Project).filter(Project.id == session_data.project_id).first()
         if not project:
-            raise HTTPException(status_code=404, detail="Project not found")
+            raise ResourceNotFoundException("Project", session_data.project_id)
 
         # 创建会话
         session = ProjectChatSession(
@@ -50,12 +57,14 @@ def create_chat_session(
 
         return ChatSessionResponse.model_validate(session)
 
-    except HTTPException:
-        raise
     except Exception as e:
         db.rollback()
         logger.error(f"Failed to create chat session: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"创建对话会话失败: {str(e)}",
+            operation="create_chat_session",
+            cause=e
+        )
 
 
 @router.get("/sessions/{session_id}", response_model=ChatSessionResponse)
@@ -68,15 +77,17 @@ def get_chat_session(
         session = db.query(ProjectChatSession).filter(ProjectChatSession.id == session_id).first()
 
         if not session:
-            raise HTTPException(status_code=404, detail="Session not found")
+            raise ResourceNotFoundException("Session", session_id)
 
         return ChatSessionResponse.model_validate(session)
 
-    except HTTPException:
-        raise
     except Exception as e:
         logger.error(f"Failed to get session {session_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取对话会话失败: {str(e)}",
+            operation="get_chat_session",
+            cause=e
+        )
 
 
 @router.get("/projects/{project_id}/sessions")
@@ -100,7 +111,11 @@ def list_project_sessions(
 
     except Exception as e:
         logger.error(f"Failed to list sessions for project {project_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取项目对话列表失败: {str(e)}",
+            operation="list_project_sessions",
+            cause=e
+        )
 
 
 @router.post("/sessions/{session_id}/messages", response_model=ChatMessageResponse)
@@ -123,7 +138,7 @@ def send_message(
         # 获取会话
         session = db.query(ProjectChatSession).filter(ProjectChatSession.id == session_id).first()
         if not session:
-            raise HTTPException(status_code=404, detail="Session not found")
+            raise ResourceNotFoundException("Session", session_id)
 
         project_id = session.project_id
 
@@ -205,7 +220,10 @@ def send_message(
         )
 
         if "error" in ai_response:
-            raise HTTPException(status_code=500, detail=ai_response["error"])
+            raise AIServiceException(
+                message=f"AI生成响应失败: {ai_response['error']}",
+                details={"error": ai_response["error"]}
+            )
 
         # 9. 保存AI响应
         assistant_msg = ProjectChatMessage(
@@ -248,12 +266,13 @@ def send_message(
 
         return ChatMessageResponse.model_validate(assistant_msg)
 
-    except HTTPException:
-        raise
     except Exception as e:
         db.rollback()
         logger.error(f"Failed to send message: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(
+            message=f"发送消息失败: {str(e)}",
+            cause=e
+        )
 
 
 @router.get("/sessions/{session_id}/messages")
@@ -267,7 +286,7 @@ def get_session_messages(
     try:
         session = db.query(ProjectChatSession).filter(ProjectChatSession.id == session_id).first()
         if not session:
-            raise HTTPException(status_code=404, detail="Session not found")
+            raise ResourceNotFoundException("Session", session_id)
 
         query = db.query(ProjectChatMessage).filter(ProjectChatMessage.session_id == session_id)
 
@@ -279,11 +298,13 @@ def get_session_messages(
             "messages": [ChatMessageResponse.model_validate(msg) for msg in messages]
         }
 
-    except HTTPException:
-        raise
     except Exception as e:
         logger.error(f"Failed to get messages for session {session_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"获取会话消息失败: {str(e)}",
+            operation="get_session_messages",
+            cause=e
+        )
 
 
 @router.delete("/sessions/{session_id}")
@@ -295,7 +316,7 @@ def delete_session(
     try:
         session = db.query(ProjectChatSession).filter(ProjectChatSession.id == session_id).first()
         if not session:
-            raise HTTPException(status_code=404, detail="Session not found")
+            raise ResourceNotFoundException("Session", session_id)
 
         db.delete(session)
         db.commit()
@@ -304,12 +325,14 @@ def delete_session(
 
         return {"message": "Session deleted successfully"}
 
-    except HTTPException:
-        raise
     except Exception as e:
         db.rollback()
         logger.error(f"Failed to delete session {session_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message=f"删除会话失败: {str(e)}",
+            operation="delete_session",
+            cause=e
+        )
 
 
 @router.post("/sessions/{session_id}/evolve-skill")
@@ -326,7 +349,7 @@ def evolve_session_skill(
     try:
         session = db.query(ProjectChatSession).filter(ProjectChatSession.id == session_id).first()
         if not session:
-            raise HTTPException(status_code=404, detail="Session not found")
+            raise ResourceNotFoundException("Session", session_id)
 
         project = db.query(Project).filter(Project.id == session.project_id).first()
 
@@ -334,7 +357,10 @@ def evolve_session_skill(
         current_framework = project.settings.get("skill_framework") if project.settings else {}
 
         if not current_framework:
-            raise HTTPException(status_code=400, detail="No skill framework found. Run project analysis first.")
+            raise ValidationException(
+                message="未找到技能框架，请先运行项目分析",
+                field="skill_framework"
+            )
 
         # 获取最近的交互
         recent_messages = db.query(ProjectChatMessage).filter(
@@ -369,9 +395,10 @@ def evolve_session_skill(
             "framework": evolved_framework
         }
 
-    except HTTPException:
-        raise
     except Exception as e:
         db.rollback()
         logger.error(f"Failed to evolve skill: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise AIServiceException(
+            message=f"进化技能框架失败: {str(e)}",
+            cause=e
+        )
