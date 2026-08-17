@@ -2,7 +2,7 @@
 Citations API - 文献引用管理
 提供学术文献的CRUD、批量导入、引用统计等功能
 """
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_
 from typing import Optional, List
@@ -13,6 +13,11 @@ import logging
 from app.core.database import get_db
 from app.models.citation import Citation, DocumentCitation
 from app.contracts import success_response, error_response, ErrorCodes
+from app.core.exceptions import (
+    ResourceNotFoundException,
+    ValidationException,
+    DatabaseException
+)
 
 router = APIRouter(tags=["citations"])
 logger = logging.getLogger(__name__)
@@ -112,9 +117,9 @@ async def create_citation(
         if request.doi:
             existing = db.query(Citation).filter(Citation.doi == request.doi).first()
             if existing:
-                raise HTTPException(
-                    status_code=400,
-                    detail=f"DOI {request.doi} 已存在"
+                raise ValidationException(
+                    message=f"DOI {request.doi} 已存在",
+                    field="doi"
                 )
 
         citation = Citation(
@@ -142,12 +147,16 @@ async def create_citation(
         logger.info(f"✅ 创建引用: {citation.title}")
         return citation
 
-    except HTTPException:
+    except ValidationException:
         raise
     except Exception as e:
         db.rollback()
         logger.error(f"❌ 创建引用失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message="创建引用失败",
+            operation="create_citation",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/citations", response_model=CitationListResponse)
@@ -217,7 +226,11 @@ async def list_citations(
 
     except Exception as e:
         logger.error(f"❌ 获取引用列表失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message="获取引用列表失败",
+            operation="list_citations",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/citations/{citation_id}", response_model=CitationResponse)
@@ -228,7 +241,7 @@ async def get_citation(
     """获取单个引用详情"""
     citation = db.query(Citation).filter(Citation.id == citation_id).first()
     if not citation:
-        raise HTTPException(status_code=404, detail="引用不存在")
+        raise ResourceNotFoundException("Citation", citation_id)
     return citation
 
 
@@ -242,7 +255,7 @@ async def update_citation(
     try:
         citation = db.query(Citation).filter(Citation.id == citation_id).first()
         if not citation:
-            raise HTTPException(status_code=404, detail="引用不存在")
+            raise ResourceNotFoundException("Citation", citation_id)
 
         # 更新字段
         update_data = request.dict(exclude_unset=True)
@@ -256,12 +269,16 @@ async def update_citation(
         logger.info(f"✅ 更新引用: {citation.title}")
         return citation
 
-    except HTTPException:
+    except ResourceNotFoundException:
         raise
     except Exception as e:
         db.rollback()
         logger.error(f"❌ 更新引用失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message="更新引用失败",
+            operation="update_citation",
+            details={"error": str(e)}
+        )
 
 
 @router.delete("/citations/{citation_id}")
@@ -273,7 +290,7 @@ async def delete_citation(
     try:
         citation = db.query(Citation).filter(Citation.id == citation_id).first()
         if not citation:
-            raise HTTPException(status_code=404, detail="引用不存在")
+            raise ResourceNotFoundException("Citation", citation_id)
 
         db.delete(citation)
         db.commit()
@@ -281,12 +298,16 @@ async def delete_citation(
         logger.info(f"✅ 删除引用: {citation.title}")
         return success_response(message="引用已删除")
 
-    except HTTPException:
+    except ResourceNotFoundException:
         raise
     except Exception as e:
         db.rollback()
         logger.error(f"❌ 删除引用失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message="删除引用失败",
+            operation="delete_citation",
+            details={"error": str(e)}
+        )
 
 
 @router.get("/citations/stats/{project_id}", response_model=CitationStatsResponse)
@@ -345,7 +366,11 @@ async def get_citation_stats(
 
     except Exception as e:
         logger.error(f"❌ 获取引用统计失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message="获取引用统计失败",
+            operation="get_citation_stats",
+            details={"error": str(e)}
+        )
 
 
 @router.post("/citations/batch")
@@ -379,4 +404,8 @@ async def batch_create_citations(
     except Exception as e:
         db.rollback()
         logger.error(f"❌ 批量创建引用失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(
+            message="批量创建引用失败",
+            operation="batch_create_citations",
+            details={"error": str(e)}
+        )

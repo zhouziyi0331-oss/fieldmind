@@ -1,7 +1,7 @@
 """
 知识图谱 API - 链路十一：实体提取与知识图谱构建
 """
-from fastapi import APIRouter, Depends, HTTPException, Query, BackgroundTasks
+from fastapi import APIRouter, Depends, Query, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import Dict, Any, List, Optional
 from pydantic import BaseModel
@@ -11,8 +11,12 @@ from app.core.database import get_db
 from app.models.project import ProjectDocument, Project
 from app.models.entity import Entity
 from app.models.timeline import TimelineEvent
-from app.tools.knowledge.graph import create_knowledge_graph as create_knowledge_graph()
 from app.tools.knowledge.graph import create_knowledge_graph
+from app.core.exceptions import (
+    ResourceNotFoundException,
+    DatabaseException,
+    GraphException
+)
 
 router = APIRouter(tags=["knowledge-graph"])
 logger = logging.getLogger(__name__)
@@ -101,7 +105,7 @@ async def build_knowledge_graph(
 
     except Exception as e:
         logger.error(f"构建知识图谱失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"构建失败: {str(e)}")
+        raise GraphException(message="构建知识图谱失败", operation="build_knowledge_graph", details={"error": str(e)})
 
 
 @router.get("/entities", response_model=List[EntityResponse])
@@ -160,7 +164,7 @@ async def get_entity_detail(
     entity = db.query(Entity).filter(Entity.id == entity_id).first()
 
     if not entity:
-        raise HTTPException(status_code=404, detail="实体不存在")
+        raise ResourceNotFoundException("Entity", entity_id)
 
     return entity
 
@@ -196,7 +200,7 @@ async def get_graph_visualization(
         }
     except Exception as e:
         logger.error(f"获取可视化数据失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"获取失败: {str(e)}")
+        raise GraphException(message="获取可视化数据失败", operation="get_graph_visualization", details={"error": str(e)})
 
 
 @router.get("/stats")
@@ -263,7 +267,7 @@ async def delete_entity(
     entity = db.query(Entity).filter(Entity.id == entity_id).first()
 
     if not entity:
-        raise HTTPException(status_code=404, detail="实体不存在")
+        raise ResourceNotFoundException("Entity", entity_id)
 
     db.delete(entity)
     db.commit()
@@ -282,7 +286,7 @@ async def get_project_knowledge_graph(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     # 获取项目的所有文档
     documents = db.query(ProjectDocument).filter(
@@ -317,7 +321,7 @@ async def get_project_knowledge_graph(
         return graph
     except Exception as e:
         logger.error(f"构建知识图谱失败: {e}")
-        raise HTTPException(status_code=500, detail=f"构建知识图谱失败: {str(e)}")
+        raise GraphException(message="构建知识图谱失败", operation="build_graph_from_documents", details={"error": str(e)})
 
 
 @router.get("/projects/{project_id}/keywords")
@@ -330,7 +334,7 @@ async def get_project_keywords(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     # 获取项目的所有文档
     documents = db.query(ProjectDocument).filter(
@@ -356,7 +360,7 @@ async def get_project_keywords(
         return keywords
     except Exception as e:
         logger.error(f"提取关键词失败: {e}")
-        raise HTTPException(status_code=500, detail=f"提取关键词失败: {str(e)}")
+        raise GraphException(message="提取关键词失败", operation="extract_keywords", details={"error": str(e)})
 
 
 @router.get("/documents/{document_id}/entities")
@@ -368,7 +372,7 @@ async def get_document_entities(
     # 获取文档
     document = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
     if not document:
-        raise HTTPException(status_code=404, detail="文档不存在")
+        raise ResourceNotFoundException("Document", document_id)
 
     if not document.text_content:
         return {"entities": {}, "message": "文档暂无文本内容"}
@@ -385,4 +389,4 @@ async def get_document_entities(
         }
     except Exception as e:
         logger.error(f"提取实体失败: {e}")
-        raise HTTPException(status_code=500, detail=f"提取实体失败: {str(e)}")
+        raise GraphException(message="提取实体失败", operation="extract_entities", details={"error": str(e)})

@@ -7,7 +7,7 @@
   1. legacy系统：使用workflow_engine + WorkflowTemplates
   2. v2系统：使用WorkflowV2Adapter + 6-Agent架构
 """
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import Optional, List, Dict, Any
 from pydantic import BaseModel
@@ -22,6 +22,11 @@ from app.services.workflow_templates import (
     run_full_analysis_workflow
 )
 from app.services.workflows.v2_adapter import get_v2_adapter
+from app.core.exceptions import (
+    ResourceNotFoundException,
+    ValidationException,
+    DatabaseException
+)
 
 router = APIRouter(tags=["workflows"])
 logger = logging.getLogger(__name__)
@@ -179,7 +184,7 @@ async def execute_workflow(
         if request.workflow_type == "document_processing":
             # 文档处理工作流
             if not request.document_ids or len(request.document_ids) == 0:
-                raise HTTPException(status_code=400, detail="document_ids不能为空")
+                raise ValidationException(message="document_ids不能为空", field="document_ids")
 
             document_id = request.document_ids[0]
             workflow = WorkflowTemplates.create_document_processing_workflow(
@@ -204,7 +209,7 @@ async def execute_workflow(
             )
 
         else:
-            raise HTTPException(status_code=400, detail=f"不支持的工作流类型: {request.workflow_type}")
+            raise ValidationException(message=f"不支持的工作流类型: {request.workflow_type}", field="workflow_type")
 
         # 执行工作流
         execution = workflow_engine.execute_workflow(workflow)
@@ -218,7 +223,7 @@ async def execute_workflow(
 
     except Exception as e:
         logger.error(f"执行工作流失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"执行失败: {str(e)}")
+        raise DatabaseException(message="工作流执行失败", operation="execute_workflow", details={"error": str(e)})
 
 
 @router.get("/{workflow_id}", response_model=WorkflowStatusResponse)
@@ -234,7 +239,7 @@ async def get_workflow_status(
     execution = workflow_engine.get_execution(workflow_id)
 
     if not execution:
-        raise HTTPException(status_code=404, detail="工作流不存在")
+        raise ResourceNotFoundException("Workflow", workflow_id)
 
     return WorkflowStatusResponse(
         workflow_id=execution.workflow_id,
@@ -275,7 +280,7 @@ async def list_workflows(
             status_enum = WorkflowStatus(status)
             executions = [e for e in executions if e.status == status_enum]
         except ValueError:
-            raise HTTPException(status_code=400, detail=f"无效的状态值: {status}")
+            raise ValidationException(message=f"无效的状态值: {status}", field="status")
 
     # 排序：最新的在前
     executions.sort(key=lambda x: x.created_at, reverse=True)
@@ -315,7 +320,7 @@ async def cancel_workflow(
     success = workflow_engine.cancel_workflow(workflow_id)
 
     if not success:
-        raise HTTPException(status_code=400, detail="无法取消工作流（不存在或已完成）")
+        raise ValidationException(message="无法取消工作流（不存在或已完成）", field="workflow_id")
 
     return {"message": f"工作流 {workflow_id} 已取消"}
 
@@ -440,7 +445,7 @@ async def quick_process_document(
         }
     except Exception as e:
         logger.error(f"快捷文档处理失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message="操作失败", operation="workflow_operation", details={"error": str(e)})
 
 
 @router.post("/quick/knowledge-graph")
@@ -463,7 +468,7 @@ async def quick_build_knowledge_graph(
         }
     except Exception as e:
         logger.error(f"快捷知识图谱构建失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message="操作失败", operation="workflow_operation", details={"error": str(e)})
 
 
 @router.post("/quick/full-analysis")
@@ -486,4 +491,4 @@ async def quick_full_analysis(
         }
     except Exception as e:
         logger.error(f"快捷完整分析失败: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message="操作失败", operation="workflow_operation", details={"error": str(e)})

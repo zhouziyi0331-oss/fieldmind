@@ -2,7 +2,7 @@
 记忆管理API - 链路十三：Agent记忆绑定
 提供记忆的创建、查询、升级、注入等功能
 """
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import Optional, List, Dict, Any
 from pydantic import BaseModel
@@ -11,6 +11,11 @@ import logging
 from app.core.database import get_db
 from app.models.project import ProjectMemory
 from app.services.memory_injector import get_memory_injector
+from app.core.exceptions import (
+    ResourceNotFoundException,
+    DatabaseException,
+    AIServiceException
+)
 
 router = APIRouter(tags=["memory"])
 logger = logging.getLogger(__name__)
@@ -115,7 +120,7 @@ async def create_memory(
 
     except Exception as e:
         logger.error(f"创建记忆失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"创建失败: {str(e)}")
+        raise DatabaseException(message="创建记忆失败", operation="create_memory", details={"error": str(e)})
 
 
 @router.get("/project/{project_id}", response_model=List[MemoryResponse])
@@ -168,7 +173,7 @@ async def get_memory_detail(
     memory = db.query(ProjectMemory).filter(ProjectMemory.id == memory_id).first()
 
     if not memory:
-        raise HTTPException(status_code=404, detail="记忆不存在")
+        raise ResourceNotFoundException("Memory", memory_id)
 
     # 更新访问记录
     memory.access_count += 1
@@ -241,7 +246,7 @@ async def build_system_prompt(
 
     except Exception as e:
         logger.error(f"构建系统提示词失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"构建失败: {str(e)}")
+        raise AIServiceException(message="构建系统提示词失败", service="memory_injector", details={"error": str(e)})
 
 
 @router.post("/promote")
@@ -266,7 +271,7 @@ async def promote_memory(
         ).first()
 
         if not memory:
-            raise HTTPException(status_code=404, detail="记忆不存在")
+            raise ResourceNotFoundException("Memory", memory_id)
 
         injector.project_id = memory.project_id
         updated_memory = injector.promote_memory(request.memory_id, request.target_type)
@@ -281,7 +286,7 @@ async def promote_memory(
 
     except Exception as e:
         logger.error(f"升级记忆失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"升级失败: {str(e)}")
+        raise DatabaseException(message="升级记忆失败", operation="promote_memory", details={"error": str(e)})
 
 
 @router.post("/auto-promote/{project_id}")
@@ -309,7 +314,7 @@ async def auto_promote_memories(
 
     except Exception as e:
         logger.error(f"自动升级失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"自动升级失败: {str(e)}")
+        raise DatabaseException(message="自动升级记忆失败", operation="auto_promote_memories", details={"error": str(e)})
 
 
 @router.delete("/{memory_id}")
@@ -321,7 +326,7 @@ async def delete_memory(
     memory = db.query(ProjectMemory).filter(ProjectMemory.id == memory_id).first()
 
     if not memory:
-        raise HTTPException(status_code=404, detail="记忆不存在")
+        raise ResourceNotFoundException("Memory", memory_id)
 
     db.delete(memory)
     db.commit()
@@ -351,7 +356,7 @@ async def cleanup_old_memories(
 
     except Exception as e:
         logger.error(f"清理记忆失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"清理失败: {str(e)}")
+        raise DatabaseException(message="清理记忆失败", operation="cleanup_old_memories", details={"error": str(e)})
 
 
 @router.get("/stats/{project_id}")
@@ -441,7 +446,7 @@ async def quick_create_from_chat(
 
     except Exception as e:
         logger.error(f"从对话创建记忆失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message="操作失败", operation="memory_operation", details={"error": str(e)})
 
 
 @router.post("/quick/from-document")
@@ -475,4 +480,4 @@ async def quick_create_from_document(
 
     except Exception as e:
         logger.error(f"从文档创建记忆失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=str(e))
+        raise DatabaseException(message="操作失败", operation="memory_operation", details={"error": str(e)})
