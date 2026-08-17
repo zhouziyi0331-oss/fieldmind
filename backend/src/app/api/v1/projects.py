@@ -1,11 +1,12 @@
 """项目相关的API端点"""
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func, desc
 from typing import List, Optional
 from datetime import datetime
 
 from app.core.database import get_db
+from app.core.exceptions import ResourceNotFoundException
 from app.models.project import (
     Project, ProjectDocument, ProjectContext,
     ProjectChatSession, ProjectMemory
@@ -67,7 +68,7 @@ async def get_project(
     """获取项目详情"""
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
     return project
 
 
@@ -80,7 +81,7 @@ async def update_project(
     """更新项目"""
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     if project_update.name is not None:
         project.name = project_update.name
@@ -104,7 +105,7 @@ async def delete_project(
     """删除项目（软删除）"""
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     project.is_archived = True
     project.updated_at = datetime.utcnow()
@@ -120,7 +121,7 @@ async def archive_project(
     """归档项目"""
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     project.is_archived = True
     project.status = "archived"
@@ -138,7 +139,7 @@ async def restore_project(
     """恢复归档项目"""
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     project.is_archived = False
     project.status = "active"
@@ -162,7 +163,7 @@ async def list_project_documents(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     query = db.query(ProjectDocument).filter(ProjectDocument.project_id == project_id)
 
@@ -186,7 +187,7 @@ async def get_project_document(
     ).first()
 
     if not document:
-        raise HTTPException(status_code=404, detail="文档不存在")
+        raise ResourceNotFoundException("Document", document_id)
 
     return document
 
@@ -203,7 +204,7 @@ async def create_project_context(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     # 如果有父节点，验证父节点存在且属于同一项目
     if context.parent_id:
@@ -212,7 +213,7 @@ async def create_project_context(
             ProjectContext.project_id == project_id
         ).first()
         if not parent:
-            raise HTTPException(status_code=404, detail="父节点不存在")
+            raise ResourceNotFoundException("ParentContext", parent_id)
 
     db_context = ProjectContext(
         project_id=project_id,
@@ -249,7 +250,7 @@ async def list_project_contexts(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     query = db.query(ProjectContext).filter(ProjectContext.project_id == project_id)
 
@@ -276,7 +277,7 @@ async def get_project_context(
     ).options(joinedload(ProjectContext.children)).first()
 
     if not context:
-        raise HTTPException(status_code=404, detail="知识脉络不存在")
+        raise ResourceNotFoundException("ProjectContext", context_id)
 
     return context
 
@@ -293,7 +294,7 @@ async def create_chat_session(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     db_session = ProjectChatSession(
         project_id=project_id,
@@ -332,7 +333,7 @@ async def list_chat_sessions(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     sessions = db.query(ProjectChatSession).filter(
         ProjectChatSession.project_id == project_id
@@ -360,7 +361,7 @@ async def get_chat_session(
     session = query.first()
 
     if not session:
-        raise HTTPException(status_code=404, detail="对话会话不存在")
+        raise ResourceNotFoundException("ChatSession", session_id)
 
     return session
 
@@ -375,7 +376,7 @@ async def get_project_dashboard(
     """获取项目数据看板"""
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     # 获取最近的文档
     recent_documents = db.query(ProjectDocument).filter(
@@ -434,7 +435,7 @@ async def list_project_memories(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     query = db.query(ProjectMemory).filter(ProjectMemory.project_id == project_id)
 

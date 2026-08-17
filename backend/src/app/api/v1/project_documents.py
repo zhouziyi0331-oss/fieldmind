@@ -1,5 +1,5 @@
 """项目文档上传和管理API"""
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, status
+from fastapi import APIRouter, Depends, UploadFile, File, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime
@@ -9,6 +9,13 @@ import hashlib
 import logging
 
 from app.core.database import get_db
+from app.core.exceptions import (
+    ResourceNotFoundException,
+    ValidationException,
+    FileException,
+    DatabaseException,
+    ErrorCode
+)
 from app.models.project import Project, ProjectDocument
 from app.schemas.project import ProjectDocumentResponse
 from app.services.memory_service import MemoryService
@@ -36,7 +43,7 @@ async def upload_document(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException("Project", project_id)
 
     # 验证文件类型
     file_ext = os.path.splitext(file.filename)[1].lower()
@@ -67,7 +74,7 @@ async def upload_document(
         ).first()
 
         if existing:
-            raise HTTPException(status_code=400, detail="文档已存在")
+            raise ValidationException(message="文档已存在", field="file_hash")
 
         # 保存文件
         project_dir = os.path.join(UPLOAD_DIR, f"project_{project_id}")
@@ -112,7 +119,7 @@ async def upload_document(
 
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=f"文档上传失败: {str(e)}")
+        raise FileException(message=f"文档上传失败: {str(e)}", cause=e)
 
 
 @router.post("/{project_id}/documents/{document_id}/process")
@@ -129,7 +136,7 @@ async def process_document(
     ).first()
 
     if not document:
-        raise HTTPException(status_code=404, detail="文档不存在")
+        raise ResourceNotFoundException("Document", document_id)
 
     if document.status == "completed":
         return {"status": "already_completed", "document_id": document_id}
@@ -172,7 +179,7 @@ async def process_document(
         document.status = "failed"
         document.updated_at = datetime.utcnow()
         db.commit()
-        raise HTTPException(status_code=500, detail=f"文档处理失败: {str(e)}")
+        raise DatabaseException(message=f"文档处理失败: {str(e)}", operation="process_document", cause=e)
 
 
 @router.delete("/{project_id}/documents/{document_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -189,7 +196,7 @@ async def delete_document(
     ).first()
 
     if not document:
-        raise HTTPException(status_code=404, detail="文档不存在")
+        raise ResourceNotFoundException("Document", document_id)
 
     try:
         # 删除文件
@@ -210,7 +217,7 @@ async def delete_document(
 
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=f"文档删除失败: {str(e)}")
+        raise DatabaseException(message=f"文档删除失败: {str(e)}", operation="delete_document", cause=e)
 
 
 @router.get("/{project_id}/documents/{document_id}/content")
@@ -227,7 +234,7 @@ async def get_document_content(
     ).first()
 
     if not document:
-        raise HTTPException(status_code=404, detail="文档不存在")
+        raise ResourceNotFoundException("Document", document_id)
 
     try:
         if document.text_content:
@@ -240,7 +247,7 @@ async def get_document_content(
         else:
             # 读取文件
             if not os.path.exists(document.file_path):
-                raise HTTPException(status_code=404, detail="文件不存在")
+                raise FileException(error_code=ErrorCode.FILE_NOT_FOUND, message="文件不存在")
 
             with open(document.file_path, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -253,4 +260,4 @@ async def get_document_content(
             }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"读取文档失败: {str(e)}")
+        raise FileException(message=f"读取文档失败: {str(e)}", cause=e)
