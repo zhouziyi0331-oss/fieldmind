@@ -1,0 +1,33 @@
+/* 修复页面顶部空白问题 */
+.page-content {
+  padding-top: 0 !important;
+}
+
+.page-section {
+  padding-top: 0 !important;
+}
+
+.hero {
+  margin-top: 0 !important;
+}
+
+/* 确保内容从顶部开始 */
+#page-overview,
+#page-import,
+#page-keyword,
+#page-busi,
+#page-dashboard,
+#page-model,
+#page-skill,
+#page-timeline,
+#page-report,
+#page-vein,
+#page-chronicle,
+#page-report3,
+#page-chat,
+#page-workflow,
+#page-sop,
+#page-newproject {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}

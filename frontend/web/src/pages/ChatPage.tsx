@@ -3,6 +3,8 @@ import { useParams, Link, useLocation } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../services/api';
 import { useAppContext } from '../contexts/AppContext';
+import { AgentOrchestrationPanel, AgentExecutionMonitor, AgentResultsViewer } from '../components';
+import { Sparkles, ChevronRight } from 'lucide-react';
 
 interface Message {
   id: number;
@@ -18,12 +20,17 @@ const ChatPage: React.FC = () => {
   const location = useLocation();
   const [selectedSession, setSelectedSession] = useState<number | null>(null);
   const [message, setMessage] = useState('');
-  const [showThinking, setShowThinking] = useState(false);
   const [showNewSessionModal, setShowNewSessionModal] = useState(false);
   const [newSessionName, setNewSessionName] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
   const { selectedEntity, clearSelectedEntity, playAudio } = useAppContext();
+
+  // Agent 面板状态
+  const [showAgentPanel, setShowAgentPanel] = useState(false);
+  const [agentExecutionId, setAgentExecutionId] = useState<string | null>(null);
+  const [agentResult, setAgentResult] = useState<any>(null);
+  const [agentResultType, setAgentResultType] = useState<'knowledge' | 'search' | 'summary' | 'transcript' | null>(null);
 
   // 处理从其他页面传来的预填问题
   useEffect(() => {
@@ -40,20 +47,20 @@ const ChatPage: React.FC = () => {
   const { data: sessionsData } = useQuery({
     queryKey: ['chat-sessions', projectId],
     queryFn: () => api.chat.listSessions(Number(projectId)),
-  });
+  }) as { data: { sessions: any[]; total: number } | undefined };
 
   // 获取消息列表
   const { data: messagesData } = useQuery({
     queryKey: ['chat-messages', selectedSession],
     queryFn: () => api.chat.getMessages(selectedSession!),
     enabled: !!selectedSession,
-  });
+  }) as { data: { messages: Message[]; total: number } | undefined };
 
   // 创建会话
   const createSessionMutation = useMutation({
     mutationFn: (name: string) =>
-      api.chat.createSession(Number(projectId), name),
-    onSuccess: (data) => {
+      api.chat.createSession({ project_id: Number(projectId), name }),
+    onSuccess: (data: any) => {
       queryClient.invalidateQueries({ queryKey: ['chat-sessions', projectId] });
       setSelectedSession(data.id);
       setShowNewSessionModal(false);
@@ -78,7 +85,7 @@ const ChatPage: React.FC = () => {
 
   // 自动选择第一个会话
   useEffect(() => {
-    if (sessionsData?.sessions?.length > 0 && !selectedSession) {
+    if (sessionsData && sessionsData.sessions && sessionsData.sessions.length > 0 && !selectedSession) {
       setSelectedSession(sessionsData.sessions[0].id);
     }
   }, [sessionsData, selectedSession]);
@@ -132,6 +139,32 @@ const ChatPage: React.FC = () => {
     }
   };
 
+  // Agent 执行完成处理
+  const handleAgentComplete = (result: any) => {
+    setAgentExecutionId(null);
+    // 根据任务类型设置结果
+    if (result?.result?.task_results && result.result.task_results.length > 0) {
+      const firstTask = result.result.task_results[0];
+      setAgentResult(firstTask.result);
+      setAgentResultType(firstTask.agent_type as any);
+    }
+  };
+
+  // Agent 执行开始处理
+  const handleAgentExecutionStart = (executionId: string) => {
+    setAgentExecutionId(executionId);
+    setAgentResult(null);
+    setAgentResultType(null);
+  };
+
+  // 关闭 Agent 面板
+  const closeAgentPanel = () => {
+    setShowAgentPanel(false);
+    setAgentExecutionId(null);
+    setAgentResult(null);
+    setAgentResultType(null);
+  };
+
   const messages = messagesData?.messages || [];
   const sessions = sessionsData?.sessions || [];
 
@@ -151,12 +184,25 @@ const ChatPage: React.FC = () => {
               <div className="h-6 w-px bg-gray-300" />
               <h1 className="text-2xl font-bold">💬 AI对话</h1>
             </div>
-            <button
-              onClick={() => setShowNewSessionModal(true)}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
-            >
-              + 新会话
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowAgentPanel(!showAgentPanel)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-colors ${
+                  showAgentPanel
+                    ? 'bg-purple-600 text-white hover:bg-purple-700'
+                    : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                }`}
+              >
+                <Sparkles className="w-4 h-4" />
+                {showAgentPanel ? '隐藏智能助手' : '智能助手'}
+              </button>
+              <button
+                onClick={() => setShowNewSessionModal(true)}
+                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
+              >
+                + 新会话
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -314,6 +360,75 @@ const ChatPage: React.FC = () => {
             </>
           )}
         </div>
+
+        {/* Agent 智能助手面板 */}
+        {showAgentPanel && (
+          <div className="w-[600px] bg-white border-l border-gray-200 overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between z-10">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-purple-600" />
+                <h2 className="text-lg font-bold text-gray-900">智能助手</h2>
+              </div>
+              <button
+                onClick={closeAgentPanel}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-4 space-y-4">
+              {/* Agent 执行监控器 */}
+              {agentExecutionId && (
+                <div className="mb-4">
+                  <AgentExecutionMonitor
+                    executionId={agentExecutionId}
+                    projectId={projectId ? Number(projectId) : undefined}
+                    autoRefresh={true}
+                    refreshInterval={2000}
+                    onComplete={handleAgentComplete}
+                    onError={(error) => {
+                      console.error('Agent execution error:', error);
+                      setAgentExecutionId(null);
+                    }}
+                  />
+                </div>
+              )}
+
+              {/* Agent 结果查看器 */}
+              {agentResult && agentResultType && (
+                <div className="mb-4">
+                  <AgentResultsViewer
+                    result={agentResult}
+                    resultType={agentResultType}
+                  />
+                </div>
+              )}
+
+              {/* Agent 编排面板 */}
+              {!agentExecutionId && (
+                <>
+                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-purple-900 mb-2">💡 使用建议</h3>
+                    <ul className="text-sm text-purple-700 space-y-1">
+                      <li>• 知识提取：分析对话中的关键信息</li>
+                      <li>• 语义搜索：在项目文档中查找相关内容</li>
+                      <li>• 内容摘要：总结长对话的核心观点</li>
+                      <li>• 转写分析：处理音频文件中的对话</li>
+                    </ul>
+                  </div>
+
+                  <AgentOrchestrationPanel
+                    projectId={projectId ? Number(projectId) : undefined}
+                    documentIds={[]}
+                    onExecutionStart={handleAgentExecutionStart}
+                    onComplete={handleAgentComplete}
+                  />
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 新建会话模态框 */}

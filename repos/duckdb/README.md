@@ -1,0 +1,1 @@
+DuckDB已通过pip安装

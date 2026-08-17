@@ -7,6 +7,11 @@ import { handleError } from '../utils/errorHandler'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
 
+// Production warning: ensure VITE_API_BASE_URL is set in .env.production
+if (import.meta.env.PROD && API_BASE_URL.includes('localhost')) {
+  console.error('⚠️ Production build detected with localhost API URL. Set VITE_API_BASE_URL in .env.production');
+}
+
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
   timeout: 30000,
@@ -203,6 +208,89 @@ export const api = {
       apiClient.get('/api/knowledge-graph-v2/stats'),
   },
 
+  // Workflows - 工作流编排（支持legacy和v2架构）
+  workflows: {
+    // Legacy workflow执行
+    execute: (data: {
+      workflow_type: string
+      project_id: number
+      document_ids?: number[]
+      params?: Record<string, any>
+      use_v2_architecture?: boolean
+    }) =>
+      apiClient.post('/api/workflows/execute', data),
+
+    // V2 workflow执行（完整6-Agent编排）
+    executeV2: (data: {
+      project_id: number
+      document_ids?: number[]
+      enable_chunking?: boolean
+      enable_vectorization?: boolean
+      enable_knowledge_graph?: boolean
+      enable_skills_analysis?: boolean
+      enable_synthesis?: boolean
+      enable_report?: boolean
+      report_type?: string
+      report_level?: string
+      async_mode?: boolean
+    }) =>
+      apiClient.post('/api/v2/workflows/execute', data),
+
+    // 执行单个v2 Agent（用于测试）
+    executeSingleAgent: (data: {
+      agent_type: string
+      project_id: number
+      input_data?: Record<string, any>
+      metadata?: Record<string, any>
+    }) =>
+      apiClient.post('/api/v2/workflows/execute_agent', data),
+
+    // 获取workflow状态
+    getStatus: (workflowId: string) =>
+      apiClient.get(`/api/workflows/${workflowId}`),
+
+    // 获取v2 workflow状态
+    getV2Status: (workflowId: string) =>
+      apiClient.get(`/api/v2/workflows/status/${workflowId}`),
+
+    // 列出所有workflow
+    list: (status?: string, limit?: number) =>
+      apiClient.get('/api/workflows', {
+        params: { status, limit }
+      }),
+
+    // 列出可用的v2 Agents
+    listV2Agents: () =>
+      apiClient.get('/api/v2/workflows/agents'),
+
+    // 取消workflow
+    cancel: (workflowId: string) =>
+      apiClient.post(`/api/workflows/${workflowId}/cancel`),
+  },
+
+  // Batch Processing - 批量处理（支持v2架构）
+  batch: {
+    // 批量处理文档
+    processDocuments: (data: {
+      document_ids: number[]
+      force_reprocess?: boolean
+      use_v2_architecture?: boolean  // 新增：支持v2架构
+    }) =>
+      apiClient.post('/api/batch/process', data),
+
+    // 处理整个项目
+    processProject: (data: {
+      project_id: number
+      force_reprocess?: boolean
+      use_v2_architecture?: boolean  // 新增：支持v2架构
+    }) =>
+      apiClient.post('/api/batch/process-project', data),
+
+    // 获取批处理状态
+    getStatus: (batchId: string) =>
+      apiClient.get(`/api/batch/status/${batchId}`),
+  },
+
   // Timeline
   timeline: {
     getEvents: (projectId: number) =>
@@ -210,6 +298,42 @@ export const api = {
     getGroupedEvents: (projectId: number, groupBy?: string) =>
       apiClient.get(`/api/timeline/projects/${projectId}/events/grouped`, {
         params: { group_by: groupBy || 'year' }
+      }),
+  },
+
+  // SuperAgents - AI-powered intelligent agents
+  agents: {
+    analyzeKnowledge: (request: import('../types/agents').KnowledgeAnalysisRequest) =>
+      apiClient.post('/api/v1/agents/knowledge/analyze', request),
+    search: (request: import('../types/agents').SearchQueryRequest) =>
+      apiClient.post('/api/v1/agents/search/query', request),
+    summarize: (request: import('../types/agents').SummaryRequest) =>
+      apiClient.post('/api/v1/agents/summary/generate', request),
+    transcribe: (request: import('../types/agents').TranscriptRequest) =>
+      apiClient.post('/api/v1/agents/transcript/process', request),
+    orchestrate: (request: import('../types/agents').OrchestrationRequest) =>
+      apiClient.post('/api/v1/agents/orchestrate', request),
+    getStatus: (executionId: string) =>
+      apiClient.get(`/api/v1/agents/status/${executionId}`),
+    checkHealth: () =>
+      apiClient.get('/api/v1/agents/health'),
+  },
+
+  // Analytics - 数据分析（基于SQL聚合的真实统计）
+  analytics: {
+    getTopicDistribution: (projectId: number) =>
+      apiClient.get(`/api/analytics/projects/${projectId}/topic-distribution`),
+    getTopEntities: (projectId: number, entityType: string, topK: number = 10) =>
+      apiClient.get(`/api/analytics/projects/${projectId}/top-entities`, {
+        params: { entity_type: entityType, top_k: topK }
+      }),
+    getWordCountStats: (projectId: number) =>
+      apiClient.get(`/api/analytics/projects/${projectId}/word-count-stats`),
+    getTimelineDistribution: (projectId: number) =>
+      apiClient.get(`/api/analytics/projects/${projectId}/timeline-distribution`),
+    generateReport: (projectId: number, reportType: string = 'overview') =>
+      apiClient.post(`/api/analytics/projects/${projectId}/generate-report`, null, {
+        params: { report_type: reportType }
       }),
   },
 }

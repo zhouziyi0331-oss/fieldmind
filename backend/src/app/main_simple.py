@@ -57,7 +57,7 @@ app.add_middleware(PerformanceMonitoringMiddleware, slow_threshold_ms=1000)
 # CORS中间件
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # 开发环境允许所有源
+    allow_origins=settings.CORS_ORIGINS,  # 使用配置的CORS源
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

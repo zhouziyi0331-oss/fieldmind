@@ -17,7 +17,7 @@ from app.core.database import get_db
 from app.models.entity import Entity
 from app.models.entity_evidence import EntityEvidence
 from app.models.project import ProjectDocument
-from app.services.evidence_extractor import get_evidence_extractor
+from app.tools.entity import create_engine
 
 router = APIRouter(tags=["knowledge-graph-v3"])
 logger = logging.getLogger(__name__)

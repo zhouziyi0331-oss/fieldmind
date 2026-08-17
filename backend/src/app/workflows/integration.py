@@ -584,9 +584,9 @@ class ToolIntegration:
         try:
             import requests
             response = requests.post(
-                os.getenv("OLLAMA_API_URL", "http://localhost:11434") + "/api/generate",
+                os.getenv("OLLAMA_BASE_URL", "http://localhost:11434") + "/api/generate",
                 json={
-                    "model": "qwen2.5",
+                    "model": os.getenv("OLLAMA_MODEL", "qwen2.5:7b"),
                     "prompt": prompt,
                     "stream": False
                 },

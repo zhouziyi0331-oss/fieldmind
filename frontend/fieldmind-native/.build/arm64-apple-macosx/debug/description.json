@@ -1,0 +1,2436 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.FieldMindNative-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/sources",
+      "importPath" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/App/FieldMindApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FlowLayout.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InfoRow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InteractionExamples.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Modal.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Toast.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Tooltip.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Transitions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Config/AnimationConfig.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Core/AppState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Colors.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Spacing.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Tokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Typography.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Models/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIEndpoint.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/AnyCodable.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/NetworkError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/BusiPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChatPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/CitationsPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ConversationsPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/DashboardPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/FileManagerPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ImportPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/KeywordPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/NewProjectPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/OverviewPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PhotosPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PlaceholderPages.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectsPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3Page.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3PageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SettingsPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TablesPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/UploadPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/VeinPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/BusinessAnalysisService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChatService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChronicleService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/CitationService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DashboardService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DocumentService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/FileManagerService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KeywordSearchService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KnowledgeGraphService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MemoryService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ModelConfigService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MonitoringService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/PhotoService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProjectService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProposalService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ReportService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPAnalysisService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SkillService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TableService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TimelineService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/VeinService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/WorkflowService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/BusinessAnalysisViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChatViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChronicleViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/CitationViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ConversationViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DashboardViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DocumentViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/FileManagerViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KeywordSearchViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KnowledgeGraphViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MemoryViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ModelConfigViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MonitoringViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/PhotoViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProjectViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProposalViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ReportViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPAnalysisViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SkillViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TableViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TimelineViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/VeinViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/WorkflowViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/MainView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/SidebarView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/TopBarView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "FieldMindNative",
+      "moduleOutputPath" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/Modules/FieldMindNative.swiftmodule",
+      "objects" : [
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FieldMindApp.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FMButton.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FMCard.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FlowLayout.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/InfoRow.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/InteractionExamples.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Modal.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Toast.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Tooltip.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Transitions.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AnimationConfig.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AppState.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Colors.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Spacing.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Tokens.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Typography.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Models.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/APIClient.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/APIEndpoint.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AnyCodable.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/NetworkError.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AdvancedSearchPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AdvancedSearchPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AgentMemoryPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AgentMemoryPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/BusiPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChatPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChroniclePage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChroniclePageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/CitationsPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ConversationsPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DashboardPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FileManagerPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/GraphExplorerPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/GraphExplorerPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ImportPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KeywordPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/NewProjectPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/OverviewPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PhotosPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PlaceholderPages.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectDetailPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectDetailPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectsPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/QualityMonitorPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/QualityMonitorPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Report3Page.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Report3PageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SettingsPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TablesPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelinePage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelinePageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/UploadPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/VeinPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowPage.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowPageComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/BusinessAnalysisService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChatService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChronicleService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/CitationService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DashboardService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DocumentService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FileManagerService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KeywordSearchService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KnowledgeGraphService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MemoryService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelConfigService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MonitoringService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PhotoService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProposalService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TableService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelineService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/VeinService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowService.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/BusinessAnalysisViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChatViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChronicleViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/CitationViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ConversationViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DashboardViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DocumentViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FileManagerViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KeywordSearchViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KnowledgeGraphViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MemoryViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelConfigViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MonitoringViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PhotoViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProposalViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TableViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelineViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/VeinViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MainView.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SidebarView.swift.o",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TopBarView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "FieldMindNative_main",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "fieldmind_native"
+      ],
+      "outputFileMapPath" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FieldMindApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FMButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FMCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FlowLayout.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/InfoRow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/InteractionExamples.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Modal.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Toast.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Tooltip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Transitions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AnimationConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AppState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Colors.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Spacing.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Tokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Typography.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/APIClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/APIEndpoint.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AnyCodable.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/NetworkError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AdvancedSearchPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AdvancedSearchPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AgentMemoryPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AgentMemoryPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/BusiPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChatPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChroniclePage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChroniclePageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/CitationsPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ConversationsPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DashboardPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FileManagerPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/GraphExplorerPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/GraphExplorerPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ImportPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KeywordPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/NewProjectPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/OverviewPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PhotosPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PlaceholderPages.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectDetailPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectDetailPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectsPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/QualityMonitorPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/QualityMonitorPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Report3Page.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Report3PageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SettingsPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TablesPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelinePage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelinePageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/UploadPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/VeinPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/BusinessAnalysisService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChatService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChronicleService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/CitationService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DashboardService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DocumentService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FileManagerService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KeywordSearchService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KnowledgeGraphService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MemoryService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelConfigService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MonitoringService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PhotoService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProposalService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TableService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelineService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/VeinService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/BusinessAnalysisViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChatViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChronicleViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/CitationViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ConversationViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DashboardViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DocumentViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FileManagerViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KeywordSearchViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KnowledgeGraphViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MemoryViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelConfigViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MonitoringViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PhotoViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProposalViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TableViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelineViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/VeinViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MainView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SidebarView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TopBarView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/Modules/FieldMindNative.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/App/FieldMindApp.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMButton.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMCard.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FlowLayout.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InfoRow.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InteractionExamples.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Modal.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Toast.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Tooltip.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Transitions.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Config/AnimationConfig.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Core/AppState.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Colors.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Spacing.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Tokens.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Typography.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Models/Models.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIClient.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIEndpoint.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/AnyCodable.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/NetworkError.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/BusiPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChatPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/CitationsPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ConversationsPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/DashboardPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/FileManagerPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ImportPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/KeywordPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/NewProjectPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/OverviewPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PhotosPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PlaceholderPages.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectsPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3Page.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3PageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SettingsPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TablesPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/UploadPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/VeinPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPage.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPageComponents.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/BusinessAnalysisService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChatService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChronicleService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/CitationService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DashboardService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DocumentService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/FileManagerService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KeywordSearchService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KnowledgeGraphService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MemoryService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ModelConfigService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MonitoringService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/PhotoService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProjectService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProposalService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ReportService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPAnalysisService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SkillService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TableService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TimelineService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/VeinService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/WorkflowService.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/BusinessAnalysisViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChatViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChronicleViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/CitationViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ConversationViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DashboardViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DocumentViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/FileManagerViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KeywordSearchViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KnowledgeGraphViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MemoryViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ModelConfigViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MonitoringViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/PhotoViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProjectViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProposalViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ReportViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPAnalysisViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SkillViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TableViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TimelineViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/VeinViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/WorkflowViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/MainView.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/SidebarView.swift",
+        "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/TopBarView.swift"
+      ],
+      "tempsPath" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "FieldMindNative" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FieldMindNative",
+      "-package-name",
+      "fieldmind_native",
+      "-c",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/App/FieldMindApp.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMButton.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMCard.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FlowLayout.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InfoRow.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InteractionExamples.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Modal.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Toast.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Tooltip.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Transitions.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Config/AnimationConfig.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Core/AppState.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Colors.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Spacing.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Tokens.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Typography.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Models/Models.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIClient.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIEndpoint.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/AnyCodable.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/NetworkError.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/BusiPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChatPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/CitationsPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ConversationsPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/DashboardPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/FileManagerPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ImportPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/KeywordPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/NewProjectPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/OverviewPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PhotosPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PlaceholderPages.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectsPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3Page.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3PageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SettingsPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TablesPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/UploadPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/VeinPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPage.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPageComponents.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/BusinessAnalysisService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChatService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChronicleService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/CitationService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DashboardService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DocumentService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/FileManagerService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KeywordSearchService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KnowledgeGraphService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MemoryService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ModelConfigService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MonitoringService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/PhotoService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProjectService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProposalService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ReportService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPAnalysisService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SkillService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TableService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TimelineService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/VeinService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/WorkflowService.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/BusinessAnalysisViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChatViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChronicleViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/CitationViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ConversationViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DashboardViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DocumentViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/FileManagerViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KeywordSearchViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KnowledgeGraphViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MemoryViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ModelConfigViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MonitoringViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/PhotoViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProjectViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProposalViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ReportViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPAnalysisViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SkillViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TableViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TimelineViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/VeinViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/WorkflowViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/MainView.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/SidebarView.swift",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/TopBarView.swift",
+      "-I",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "FieldMindNative_main",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "fieldmind_native",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "FieldMindNative" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative-entitlement.plist"
+    },
+    "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/App/FieldMindApp.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FlowLayout.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InfoRow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InteractionExamples.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Modal.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Toast.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Tooltip.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Transitions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Config/AnimationConfig.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Core/AppState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Colors.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Spacing.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Tokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Typography.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Models/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIClient.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIEndpoint.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/AnyCodable.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/NetworkError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/BusiPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChatPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/CitationsPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ConversationsPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/DashboardPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/FileManagerPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ImportPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/KeywordPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/NewProjectPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/OverviewPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PhotosPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PlaceholderPages.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectsPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3Page.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3PageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SettingsPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TablesPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/UploadPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/VeinPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPage.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPageComponents.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/BusinessAnalysisService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChatService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChronicleService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/CitationService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DashboardService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DocumentService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/FileManagerService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KeywordSearchService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KnowledgeGraphService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MemoryService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ModelConfigService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MonitoringService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/PhotoService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProjectService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProposalService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ReportService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPAnalysisService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SkillService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TableService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TimelineService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/VeinService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/WorkflowService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/BusinessAnalysisViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChatViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChronicleViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/CitationViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ConversationViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DashboardViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DocumentViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/FileManagerViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KeywordSearchViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KnowledgeGraphViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MemoryViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ModelConfigViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MonitoringViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/PhotoViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProjectViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProposalViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ReportViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPAnalysisViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SkillViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TableViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TimelineViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/VeinViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/WorkflowViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/MainView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/SidebarView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/TopBarView.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/sources"
+    },
+    "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/APIClient.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/APIEndpoint.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AdvancedSearchPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AdvancedSearchPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AgentMemoryPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AgentMemoryPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AnimationConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AnyCodable.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/AppState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/BusiPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/BusinessAnalysisService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/BusinessAnalysisViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChatPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChatService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChatViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChroniclePage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChroniclePageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChronicleService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ChronicleViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/CitationService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/CitationViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/CitationsPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Colors.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ConversationViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ConversationsPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DashboardPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DashboardService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DashboardViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DocumentService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/DocumentViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FMButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FMCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FieldMindApp.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FileManagerPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FileManagerService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FileManagerViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/FlowLayout.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/GraphExplorerPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/GraphExplorerPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ImportPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/InfoRow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/InteractionExamples.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KeywordPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KeywordSearchService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KeywordSearchViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KnowledgeGraphService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/KnowledgeGraphViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MainView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MemoryService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MemoryViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Modal.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelConfigService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelConfigViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ModelPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MonitoringService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/MonitoringViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/NetworkError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/NewProjectPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/OverviewPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PhotoService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PhotoViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PhotosPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/PlaceholderPages.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectDetailPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectDetailPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProjectsPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProposalService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ProposalViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/QualityMonitorPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/QualityMonitorPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Report3Page.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Report3PageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/ReportViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPAnalysisViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SOPViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SettingsPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SidebarView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/SkillViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Spacing.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TableService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TableViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TablesPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelinePage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelinePageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelineService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TimelineViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Toast.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Tokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Tooltip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/TopBarView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Transitions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/Typography.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/UploadPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/VeinPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/VeinService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/VeinViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowPage.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowPageComponents.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.build/WorkflowViewModel.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/FieldMindNative.product/Objects.LinkFileList"
+    },
+    "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

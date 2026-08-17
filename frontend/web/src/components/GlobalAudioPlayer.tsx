@@ -10,6 +10,8 @@ export const GlobalAudioPlayer: React.FC = () => {
   const { audioControl, pauseAudio, updateAudioTime } = useAppContext();
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+
   // 当audioControl改变时，控制播放
   useEffect(() => {
     if (!audioRef.current || !audioControl.fileId) return;
@@ -17,7 +19,7 @@ export const GlobalAudioPlayer: React.FC = () => {
     const audio = audioRef.current;
 
     // 设置音频源
-    const audioUrl = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'}/api/documents/${audioControl.fileId}/audio`;
+    const audioUrl = `${API_BASE_URL}/api/documents/${audioControl.fileId}/audio`;
 
     if (audio.src !== audioUrl) {
       audio.src = audioUrl;

@@ -49,9 +49,9 @@ async def get_graph_stats():
     - 图谱密度
     """
     try:
-        from app.services.knowledge_graph_service import get_knowledge_graph_service
+        from app.tools.knowledge.graph import create_knowledge_graph
 
-        kg = get_knowledge_graph_service()
+        kg = create_knowledge_graph()
         stats = kg.get_statistics()
 
         return stats
@@ -69,9 +69,9 @@ async def get_graph_data():
     用于前端可视化展示
     """
     try:
-        from app.services.knowledge_graph_service import get_knowledge_graph_service
+        from app.tools.knowledge.graph import create_knowledge_graph
 
-        kg = get_knowledge_graph_service()
+        kg = create_knowledge_graph()
         data = kg.get_graph_data()
 
         return data
@@ -94,9 +94,9 @@ async def query_related_entities(request: EntityQueryRequest):
         相关实体列表
     """
     try:
-        from app.services.knowledge_graph_service import get_knowledge_graph_service
+        from app.tools.knowledge.graph import create_knowledge_graph
 
-        kg = get_knowledge_graph_service()
+        kg = create_knowledge_graph()
         related = kg.query_related_entities(request.entity_name, request.max_depth)
 
         return {
@@ -122,11 +122,11 @@ async def build_graph_for_document(document_id: int):
         构建结果
     """
     try:
-        from app.services.knowledge_graph_service import get_knowledge_graph_service
+        from app.tools.knowledge.graph import create_knowledge_graph
         from app.core.database import SessionLocal
         from sqlalchemy import text
 
-        kg = get_knowledge_graph_service()
+        kg = create_knowledge_graph()
         db = SessionLocal()
 
         # 获取文档内容
@@ -171,11 +171,11 @@ async def rebuild_entire_graph():
     处理所有已完成的文档，重新提取实体和关系
     """
     try:
-        from app.services.knowledge_graph_service import get_knowledge_graph_service
+        from app.tools.knowledge.graph import create_knowledge_graph
         from app.core.database import SessionLocal
         from sqlalchemy import text
 
-        kg = get_knowledge_graph_service()
+        kg = create_knowledge_graph()
         db = SessionLocal()
 
         # 获取所有completed的文档
@@ -221,13 +221,13 @@ async def export_visualization():
     返回可访问的HTML文件路径
     """
     try:
-        from app.services.knowledge_graph_service import get_knowledge_graph_service
+        from app.tools.knowledge.graph import create_knowledge_graph
         import os
 
-        kg = get_knowledge_graph_service()
+        kg = create_knowledge_graph()
 
         # 导出路径
-        output_dir = "/Users/alwan/FieldMind-Rebuild/fieldmind-backend/static"
+        output_dir = os.getenv("STATIC_DIR", "./static")
         os.makedirs(output_dir, exist_ok=True)
 
         output_path = os.path.join(output_dir, "knowledge_graph.html")

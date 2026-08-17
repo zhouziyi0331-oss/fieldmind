@@ -21,8 +21,8 @@ from app.middleware.auth import get_current_user, require_role
 
 router = APIRouter(tags=["Skills"])
 
-# 技能存储目录
-SKILLS_DIR = Path("/Users/alwan/FieldMind-Rebuild/fieldmind-backend/skills")
+# 技能存储目录 - 使用相对路径
+SKILLS_DIR = Path(os.getenv("SKILLS_DIR", "./skills"))
 SKILLS_DIR.mkdir(exist_ok=True)
 
 

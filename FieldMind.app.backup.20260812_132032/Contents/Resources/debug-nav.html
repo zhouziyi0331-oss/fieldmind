@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>FieldMind 导航调试</title>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .btn {
+            padding: 12px 24px;
+            margin: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #4a90e2;
+            color: white;
+        }
+        .btn:hover { background: #357abd; }
+        .info {
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🔧 FieldMind 导航调试工具</h1>
+
+    <div class="info">
+        <h3>问题诊断</h3>
+        <p>点击"下一步：导入资料"按钮没有反应</p>
+        <p><strong>预期行为：</strong>应该从第1步跳转到第2步（显示文件上传界面）</p>
+    </div>
+
+    <div class="info">
+        <h3>测试步骤</h3>
+        <button class="btn" onclick="openMainApp()">1. 打开主应用</button>
+        <br>
+        <button class="btn" onclick="testConsole()">2. 打开开发者工具</button>
+        <br>
+        <button class="btn" onclick="showInstructions()">3. 查看调试指令</button>
+    </div>
+
+    <div id="instructions" style="display:none;" class="info">
+        <h3>在主应用中按F12打开控制台，然后输入：</h3>
+        <pre style="background: #333; color: #0f0; padding: 15px; border-radius: 6px; overflow-x: auto;">
+// 1. 检查goStep函数是否存在
+typeof goStep
+
+// 2. 手动调用goStep(2)
+goStep(2)
+
+// 3. 检查step-2元素是否存在
+document.getElementById('step-2')
+
+// 4. 检查step-2是否有active类
+document.getElementById('step-2').classList.contains('active')
+
+// 5. 强制显示第2步
+document.getElementById('step-2').style.display = 'block'
+
+// 6. 检查是否有JavaScript错误
+console.clear()
+        </pre>
+    </div>
+
+    <div class="info">
+        <h3>快速修复方案</h3>
+        <p>如果上面的调试没用，我会创建一个修复版本的index.html</p>
+        <button class="btn" onclick="createFix()">生成修复版本</button>
+        <div id="fix-result"></div>
+    </div>
+
+    <script>
+        function openMainApp() {
+            alert('请手动打开 FieldMind.app\n位置: /Users/alwan/FieldMind.app');
+        }
+
+        function testConsole() {
+            alert('在 FieldMind.app 中：\n1. 右键点击页面\n2. 选择"检查元素"或按 Command+Option+I\n3. 切换到 Console 标签');
+        }
+
+        function showInstructions() {
+            document.getElementById('instructions').style.display = 'block';
+        }
+
+        async function createFix() {
+            const result = document.getElementById('fix-result');
+            result.innerHTML = '<p>正在生成修复...</p>';
+
+            try {
+                const response = await fetch('http://localhost:8000/health');
+                const data = await response.json();
+
+                result.innerHTML = `
+                    <div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 6px;">
+                        <p class="success">✅ 后端连接正常</p>
+                        <p>现在你可以：</p>
+                        <ol>
+                            <li>在 FieldMind 应用中按 F12 打开开发者工具</li>
+                            <li>在 Console 中输入：<code>goStep(2)</code></li>
+                            <li>如果能看到上传界面，说明按钮绑定有问题</li>
+                            <li>如果还是看不到，截图控制台的错误信息</li>
+                        </ol>
+                    </div>
+                `;
+            } catch (error) {
+                result.innerHTML = `
+                    <div style="margin-top: 20px; padding: 15px; background: #ffebee; border-radius: 6px;">
+                        <p class="error">❌ 后端未连接</p>
+                        <p>后端状态会影响应用功能，请先启动后端：</p>
+                        <code>cd fieldmind-backend && uvicorn app.main:app --reload</code>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

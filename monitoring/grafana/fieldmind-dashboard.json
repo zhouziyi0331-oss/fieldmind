@@ -1,0 +1,255 @@
+{
+  "dashboard": {
+    "title": "FieldMind 系统监控",
+    "tags": ["fieldmind", "monitoring"],
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 1,
+    "refresh": "30s",
+    "panels": [
+      {
+        "id": 1,
+        "title": "系统健康状态",
+        "type": "stat",
+        "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4},
+        "targets": [
+          {
+            "expr": "up{job=\"fieldmind-backend\"}",
+            "legendFormat": "Backend"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "red"},
+                {"value": 1, "color": "green"}
+              ]
+            },
+            "mappings": [
+              {"type": "value", "value": "0", "text": "Down"},
+              {"type": "value", "value": "1", "text": "Up"}
+            ]
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "请求速率 (QPS)",
+        "type": "graph",
+        "gridPos": {"x": 6, "y": 0, "w": 9, "h": 4},
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total[1m]))",
+            "legendFormat": "总请求"
+          },
+          {
+            "expr": "sum(rate(http_requests_total{status=~\"2..\"}[1m]))",
+            "legendFormat": "2xx"
+          },
+          {
+            "expr": "sum(rate(http_requests_total{status=~\"4..\"}[1m]))",
+            "legendFormat": "4xx"
+          },
+          {
+            "expr": "sum(rate(http_requests_total{status=~\"5..\"}[1m]))",
+            "legendFormat": "5xx"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "错误率",
+        "type": "gauge",
+        "gridPos": {"x": 15, "y": 0, "w": 9, "h": 4},
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m]))",
+            "legendFormat": "5xx错误率"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percentunit",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 0.01, "color": "yellow"},
+                {"value": 0.05, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "响应时间 (P50, P95, P99)",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 4, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+            "legendFormat": "P50"
+          },
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+            "legendFormat": "P95"
+          },
+          {
+            "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+            "legendFormat": "P99"
+          }
+        ],
+        "yaxes": [
+          {"format": "s", "label": "响应时间"}
+        ]
+      },
+      {
+        "id": 5,
+        "title": "CPU 使用率",
+        "type": "graph",
+        "gridPos": {"x": 12, "y": 4, "w": 6, "h": 6},
+        "targets": [
+          {
+            "expr": "system_cpu_usage_percent",
+            "legendFormat": "CPU %"
+          }
+        ],
+        "yaxes": [
+          {"format": "percent", "max": 100, "min": 0}
+        ]
+      },
+      {
+        "id": 6,
+        "title": "内存使用率",
+        "type": "graph",
+        "gridPos": {"x": 18, "y": 4, "w": 6, "h": 6},
+        "targets": [
+          {
+            "expr": "system_memory_usage_percent",
+            "legendFormat": "Memory %"
+          }
+        ],
+        "yaxes": [
+          {"format": "percent", "max": 100, "min": 0}
+        ]
+      },
+      {
+        "id": 7,
+        "title": "API 端点请求分布",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 10, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "sum(rate(http_requests_total[5m])) by (endpoint)",
+            "legendFormat": "{{endpoint}}"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "数据库查询性能",
+        "type": "graph",
+        "gridPos": {"x": 12, "y": 10, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(db_query_duration_seconds_bucket[5m])) by (le, operation))",
+            "legendFormat": "{{operation}} P95"
+          }
+        ],
+        "yaxes": [
+          {"format": "s", "label": "查询时间"}
+        ]
+      },
+      {
+        "id": 9,
+        "title": "缓存命中率",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 16, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "sum(rate(cache_hits_total[5m])) by (cache_name) / (sum(rate(cache_hits_total[5m])) by (cache_name) + sum(rate(cache_misses_total[5m])) by (cache_name))",
+            "legendFormat": "{{cache_name}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "percentunit", "max": 1, "min": 0}
+        ]
+      },
+      {
+        "id": 10,
+        "title": "业务指标",
+        "type": "stat",
+        "gridPos": {"x": 12, "y": 16, "w": 12, "h": 6},
+        "targets": [
+          {
+            "expr": "projects_total",
+            "legendFormat": "项目总数"
+          },
+          {
+            "expr": "documents_total",
+            "legendFormat": "文档总数"
+          },
+          {
+            "expr": "sum(analysis_tasks_total)",
+            "legendFormat": "分析任务总数"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "进程内存使用",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 22, "w": 8, "h": 6},
+        "targets": [
+          {
+            "expr": "process_memory_bytes / 1024 / 1024",
+            "legendFormat": "进程内存 (MB)"
+          }
+        ],
+        "yaxes": [
+          {"format": "decmbytes", "label": "内存"}
+        ]
+      },
+      {
+        "id": 12,
+        "title": "磁盘使用率",
+        "type": "gauge",
+        "gridPos": {"x": 8, "y": 22, "w": 8, "h": 6},
+        "targets": [
+          {
+            "expr": "system_disk_usage_percent",
+            "legendFormat": "磁盘使用"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percent",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": 0, "color": "green"},
+                {"value": 70, "color": "yellow"},
+                {"value": 85, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 13,
+        "title": "活跃请求数",
+        "type": "graph",
+        "gridPos": {"x": 16, "y": 22, "w": 8, "h": 6},
+        "targets": [
+          {
+            "expr": "sum(http_requests_in_progress) by (method)",
+            "legendFormat": "{{method}}"
+          }
+        ]
+      }
+    ]
+  }
+}

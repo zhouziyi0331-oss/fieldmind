@@ -1,0 +1,205 @@
+# Prometheus 告警规则
+# 定义各种告警条件
+
+groups:
+  # ====================================
+  # 应用健康告警
+  # ====================================
+  - name: application_health
+    interval: 30s
+    rules:
+      - alert: ServiceDown
+        expr: up{job="fieldmind-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          category: availability
+        annotations:
+          summary: "FieldMind Backend 服务不可用"
+          description: "Backend 服务已经宕机超过 1 分钟"
+
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_requests_total{status=~"5.."}[5m])) by (job)
+          /
+          sum(rate(http_requests_total[5m])) by (job)
+          > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          category: errors
+        annotations:
+          summary: "高错误率检测到"
+          description: "5xx 错误率超过 5% (当前: {{ $value | humanizePercentage }})"
+
+  # ====================================
+  # 性能告警
+  # ====================================
+  - name: performance
+    interval: 30s
+    rules:
+      - alert: HighResponseTime
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint)
+          ) > 2
+        for: 10m
+        labels:
+          severity: warning
+          category: performance
+        annotations:
+          summary: "API 响应时间过高"
+          description: "端点 {{ $labels.endpoint }} 的 P95 响应时间超过 2s (当前: {{ $value }}s)"
+
+      - alert: SlowDatabaseQueries
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(db_query_duration_seconds_bucket[5m])) by (le, operation)
+          ) > 1
+        for: 5m
+        labels:
+          severity: warning
+          category: database
+        annotations:
+          summary: "数据库查询缓慢"
+          description: "操作 {{ $labels.operation }} 的 P95 查询时间超过 1s (当前: {{ $value }}s)"
+
+  # ====================================
+  # 系统资源告警
+  # ====================================
+  - name: system_resources
+    interval: 30s
+    rules:
+      - alert: HighCPUUsage
+        expr: system_cpu_usage_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          category: resources
+        annotations:
+          summary: "CPU 使用率过高"
+          description: "CPU 使用率超过 80% (当前: {{ $value }}%)"
+
+      - alert: HighMemoryUsage
+        expr: system_memory_usage_percent > 85
+        for: 5m
+        labels:
+          severity: warning
+          category: resources
+        annotations:
+          summary: "内存使用率过高"
+          description: "内存使用率超过 85% (当前: {{ $value }}%)"
+
+      - alert: HighDiskUsage
+        expr: system_disk_usage_percent > 85
+        for: 10m
+        labels:
+          severity: warning
+          category: resources
+        annotations:
+          summary: "磁盘使用率过高"
+          description: "磁盘使用率超过 85% (当前: {{ $value }}%)"
+
+      - alert: CriticalDiskUsage
+        expr: system_disk_usage_percent > 95
+        for: 5m
+        labels:
+          severity: critical
+          category: resources
+        annotations:
+          summary: "磁盘空间严重不足"
+          description: "磁盘使用率超过 95% (当前: {{ $value }}%)"
+
+  # ====================================
+  # 数据库告警
+  # ====================================
+  - name: database
+    interval: 30s
+    rules:
+      - alert: DatabaseConnectionPoolExhausted
+        expr: db_connections_active >= 18
+        for: 2m
+        labels:
+          severity: critical
+          category: database
+        annotations:
+          summary: "数据库连接池接近耗尽"
+          description: "活跃连接数: {{ $value }}/20"
+
+      - alert: HighDatabaseErrorRate
+        expr: |
+          sum(rate(db_errors_total[5m])) by (type) > 1
+        for: 5m
+        labels:
+          severity: warning
+          category: database
+        annotations:
+          summary: "数据库错误率过高"
+          description: "错误类型 {{ $labels.type }} 的错误率超过 1/s"
+
+  # ====================================
+  # 缓存告警
+  # ====================================
+  - name: cache
+    interval: 30s
+    rules:
+      - alert: LowCacheHitRate
+        expr: |
+          sum(rate(cache_hits_total[5m])) by (cache_name)
+          /
+          (sum(rate(cache_hits_total[5m])) by (cache_name) + sum(rate(cache_misses_total[5m])) by (cache_name))
+          < 0.5
+        for: 10m
+        labels:
+          severity: warning
+          category: cache
+        annotations:
+          summary: "缓存命中率过低"
+          description: "缓存 {{ $labels.cache_name }} 命中率低于 50% (当前: {{ $value | humanizePercentage }})"
+
+  # ====================================
+  # 业务指标告警
+  # ====================================
+  - name: business_metrics
+    interval: 1m
+    rules:
+      - alert: NoRecentActivity
+        expr: |
+          rate(http_requests_total[10m]) == 0
+        for: 30m
+        labels:
+          severity: warning
+          category: business
+        annotations:
+          summary: "30分钟内无用户活动"
+          description: "系统可能出现问题或无用户访问"
+
+      - alert: SuddenTrafficDrop
+        expr: |
+          (
+            rate(http_requests_total[5m])
+            /
+            rate(http_requests_total[5m] offset 1h)
+          ) < 0.3
+        for: 10m
+        labels:
+          severity: warning
+          category: business
+        annotations:
+          summary: "流量突然下降"
+          description: "流量比1小时前下降超过70%"
+
+      - alert: SuddenTrafficSpike
+        expr: |
+          (
+            rate(http_requests_total[5m])
+            /
+            rate(http_requests_total[5m] offset 1h)
+          ) > 3
+        for: 5m
+        labels:
+          severity: warning
+          category: business
+        annotations:
+          summary: "流量突然激增"
+          description: "流量比1小时前增加超过200%"

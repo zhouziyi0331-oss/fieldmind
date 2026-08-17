@@ -1,13 +1,16 @@
 /**
  * 数据分析页面 - 基于SQL聚合的真实统计
  * 不是向量检索，而是结构化查询
+ *
+ * 修复日志:
+ * - 移除直接fetch调用，改用统一的api.analytics
+ * - 添加JWT认证支持
+ * - 添加性能追踪和统一错误处理
  */
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { api } from '../services/api';
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
 interface TopicStat {
   topic: string;
@@ -27,6 +30,7 @@ const AnalyticsPage: React.FC = () => {
   const [personStats, setPersonStats] = useState<EntityStat[]>([]);
   const [locationStats, setLocationStats] = useState<EntityStat[]>([]);
   const [wordStats, setWordStats] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadAnalytics();
@@ -35,13 +39,14 @@ const AnalyticsPage: React.FC = () => {
   const loadAnalytics = async () => {
     try {
       setLoading(true);
+      setError(null);
 
-      // 并行加载所有统计数据
+      // ✅ 使用统一API层，自动带JWT token和性能追踪
       const [topics, persons, locations, words] = await Promise.all([
-        fetch(`${API_BASE_URL}/api/analytics/projects/${projectId}/topic-distribution`).then(r => r.json()),
-        fetch(`${API_BASE_URL}/api/analytics/projects/${projectId}/top-entities?entity_type=person&top_k=10`).then(r => r.json()),
-        fetch(`${API_BASE_URL}/api/analytics/projects/${projectId}/top-entities?entity_type=location&top_k=10`).then(r => r.json()),
-        fetch(`${API_BASE_URL}/api/analytics/projects/${projectId}/word-count-stats`).then(r => r.json()),
+        api.analytics.getTopicDistribution(Number(projectId)),
+        api.analytics.getTopEntities(Number(projectId), 'person', 10),
+        api.analytics.getTopEntities(Number(projectId), 'location', 10),
+        api.analytics.getWordCountStats(Number(projectId)),
       ]);
 
       setTopicStats(topics.topics || []);
@@ -49,8 +54,9 @@ const AnalyticsPage: React.FC = () => {
       setLocationStats(locations.entities || []);
       setWordStats(words);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('加载分析数据失败:', error);
+      setError(error.message || '加载数据失败');
     } finally {
       setLoading(false);
     }
@@ -58,11 +64,8 @@ const AnalyticsPage: React.FC = () => {
 
   const generateReport = async () => {
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/analytics/projects/${projectId}/generate-report`,
-        { method: 'POST' }
-      );
-      const data = await response.json();
+      // ✅ 使用统一API层
+      const data = await api.analytics.generateReport(Number(projectId), 'overview');
 
       if (data.success) {
         alert('报告生成成功！');
@@ -70,9 +73,9 @@ const AnalyticsPage: React.FC = () => {
       } else {
         alert(data.message || '报告生成失败');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('生成报告失败:', error);
-      alert('生成报告失败');
+      alert(`生成报告失败: ${error.message || '未知错误'}`);
     }
   };
 
@@ -80,6 +83,23 @@ const AnalyticsPage: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="text-xl">加载数据分析...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="text-xl text-red-600 mb-4">加载失败</div>
+          <div className="text-gray-600">{error}</div>
+          <button
+            onClick={loadAnalytics}
+            className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+          >
+            重试
+          </button>
+        </div>
       </div>
     );
   }

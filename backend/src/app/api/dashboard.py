@@ -106,10 +106,12 @@ def get_dashboard_stats(
             ProjectDocument.status == 'completed'
         ).all()
 
+        from app.services.pipeline_status import is_pipeline_completed
+
         for doc in completed_docs:
-            if doc.extra_data and doc.extra_data.get('pipeline_completed'):
+            if is_pipeline_completed(doc):
                 vectorized_documents += 1
-                chunks = doc.extra_data.get('chunks_count', 0)
+                chunks = doc.extra_data.get('chunks_count', 0) if doc.extra_data else 0
                 if chunks:
                     total_chunks += chunks
 
@@ -295,11 +297,10 @@ def get_project_progress(
         ).all()
 
         for doc in docs:
-            if doc.extra_data:
-                if doc.extra_data.get('pipeline_completed'):
-                    vectorized += 1
-                if doc.extra_data.get('skills_completed'):
-                    analyzed += 1
+            if is_pipeline_completed(doc):
+                vectorized += 1
+            if doc.extra_data and doc.extra_data.get('skills_completed'):
+                analyzed += 1
 
         return {
             "upload_progress": 100,  # 假设已上传

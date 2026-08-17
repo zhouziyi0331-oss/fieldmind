@@ -1,6 +1,11 @@
 """
 工作流API - 链路十二：工作流编排与执行
 提供工作流创建、执行、监控等功能
+
+重要更新：
+- 现在支持两种workflow系统：
+  1. legacy系统：使用workflow_engine + WorkflowTemplates
+  2. v2系统：使用WorkflowV2Adapter + 6-Agent架构
 """
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
@@ -16,6 +21,7 @@ from app.services.workflow_templates import (
     run_knowledge_graph_workflow,
     run_full_analysis_workflow
 )
+from app.services.workflows.v2_adapter import get_v2_adapter
 
 router = APIRouter(tags=["workflows"])
 logger = logging.getLogger(__name__)
@@ -25,10 +31,11 @@ logger = logging.getLogger(__name__)
 
 class WorkflowExecuteRequest(BaseModel):
     """执行工作流请求"""
-    workflow_type: str  # document_processing, knowledge_graph, full_analysis
+    workflow_type: str  # document_processing, knowledge_graph, full_analysis, document_processing_v2
     project_id: int
     document_ids: Optional[List[int]] = None
     params: Optional[Dict[str, Any]] = None
+    use_v2_architecture: bool = False  # 是否使用v2架构（默认False保持向后兼容）
 
 
 class WorkflowExecutionResponse(BaseModel):
@@ -62,12 +69,112 @@ async def execute_workflow(
     执行工作流
 
     支持的工作流类型：
-    - document_processing: 文档处理（向量化+实体提取+关键词）
-    - knowledge_graph: 知识图谱构建（实体+关系+时间线）
-    - full_analysis: 完整分析（文档处理+知识图谱+报告）
+    - document_processing: 文档处理（向量化+实体提取+关键词）[legacy]
+    - knowledge_graph: 知识图谱构建（实体+关系+时间线）[legacy]
+    - full_analysis: 完整分析（文档处理+知识图谱+报告）[legacy]
+    - document_processing_v2: 文档处理（6-Agent v2架构）[新增]
+
+    使用v2架构的优势：
+    - 自动Skills分析集成
+    - 真实数据流通，无防御性检查
+    - 完整的6-Agent编排：Ingestion → Chunking → Vectorization → Knowledge → Synthesis → Report
     """
     try:
-        logger.info(f"🚀 执行工作流: {request.workflow_type}, project_id={request.project_id}")
+        logger.info(f"🚀 执行工作流: {request.workflow_type}, project_id={request.project_id}, use_v2={request.use_v2_architecture}")
+
+        # ==================== V2架构模式 ====================
+        if request.use_v2_architecture or request.workflow_type == "document_processing_v2":
+            logger.info("📦 使用v2架构执行workflow")
+
+            adapter = get_v2_adapter()
+            import time
+            workflow_id = f"v2_workflow_{request.project_id}_{int(time.time())}"
+
+            # 执行v2 pipeline
+            steps_executed = []
+            start_time = time.time()
+
+            try:
+                # 步骤1: Ingestion
+                ingestion_result = adapter.execute_v2_agent(
+                    agent_type='ingestion',
+                    input_data={'project_id': request.project_id},
+                    db_session=db
+                )
+
+                if not ingestion_result.success:
+                    raise RuntimeError(f"IngestionAgent失败: {ingestion_result.errors}")
+
+                documents = ingestion_result.output_data.get('documents', [])
+                steps_executed.append('ingestion')
+
+                # 步骤2: Chunking
+                chunking_result = adapter.execute_v2_agent(
+                    agent_type='chunking',
+                    input_data={
+                        'project_id': request.project_id,
+                        'documents': documents
+                    },
+                    db_session=db
+                )
+
+                if not chunking_result.success:
+                    raise RuntimeError(f"ChunkingAgent失败: {chunking_result.errors}")
+
+                chunk_ids = chunking_result.output_data.get('chunk_ids', [])
+                steps_executed.append('chunking')
+
+                # 步骤3: Vectorization
+                vectorization_result = adapter.execute_v2_agent(
+                    agent_type='vectorization',
+                    input_data={
+                        'project_id': request.project_id,
+                        'chunk_ids': chunk_ids
+                    },
+                    db_session=db
+                )
+
+                if not vectorization_result.success:
+                    raise RuntimeError(f"VectorizationAgent失败: {vectorization_result.errors}")
+
+                steps_executed.append('vectorization')
+
+                # 步骤4: Knowledge Graph (自动包含Skills)
+                knowledge_result = adapter.execute_v2_agent(
+                    agent_type='knowledge',
+                    input_data={
+                        'project_id': request.project_id,
+                        'documents': documents,
+                        'enable_skills_analysis': True
+                    },
+                    db_session=db
+                )
+
+                if knowledge_result.success:
+                    steps_executed.append('knowledge')
+
+                elapsed_time = time.time() - start_time
+
+                return WorkflowExecutionResponse(
+                    workflow_id=workflow_id,
+                    workflow_name=f"v2_{request.workflow_type}",
+                    status="completed",
+                    message=f"v2 workflow执行成功，完成 {len(steps_executed)} 个步骤，耗时 {elapsed_time:.2f}秒"
+                )
+
+            except Exception as e:
+                elapsed_time = time.time() - start_time
+                logger.error(f"❌ v2 workflow执行失败: {e}", exc_info=True)
+
+                return WorkflowExecutionResponse(
+                    workflow_id=workflow_id,
+                    workflow_name=f"v2_{request.workflow_type}",
+                    status="failed",
+                    message=f"v2 workflow执行失败: {str(e)}，已完成步骤: {', '.join(steps_executed)}"
+                )
+
+        # ==================== Legacy模式 ====================
+        logger.info("📦 使用legacy架构执行workflow")
 
         if request.workflow_type == "document_processing":
             # 文档处理工作流

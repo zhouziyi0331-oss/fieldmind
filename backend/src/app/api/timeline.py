@@ -14,7 +14,7 @@ from collections import defaultdict
 from app.core.database import get_db
 from app.models.project import ProjectDocument, Project
 from app.models.timeline import TimelineEvent
-from app.services.entity_extraction import get_entity_extraction_service
+from app.tools.entity import create_engine
 
 router = APIRouter(tags=["timeline"])
 logger = logging.getLogger(__name__)
@@ -133,7 +133,7 @@ async def build_timeline(
     - 关联到文档和项目
     """
     try:
-        entity_service = get_entity_extraction_service()
+        entity_service = create_engine()
 
         # 验证项目存在
         project = db.query(Project).filter(Project.id == request.project_id).first()

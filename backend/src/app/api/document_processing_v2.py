@@ -1,6 +1,11 @@
 """
 文档处理API v2 - 链路十四：引用溯源系统
 提供完整元数据的文档处理接口
+
+重要更新：
+- 现在支持两种处理模式：
+  1. legacy模式（use_v2_architecture=False）：使用UnifiedDocumentPipeline
+  2. v2模式（use_v2_architecture=True）：使用WorkflowV2Adapter + 6-Agent架构
 """
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
@@ -10,9 +15,10 @@ from datetime import datetime
 import logging
 
 from app.core.database import get_db
-from app.services.document_processing_pipeline_v2 import get_document_processing_pipeline_v2
-from app.services.vectorization_service_v2 import get_vectorization_service_v2
+from app.tools.document import create_document_pipeline
+from app.tools.vectorization import UnifiedVectorizationEngine, VectorEngine, StorageBackend
 from app.schemas.document_metadata import SourceLevel
+from app.services.workflows.v2_adapter import get_v2_adapter
 
 router = APIRouter(tags=["document-processing-v2"])
 logger = logging.getLogger(__name__)
@@ -43,6 +49,9 @@ class DocumentProcessRequest(BaseModel):
     # 扩展字段
     tags: Optional[List[str]] = None
 
+    # v2架构选项
+    use_v2_architecture: bool = False           # 是否使用v2的6-Agent架构（默认False保持向后兼容）
+
 
 class SearchWithCitationRequest(BaseModel):
     """带引用的检索请求（链路14+15）"""
@@ -68,17 +77,134 @@ async def process_document_v2(
     """
     处理文档（链路十四核心接口）
 
+    支持两种处理模式：
+
+    **Legacy模式** (use_v2_architecture=False, 默认):
+    - 使用UnifiedDocumentPipeline
+    - 向后兼容，稳定可靠
+    - 流程：切分 → 向量化 → 入库
+
+    **V2模式** (use_v2_architecture=True):
+    - 使用WorkflowV2Adapter + 6-Agent架构
+    - 自动执行：分块 → 向量化 → 知识图谱 → Skills分析
+    - 真实数据流通，无防御性检查
+    - 需要project_id
+
     完整流程：
     1. 创建带完整元数据的文档对象
     2. 切分文档（每个chunk继承元数据）
     3. 向量化存储（元数据完整入库）
-    4. 返回处理结果（包含引用格式预览）
+    4. [v2模式] 知识图谱构建 + Skills分析
+    5. 返回处理结果（包含引用格式预览）
 
     与旧版的区别：
     - 旧版：只存document_id和chunk_index
     - 新版：存source_file、page_number、timestamp、speaker等完整溯源信息
     """
     try:
+        # ==================== V2架构模式 ====================
+        if request.use_v2_architecture:
+            if not request.project_id:
+                raise HTTPException(
+                    status_code=400,
+                    detail="v2架构模式需要project_id参数"
+                )
+
+            logger.info(f"🚀 使用v2架构处理文档 document_id={request.document_id}")
+
+            # 使用v2 adapter执行完整pipeline
+            adapter = get_v2_adapter()
+
+            # 先确保文档已入库（v2的IngestionAgent会从数据库加载）
+            from app.models.project import ProjectDocument
+
+            doc = db.query(ProjectDocument).filter(
+                ProjectDocument.id == request.document_id
+            ).first()
+
+            if not doc:
+                raise HTTPException(status_code=404, detail=f"文档 {request.document_id} 不存在")
+
+            # 执行v2 pipeline: Chunking → Vectorization → Knowledge Graph
+
+            # 步骤1: Chunking
+            chunking_result = adapter.execute_v2_agent(
+                agent_type='chunking',
+                input_data={
+                    'project_id': request.project_id,
+                    'documents': [doc]
+                },
+                db_session=db
+            )
+
+            if not chunking_result.success:
+                raise HTTPException(
+                    status_code=500,
+                    detail=f"ChunkingAgent失败: {chunking_result.errors}"
+                )
+
+            chunk_ids = chunking_result.output_data.get('chunk_ids', [])
+            total_chunks = chunking_result.output_data.get('total_chunks', 0)
+
+            # 步骤2: Vectorization
+            vectorization_result = adapter.execute_v2_agent(
+                agent_type='vectorization',
+                input_data={
+                    'project_id': request.project_id,
+                    'chunk_ids': chunk_ids
+                },
+                db_session=db
+            )
+
+            if not vectorization_result.success:
+                raise HTTPException(
+                    status_code=500,
+                    detail=f"VectorizationAgent失败: {vectorization_result.errors}"
+                )
+
+            # 步骤3: Knowledge Graph (自动包含Skills分析)
+            knowledge_result = adapter.execute_v2_agent(
+                agent_type='knowledge',
+                input_data={
+                    'project_id': request.project_id,
+                    'documents': [doc],
+                    'enable_skills_analysis': True  # 自动执行Skills分析
+                },
+                db_session=db
+            )
+
+            if not knowledge_result.success:
+                logger.warning(f"⚠️ KnowledgeAgent失败（非致命）: {knowledge_result.errors}")
+
+            # 更新文档状态标记为v2处理完成
+            if doc.extra_data is None:
+                doc.extra_data = {}
+            doc.extra_data['v2_pipeline_completed'] = True
+            doc.extra_data['v2_processing_time'] = datetime.utcnow().isoformat()
+            db.commit()
+
+            return {
+                "status": "success",
+                "message": f"文档处理完成（v2架构）：{total_chunks} 个chunks已存储",
+                "architecture": "v2",
+                "document_id": request.document_id,
+                "chunks_stored": total_chunks,
+                "vectorized_count": vectorization_result.output_data.get('vectorized_count', 0),
+                "knowledge_graph": {
+                    "entity_count": knowledge_result.output_data.get('entity_count', 0) if knowledge_result.success else 0,
+                    "relation_count": knowledge_result.output_data.get('relation_count', 0) if knowledge_result.success else 0,
+                    "skills_executed": len(knowledge_result.output_data.get('skills_executed', [])) if knowledge_result.success else 0
+                },
+                "execution_times": {
+                    "chunking": chunking_result.execution_time,
+                    "vectorization": vectorization_result.execution_time,
+                    "knowledge": knowledge_result.execution_time
+                }
+            }
+
+        # ==================== Legacy模式 ====================
+        logger.info(f"📄 使用Legacy架构处理文档 document_id={request.document_id}")
+
         # 解析文档日期
         document_date = None
         if request.document_date:
@@ -94,7 +220,7 @@ async def process_document_v2(
             source_level = SourceLevel.RAW_MATERIAL
 
         # 创建流水线
-        pipeline = get_document_processing_pipeline_v2(db)
+        pipeline = create_document_pipeline(db)
 
         # 处理文档
         result = pipeline.process_document(
@@ -117,7 +243,8 @@ async def process_document_v2(
 
         return {
             "status": "success",
-            "message": f"文档处理完成：{result['stored_chunks']} 个chunks已存储",
+            "message": f"文档处理完成（legacy模式）：{result['stored_chunks']} 个chunks已存储",
+            "architecture": "legacy",
             "data": result
         }
 
@@ -158,7 +285,7 @@ async def search_with_citation(
     - 例如查询"2023年发生了什么"时，设置date_from=2023-01-01, date_to=2023-12-31
     """
     try:
-        vectorizer = get_vectorization_service_v2()
+        vectorizer = UnifiedVectorizationEngine(engine=VectorEngine.BGE_LARGE, storage=StorageBackend.CHROMADB_ONLY)
 
         # 准备日期范围（链路15）
         date_range = None
@@ -219,7 +346,7 @@ async def get_chunk_with_citation(
     用于前端点击引用角标时，跳转到原文
     """
     try:
-        vectorizer = get_vectorization_service_v2()
+        vectorizer = UnifiedVectorizationEngine(engine=VectorEngine.BGE_LARGE, storage=StorageBackend.CHROMADB_ONLY)
         chunk = vectorizer.get_chunk_by_id(chunk_id)
 
         if not chunk:
@@ -269,11 +396,11 @@ async def reprocess_document(
             raise HTTPException(status_code=400, detail="文档无文本内容")
 
         # 先删除旧的向量数据
-        vectorizer = get_vectorization_service_v2()
+        vectorizer = UnifiedVectorizationEngine(engine=VectorEngine.BGE_LARGE, storage=StorageBackend.CHROMADB_ONLY)
         vectorizer.delete_by_document_id(document_id)
 
         # 重新处理
-        pipeline = get_document_processing_pipeline_v2(db)
+        pipeline = create_document_pipeline(db)
         result = pipeline.process_document(
             document_id=document_id,
             text=doc.text_content,
@@ -427,7 +554,7 @@ async def get_audio_segment(
     audio.currentTime = start_sec  // 跳转到指定秒数
     """
     try:
-        vectorizer = get_vectorization_service_v2()
+        vectorizer = UnifiedVectorizationEngine(engine=VectorEngine.BGE_LARGE, storage=StorageBackend.CHROMADB_ONLY)
         chunk = vectorizer.get_chunk_by_id(chunk_id)
 
         if not chunk:

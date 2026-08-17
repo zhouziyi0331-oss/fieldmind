@@ -64,11 +64,13 @@ def rag_query(
             logger.info(f"限定检索范围：文档ID {request.selected_document_ids}")
 
         # 统计有向量化数据的文档
+        from app.services.pipeline_status import is_pipeline_completed
+
         vectorized_docs = []
         all_docs = query.all()
 
         for doc in all_docs:
-            if doc.extra_data and doc.extra_data.get('pipeline_completed'):
+            if is_pipeline_completed(doc):
                 vectorized_docs.append(doc)
 
         if not vectorized_docs:
@@ -205,12 +207,12 @@ def get_available_documents(
 
         available_docs = []
         for doc in docs:
-            if doc.extra_data and doc.extra_data.get('pipeline_completed'):
+            if is_pipeline_completed(doc):
                 available_docs.append({
                     "id": doc.id,
                     "filename": doc.filename,
                     "word_count": doc.word_count,
-                    "chunks_count": doc.extra_data.get('chunks_count', 0)
+                    "chunks_count": doc.extra_data.get('chunks_count', 0) if doc.extra_data else 0
                 })
 
         return {
@@ -237,7 +239,7 @@ def rag_status(db: Session = Depends(get_db)):
         ).all()
 
         for doc in docs:
-            if doc.extra_data and doc.extra_data.get('pipeline_completed'):
+            if is_pipeline_completed(doc):
                 vectorized_count += 1
 
         # 检查ChromaDB

@@ -138,7 +138,7 @@ def _crawl_with_browser_use(url: str) -> Dict[str, Any]:
     import json
 
     # 调用独立的 browser-use 脚本
-    script_path = "/Users/alwan/FieldMind-Rebuild/repos/browser-use/run_crawl.py"
+    script_path = os.getenv("BROWSER_USE_SCRIPT", "./repos/browser-use/run_crawl.py")
 
     if os.path.exists(script_path):
         result = subprocess.run(

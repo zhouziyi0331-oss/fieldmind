@@ -1,0 +1,709 @@
+{
+  "": {
+    "dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FieldMindNative.d",
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FieldMindNative.o",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/primary.swiftdeps"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/App/FieldMindApp.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FieldMindApp.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FieldMindApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FieldMindApp.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FieldMindApp.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/DebugWindow.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DebugWindow.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DebugWindow~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DebugWindow.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DebugWindow.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMButton.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FMButton.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FMButton~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FMButton.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FMButton.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FMCard.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FMCard.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FMCard~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FMCard.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FMCard.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/FlowLayout.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FlowLayout.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FlowLayout~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FlowLayout.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FlowLayout.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InfoRow.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/InfoRow.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/InfoRow~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/InfoRow.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/InfoRow.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/InteractionExamples.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/InteractionExamples.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/InteractionExamples~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/InteractionExamples.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/InteractionExamples.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Modal.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Modal.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Modal~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Modal.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Modal.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Toast.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Toast.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Toast~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Toast.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Toast.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Tooltip.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Tooltip.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Tooltip~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Tooltip.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Tooltip.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Components/Transitions.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Transitions.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Transitions~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Transitions.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Transitions.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Config/AnimationConfig.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AnimationConfig.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AnimationConfig~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AnimationConfig.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AnimationConfig.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Core/AppState.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AppState.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AppState~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AppState.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AppState.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Colors.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Colors.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Colors~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Colors.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Colors.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Spacing.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Spacing.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Spacing~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Spacing.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Spacing.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Tokens.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Tokens.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Tokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Tokens.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Tokens.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/DesignSystem/Typography.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Typography.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Typography~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Typography.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Typography.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Models/Models.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Models.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Models~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Models.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Models.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIClient.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/APIClient.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/APIClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/APIClient.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/APIClient.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/APIEndpoint.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/APIEndpoint.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/APIEndpoint~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/APIEndpoint.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/APIEndpoint.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/AnyCodable.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AnyCodable.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AnyCodable~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AnyCodable.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AnyCodable.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Network/NetworkError.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/NetworkError.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/NetworkError~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/NetworkError.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/NetworkError.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AdvancedSearchPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AdvancedSearchPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AdvancedSearchPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AdvancedSearchPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AdvancedSearchPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AdvancedSearchPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AdvancedSearchPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AdvancedSearchPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AdvancedSearchPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AgentMemoryPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AgentMemoryPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AgentMemoryPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AgentMemoryPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/AgentMemoryPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AgentMemoryPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AgentMemoryPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AgentMemoryPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/AgentMemoryPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/BusiPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusiPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusiPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusiPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusiPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChatPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChroniclePage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChroniclePage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChroniclePage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChroniclePage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ChroniclePageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChroniclePageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChroniclePageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChroniclePageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChroniclePageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/CitationsPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationsPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationsPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationsPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationsPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ConversationsPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ConversationsPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ConversationsPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ConversationsPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ConversationsPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/DashboardPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/FileManagerPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/GraphExplorerPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/GraphExplorerPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/GraphExplorerPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/GraphExplorerPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/GraphExplorerPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/GraphExplorerPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/GraphExplorerPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/GraphExplorerPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/GraphExplorerPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ImportPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ImportPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ImportPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ImportPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ImportPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/KeywordPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ModelPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/NewProjectPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/NewProjectPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/NewProjectPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/NewProjectPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/NewProjectPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/OverviewPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/OverviewPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/OverviewPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/OverviewPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/OverviewPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PhotosPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotosPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotosPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotosPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotosPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/PlaceholderPages.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PlaceholderPages.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PlaceholderPages~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PlaceholderPages.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PlaceholderPages.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectDetailPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectDetailPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectDetailPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectDetailPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectDetailPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectDetailPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectDetailPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectDetailPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectDetailPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ProjectsPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectsPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectsPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectsPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectsPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/QualityMonitorPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/QualityMonitorPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/QualityMonitorPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/QualityMonitorPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/QualityMonitorPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/QualityMonitorPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/QualityMonitorPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/QualityMonitorPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/QualityMonitorPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3Page.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Report3Page.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Report3Page~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Report3Page.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Report3Page.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/Report3PageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Report3PageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Report3PageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Report3PageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/Report3PageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/ReportPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPAnalysisPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SOPPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SettingsPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SettingsPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SettingsPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SettingsPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SettingsPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/SkillPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TablesPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TablesPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TablesPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TablesPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TablesPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelinePage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelinePage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelinePage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelinePage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/TimelinePageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelinePageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelinePageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelinePageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelinePageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/UploadPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/UploadPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/UploadPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/UploadPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/UploadPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/VeinPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPage.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowPage.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowPage~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowPage.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowPage.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Pages/WorkflowPageComponents.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowPageComponents.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowPageComponents~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowPageComponents.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowPageComponents.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/BusinessAnalysisService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusinessAnalysisService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusinessAnalysisService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusinessAnalysisService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusinessAnalysisService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChatService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ChronicleService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChronicleService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChronicleService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChronicleService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChronicleService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/CitationService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DashboardService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/DocumentService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DocumentService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DocumentService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DocumentService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DocumentService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/FileManagerService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KeywordSearchService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordSearchService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordSearchService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordSearchService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordSearchService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/KnowledgeGraphService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KnowledgeGraphService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KnowledgeGraphService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KnowledgeGraphService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KnowledgeGraphService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MemoryService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MemoryService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MemoryService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MemoryService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MemoryService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ModelConfigService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelConfigService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelConfigService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelConfigService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelConfigService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/MonitoringService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MonitoringService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MonitoringService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MonitoringService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MonitoringService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/PhotoService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotoService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotoService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotoService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotoService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProjectService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ProposalService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProposalService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProposalService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProposalService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProposalService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/ReportService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPAnalysisService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SOPService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/SkillService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TableService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TableService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TableService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TableService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TableService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/TimelineService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelineService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelineService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelineService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelineService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/VeinService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Services/WorkflowService.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowService.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowService~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowService.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowService.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/BusinessAnalysisViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusinessAnalysisViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusinessAnalysisViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusinessAnalysisViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/BusinessAnalysisViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChatViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChatViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ChronicleViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChronicleViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChronicleViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChronicleViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ChronicleViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/CitationViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/CitationViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ConversationViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ConversationViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ConversationViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ConversationViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ConversationViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DashboardViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DashboardViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/DocumentViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DocumentViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DocumentViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DocumentViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/DocumentViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/FileManagerViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/FileManagerViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KeywordSearchViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordSearchViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordSearchViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordSearchViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KeywordSearchViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/KnowledgeGraphViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KnowledgeGraphViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KnowledgeGraphViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KnowledgeGraphViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/KnowledgeGraphViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MemoryViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MemoryViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MemoryViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MemoryViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MemoryViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ModelConfigViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelConfigViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelConfigViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelConfigViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ModelConfigViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/MonitoringViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MonitoringViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MonitoringViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MonitoringViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MonitoringViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/PhotoViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotoViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotoViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotoViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/PhotoViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProjectViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProjectViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ProposalViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProposalViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProposalViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProposalViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ProposalViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/ReportViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/ReportViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPAnalysisViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPAnalysisViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SOPViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SOPViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/SkillViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SkillViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TableViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TableViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TableViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TableViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TableViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/TimelineViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelineViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelineViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelineViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TimelineViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/VeinViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/VeinViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/ViewModels/WorkflowViewModel.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowViewModel.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowViewModel.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/WorkflowViewModel.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/MainView.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MainView.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MainView~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MainView.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/MainView.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/SidebarView.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SidebarView.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SidebarView~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SidebarView.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/SidebarView.dia"
+  },
+  "/Users/alwan/FieldMind/frontend/fieldmind-native/Sources/Views/TopBarView.swift": {
+    "object": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TopBarView.swift.o",
+    "swiftmodule": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TopBarView~partial.swiftmodule",
+    "swift-dependencies": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TopBarView.swiftdeps",
+    "diagnostics": "/Users/alwan/FieldMind/frontend/fieldmind-native/.build/arm64-apple-macosx/release/FieldMindNative.build/TopBarView.dia"
+  }
+}

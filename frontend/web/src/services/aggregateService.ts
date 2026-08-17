@@ -5,6 +5,11 @@
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
+// Production warning: ensure VITE_API_BASE_URL is set in .env.production
+if (import.meta.env.PROD && API_BASE.includes('localhost')) {
+  console.error('⚠️ Production build detected with localhost API URL. Set VITE_API_BASE_URL in .env.production');
+}
+
 export interface DashboardAggregate {
   project: {
     id: number;

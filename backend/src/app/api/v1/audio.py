@@ -66,7 +66,7 @@ async def upload_audio(
         "success": True,
         "filename": filename,
         "file_path": str(file_path),
-        "uploaded_at": datetime.utcnow().isoformat(),
+        "created_at": datetime.utcnow().isoformat(),
     }
 
     # 自动触发处理链
@@ -124,12 +124,12 @@ async def list_audio_files(skip: int = 0, limit: int = 20) -> Dict[str, Any]:
                 files.append({
                     "filename": filepath.name,
                     "size": stat.st_size,
-                    "uploaded_at": datetime.fromtimestamp(stat.st_ctime).isoformat(),
+                    "created_at": datetime.fromtimestamp(stat.st_ctime).isoformat(),
                     "path": str(filepath),
                 })
 
         # 按上传时间倒序
-        files.sort(key=lambda x: x["uploaded_at"], reverse=True)
+        files.sort(key=lambda x: x["created_at"], reverse=True)
 
         # 分页
         total = len(files)

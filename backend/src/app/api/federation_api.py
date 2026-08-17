@@ -15,9 +15,8 @@ from pydantic import BaseModel
 
 from app.core.database import get_db
 from app.services.data_federation_service import DataFederationService
-from app.services.relation_discovery import RelationDiscoveryEngine
+from app.tools.entity import UnifiedEntityEngine
 from app.services.multimodal_alignment import MultimodalAlignmentService
-from app.services.correlation_recommender import CorrelationRecommender
 
 
 router = APIRouter()
@@ -300,7 +299,7 @@ async def get_recommendations(
 ):
     """获取与当前对象相关的推荐内容"""
     recommender = CorrelationRecommender(db)
-    recommendations = recommender.recommend(fid, max_recommendations=max_recommendations, min_confidence=min_confidence)
+    recommendations = recommender.recommend_related(fid, max_recommendations=max_recommendations, min_confidence=min_confidence)
 
     return recommendations
 

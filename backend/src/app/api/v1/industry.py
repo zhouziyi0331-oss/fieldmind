@@ -306,7 +306,7 @@ async def get_industry_statistics(
             relevant_docs.append({
                 "entities": doc.extracted_entities or doc.entities or [],
                 "keywords": doc.keywords or [],
-                "created_at": doc.uploaded_at
+                "created_at": doc.created_at
             })
 
     for doc in project_docs_query:
@@ -399,7 +399,7 @@ async def get_industry_trends(
     for doc in documents_query:
         if doc.text_content and any(kw in doc.text_content for kw in category_keywords):
             relevant_docs.append({
-                "created_at": doc.uploaded_at,
+                "created_at": doc.created_at,
                 "word_count": doc.word_count or 0
             })
 

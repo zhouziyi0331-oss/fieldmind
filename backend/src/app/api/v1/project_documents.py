@@ -12,10 +12,13 @@ from app.core.database import get_db
 from app.models.project import Project, ProjectDocument
 from app.schemas.project import ProjectDocumentResponse
 from app.services.memory_service import MemoryService
-from app.services.document_converter import document_converter
+from app.tools.document import create_converter
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+# 创建文档转换器实例
+document_converter = create_converter()
 
 # 文件上传目录
 UPLOAD_DIR = os.getenv("UPLOAD_DIR", "/tmp/fieldmind_uploads")

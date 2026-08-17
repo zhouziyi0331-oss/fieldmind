@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识图谱可视化测试</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #graph {
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+        .node circle {
+            cursor: pointer;
+        }
+        .node text {
+            font-size: 12px;
+            pointer-events: none;
+        }
+        .link {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+        .link-label {
+            font-size: 10px;
+            fill: #666;
+        }
+        #status {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #e3f2fd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>知识图谱可视化测试</h1>
+    <div id="status">加载中...</div>
+    <svg id="graph" width="1200" height="800"></svg>
+
+    <script>
+        const width = 1200;
+        const height = 800;
+        const svg = d3.select("#graph");
+        const statusDiv = d3.select("#status");
+
+        // 实体类型颜色映射
+        const entityTypeColors = {
+            '人物': '#4A90E2',
+            '地名': '#7ED321',
+            '机构': '#F5A623',
+            '文化概念': '#BD10E0',
+            'person': '#4A90E2',
+            'location': '#7ED321',
+            'organization': '#F5A623',
+            'time': '#50E3C2',
+            '其他': '#9B9B9B'
+        };
+
+        // 创建测试数据
+        const testData = {
+            nodes: [
+                {id: "1", name: "布依族", type: "person", mentions: 27},
+                {id: "2", name: "王", type: "person", mentions: 27},
+                {id: "3", name: "年轻人", type: "time", mentions: 17},
+                {id: "4", name: "田野", type: "person", mentions: 9},
+                {id: "5", name: "节日", type: "time", mentions: 9},
+                {id: "6", name: "智慧", type: "person", mentions: 6}
+            ],
+            edges: [
+                {source: "1", target: "2", type: "相关", confidence: 0.8},
+                {source: "1", target: "5", type: "参与", confidence: 0.7},
+                {source: "2", target: "4", type: "相关", confidence: 0.6},
+                {source: "3", target: "5", type: "关联", confidence: 0.75},
+                {source: "4", target: "6", type: "包含", confidence: 0.85}
+            ]
+        };
+
+        statusDiv.text(`已加载 ${testData.nodes.length} 个节点和 ${testData.edges.length} 条边`);
+
+        // 创建力导向图
+        const simulation = d3.forceSimulation(testData.nodes)
+            .force('link', d3.forceLink(testData.edges).id(d => d.id).distance(150))
+            .force('charge', d3.forceManyBody().strength(-300))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('collision', d3.forceCollide().radius(40));
+
+        // 绘制连接线
+        const link = svg.append('g')
+            .selectAll('line')
+            .data(testData.edges)
+            .join('line')
+            .attr('class', 'link')
+            .attr('stroke-width', d => Math.sqrt(d.confidence * 5));
+
+        // 绘制连接线标签
+        const linkLabel = svg.append('g')
+            .selectAll('text')
+            .data(testData.edges)
+            .join('text')
+            .attr('class', 'link-label')
+            .attr('text-anchor', 'middle')
+            .text(d => d.type);
+
+        // 绘制节点
+        const node = svg.append('g')
+            .selectAll('g')
+            .data(testData.nodes)
+            .join('g')
+            .attr('class', 'node')
+            .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended));
+
+        // 添加圆形
+        node.append('circle')
+            .attr('r', d => 10 + Math.sqrt(d.mentions) * 2)
+            .attr('fill', d => entityTypeColors[d.type] || entityTypeColors['其他'])
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 2);
+
+        // 添加文本
+        node.append('text')
+            .attr('dx', 15)
+            .attr('dy', 4)
+            .text(d => d.name);
+
+        // 添加标题提示
+        node.append('title')
+            .text(d => `${d.name}\n类型: ${d.type}\n提及次数: ${d.mentions}`);
+
+        // 更新位置
+        simulation.on('tick', () => {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+
+            linkLabel
+                .attr('x', d => (d.source.x + d.target.x) / 2)
+                .attr('y', d => (d.source.y + d.target.y) / 2);
+
+            node.attr('transform', d => `translate(${d.x},${d.y})`);
+        });
+
+        // 拖拽函数
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        console.log('知识图谱可视化已加载');
+    </script>
+</body>
+</html>

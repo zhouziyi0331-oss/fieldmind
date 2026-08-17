@@ -23,7 +23,7 @@ class FieldMindAgents:
         if llm_backend == "ollama":
             return {
                 "model": os.getenv("OLLAMA_MODEL", "qwen2.5:7b"),
-                "base_url": os.getenv("OLLAMA_API_URL", "http://localhost:11434"),
+                "base_url": os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
             }
         else:
             return {

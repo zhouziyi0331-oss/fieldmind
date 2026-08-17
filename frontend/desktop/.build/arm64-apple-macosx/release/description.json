@@ -19,307 +19,307 @@
   "swiftCommands" : {
     "C.FieldMind-arm64-apple-macosx-release.module" : {
       "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
-      "fileList" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/sources",
-      "importPath" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/Modules",
+      "fileList" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/sources",
+      "importPath" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/Modules",
       "inputs" : [
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/EmptyStateView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/EmptyStateView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/FormField.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/FormField.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/StatusBadge.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/StatusBadge.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/ToastManager.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/ToastManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/APIResponses.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/APIResponses.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Chat.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Chat.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Context.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Context.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Document.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Document.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/EnhancedChat.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/EnhancedChat.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Framework.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Framework.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Graph.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Graph.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/NewFeatures.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/NewFeatures.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Project.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Project.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Skill.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Skill.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Timeline.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Timeline.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/User.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/User.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/APIService.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/APIService.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/DataRefreshNotifier.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/DataRefreshNotifier.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/ReportExporter.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/ReportExporter.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/WebSocketService.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/WebSocketService.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/AppState.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/AppState.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/ColorExtension.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/ColorExtension.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/SharedComponents.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/SharedComponents.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/TaskManager.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/TaskManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/BusinessAnalysisViewModel.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/BusinessAnalysisViewModel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/CreativeAnalysisViewModel.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/CreativeAnalysisViewModel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/KeywordSearchViewModel.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/KeywordSearchViewModel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/ProjectDataManager.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/ProjectDataManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/AgentMemoryView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/AgentMemoryView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/AudioVideoView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/AudioVideoView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/BusinessAnalysisView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/BusinessAnalysisView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ChatView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ChatView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ContentView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ContentView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ContextsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ContextsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CrawlerView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CrawlerView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CreateProjectFormView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CreateProjectFormView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CreativeAnalysisView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CreativeAnalysisView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DashboardView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DashboardView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentDetailView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentDetailView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentProcessingStages.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentProcessingStages.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/EnhancedChatView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/EnhancedChatView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/FrameworksView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/FrameworksView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/GraphView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/GraphView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/IndustryAnalysisView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/IndustryAnalysisView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/KeywordSearchView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/KeywordSearchView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/LoginView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/LoginView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/MainAppView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/MainAppView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/MediaPlayerView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/MediaPlayerView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ProjectsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ProjectsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ReportsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ReportsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/SettingsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/SettingsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/SkillsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/SkillsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/TaskCenterPanel.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/TaskCenterPanel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/TimelineView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/TimelineView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/WorkflowsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/WorkflowsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/main.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/main.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/sources"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/sources"
         }
       ],
       "isLibrary" : false,
       "moduleName" : "FieldMind",
-      "moduleOutputPath" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/Modules/FieldMind.swiftmodule",
+      "moduleOutputPath" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/Modules/FieldMind.swiftmodule",
       "objects" : [
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/EmptyStateView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/FormField.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/StatusBadge.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ToastManager.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIResponses.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Chat.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Context.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Document.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChat.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Framework.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Graph.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/NewFeatures.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Project.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Skill.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Timeline.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/User.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIService.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DataRefreshNotifier.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportExporter.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/WebSocketService.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/AppState.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ColorExtension.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/SharedComponents.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskManager.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisViewModel.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisViewModel.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchViewModel.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectDataManager.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/AgentMemoryView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/AudioVideoView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ChatView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContentView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContextsView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CrawlerView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreateProjectFormView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DashboardView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentDetailView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentProcessingStages.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentsView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChatView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/FrameworksView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/GraphView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/IndustryAnalysisView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/LoginView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/MainAppView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/MediaPlayerView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectsView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportsView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/SettingsView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/SkillsView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskCenterPanel.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/TimelineView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/WorkflowsView.swift.o",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/main.swift.o"
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/EmptyStateView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/FormField.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/StatusBadge.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ToastManager.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIResponses.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Chat.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Context.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Document.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChat.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Framework.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Graph.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/NewFeatures.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Project.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Skill.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Timeline.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/User.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIService.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DataRefreshNotifier.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportExporter.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/WebSocketService.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/AppState.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ColorExtension.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/SharedComponents.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskManager.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchViewModel.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectDataManager.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/AgentMemoryView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/AudioVideoView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ChatView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContentView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContextsView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CrawlerView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreateProjectFormView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DashboardView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentDetailView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentProcessingStages.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentsView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChatView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/FrameworksView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/GraphView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/IndustryAnalysisView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/LoginView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/MainAppView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/MediaPlayerView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectsView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportsView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/SettingsView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/SkillsView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskCenterPanel.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/TimelineView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/WorkflowsView.swift.o",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/main.swift.o"
       ],
       "otherArguments" : [
         "-target",
@@ -333,7 +333,7 @@
         "-DSWIFT_PACKAGE",
         "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
         "-module-cache-path",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/ModuleCache",
+        "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/ModuleCache",
         "-parseable-output",
         "-Xfrontend",
         "-entry-point-function-name",
@@ -366,304 +366,304 @@
         "-Xcc",
         "-g",
         "-package-name",
-        "fieldmind_desktop"
+        "desktop"
       ],
-      "outputFileMapPath" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/output-file-map.json",
+      "outputFileMapPath" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/output-file-map.json",
       "outputs" : [
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/EmptyStateView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/EmptyStateView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/FormField.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/FormField.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/StatusBadge.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/StatusBadge.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ToastManager.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ToastManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIResponses.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIResponses.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Chat.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Chat.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Context.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Context.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Document.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Document.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChat.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChat.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Framework.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Framework.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Graph.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Graph.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/NewFeatures.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/NewFeatures.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Project.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Project.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Skill.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Skill.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Timeline.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Timeline.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/User.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/User.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIService.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIService.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DataRefreshNotifier.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DataRefreshNotifier.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportExporter.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportExporter.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/WebSocketService.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/WebSocketService.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/AppState.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/AppState.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ColorExtension.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ColorExtension.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/SharedComponents.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/SharedComponents.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskManager.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisViewModel.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisViewModel.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisViewModel.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisViewModel.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchViewModel.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchViewModel.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectDataManager.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectDataManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/AgentMemoryView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/AgentMemoryView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/AudioVideoView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/AudioVideoView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ChatView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ChatView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContentView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContentView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContextsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContextsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CrawlerView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CrawlerView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreateProjectFormView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreateProjectFormView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DashboardView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DashboardView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentDetailView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentDetailView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentProcessingStages.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentProcessingStages.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChatView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChatView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/FrameworksView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/FrameworksView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/GraphView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/GraphView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/IndustryAnalysisView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/IndustryAnalysisView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/LoginView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/LoginView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/MainAppView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/MainAppView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/MediaPlayerView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/MediaPlayerView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/SettingsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/SettingsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/SkillsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/SkillsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskCenterPanel.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskCenterPanel.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/TimelineView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/TimelineView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/WorkflowsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/WorkflowsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/main.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/main.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/Modules/FieldMind.swiftmodule"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/Modules/FieldMind.swiftmodule"
         }
       ],
       "prepareForIndexing" : false,
       "sources" : [
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/EmptyStateView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/FormField.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/StatusBadge.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/ToastManager.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/APIResponses.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Chat.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Context.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Document.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/EnhancedChat.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Framework.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Graph.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/NewFeatures.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Project.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Skill.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Timeline.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/User.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/APIService.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/DataRefreshNotifier.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/ReportExporter.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/WebSocketService.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/AppState.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/ColorExtension.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/SharedComponents.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/TaskManager.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/BusinessAnalysisViewModel.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/CreativeAnalysisViewModel.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/KeywordSearchViewModel.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/ProjectDataManager.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/AgentMemoryView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/AudioVideoView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/BusinessAnalysisView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ChatView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ContentView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ContextsView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CrawlerView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CreateProjectFormView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CreativeAnalysisView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DashboardView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentDetailView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentProcessingStages.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentsView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/EnhancedChatView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/FrameworksView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/GraphView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/IndustryAnalysisView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/KeywordSearchView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/LoginView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/MainAppView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/MediaPlayerView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ProjectsView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ReportsView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/SettingsView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/SkillsView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/TaskCenterPanel.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/TimelineView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/WorkflowsView.swift",
-        "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/main.swift"
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/EmptyStateView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/FormField.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/StatusBadge.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/ToastManager.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/APIResponses.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Chat.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Context.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Document.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/EnhancedChat.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Framework.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Graph.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/NewFeatures.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Project.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Skill.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Timeline.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/User.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/APIService.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/DataRefreshNotifier.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/ReportExporter.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/WebSocketService.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/AppState.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/ColorExtension.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/SharedComponents.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/TaskManager.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/BusinessAnalysisViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/CreativeAnalysisViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/KeywordSearchViewModel.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/ProjectDataManager.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/AgentMemoryView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/AudioVideoView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/BusinessAnalysisView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ChatView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ContentView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ContextsView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CrawlerView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CreateProjectFormView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CreativeAnalysisView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DashboardView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentDetailView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentProcessingStages.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentsView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/EnhancedChatView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/FrameworksView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/GraphView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/IndustryAnalysisView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/KeywordSearchView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/LoginView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/MainAppView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/MediaPlayerView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ProjectsView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ReportsView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/SettingsView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/SkillsView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/TaskCenterPanel.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/TimelineView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/WorkflowsView.swift",
+        "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/main.swift"
       ],
-      "tempsPath" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build",
+      "tempsPath" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build",
       "wholeModuleOptimization" : true
     }
   },
@@ -676,67 +676,67 @@
       "-module-name",
       "FieldMind",
       "-package-name",
-      "fieldmind_desktop",
+      "desktop",
       "-c",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/EmptyStateView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/FormField.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/StatusBadge.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/ToastManager.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/APIResponses.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Chat.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Context.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Document.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/EnhancedChat.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Framework.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Graph.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/NewFeatures.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Project.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Skill.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Timeline.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/User.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/APIService.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/DataRefreshNotifier.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/ReportExporter.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/WebSocketService.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/AppState.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/ColorExtension.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/SharedComponents.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/TaskManager.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/BusinessAnalysisViewModel.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/CreativeAnalysisViewModel.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/KeywordSearchViewModel.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/ProjectDataManager.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/AgentMemoryView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/AudioVideoView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/BusinessAnalysisView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ChatView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ContentView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ContextsView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CrawlerView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CreateProjectFormView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CreativeAnalysisView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DashboardView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentDetailView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentProcessingStages.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentsView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/EnhancedChatView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/FrameworksView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/GraphView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/IndustryAnalysisView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/KeywordSearchView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/LoginView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/MainAppView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/MediaPlayerView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ProjectsView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ReportsView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/SettingsView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/SkillsView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/TaskCenterPanel.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/TimelineView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/WorkflowsView.swift",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/main.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/EmptyStateView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/FormField.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/StatusBadge.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/ToastManager.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/APIResponses.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Chat.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Context.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Document.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/EnhancedChat.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Framework.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Graph.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/NewFeatures.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Project.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Skill.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Timeline.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/User.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/APIService.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/DataRefreshNotifier.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/ReportExporter.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/WebSocketService.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/AppState.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/ColorExtension.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/SharedComponents.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/TaskManager.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/BusinessAnalysisViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/CreativeAnalysisViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/KeywordSearchViewModel.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/ProjectDataManager.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/AgentMemoryView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/AudioVideoView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/BusinessAnalysisView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ChatView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ContentView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ContextsView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CrawlerView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CreateProjectFormView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CreativeAnalysisView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DashboardView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentDetailView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentProcessingStages.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentsView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/EnhancedChatView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/FrameworksView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/GraphView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/IndustryAnalysisView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/KeywordSearchView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/LoginView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/MainAppView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/MediaPlayerView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ProjectsView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ReportsView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/SettingsView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/SkillsView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/TaskCenterPanel.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/TimelineView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/WorkflowsView.swift",
+      "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/main.swift",
       "-I",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/Modules",
+      "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/Modules",
       "-target",
       "arm64-apple-macosx14.0",
       "-whole-module-optimization",
@@ -748,7 +748,7 @@
       "-DSWIFT_PACKAGE",
       "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
       "-module-cache-path",
-      "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/ModuleCache",
+      "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/ModuleCache",
       "-parseable-output",
       "-Xfrontend",
       "-entry-point-function-name",
@@ -781,7 +781,7 @@
       "-Xcc",
       "-g",
       "-package-name",
-      "fieldmind_desktop",
+      "desktop",
       "-driver-use-frontend-path",
       "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
     ]
@@ -803,7 +803,7 @@
     }
   },
   "writeCommands" : {
-    "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/sources" : {
+    "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/sources" : {
       "alwaysOutOfDate" : false,
       "inputs" : [
         {
@@ -812,236 +812,236 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/EmptyStateView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/EmptyStateView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/FormField.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/FormField.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/StatusBadge.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/StatusBadge.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Components/ToastManager.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Components/ToastManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/APIResponses.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/APIResponses.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Chat.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Chat.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Context.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Context.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Document.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Document.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/EnhancedChat.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/EnhancedChat.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Framework.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Framework.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Graph.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Graph.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/NewFeatures.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/NewFeatures.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Project.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Project.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Skill.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Skill.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/Timeline.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/Timeline.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Models/User.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Models/User.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/APIService.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/APIService.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/DataRefreshNotifier.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/DataRefreshNotifier.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/ReportExporter.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/ReportExporter.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Services/WebSocketService.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Services/WebSocketService.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/AppState.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/AppState.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/ColorExtension.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/ColorExtension.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/SharedComponents.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/SharedComponents.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Utils/TaskManager.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Utils/TaskManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/BusinessAnalysisViewModel.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/BusinessAnalysisViewModel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/CreativeAnalysisViewModel.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/CreativeAnalysisViewModel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/KeywordSearchViewModel.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/KeywordSearchViewModel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/ViewModels/ProjectDataManager.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/ViewModels/ProjectDataManager.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/AgentMemoryView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/AgentMemoryView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/AudioVideoView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/AudioVideoView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/BusinessAnalysisView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/BusinessAnalysisView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ChatView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ChatView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ContentView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ContentView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ContextsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ContextsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CrawlerView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CrawlerView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CreateProjectFormView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CreateProjectFormView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/CreativeAnalysisView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/CreativeAnalysisView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DashboardView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DashboardView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentDetailView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentDetailView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentProcessingStages.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentProcessingStages.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/DocumentsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/DocumentsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/EnhancedChatView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/EnhancedChatView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/FrameworksView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/FrameworksView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/GraphView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/GraphView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/IndustryAnalysisView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/IndustryAnalysisView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/KeywordSearchView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/KeywordSearchView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/LoginView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/LoginView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/MainAppView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/MainAppView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/MediaPlayerView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/MediaPlayerView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ProjectsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ProjectsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/ReportsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/ReportsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/SettingsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/SettingsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/SkillsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/SkillsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/TaskCenterPanel.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/TaskCenterPanel.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/TimelineView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/TimelineView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/Views/WorkflowsView.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/Views/WorkflowsView.swift"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/Sources/FieldMind/main.swift"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/Sources/FieldMind/main.swift"
         }
       ],
-      "outputFilePath" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/sources"
+      "outputFilePath" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/sources"
     },
-    "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.product/Objects.LinkFileList" : {
+    "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.product/Objects.LinkFileList" : {
       "alwaysOutOfDate" : false,
       "inputs" : [
         {
@@ -1050,236 +1050,236 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIResponses.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIResponses.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIService.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/APIService.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/AgentMemoryView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/AgentMemoryView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/AppState.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/AppState.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/AudioVideoView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/AudioVideoView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisViewModel.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/BusinessAnalysisViewModel.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Chat.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Chat.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ChatView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ChatView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ColorExtension.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ColorExtension.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContentView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContentView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Context.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Context.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContextsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ContextsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CrawlerView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CrawlerView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreateProjectFormView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreateProjectFormView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisViewModel.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/CreativeAnalysisViewModel.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DashboardView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DashboardView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DataRefreshNotifier.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DataRefreshNotifier.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Document.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Document.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentDetailView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentDetailView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentProcessingStages.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentProcessingStages.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/DocumentsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/EmptyStateView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/EmptyStateView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChat.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChat.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChatView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/EnhancedChatView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/FormField.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/FormField.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Framework.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Framework.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/FrameworksView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/FrameworksView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Graph.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Graph.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/GraphView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/GraphView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/IndustryAnalysisView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/IndustryAnalysisView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchViewModel.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/KeywordSearchViewModel.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/LoginView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/LoginView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/MainAppView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/MainAppView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/MediaPlayerView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/MediaPlayerView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/NewFeatures.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/NewFeatures.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Project.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Project.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectDataManager.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectDataManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ProjectsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportExporter.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportExporter.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ReportsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/SettingsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/SettingsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/SharedComponents.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/SharedComponents.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Skill.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Skill.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/SkillsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/SkillsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/StatusBadge.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/StatusBadge.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskCenterPanel.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskCenterPanel.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskManager.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/TaskManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/Timeline.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/Timeline.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/TimelineView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/TimelineView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/ToastManager.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/ToastManager.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/User.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/User.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/WebSocketService.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/WebSocketService.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/WorkflowsView.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/WorkflowsView.swift.o"
         },
         {
           "kind" : "file",
-          "name" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.build/main.swift.o"
+          "name" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.build/main.swift.o"
         }
       ],
-      "outputFilePath" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/FieldMind.product/Objects.LinkFileList"
+      "outputFilePath" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/FieldMind.product/Objects.LinkFileList"
     },
-    "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt" : {
+    "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt" : {
       "alwaysOutOfDate" : true,
       "inputs" : [
         {
@@ -1291,7 +1291,7 @@
           "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
         }
       ],
-      "outputFilePath" : "/Users/alwan/FieldMind-Rebuild/fieldmind-desktop/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+      "outputFilePath" : "/Users/alwan/FieldMind/frontend/desktop/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
     }
   }
 }

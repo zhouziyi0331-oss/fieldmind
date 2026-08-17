@@ -3,12 +3,14 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../services/api';
 import FactStatementsViewer from '../components/FactStatementsViewer';
+import BatchProcessPanel from '../components/BatchProcessPanel';
 import { useAppContext } from '../contexts/AppContext';
 
 const DocumentsPage: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const [uploading, setUploading] = useState(false);
   const [selectedDocumentId, setSelectedDocumentId] = useState<number | null>(null);
+  const [showBatchPanel, setShowBatchPanel] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
   const { triggerRefresh, setLastUploadedFileId } = useAppContext();
@@ -85,20 +87,43 @@ const DocumentsPage: React.FC = () => {
       {/* 头部 */}
       <div className="bg-white shadow">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Link
-              to={`/projects/${projectId}`}
-              className="text-gray-600 hover:text-gray-900"
-            >
-              ← 返回项目
-            </Link>
-            <div className="h-6 w-px bg-gray-300" />
-            <h1 className="text-2xl font-bold">📚 材料库</h1>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Link
+                to={`/projects/${projectId}`}
+                className="text-gray-600 hover:text-gray-900"
+              >
+                ← 返回项目
+              </Link>
+              <div className="h-6 w-px bg-gray-300" />
+              <h1 className="text-2xl font-bold">📚 材料库</h1>
+            </div>
+            {/* 批量处理按钮 */}
+            {documents.length > 0 && (
+              <button
+                onClick={() => setShowBatchPanel(!showBatchPanel)}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              >
+                {showBatchPanel ? '隐藏批量处理' : '📦 批量处理'}
+              </button>
+            )}
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
+        {/* 批量处理面板 */}
+        {showBatchPanel && (
+          <div className="mb-8">
+            <BatchProcessPanel
+              projectId={Number(projectId)}
+              onComplete={() => {
+                queryClient.invalidateQueries({ queryKey: ['documents', projectId] });
+                triggerRefresh();
+              }}
+            />
+          </div>
+        )}
         {/* 上传区域 */}
         <div
           onDrop={handleDrop}

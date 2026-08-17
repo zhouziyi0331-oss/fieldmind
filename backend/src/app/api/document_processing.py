@@ -8,9 +8,10 @@ from typing import Dict, Any
 import logging
 
 from app.core.database import get_db
-from app.services.document_processing_pipeline import DocumentProcessingPipeline
-from app.services.vectorization_service_complete import VectorizationService
+from app.tools.document import UnifiedDocumentPipeline
+from app.tools.vectorization import UnifiedVectorizationEngine, VectorEngine, StorageBackend
 from app.models.project import ProjectDocument
+from app.models.document_chunk import DocumentChunk
 from app.tasks.document_tasks import process_document as celery_process_document
 
 router = APIRouter(tags=["文档处理"])
@@ -32,7 +33,7 @@ async def get_processing_status(
     - vectorize: 向量化
     - index: 入库索引
     """
-    pipeline = DocumentProcessingPipeline()
+    pipeline = UnifiedDocumentPipeline()
     status = pipeline.get_processing_status(document_id, db)
 
     if "error" in status:
@@ -82,8 +83,6 @@ async def get_chunks_preview(
 
     返回前N个chunks的信息（用于UI展示）
     """
-    from app.services.vectorization_service_complete import DocumentChunk
-
     chunks = db.query(DocumentChunk).filter(
         DocumentChunk.document_id == document_id
     ).order_by(DocumentChunk.chunk_index).limit(limit).all()
@@ -126,8 +125,45 @@ async def get_project_chunks_statistics(
     """
     获取项目的chunks统计信息
     """
-    vectorizer = VectorizationService()
-    stats = vectorizer.get_chunk_statistics(project_id, db)
+    # 使用统一向量化引擎获取统计
+    engine = UnifiedVectorizationEngine(
+        engine=VectorEngine.BGE_LARGE,
+        storage=StorageBackend.DUAL
+    )
+
+    # 获取项目文档列表
+    documents = db.query(ProjectDocument).filter(
+        ProjectDocument.project_id == project_id
+    ).all()
+
+    doc_ids = [str(doc.id) for doc in documents]
+
+    if not doc_ids:
+        return {
+            "project_id": project_id,
+            "total_chunks": 0,
+            "total_documents": 0,
+            "vectorized_chunks": 0,
+            "storage_backend": "none"
+        }
+
+    # 从SQL统计
+    total_chunks = db.query(DocumentChunk).filter(
+        DocumentChunk.document_id.in_([int(d) for d in doc_ids])
+    ).count()
+
+    vectorized_chunks = db.query(DocumentChunk).filter(
+        DocumentChunk.document_id.in_([int(d) for d in doc_ids]),
+        DocumentChunk.embedding.isnot(None)
+    ).count()
+
+    stats = {
+        "project_id": project_id,
+        "total_chunks": total_chunks,
+        "total_documents": len(documents),
+        "vectorized_chunks": vectorized_chunks,
+        "vectorization_rate": f"{vectorized_chunks / total_chunks * 100:.1f}%" if total_chunks > 0 else "0%"
+    }
 
     return stats
 
@@ -151,28 +187,29 @@ async def semantic_search(
     Returns:
         匹配的chunks列表，按相似度排序
     """
-    vectorizer = VectorizationService()
-
-    # 使用project_id作为过滤条件
-    filter_metadata = {"project_id": project_id} if project_id else None
-
-    results = vectorizer.query_similar(
-        query_text=query,
-        top_k=top_k,
-        filter_metadata=filter_metadata
+    # 使用统一向量化引擎
+    engine = UnifiedVectorizationEngine(
+        engine=VectorEngine.BGE_LARGE,
+        storage=StorageBackend.DUAL
     )
 
-    # 过滤低于阈值的结果（distance越小越相似，转换为score）
+    # 搜索相似chunks
+    results = engine.search_similar(
+        query=query,
+        top_k=top_k,
+        filter_metadata={"project_id": str(project_id)} if project_id else None
+    )
+
+    # 过滤低于阈值的结果
     filtered_results = []
     for result in results:
-        # ChromaDB返回的是距离，转换为相似度分数(0-1)
-        score = 1 / (1 + result["distance"])
-        if score >= threshold:
+        if result.similarity >= threshold:
             filtered_results.append({
-                "chunk_id": result["chunk_id"],
-                "text": result["text"],
-                "metadata": result["metadata"],
-                "score": score
+                "chunk_id": result.chunk_id,
+                "text": result.text,
+                "metadata": result.metadata,
+                "similarity": result.similarity,
+                "document_id": result.metadata.get("document_id")
             })
 
     return {

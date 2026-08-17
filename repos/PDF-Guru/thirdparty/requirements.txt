@@ -1,0 +1,9 @@
+pymupdf
+reportlab
+pillow
+loguru
+pyinstaller
+numpy
+requests
+pdfrw>=0.4
+defusedxml

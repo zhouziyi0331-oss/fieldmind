@@ -24,9 +24,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 from app.api.v1 import (
-    audio, documents as v1_documents, search, rag, workflows as v1_workflows,
+    audio, documents as v1_documents, search, rag,
     auth, crawler, skills, industry, reports, enhanced_chat,
-    projects as v1_projects, project_chat, project_documents
+    projects as v1_projects, project_chat, project_documents, super_agents
 )
 from app.api import (
     chat,
@@ -166,9 +166,13 @@ app.include_router(chat_rag.router, prefix="/api/chat-rag", tags=["RAG对话"])
 from app.api import reports_real
 app.include_router(reports_real.router, prefix="/api/reports", tags=["报告生成"])
 
-# Skill配置管理路由
+# Skill配置管理路由（旧版 - 待废弃）
 from app.api import skill_config
-app.include_router(skill_config.router, prefix="/api/skills", tags=["Skill配置"])
+app.include_router(skill_config.router, prefix="/api/skills-old", tags=["Skill配置(旧)"])
+
+# Skills分析路由（新版 - 6个学术方法论）
+from app.api.routes import skills as skills_new
+app.include_router(skills_new.router, tags=["Skills学术分析"])
 
 # Dashboard统计路由
 from app.api import dashboard
@@ -198,6 +202,10 @@ app.include_router(timeline_new.router, prefix="/api/timeline", tags=["时间线
 from app.api import workflows as workflows_new
 app.include_router(workflows_new.router, prefix="/api/workflows", tags=["工作流编排"])
 
+# 工作流v2路由（使用6-Agent v2架构）
+from app.api import workflows_v2 as workflows_v2_new
+app.include_router(workflows_v2_new.router, tags=["工作流v2-6Agent架构"])
+
 # 记忆管理路由（链路十三）
 from app.api import memory as memory_new
 app.include_router(memory_new.router, prefix="/api/memory", tags=["记忆管理"])
@@ -206,9 +214,9 @@ app.include_router(memory_new.router, prefix="/api/memory", tags=["记忆管理"
 from app.api import document_processing_v2
 app.include_router(document_processing_v2.router, prefix="/api/document-processing-v2", tags=["文档处理v2-引用溯源"])
 
-# 知识图谱v3路由（链路十六：证据链绑定）
+# 知识图谱v3路由（链路十六：证据链绑定）- 未使用，隐藏不在API文档显示
 from app.api import knowledge_graph_v3
-app.include_router(knowledge_graph_v3.router, prefix="/api/knowledge-graph-v3", tags=["知识图谱v3-证据链"])
+app.include_router(knowledge_graph_v3.router, prefix="/api/knowledge-graph-v3", tags=["知识图谱v3-证据链"], include_in_schema=False)
 
 # 🔪 破茧三刀：动态发现API（零硬编码）
 from app.api import dynamic_discovery_api
@@ -229,6 +237,18 @@ app.include_router(analytics.router, prefix="/api/analytics", tags=["数据分�
 # 数据聚合路由（统一数据快照，解决模块间数据不一致）
 from app.api import aggregate
 app.include_router(aggregate.router, prefix="/api/aggregate", tags=["数据聚合"])
+
+# 文献引用管理路由
+from app.api import citations
+app.include_router(citations.router, prefix="/api", tags=["文献引用"])
+
+# 照片管理路由（带EXIF支持）
+from app.api import photos
+app.include_router(photos.router, prefix="/api", tags=["照片管理"])
+
+# 文件管理路由（虚拟文件夹）
+from app.api import file_manager
+app.include_router(file_manager.router, prefix="/api", tags=["文件管理"])
 
 app.include_router(documents.router, prefix="/api/documents", tags=["文档管理(新)"])
 app.include_router(keyword_search.router, prefix="/api/keyword-search", tags=["关键词检索"])
@@ -252,7 +272,11 @@ app.include_router(v1_documents.router, prefix="/api/v1/documents", tags=["文�
 app.include_router(crawler.router, prefix="/api/v1/crawler", tags=["爬虫"])
 app.include_router(search.router, prefix="/api/v1/search", tags=["搜索"])
 app.include_router(rag.router, prefix="/api/v1/rag", tags=["RAG"])
-app.include_router(v1_workflows.router, prefix="/api/v1/workflows", tags=["工作流"])
+# REMOVED: app.include_router(v1_workflows.router, prefix="/api/v1/workflows", tags=["工作流"])  # 未使用，已被workflows.py和workflows_v2.py替代
+
+# SuperAgents API (Phase 3)
+app.include_router(super_agents.router, tags=["SuperAgents"])
+logger.info("✅ SuperAgents API已加载")
 
 
 # ============= 前后端兼容层 =============

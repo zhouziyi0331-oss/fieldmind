@@ -15,7 +15,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('/Users/alwan/FieldMind-Rebuild/fieldmind-backend/logs/app.log'),
+        logging.FileHandler(os.getenv("LOG_FILE", "./logs/app.log")),
         logging.StreamHandler()
     ]
 )

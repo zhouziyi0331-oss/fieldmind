@@ -95,8 +95,8 @@ async def lifespan(app: FastAPI):
 
     # 初始化Neo4j连接
     try:
-        from app.services.knowledge_graph_service import knowledge_graph_service
-        knowledge_graph_service.driver  # 触发连接
+        from app.tools.knowledge.graph import create_knowledge_graph
+        create_knowledge_graph().driver  # 触发连接
         logger.info("✅ Neo4j连接成功")
     except Exception as e:
         logger.warning(f"⚠️  Neo4j初始化失败: {e}")
@@ -143,8 +143,8 @@ async def lifespan(app: FastAPI):
 
     # 关闭Neo4j连接
     try:
-        from app.services.knowledge_graph_service import knowledge_graph_service
-        knowledge_graph_service.close()
+        from app.tools.knowledge.graph import create_knowledge_graph
+        create_knowledge_graph().close()
         logger.info("✅ Neo4j连接已关闭")
     except Exception as e:
         logger.error(f"❌ Neo4j关闭失败: {e}")
@@ -442,8 +442,8 @@ async def health_check():
 
     # 检查Neo4j
     try:
-        from app.services.knowledge_graph_service import knowledge_graph_service
-        with knowledge_graph_service.driver.session() as session:
+        from app.tools.knowledge.graph import create_knowledge_graph
+        with create_knowledge_graph().driver.session() as session:
             session.run("RETURN 1")
         health_status["services"]["neo4j"] = "healthy"
     except Exception as e:

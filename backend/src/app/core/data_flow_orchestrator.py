@@ -359,9 +359,9 @@ class DataFlowOrchestrator:
         document_id = data.get("document_id")
 
         # 调用document_processing_pipeline
-        from app.services.document_processing_pipeline import DocumentProcessingPipeline
+        from app.tools.document import UnifiedDocumentPipeline
 
-        pipeline = DocumentProcessingPipeline()
+        pipeline = UnifiedDocumentPipeline()
         # 这里简化，实际应从数据库获取文件路径
 
         logger.info(f"内容提取完成: document_id={document_id}")

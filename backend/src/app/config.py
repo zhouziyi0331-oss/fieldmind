@@ -19,9 +19,9 @@ class Settings(BaseSettings):
 
     # 应用设置
     APP_NAME: str = "FieldMind"
-    DEBUG: bool = True
-    HOST: str = "0.0.0.0"
-    PORT: int = 8000
+    DEBUG: bool = os.getenv("DEBUG", "False").lower() == "true"  # 默认False，生产环境安全
+    HOST: str = os.getenv("HOST", "0.0.0.0")
+    PORT: int = int(os.getenv("PORT", "8000"))
 
     # CORS
     CORS_ORIGINS: List[str] = os.getenv(
@@ -77,7 +77,7 @@ class Settings(BaseSettings):
     MAX_UPLOAD_SIZE: int = 500 * 1024 * 1024  # 500MB
 
     # JWT
-    SECRET_KEY: str = "your-secret-key-change-in-production"
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")  # ⚠️ 生产环境必须修改
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
@@ -85,24 +85,49 @@ class Settings(BaseSettings):
     ASR_ENGINE: str = "funasr"  # "whisper" 或 "funasr"
 
     # Whisper配置
-    WHISPER_MODEL: str = "base"
-    WHISPER_DEVICE: str = "cpu"  # 或 "cuda"
+    WHISPER_MODEL: str = os.getenv("WHISPER_MODEL", "base")
+    WHISPER_DEVICE: str = os.getenv("WHISPER_DEVICE", "cpu")
+    WHISPER_USE_LOCAL: bool = os.getenv("WHISPER_USE_LOCAL", "true").lower() == "true"
+    WHISPER_MODEL_SIZE: str = os.getenv("WHISPER_MODEL_SIZE", "base")
 
     # FunASR配置
-    FUNASR_MODEL: str = "paraformer-zh"  # 中文识别模型
-    FUNASR_VAD_MODEL: str = "fsmn-vad"  # 语音活动检测
-    FUNASR_PUNC_MODEL: str = "ct-punc"  # 标点恢复
-    FUNASR_HOTWORDS: str = ""  # 热词，用空格分隔，如 "口述历史 田野调查"
+    FUNASR_MODEL: str = os.getenv("FUNASR_MODEL", "paraformer-zh")
+    FUNASR_VAD_MODEL: str = os.getenv("FUNASR_VAD_MODEL", "fsmn-vad")
+    FUNASR_PUNC_MODEL: str = os.getenv("FUNASR_PUNC_MODEL", "ct-punc")
+    FUNASR_HOTWORDS: str = os.getenv("FUNASR_HOTWORDS", "")
 
     # 向量嵌入模型
-    EMBEDDING_MODEL: str = "sentence-transformers/all-MiniLM-L6-v2"
+    EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
 
     # HuggingFace Token（如果使用私有模型）
-    HUGGINGFACE_TOKEN: str = ""
+    HUGGINGFACE_TOKEN: str = os.getenv("HUGGINGFACE_TOKEN", "")
+
+    # Ollama配置
+    OLLAMA_API_URL: str = os.getenv("OLLAMA_API_URL", "http://localhost:11434")
+    OLLAMA_BASE_URL: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    OLLAMA_MODEL: str = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
 
     # RAGFlow配置
     RAGFLOW_API_URL: str = os.getenv("RAGFLOW_API_URL", "http://localhost:9380")
     RAGFLOW_API_KEY: str = os.getenv("RAGFLOW_API_KEY", "")
+
+    # MinerU配置
+    MINERU_API_URL: str = os.getenv("MINERU_API_URL", "http://localhost:8765")
+
+    # Crawl4AI配置
+    CRAWL4AI_API_URL: str = os.getenv("CRAWL4AI_API_URL", "http://localhost:8080")
+
+    # Mem0配置
+    MEM0_API_URL: str = os.getenv("MEM0_API_URL", "http://localhost:8081")
+
+    # Cognee配置
+    COGNEE_API_URL: str = os.getenv("COGNEE_API_URL", "http://localhost:8082")
+
+    # GraphRAG配置
+    GRAPHRAG_API_URL: str = os.getenv("GRAPHRAG_API_URL", "http://localhost:8083")
+
+    # Khoj配置
+    KHOJ_API_URL: str = os.getenv("KHOJ_API_URL", "http://localhost:8084")
 
 
 settings = Settings()

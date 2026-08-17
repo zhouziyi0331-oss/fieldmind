@@ -1,0 +1,100 @@
+# Promtail 配置文件
+# 日志收集器，发送到 Loki
+
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  # FieldMind 应用日志
+  - job_name: fieldmind-app
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: fieldmind-backend
+          __path__: /tmp/fieldmind_logs/*.log
+
+    pipeline_stages:
+      # 解析日志格式
+      - regex:
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) \| (?P<level>\w+)\s+\| (?P<location>[\w\.:]+) - (?P<message>.*)$'
+
+      # 提取时间戳
+      - timestamp:
+          source: timestamp
+          format: '2006-01-02 15:04:05'
+
+      # 添加标签
+      - labels:
+          level:
+          location:
+
+  # API 调用日志
+  - job_name: fieldmind-api
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: fieldmind-api
+          __path__: /tmp/fieldmind_logs/api_*.log
+
+    pipeline_stages:
+      - regex:
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) \| (?P<method>\w+) (?P<path>[^\s]+) \| (?P<status>\d+) \| (?P<duration>[\d.]+)ms'
+
+      - timestamp:
+          source: timestamp
+          format: '2006-01-02 15:04:05'
+
+      - labels:
+          method:
+          status:
+
+  # 错误日志
+  - job_name: fieldmind-errors
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: fieldmind-errors
+          severity: error
+          __path__: /tmp/fieldmind_logs/errors_*.log
+
+  # 系统日志
+  - job_name: system
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: system
+          __path__: /var/log/syslog
+
+  # Docker 容器日志
+  - job_name: docker
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: docker
+          __path__: /var/lib/docker/containers/*/*.log
+
+    pipeline_stages:
+      - json:
+          expressions:
+            output: log
+            stream: stream
+            time: time
+
+      - timestamp:
+          source: time
+          format: RFC3339Nano
+
+      - output:
+          source: output

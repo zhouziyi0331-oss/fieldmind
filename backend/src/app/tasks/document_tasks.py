@@ -11,7 +11,7 @@ from pathlib import Path
 
 from app.core.database import SessionLocal
 from app.models.project import ProjectDocument, Project
-from app.services.document_converter import DocumentConverter
+from app.tools.document import UnifiedDocumentConverter
 from app.services.video_processor import VideoProcessor
 from app.config import settings
 
@@ -35,7 +35,7 @@ celery_app.conf.update(
 )
 
 # 服务实例
-document_converter = DocumentConverter()
+document_converter = UnifiedDocumentConverter()
 video_processor = VideoProcessor()
 
 
@@ -55,7 +55,7 @@ def process_document(self, document_id: int):
     db = SessionLocal()
 
     try:
-        from app.services.document_processing_pipeline import DocumentProcessingPipeline
+        from app.tools.document import UnifiedDocumentPipeline
 
         doc = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
         if not doc:
@@ -67,7 +67,7 @@ def process_document(self, document_id: int):
         db.commit()
 
         # 创建处理流水线
-        pipeline = DocumentProcessingPipeline()
+        pipeline = UnifiedDocumentPipeline()
 
         # 定义进度回调
         def progress_callback(stage, progress, message):

@@ -121,7 +121,7 @@ def process_audio_chain(file_path: str, project_id: int = None) -> Dict[str, Any
     ⚠️ 核心改动：不再合并segments为纯文本，每个segment独立存储
     """
     from app.services.audio_chunker import get_audio_chunker
-    from app.services.vectorization_service_v2 import get_vectorization_service_v2
+    from app.tools.vectorization import UnifiedVectorizationEngine, VectorEngine, StorageBackend
     from app.schemas.document_metadata import DocumentMetadata, DocumentType, SourceLevel
 
     # 步骤 1: 提取元数据

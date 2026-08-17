@@ -1,0 +1,177 @@
+version: '3.8'
+
+services:
+  # ============================================
+  # Prometheus - 指标收集
+  # ============================================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: fieldmind-prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/alerts.yml:/etc/prometheus/alerts.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # ============================================
+  # Grafana - 可视化仪表板
+  # ============================================
+  grafana:
+    image: grafana/grafana:latest
+    container_name: fieldmind-grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana:/etc/grafana/provisioning/dashboards
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # ============================================
+  # AlertManager - 告警管理
+  # ============================================
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: fieldmind-alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--storage.path=/alertmanager'
+    volumes:
+      - ./alertmanager/config.yml:/etc/alertmanager/config.yml
+      - alertmanager_data:/alertmanager
+    ports:
+      - "9093:9093"
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # ============================================
+  # Node Exporter - 系统指标
+  # ============================================
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: fieldmind-node-exporter
+    command:
+      - '--path.rootfs=/host'
+    volumes:
+      - /:/host:ro,rslave
+    ports:
+      - "9100:9100"
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # ============================================
+  # Redis Exporter - Redis指标
+  # ============================================
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: fieldmind-redis-exporter
+    environment:
+      - REDIS_ADDR=redis:6379
+    ports:
+      - "9121:9121"
+    restart: unless-stopped
+    networks:
+      - monitoring
+      - fieldmind-network
+
+  # ============================================
+  # Postgres Exporter - PostgreSQL指标
+  # ============================================
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:latest
+    container_name: fieldmind-postgres-exporter
+    environment:
+      - DATA_SOURCE_NAME=postgresql://fieldmind:fieldmind_password@postgres:5432/fieldmind?sslmode=disable
+    ports:
+      - "9187:9187"
+    restart: unless-stopped
+    networks:
+      - monitoring
+      - fieldmind-network
+
+  # ============================================
+  # Loki - 日志聚合
+  # ============================================
+  loki:
+    image: grafana/loki:latest
+    container_name: fieldmind-loki
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    ports:
+      - "3100:3100"
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # ============================================
+  # Promtail - 日志收集器
+  # ============================================
+  promtail:
+    image: grafana/promtail:latest
+    container_name: fieldmind-promtail
+    command: -config.file=/etc/promtail/config.yml
+    volumes:
+      - ./promtail/promtail-config.yml:/etc/promtail/config.yml
+      - /var/log:/var/log:ro
+      - /tmp/fieldmind_logs:/tmp/fieldmind_logs:ro
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  # ============================================
+  # Jaeger - 分布式追踪 (可选)
+  # ============================================
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: fieldmind-jaeger
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"  # Jaeger UI
+      - "14268:14268"
+      - "14250:14250"
+      - "9411:9411"
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+volumes:
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  alertmanager_data:
+    driver: local
+  loki_data:
+    driver: local
+
+networks:
+  monitoring:
+    driver: bridge
+  fieldmind-network:
+    external: true

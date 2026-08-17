@@ -18,7 +18,8 @@ from app.middleware.auth import get_current_user
 
 router = APIRouter(tags=["Reports"])
 
-REPORTS_DIR = Path("/Users/alwan/FieldMind-Rebuild/fieldmind-backend/reports")
+# 报告存储目录 - 使用环境变量
+REPORTS_DIR = Path(os.getenv("REPORT_OUTPUT_DIR", "./reports"))
 REPORTS_DIR.mkdir(exist_ok=True)
 
 

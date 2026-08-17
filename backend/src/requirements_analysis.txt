@@ -1,0 +1,19 @@
+# 数据分析中间层所需依赖
+
+# 1. 零样本分类器（用于主题打标）
+transformers>=4.30.0
+torch>=2.0.0
+
+# 2. 情感分析（可选）
+snownlp>=0.12.3
+
+# 3. 时间解析
+python-dateutil>=2.8.2
+arrow>=1.2.3
+
+# 4. 数据库操作（已有sqlalchemy，但需要PostgreSQL驱动）
+psycopg2-binary>=2.9.0  # PostgreSQL驱动
+
+# 5. 文本清洗增强
+regex>=2023.0.0
+ftfy>=6.1.0  # 修复乱码

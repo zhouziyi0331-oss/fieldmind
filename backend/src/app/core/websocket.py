@@ -83,6 +83,53 @@ class ConnectionManager:
         }
         await self.broadcast_to_project(message, project_id)
 
+    async def notify_agent_execution_start(self, project_id: int, execution_id: str, agent_type: str, metadata: dict = None):
+        """通知Agent执行开始"""
+        message = {
+            "type": "agent_execution_start",
+            "execution_id": execution_id,
+            "agent_type": agent_type,
+            "metadata": metadata or {},
+            "timestamp": import_datetime().isoformat()
+        }
+        await self.broadcast_to_project(message, project_id)
+
+    async def notify_agent_execution_progress(self, project_id: int, execution_id: str, progress: float, current_stage: str = None, details: dict = None):
+        """通知Agent执行进度"""
+        message = {
+            "type": "agent_execution_progress",
+            "execution_id": execution_id,
+            "progress": progress,
+            "current_stage": current_stage,
+            "details": details or {},
+            "timestamp": import_datetime().isoformat()
+        }
+        await self.broadcast_to_project(message, project_id)
+
+    async def notify_agent_execution_complete(self, project_id: int, execution_id: str, status: str, result: dict = None, error: str = None):
+        """通知Agent执行完成"""
+        message = {
+            "type": "agent_execution_complete",
+            "execution_id": execution_id,
+            "status": status,  # "completed" or "failed"
+            "result": result,
+            "error": error,
+            "timestamp": import_datetime().isoformat()
+        }
+        await self.broadcast_to_project(message, project_id)
+
+    async def notify_agent_task_update(self, project_id: int, execution_id: str, task_id: str, task_status: str, task_result: dict = None):
+        """通知单个Agent任务状态更新"""
+        message = {
+            "type": "agent_task_update",
+            "execution_id": execution_id,
+            "task_id": task_id,
+            "task_status": task_status,  # "pending", "running", "completed", "failed"
+            "task_result": task_result,
+            "timestamp": import_datetime().isoformat()
+        }
+        await self.broadcast_to_project(message, project_id)
+
 
 def import_datetime():
     """延迟导入 datetime"""

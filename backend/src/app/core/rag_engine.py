@@ -45,7 +45,7 @@ class RAGEngine:
             from FlagEmbedding import FlagModel
 
             # 强制使用ModelScope下载的本地模型
-            model_cache = os.path.expanduser('~/.cache/modelscope/models/AI-ModelScope--bge-small-zh-v1.5/snapshots/master')
+            model_cache = os.getenv("BGE_MODEL_PATH", os.path.expanduser("~/.cache/modelscope/models/AI-ModelScope--bge-small-zh-v1.5/snapshots/master"))
 
             if not os.path.exists(model_cache):
                 raise FileNotFoundError(f"本地模型未找到: {model_cache}")
@@ -82,7 +82,7 @@ class RAGEngine:
 
         # 使用持久化的本地ChromaDB（不依赖服务器）
         try:
-            chroma_db_path = "/Users/alwan/FieldMind-Rebuild/chroma_db"
+            chroma_db_path = os.getenv("CHROMA_PERSIST_DIR", "./data/chroma_db")
             import os
             os.makedirs(chroma_db_path, exist_ok=True)
 

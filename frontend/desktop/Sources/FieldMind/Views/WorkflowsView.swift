@@ -5,6 +5,8 @@ struct WorkflowsView: View {
     @State private var selectedWorkflow: Workflow?
     @State private var showNewWorkflowSheet = false
     @State private var isLoading = false
+    @State private var errorMessage = ""
+    @State private var showError = false
 
     var body: some View {
         HStack(spacing: 0) {

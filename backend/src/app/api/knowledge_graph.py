@@ -11,8 +11,8 @@ from app.core.database import get_db
 from app.models.project import ProjectDocument, Project
 from app.models.entity import Entity
 from app.models.timeline import TimelineEvent
-from app.services.knowledge_graph_v2 import knowledge_graph_service_v2 as knowledge_graph_service
-from app.services.knowledge_graph_builder import get_knowledge_graph_builder
+from app.tools.knowledge.graph import create_knowledge_graph as create_knowledge_graph()
+from app.tools.knowledge.graph import create_knowledge_graph
 
 router = APIRouter(tags=["knowledge-graph"])
 logger = logging.getLogger(__name__)
@@ -59,7 +59,7 @@ async def build_knowledge_graph(
     - 存储到数据库
     """
     try:
-        builder = get_knowledge_graph_builder(db)
+        builder = create_knowledge_graph(db)
 
         if request.document_ids:
             # 处理指定文档
@@ -182,7 +182,7 @@ async def get_graph_visualization(
     }
     """
     try:
-        builder = get_knowledge_graph_builder(db)
+        builder = create_knowledge_graph(db)
         graph_data = builder.get_graph_visualization_data(project_id, limit)
 
         return {
@@ -313,7 +313,7 @@ async def get_project_knowledge_graph(
 
     # 构建知识图谱
     try:
-        graph = knowledge_graph_service.build_graph_from_documents(doc_dicts)
+        graph = create_knowledge_graph().build_graph_from_documents(doc_dicts)
         return graph
     except Exception as e:
         logger.error(f"构建知识图谱失败: {e}")
@@ -352,7 +352,7 @@ async def get_project_keywords(
 
     # 提取关键词
     try:
-        keywords = knowledge_graph_service.extract_keywords(doc_dicts, top_k)
+        keywords = create_knowledge_graph().extract_keywords(doc_dicts, top_k)
         return keywords
     except Exception as e:
         logger.error(f"提取关键词失败: {e}")
@@ -375,7 +375,7 @@ async def get_document_entities(
 
     # 提取实体
     try:
-        entities = knowledge_graph_service.extract_entities(document.text_content)
+        entities = create_knowledge_graph().extract_entities(document.text_content)
         return {
             "entities": entities,
             "statistics": {

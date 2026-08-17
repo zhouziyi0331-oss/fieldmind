@@ -198,7 +198,7 @@ async def get_chunk_detail(
     - 位置信息
     - 上下文（前后chunk）
     """
-    from app.services.vectorization_service_complete import DocumentChunk
+    from app.models.document_chunk import DocumentChunk
     from app.models.project import ProjectDocument
 
     try:

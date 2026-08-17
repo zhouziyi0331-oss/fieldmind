@@ -1,0 +1,97 @@
+import SwiftUI
+
+struct TopBarView: View {
+    @EnvironmentObject var appState: AppState
+    @State private var currentTime = Date()
+
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
+    var body: some View {
+        HStack(spacing: 12) {
+            // 左侧：页面标题和路径
+            HStack(spacing: 12) {
+                Text(appState.currentPage.title)
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundColor(.fmText)
+
+                Rectangle()
+                    .fill(Color.fmBorder2)
+                    .frame(width: 1, height: 14)
+
+                Text(currentPath)
+                    .font(.custom("JetBrains Mono", size: 11))
+                    .foregroundColor(.fmText3)
+            }
+
+            Spacer()
+
+            // 右侧：实时时钟
+            HStack(spacing: 8) {
+                Text(timeString)
+                    .font(.custom("JetBrains Mono", size: 11))
+                    .foregroundColor(.fmA1)
+                    .padding(EdgeInsets(top: 3, leading: 10, bottom: 3, trailing: 10))
+                    .background(Color.fmA1Dim)
+                    .cornerRadius(5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.fmBorder2, lineWidth: 1)
+                    )
+            }
+        }
+        .padding(EdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 24))
+        .frame(height: 50)
+        .background(Color.fmSurface)
+        .overlay(alignment: .bottom) {
+            Rectangle()
+                .fill(Color.fmBorder)
+                .frame(height: 1)
+        }
+        .shadow(color: Color.fmA1.opacity(0.06), radius: 3, x: 0, y: 1)
+        .onReceive(timer) { _ in
+            currentTime = Date()
+        }
+    }
+
+    private var currentPath: String {
+        if let project = appState.currentProject {
+            return "\(project.name.replacingOccurrences(of: "\n", with: " ")) / \(appState.currentPage.rawValue)"
+        }
+        return appState.currentPage.rawValue
+    }
+
+    private var timeString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter.string(from: currentTime)
+    }
+}
+
+// MARK: - Toast View
+struct ToastView: View {
+    let message: String
+    let type: ToastType
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: type.icon)
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(type.color)
+
+            Text(message)
+                .font(.system(size: 12, weight: .medium))
+                .foregroundColor(.fmText)
+
+            Spacer()
+        }
+        .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
+        .frame(maxWidth: 400)
+        .background(Color.fmSurface)
+        .cornerRadius(10)
+        .shadow(color: type.color.opacity(0.2), radius: 12, x: 0, y: 4)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(type.color.opacity(0.3), lineWidth: 1)
+        )
+    }
+}

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FieldMind - 简化测试版</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* 步骤条 */
+        .step-bar {
+            background: white;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .step-item {
+            text-align: center;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .step-circle.active {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .step-circle.pending {
+            background: #e0e0e0;
+            color: #999;
+        }
+
+        .step-circle.done {
+            background: #52c41a;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .step-label.active {
+            color: #4a90e2;
+            font-weight: bold;
+        }
+
+        /* 步骤面板 */
+        .step-panel {
+            display: none;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .step-panel.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* 拖拽上传区 */
+        .drop-zone {
+            border: 2px dashed #4a90e2;
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 30px 0;
+        }
+
+        .drop-zone:hover {
+            background: #f0f8ff;
+            border-color: #2563eb;
+        }
+
+        .drop-zone.drag-over {
+            background: #e0f2ff;
+            border-color: #1e40af;
+        }
+
+        .drop-zone-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .file-list {
+            margin-top: 20px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* 按钮 */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #357abd;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 步骤条 -->
+    <div class="step-bar">
+        <div class="step-item">
+            <div class="step-circle active" id="circle-1">1</div>
+            <div class="step-label active">项目信息</div>
+        </div>
+        <div>→</div>
+        <div class="step-item">
+            <div class="step-circle pending" id="circle-2">2</div>
+            <div class="step-label">导入资料</div>
+        </div>
+        <div>→</div>
+        <div class="step-item">
+            <div class="step-circle pending" id="circle-3">3</div>
+            <div class="step-label">AI配置</div>
+        </div>
+        <div>→</div>
+        <div class="step-item">
+            <div class="step-circle pending" id="circle-4">4</div>
+            <div class="step-label">处理中</div>
+        </div>
+        <div>→</div>
+        <div class="step-item">
+            <div class="step-circle pending" id="circle-5">✓</div>
+            <div class="step-label">完成</div>
+        </div>
+    </div>
+
+    <!-- 步骤1：项目信息 -->
+    <div class="step-panel active" id="step-1">
+        <h2 style="margin-bottom: 24px;">项目基本信息</h2>
+
+        <div class="form-group">
+            <label class="form-label">项目名称 *</label>
+            <input type="text" class="form-input" value="贵州布依族山歌传承调研" placeholder="请输入项目名称">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">调研地点 *</label>
+            <input type="text" class="form-input" value="贵州省黔南州罗甸县" placeholder="请输入调研地点">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">项目描述</label>
+            <textarea class="form-input" rows="4" placeholder="请输入项目描述">以布依族山歌文化为核心，记录传承现状、传承人访谈、村庄经济结构，探索文化保护与在地业态发展的可能性。</textarea>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-secondary">取消</button>
+            <button class="btn btn-primary" onclick="goToStep(2)">
+                下一步：导入资料 →
+            </button>
+        </div>
+    </div>
+
+    <!-- 步骤2：导入资料 -->
+    <div class="step-panel" id="step-2">
+        <h2 style="margin-bottom: 24px;">导入田野资料</h2>
+        <p style="color: #666; margin-bottom: 30px;">支持音频、视频、文档、图片等多种格式，可批量拖拽上传</p>
+
+        <div class="drop-zone" id="drop-zone" onclick="selectFiles()">
+            <div class="drop-zone-icon">📁</div>
+            <div style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">
+                点击选择文件或拖拽文件到这里
+            </div>
+            <div style="font-size: 14px; color: #999;">
+                支持 PDF, Word, Excel, 图片, 音频, 视频等格式
+            </div>
+        </div>
+
+        <input type="file" id="file-input" multiple style="display: none;" onchange="handleFiles(this.files)">
+
+        <div class="file-list" id="file-list"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="goToStep(1)">← 上一步</button>
+            <button class="btn btn-secondary">跳过，稍后导入</button>
+            <button class="btn btn-primary" onclick="goToStep(3)">下一步：AI配置 →</button>
+        </div>
+    </div>
+
+    <!-- 步骤3：AI配置 -->
+    <div class="step-panel" id="step-3">
+        <h2 style="margin-bottom: 24px;">AI处理配置</h2>
+        <p style="color: #52c41a; padding: 20px; background: #f6ffed; border-radius: 8px; margin-bottom: 30px;">
+            ✅ AI配置完成！项目创建成功
+        </p>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="alert('项目创建成功！')">完成</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let selectedFiles = [];
+
+        function goToStep(step) {
+            console.log('🚀 切换到步骤:', step);
+
+            // 隐藏所有步骤
+            document.querySelectorAll('.step-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            // 显示目标步骤
+            const targetPanel = document.getElementById('step-' + step);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+                console.log('✅ 步骤', step, '已激活');
+            } else {
+                console.error('❌ 找不到步骤', step);
+            }
+
+            // 更新步骤圆圈状态
+            for (let i = 1; i <= 5; i++) {
+                const circle = document.getElementById('circle-' + i);
+                if (i < step) {
+                    circle.className = 'step-circle done';
+                    circle.textContent = '✓';
+                } else if (i === step) {
+                    circle.className = 'step-circle active';
+                    circle.textContent = i;
+                } else {
+                    circle.className = 'step-circle pending';
+                    circle.textContent = i === 5 ? '✓' : i;
+                }
+            }
+
+            currentStep = step;
+        }
+
+        function selectFiles() {
+            document.getElementById('file-input').click();
+        }
+
+        function handleFiles(files) {
+            selectedFiles = Array.from(files);
+            const fileList = document.getElementById('file-list');
+            fileList.innerHTML = '<h3 style="margin-bottom: 16px;">已选择 ' + files.length + ' 个文件:</h3>';
+
+            selectedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div style="width: 40px; height: 40px; background: #e3f2fd; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                        📄
+                    </div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600;">${file.name}</div>
+                        <div style="font-size: 12px; color: #999;">${(file.size / 1024).toFixed(2)} KB</div>
+                    </div>
+                    <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="removeFile(${index})">删除</button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            const dt = new DataTransfer();
+            selectedFiles.forEach(file => dt.items.add(file));
+            document.getElementById('file-input').files = dt.files;
+            handleFiles(selectedFiles);
+        }
+
+        // 拖拽功能
+        const dropZone = document.getElementById('drop-zone');
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('drag-over');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        console.log('✅ FieldMind 简化测试版已加载');
+        console.log('🎯 测试功能：');
+        console.log('  1. 点击"下一步：导入资料"按钮');
+        console.log('  2. 拖拽或点击上传文件');
+        console.log('  3. 查看文件列表');
+    </script>
+</body>
+</html>

@@ -10,12 +10,14 @@ from app.core.database import get_db
 from app.models.project import Project, ProjectDocument
 from app.schemas.document import DocumentUploadResponse, DocumentResponse
 from app.services.background_tasks import submit_task
+from app.config import settings
+from app.services.pipeline_status import is_pipeline_completed
 
 router = APIRouter(tags=["documents"])
 logger = logging.getLogger(__name__)
 
-# 上传目录
-UPLOAD_DIR = "/Users/alwan/FieldMind-Rebuild/uploads"
+# 上传目录 - 使用配置
+UPLOAD_DIR = settings.UPLOAD_DIR
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 
@@ -153,6 +155,48 @@ def list_project_documents(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.get("/status")
+def get_documents_status(
+    project_id: int,  # 强制必填，不再是Optional
+    db: Session = Depends(get_db)
+):
+    """
+    获取文档处理状态列表（用于前端轮询）
+
+    **项目隔离：强制要求project_id参数**
+
+    返回每个文档的：id, filename, status, chunk_count, created_at
+    """
+    try:
+        # 强制按project_id过滤
+        documents = db.query(ProjectDocument).filter(
+            ProjectDocument.project_id == project_id
+        ).order_by(ProjectDocument.created_at.desc()).all()
+
+        result = []
+        for doc in documents:
+            meta = doc.extra_data if doc.extra_data else {}
+
+            result.append({
+                "id": doc.id,
+                "filename": doc.filename,
+                "status": doc.status,
+                "chunk_count": meta.get('chunks_count', 0),
+                "vectorized": is_pipeline_completed(doc),
+                "skills_completed": meta.get('skills_completed', False),
+                "created_at": doc.created_at.isoformat() if doc.created_at else None,
+                "word_count": doc.word_count,
+                "file_type": doc.file_type,
+                "error_message": doc.error_message  # 添加错误信息
+            })
+
+        return result
+
+    except Exception as e:
+        logger.error(f"Failed to get documents status: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.get("/{document_id}", response_model=DocumentResponse)
 def get_document(
     document_id: int,
@@ -245,7 +289,7 @@ def get_knowledge_base_status(db: Session = Depends(get_db)):
             meta = doc.extra_data if doc.extra_data else {}
 
             # 检查是否完成pipeline
-            if meta.get('pipeline_completed'):
+            if is_pipeline_completed(doc):
                 vectorized_count += 1
 
             # 统计分块数
@@ -270,47 +314,6 @@ def get_knowledge_base_status(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-
-@router.get("/status")
-def get_documents_status(
-    project_id: int,  # 强制必填，不再是Optional
-    db: Session = Depends(get_db)
-):
-    """
-    获取文档处理状态列表（用于前端轮询）
-
-    **项目隔离：强制要求project_id参数**
-
-    返回每个文档的：id, filename, status, chunk_count, created_at
-    """
-    try:
-        # 强制按project_id过滤
-        documents = db.query(ProjectDocument).filter(
-            ProjectDocument.project_id == project_id
-        ).order_by(ProjectDocument.created_at.desc()).all()
-        
-        result = []
-        for doc in documents:
-            meta = doc.extra_data if doc.extra_data else {}
-
-            result.append({
-                "id": doc.id,
-                "filename": doc.filename,
-                "status": doc.status,
-                "chunk_count": meta.get('chunks_count', 0),
-                "vectorized": meta.get('pipeline_completed', False),
-                "skills_completed": meta.get('skills_completed', False),
-                "created_at": doc.created_at.isoformat() if doc.created_at else None,
-                "word_count": doc.word_count,
-                "file_type": doc.file_type,
-                "error_message": doc.error_message  # 添加错误信息
-            })
-        
-        return result
-    
-    except Exception as e:
-        logger.error(f"Failed to get documents status: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/aggregate/keywords")
@@ -490,7 +493,10 @@ def get_document_fact_statements(
 
         # 从SQLite数据库查询fact_statements
         import sqlite3
-        db_path = "/Users/alwan/FieldMind-Rebuild/fieldmind-backend/data/fieldmind.db"
+        from app.config import settings
+
+        # 使用配置中的数据库URL
+        db_path = settings.DATABASE_URL.replace("sqlite:///", "")
 
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()

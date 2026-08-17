@@ -60,7 +60,7 @@ async def get_dashboard_aggregate(
         from app.core.database import get_fact_db_session
         fact_db = next(get_fact_db_session())
 
-        from app.models.fact_statement import FactStatement
+        from app.models.federation import FactStatement
 
         # 总陈述数
         total_facts = fact_db.query(FactStatement).filter(
@@ -342,7 +342,7 @@ async def get_quick_stats(
     # fact_statements数（快速查询，不做复杂统计）
     try:
         from app.core.database import get_fact_db_session
-        from app.models.fact_statement import FactStatement
+        from app.models.federation import FactStatement
 
         fact_db = next(get_fact_db_session())
         total_facts = fact_db.query(FactStatement).filter(

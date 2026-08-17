@@ -1,0 +1,1 @@
+Pillow已通过pip安装

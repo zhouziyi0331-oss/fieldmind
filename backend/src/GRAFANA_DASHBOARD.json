@@ -1,0 +1,347 @@
+{
+  "dashboard": {
+    "title": "FieldMind 生产监控仪表板",
+    "tags": ["fieldmind", "production"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+        "type": "graph",
+        "title": "HTTP 请求速率",
+        "targets": [
+          {
+            "expr": "rate(fieldmind_http_requests_total[5m])",
+            "legendFormat": "{{method}} {{endpoint}} ({{status_code}})"
+          }
+        ],
+        "yaxes": [
+          {"format": "reqps", "label": "请求/秒"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 2,
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+        "type": "graph",
+        "title": "HTTP 请求延迟（P50, P95, P99）",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.50, rate(fieldmind_http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "P50"
+          },
+          {
+            "expr": "histogram_quantile(0.95, rate(fieldmind_http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "P95"
+          },
+          {
+            "expr": "histogram_quantile(0.99, rate(fieldmind_http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "P99"
+          }
+        ],
+        "yaxes": [
+          {"format": "s", "label": "延迟"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 3,
+        "gridPos": {"h": 6, "w": 6, "x": 0, "y": 8},
+        "type": "stat",
+        "title": "总请求数（最近1小时）",
+        "targets": [
+          {
+            "expr": "sum(increase(fieldmind_http_requests_total[1h]))"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value"
+        }
+      },
+      {
+        "id": 4,
+        "gridPos": {"h": 6, "w": 6, "x": 6, "y": 8},
+        "type": "stat",
+        "title": "错误率（最近5分钟）",
+        "targets": [
+          {
+            "expr": "sum(rate(fieldmind_http_requests_total{status_code=~\"5..\"}[5m])) / sum(rate(fieldmind_http_requests_total[5m])) * 100"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value",
+          "unit": "percent"
+        },
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {"value": 0, "color": "green"},
+            {"value": 1, "color": "yellow"},
+            {"value": 5, "color": "red"}
+          ]
+        }
+      },
+      {
+        "id": 5,
+        "gridPos": {"h": 6, "w": 6, "x": 12, "y": 8},
+        "type": "stat",
+        "title": "CPU 使用率",
+        "targets": [
+          {
+            "expr": "fieldmind_system_cpu_usage_percent"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value",
+          "unit": "percent"
+        },
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {"value": 0, "color": "green"},
+            {"value": 70, "color": "yellow"},
+            {"value": 90, "color": "red"}
+          ]
+        }
+      },
+      {
+        "id": 6,
+        "gridPos": {"h": 6, "w": 6, "x": 18, "y": 8},
+        "type": "stat",
+        "title": "内存使用率",
+        "targets": [
+          {
+            "expr": "fieldmind_system_memory_usage_percent"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value",
+          "unit": "percent"
+        },
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {"value": 0, "color": "green"},
+            {"value": 80, "color": "yellow"},
+            {"value": 95, "color": "red"}
+          ]
+        }
+      },
+      {
+        "id": 7,
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 14},
+        "type": "graph",
+        "title": "文档处理速率（按阶段）",
+        "targets": [
+          {
+            "expr": "rate(fieldmind_document_processing_total{status=\"success\"}[5m])",
+            "legendFormat": "{{stage}} - {{doc_type}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "ops", "label": "文档/秒"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 8,
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 14},
+        "type": "graph",
+        "title": "文档处理时长（P95）",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(fieldmind_document_processing_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{stage}} - {{doc_type}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "s", "label": "时长"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 9,
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 22},
+        "type": "graph",
+        "title": "AI 服务请求速率",
+        "targets": [
+          {
+            "expr": "rate(fieldmind_ai_requests_total{status=\"success\"}[5m])",
+            "legendFormat": "{{provider}} - {{model}} ({{operation}})"
+          }
+        ],
+        "yaxes": [
+          {"format": "reqps", "label": "请求/秒"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 10,
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 22},
+        "type": "graph",
+        "title": "AI Token 使用率（最近1小时）",
+        "targets": [
+          {
+            "expr": "rate(fieldmind_ai_tokens_used_total{token_type=\"input\"}[1h])",
+            "legendFormat": "{{provider}} - {{model}} (input)"
+          },
+          {
+            "expr": "rate(fieldmind_ai_tokens_used_total{token_type=\"output\"}[1h])",
+            "legendFormat": "{{provider}} - {{model}} (output)"
+          }
+        ],
+        "yaxes": [
+          {"format": "short", "label": "tokens/秒"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 11,
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 30},
+        "type": "graph",
+        "title": "数据库操作延迟（P95）",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(fieldmind_database_operation_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{operation}} - {{table}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "s", "label": "延迟"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 12,
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 30},
+        "type": "graph",
+        "title": "数据库连接池状态",
+        "targets": [
+          {
+            "expr": "fieldmind_database_connections_active",
+            "legendFormat": "活跃连接 - {{pool}}"
+          },
+          {
+            "expr": "fieldmind_database_connections_idle",
+            "legendFormat": "空闲连接 - {{pool}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "short", "label": "连接数"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 13,
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 38},
+        "type": "graph",
+        "title": "向量数据库操作延迟",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(fieldmind_vector_operation_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{operation}} - {{collection}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "s", "label": "延迟"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 14,
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 38},
+        "type": "graph",
+        "title": "图数据库操作延迟",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(fieldmind_graph_operation_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{operation}} - {{label}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "s", "label": "延迟"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 15,
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 46},
+        "type": "graph",
+        "title": "错误分布（按错误码）",
+        "targets": [
+          {
+            "expr": "rate(fieldmind_errors_total[5m])",
+            "legendFormat": "[{{error_code}}] {{error_type}} in {{component}}"
+          }
+        ],
+        "yaxes": [
+          {"format": "ops", "label": "错误/秒"},
+          {"format": "short"}
+        ]
+      },
+      {
+        "id": 16,
+        "gridPos": {"h": 6, "w": 8, "x": 0, "y": 54},
+        "type": "stat",
+        "title": "总文档数",
+        "targets": [
+          {
+            "expr": "sum(fieldmind_documents_total)"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value"
+        }
+      },
+      {
+        "id": 17,
+        "gridPos": {"h": 6, "w": 8, "x": 8, "y": 54},
+        "type": "stat",
+        "title": "知识图谱实体数",
+        "targets": [
+          {
+            "expr": "sum(fieldmind_knowledge_graph_entities_total)"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value"
+        }
+      },
+      {
+        "id": 18,
+        "gridPos": {"h": 6, "w": 8, "x": 16, "y": 54},
+        "type": "stat",
+        "title": "工作流执行成功率（最近1小时）",
+        "targets": [
+          {
+            "expr": "sum(increase(fieldmind_workflow_executions_total{status=\"success\"}[1h])) / sum(increase(fieldmind_workflow_executions_total[1h])) * 100"
+          }
+        ],
+        "options": {
+          "graphMode": "area",
+          "colorMode": "value",
+          "unit": "percent"
+        },
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {"value": 0, "color": "red"},
+            {"value": 95, "color": "yellow"},
+            {"value": 99, "color": "green"}
+          ]
+        }
+      }
+    ],
+    "refresh": "10s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    }
+  }
+}

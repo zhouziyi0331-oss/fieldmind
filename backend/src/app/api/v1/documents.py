@@ -10,7 +10,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.services.document_processing_pipeline import DocumentProcessingPipeline
+from app.tools.document import UnifiedDocumentPipeline
 from app.models.document import Document
 
 # from app.tasks.document_tasks import process_document_chain
@@ -60,7 +60,7 @@ async def upload_document(
         db.refresh(document)
 
         # 3. 运行DocumentProcessingPipeline
-        pipeline = DocumentProcessingPipeline()
+        pipeline = UnifiedDocumentPipeline()
 
         result = pipeline.process_document(
             document_id=document.id,
@@ -87,7 +87,7 @@ async def upload_document(
                 "chunks_stored": result.get('stages', {}).get('index', {}).get('stored_chunks', 0),
                 "entities_count": result.get('stages', {}).get('knowledge_graph', {}).get('entities_count', 0),
             },
-            "uploaded_at": datetime.utcnow().isoformat(),
+            "created_at": datetime.utcnow().isoformat(),
         }
 
     except Exception as e:
@@ -174,12 +174,12 @@ async def list_documents(skip: int = 0, limit: int = 20) -> Dict[str, Any]:
                 files.append({
                     "filename": filepath.name,
                     "size": stat.st_size,
-                    "uploaded_at": datetime.fromtimestamp(stat.st_ctime).isoformat(),
+                    "created_at": datetime.fromtimestamp(stat.st_ctime).isoformat(),
                     "path": str(filepath),
                 })
 
         # 按上传时间倒序排序
-        files.sort(key=lambda x: x["uploaded_at"], reverse=True)
+        files.sort(key=lambda x: x["created_at"], reverse=True)
 
         # 分页
         total = len(files)
