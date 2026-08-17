@@ -2,7 +2,7 @@
 数据聚合API - 系统的"总指挥部"
 一次性返回所有模块需要的数据，避免各模块各查各的库
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from typing import Dict, Any, List
@@ -12,6 +12,7 @@ import logging
 from app.core.database import get_db
 from app.models.project import Project, ProjectDocument
 from app.middleware.auth import get_current_user
+from app.core.exceptions import ResourceNotFoundException
 
 router = APIRouter(tags=["aggregate"])
 logger = logging.getLogger(__name__)
@@ -31,7 +32,7 @@ async def get_dashboard_aggregate(
     # 1. 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="Project not found")
+        raise ResourceNotFoundException(resource_type="Project", resource_id=project_id)
 
     # 2. 文档统计
     docs = db.query(ProjectDocument).filter(ProjectDocument.project_id == project_id).all()

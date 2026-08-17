@@ -2,7 +2,7 @@
 时间线 API - 链路十一：从文档自动提取时间事件并构建编年史
 从文档中提取时间事件并构建时间线
 """
-from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from fastapi import APIRouter, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel
@@ -15,6 +15,7 @@ from app.core.database import get_db
 from app.models.project import ProjectDocument, Project
 from app.models.timeline import TimelineEvent
 from app.tools.entity import create_engine
+from app.core.exceptions import ResourceNotFoundException, ValidationException, DatabaseException
 
 router = APIRouter(tags=["timeline"])
 logger = logging.getLogger(__name__)
@@ -138,7 +139,7 @@ async def build_timeline(
         # 验证项目存在
         project = db.query(Project).filter(Project.id == request.project_id).first()
         if not project:
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise ResourceNotFoundException(resource_type="Project", resource_id=request.project_id)
 
         # 获取待处理文档
         query = db.query(ProjectDocument).filter(
@@ -210,9 +211,11 @@ async def build_timeline(
             }
         }
 
+    except ResourceNotFoundException:
+        raise
     except Exception as e:
         logger.error(f"构建时间线失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"构建失败: {str(e)}")
+        raise DatabaseException(operation="build_timeline", details={"error": str(e)})
 
 
 @router.get("/events")
@@ -255,14 +258,14 @@ async def get_timeline_events(
             start_dt = datetime.fromisoformat(start_date)
             query = query.filter(TimelineEvent.date >= start_dt)
         except ValueError:
-            raise HTTPException(status_code=400, detail="Invalid start_date format")
+            raise ValidationException(message="Invalid start_date format", field="start_date")
 
     if end_date:
         try:
             end_dt = datetime.fromisoformat(end_date)
             query = query.filter(TimelineEvent.date <= end_dt)
         except ValueError:
-            raise HTTPException(status_code=400, detail="Invalid end_date format")
+            raise ValidationException(message="Invalid end_date format", field="end_date")
 
     if category:
         query = query.filter(TimelineEvent.category == category)
@@ -376,7 +379,7 @@ async def get_project_timeline(
     # 验证项目存在
     project = db.query(Project).filter(Project.id == project_id).first()
     if not project:
-        raise HTTPException(status_code=404, detail="项目不存在")
+        raise ResourceNotFoundException(resource_type="Project", resource_id=project_id)
 
     # 获取项目的所有文档
     documents = db.query(ProjectDocument).filter(
