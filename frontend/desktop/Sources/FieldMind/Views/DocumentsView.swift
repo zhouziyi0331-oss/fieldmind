@@ -149,17 +149,9 @@ struct DocumentsView: View {
         panel.canChooseFiles = true
         panel.allowedContentTypes = [
             .pdf, .plainText, .rtf,
-            .audio, .movie, .mpeg4Movie,  // 添加音频和视频支持
-            UTType(filenameExtension: "mp3") ?? .audio,
-            UTType(filenameExtension: "mp4") ?? .movie,
-            UTType(filenameExtension: "wav") ?? .audio,
-            UTType(filenameExtension: "m4a") ?? .audio,
             UTType(filenameExtension: "doc") ?? .data,
             UTType(filenameExtension: "docx") ?? .data,
-            UTType(filenameExtension: "txt") ?? .plainText,
-            UTType(filenameExtension: "md") ?? .plainText,
-            UTType(filenameExtension: "xlsx") ?? .data,
-            UTType(filenameExtension: "xls") ?? .data
+            UTType(filenameExtension: "txt") ?? .plainText
         ]
 
         panel.begin { response in

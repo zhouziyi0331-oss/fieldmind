@@ -220,7 +220,7 @@ struct IndustryAnalysisView: View {
                             industryType: category.name,
                             region: nil,
                             status: "已完成",
-                            createdAt: formatDate(Date()),
+                            createdAt: formatDate(category.createdAt),
                             marketSize: nil,
                             growthRate: nil,
                             competitionLevel: nil,
