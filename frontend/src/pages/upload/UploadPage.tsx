@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { documentAPI, assetAPI } from '@/services/fieldmind-api';
 
 export default function UploadPage() {
   const [files, setFiles] = useState<any[]>([]);

@@ -35,24 +35,9 @@ export default function Documents() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const handleUpload = async (file: File, onProgress: (progress: number) => void) => {
-    return new Promise<void>((resolve, reject) => {
-      // 模拟上传进度
-      let progress = 0
-      const interval = setInterval(() => {
-        progress += Math.random() * 15
-        if (progress > 100) progress = 100
-        onProgress(progress)
-
-        if (progress >= 100) {
-          clearInterval(interval)
-          // 实际上传
-          uploadDocument
-            .mutateAsync({ projectId, file })
-            .then(() => resolve())
-            .catch((error) => reject(error))
-        }
-      }, 200)
-    })
+    // 使用 documentsService 的真实上传进度追踪
+    const { documentsService } = await import('@/services/fieldmind')
+    return documentsService.upload(projectId, file, onProgress)
   }
 
   const handleDelete = async (documentId: number) => {
