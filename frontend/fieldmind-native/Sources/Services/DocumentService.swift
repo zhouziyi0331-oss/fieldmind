@@ -45,6 +45,10 @@ struct DocumentStatusResponse: Codable, Identifiable {
     let errorMessage: String?
 }
 
+private struct DocumentStatusEnvelope: Codable {
+    let data: [DocumentStatusResponse]
+}
+
 struct AggregatedKeywordResponse: Codable {
     let keyword: String
     let count: Int
@@ -69,21 +73,45 @@ struct KnowledgeBaseStatusResponse: Codable {
 
 // MARK: - Document Service
 
+
 class DocumentService {
     static let shared = DocumentService()
     private let apiClient = APIClient.shared
 
     private init() {}
 
-    /// 上传文档到项目
-    func uploadDocument(projectId: Int, fileURL: URL, autoProcess: Bool = true) async throws -> DocumentUploadResponse {
+    /// 上传文档到项目（带真实进度回调）
+    func uploadDocument(
+        projectId: Int,
+        fileURL: URL,
+        autoProcess: Bool = true,
+        progressHandler: ((Double) -> Void)? = nil
+    ) async throws -> DocumentUploadResponse {
         let boundary = UUID().uuidString
         var request = URLRequest(url: URL(string: "\(APIConfig.baseURL)/documents/upload")!)
         request.httpMethod = "POST"
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
 
-        // 读取文件数据
-        let fileData = try Data(contentsOf: fileURL)
+        // NSOpenPanel 和拖拽产生的 URL 可能是安全作用域 URL。
+        let securityScoped = fileURL.startAccessingSecurityScopedResource()
+        defer {
+            if securityScoped {
+                fileURL.stopAccessingSecurityScopedResource()
+            }
+        }
+        let fileData: Data
+        do {
+            fileData = try Data(contentsOf: fileURL)
+        } catch {
+            DebugLogger.shared.log("读取上传文件失败", type: .error, details: "文件=\(fileURL.path)\n错误=\(error.localizedDescription)", category: "upload")
+            throw error
+        }
+        defer {
+            if fileURL.path.hasPrefix(FileManager.default.temporaryDirectory.path),
+               fileURL.lastPathComponent.hasPrefix("fieldmind-drop-") {
+                try? FileManager.default.removeItem(at: fileURL)
+            }
+        }
         let filename = fileURL.lastPathComponent
         let mimeType = mimeType(for: fileURL.pathExtension)
 
@@ -112,7 +140,42 @@ class DocumentService {
 
         request.httpBody = body
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        // 使用自定义 URLSession 以支持进度追踪
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 300 // 5分钟超时（大文件）
+        let session = URLSession(configuration: config, delegate: nil, delegateQueue: nil)
+
+        // 创建上传任务（带进度追踪）
+        let totalBytes = Int64(body.count)
+
+        let (data, response) = try await withCheckedThrowingContinuation { continuation in
+            let task = session.uploadTask(with: request, from: body) { data, response, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                guard let data = data, let response = response else {
+                    continuation.resume(throwing: NetworkError.invalidResponse)
+                    return
+                }
+                continuation.resume(returning: (data, response))
+            }
+
+            // 使用 KVO 监听上传进度
+            let observation = task.progress.observe(\.fractionCompleted) { progress, _ in
+                DispatchQueue.main.async {
+                    progressHandler?(progress.fractionCompleted)
+                }
+            }
+
+            task.resume()
+
+            // 任务完成后移除观察者
+            Task {
+                _ = await task.value
+                observation.invalidate()
+            }
+        }
 
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidResponse
@@ -125,9 +188,12 @@ class DocumentService {
             throw NetworkError.httpError(statusCode: httpResponse.statusCode, message: nil)
         }
 
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return try decoder.decode(DocumentUploadResponse.self, from: data)
+        // 上传完成，设置进度为100%
+        DispatchQueue.main.async {
+            progressHandler?(1.0)
+        }
+
+        return try APIClient.decodePayload(data, as: DocumentUploadResponse.self)
     }
 
     /// 获取项目的所有文档
@@ -141,7 +207,7 @@ class DocumentService {
         }
 
         return try await apiClient.request(
-            .custom("/documents/projects/\(projectId)/documents", queryItems: queryItems),
+            .custom("/documents/projects/\(projectId)/documents/", queryItems: queryItems),
             method: .get
         )
     }
@@ -158,12 +224,13 @@ class DocumentService {
 
     /// 获取文档处理状态列表（用于轮询）
     func getDocumentsStatus(projectId: Int) async throws -> [DocumentStatusResponse] {
-        return try await apiClient.request(
-            .custom("/documents/status", queryItems: [
+        let response: DocumentStatusEnvelope = try await apiClient.request(
+            .custom("/documents/list/status", queryItems: [
                 URLQueryItem(name: "project_id", value: "\(projectId)")
             ]),
             method: .get
         )
+        return response.data
     }
 
     /// 获取知识库状态统计
@@ -223,4 +290,3 @@ extension APIEndpoint {
         return .custom("/documents/\(documentId)")
     }
 }
-
