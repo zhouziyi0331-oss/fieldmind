@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { monitoringAPI } from '@/services/fieldmind-api';
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { monitoringService } from '@/services/fieldmind'

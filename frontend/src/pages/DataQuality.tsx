@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+import { dataCleaningAPI, validationAPI } from '@/services/fieldmind-api';
 import { useDataQuality } from '@/hooks/useFieldMind'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Spinner } from '@/components/ui/spinner'

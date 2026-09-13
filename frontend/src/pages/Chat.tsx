@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { chatAPI, conversationAPI } from '@/services/fieldmind-api';
 import { useParams } from 'react-router-dom'
 import { useSendMessage, useConversations } from '@/hooks/useFieldMind'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'

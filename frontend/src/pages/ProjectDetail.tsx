@@ -1,245 +1,158 @@
-import { useParams, Link } from 'react-router-dom'
-import { useProject, useProjectStats } from '@/hooks/useFieldMind'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Badge } from '@/components/ui/badge'
-import { Spinner } from '@/components/ui/spinner'
-import { FileText, Network, BarChart3, Upload, Settings, TrendingUp } from 'lucide-react'
+import React from 'react';
+import { projectAPI, documentAPI, knowledgeGraphAPI } from '@/services/fieldmind-api';
+import { useParams, useNavigate } from 'react-router-dom';
 
-export default function ProjectDetail() {
-  const { id } = useParams<{ id: string }>()
-  const projectId = parseInt(id!)
-
-  const { data: project, isLoading: projectLoading } = useProject(projectId)
-  const { data: stats, isLoading: statsLoading } = useProjectStats(projectId)
-
-  if (projectLoading || statsLoading) {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <Spinner size="lg" />
-      </div>
-    )
-  }
-
-  if (!project) {
-    return (
-      <div className="flex flex-col items-center justify-center h-96 animate-fade-in">
-        <h2 className="text-2xl font-bold text-text-primary mb-2">项目不存在</h2>
-        <Link to="/projects">
-          <Button>返回项目列表</Button>
-        </Link>
-      </div>
-    )
-  }
+export default function ProjectDetailPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      {/* 项目头部 */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-bold text-text-primary">{project.name}</h1>
-            <Badge variant="success">活跃</Badge>
+    <div className="p-8 space-y-8">
+      {/* Breadcrumb */}
+      <nav className="flex items-center space-x-2 text-sm">
+        <button onClick={() => navigate('/projects')} className="text-gray-600 hover:text-gray-900">Projects</button>
+        <span className="text-gray-400">/</span>
+        <span className="text-gray-900 font-medium">Project Details</span>
+      </nav>
+
+      {/* Header */}
+      <div className="bg-gradient-to-r from-[#27768A] to-[#589DA4] rounded-lg p-8 text-white">
+        <div className="flex items-start justify-between">
+          <div className="flex gap-6">
+            <div className="w-20 h-20 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+              </svg>
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Data Analysis Project</h1>
+              <p className="text-white/90">Comprehensive data analysis and visualization</p>
+              <div className="flex items-center gap-4 mt-4">
+                <span className="px-3 py-1 bg-white/20 rounded-full text-sm backdrop-blur-sm">Active</span>
+                <span className="flex items-center gap-1 text-sm">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Created 2024-01-15
+                </span>
+              </div>
+            </div>
           </div>
-          <p className="text-text-secondary">{project.description || '暂无描述'}</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link to={`/projects/${projectId}/documents`}>
-            <Button>
-              <Upload className="h-4 w-4 mr-2" />
-              上传文档
-            </Button>
-          </Link>
-          <Button variant="outline">
-            <Settings className="h-4 w-4 mr-2" />
-            项目设置
-          </Button>
+          <div className="flex gap-2">
+            <button className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg hover:bg-white/30 transition-colors">Edit</button>
+            <button className="px-4 py-2 bg-white text-[#27768A] rounded-lg hover:bg-white/90 transition-colors font-medium">Start Workflow</button>
+          </div>
         </div>
       </div>
 
-      {/* 统计卡片 */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card hover className="animate-slide-in-up" style={{ animationDelay: '0ms' }}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-text-secondary">
-              文档总数
-            </CardTitle>
-            <FileText className="h-4 w-4 text-primary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-primary">{stats?.documents.total || 0}</div>
-            <p className="text-xs text-text-secondary mt-1">
-              {stats?.documents.completed || 0} 已完成
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card hover className="animate-slide-in-up" style={{ animationDelay: '100ms' }}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-text-secondary">
-              数据分块
-            </CardTitle>
-            <BarChart3 className="h-4 w-4 text-secondary" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-secondary">{stats?.chunks || 0}</div>
-            <p className="text-xs text-text-secondary mt-1">文本块</p>
-          </CardContent>
-        </Card>
-
-        <Card hover className="animate-slide-in-up" style={{ animationDelay: '200ms' }}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-text-secondary">
-              知识实体
-            </CardTitle>
-            <Network className="h-4 w-4 text-info" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-info">{stats?.entities || 0}</div>
-            <p className="text-xs text-text-secondary mt-1">实体节点</p>
-          </CardContent>
-        </Card>
-
-        <Card hover className="animate-slide-in-up" style={{ animationDelay: '300ms' }}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-text-secondary">
-              洞察数量
-            </CardTitle>
-            <TrendingUp className="h-4 w-4 text-accent-gold" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-accent-gold">{stats?.insights || 0}</div>
-            <p className="text-xs text-text-secondary mt-1">结构化洞察</p>
-          </CardContent>
-        </Card>
+      {/* Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="stat-card">
+          <div className="text-sm text-gray-600 mb-1">Total Tasks</div>
+          <div className="text-2xl font-bold">24</div>
+        </div>
+        <div className="stat-card">
+          <div className="text-sm text-gray-600 mb-1">Completed</div>
+          <div className="text-2xl font-bold text-green-600">18</div>
+        </div>
+        <div className="stat-card">
+          <div className="text-sm text-gray-600 mb-1">In Progress</div>
+          <div className="text-2xl font-bold text-blue-600">4</div>
+        </div>
+        <div className="stat-card">
+          <div className="text-sm text-gray-600 mb-1">Team Members</div>
+          <div className="text-2xl font-bold">5</div>
+        </div>
       </div>
 
-      {/* 功能标签页 */}
-      <Tabs defaultValue="overview" className="space-y-4 animate-slide-in-up" style={{ animationDelay: '400ms' }}>
-        <TabsList>
-          <TabsTrigger value="overview">概览</TabsTrigger>
-          <TabsTrigger value="documents">文档</TabsTrigger>
-          <TabsTrigger value="knowledge-graph">知识图谱</TabsTrigger>
-          <TabsTrigger value="data-quality">数据质量</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="overview" className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>处理进度</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">文档处理</span>
-                      <span className="text-sm text-text-secondary">
-                        {stats?.documents.completed || 0} / {stats?.documents.total || 0}
-                      </span>
-                    </div>
-                    <div className="h-2 bg-primary/20 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-primary"
-                        style={{
-                          width: `${
-                            stats?.documents.total
-                              ? (stats.documents.completed / stats.documents.total) * 100
-                              : 0
-                          }%`,
-                        }}
-                      />
-                    </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Main Content */}
+        <div className="lg:col-span-2 space-y-6">
+          {/* Recent Activity */}
+          <div className="card p-6">
+            <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
+            <div className="space-y-4">
+              {[
+                { action: 'Workflow executed', time: '2 hours ago', user: 'John Doe' },
+                { action: 'Document uploaded', time: '5 hours ago', user: 'Jane Smith' },
+                { action: 'Analysis completed', time: '1 day ago', user: 'Bob Wilson' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3 pb-4 border-b last:border-b-0">
+                  <div className="w-8 h-8 bg-[#27768A]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 text-[#27768A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-medium text-sm">{item.action}</div>
+                    <div className="text-xs text-gray-500 mt-1">by {item.user} · {item.time}</div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>快速操作</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <Link to={`/projects/${projectId}/documents`}>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Upload className="h-4 w-4 mr-2" />
-                    上传新文档
-                  </Button>
-                </Link>
-                <Link to={`/projects/${projectId}/knowledge-graph`}>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Network className="h-4 w-4 mr-2" />
-                    查看知识图谱
-                  </Button>
-                </Link>
-                <Link to={`/projects/${projectId}/data-quality`}>
-                  <Button variant="outline" className="w-full justify-start">
-                    <BarChart3 className="h-4 w-4 mr-2" />
-                    数据质量分析
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+              ))}
+            </div>
           </div>
-        </TabsContent>
 
-        <TabsContent value="documents" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle>文档管理</CardTitle>
-                <Link to={`/projects/${projectId}/documents`}>
-                  <Button>
-                    <Upload className="h-4 w-4 mr-2" />
-                    上传文档
-                  </Button>
-                </Link>
+          {/* Workflows */}
+          <div className="card p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold">Workflows</h3>
+              <button className="text-sm text-[#27768A] hover:text-[#1F5E6E]">View All</button>
+            </div>
+            <div className="space-y-3">
+              {['Data Processing', 'Analysis Pipeline', 'Report Generation'].map((wf, i) => (
+                <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-[#27768A] rounded-lg flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <span className="font-medium">{wf}</span>
+                  </div>
+                  <span className="text-xs text-gray-500">Last run: 2h ago</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Sidebar */}
+        <div className="space-y-6">
+          {/* Project Info */}
+          <div className="card p-6">
+            <h3 className="text-lg font-semibold mb-4">Project Info</h3>
+            <div className="space-y-3">
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Owner</div>
+                <div className="text-sm font-medium">John Doe</div>
               </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-text-secondary mb-4">查看和管理项目文档，上传新文档进行分析。</p>
-              <Link to={`/projects/${projectId}/documents`}>
-                <Button variant="link" className="px-0">
-                  前往文档管理 →
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </TabsContent>
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Created</div>
+                <div className="text-sm">Jan 15, 2024</div>
+              </div>
+              <div>
+                <div className="text-xs text-gray-500 mb-1">Last Updated</div>
+                <div className="text-sm">2 hours ago</div>
+              </div>
+            </div>
+          </div>
 
-        <TabsContent value="knowledge-graph" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>知识图谱</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-text-secondary mb-4">可视化知识关系网络，探索实体之间的关联。</p>
-              <Link to={`/projects/${projectId}/knowledge-graph`}>
-                <Button variant="link" className="px-0">
-                  查看知识图谱 →
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="data-quality" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>数据质量</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-text-secondary mb-4">查看数据质量指标和分析报告。</p>
-              <Link to={`/projects/${projectId}/data-quality`}>
-                <Button variant="link" className="px-0">
-                  查看数据质量 →
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+          {/* Team */}
+          <div className="card p-6">
+            <h3 className="text-lg font-semibold mb-4">Team Members</h3>
+            <div className="space-y-3">
+              {['JD', 'JS', 'BW', 'AK', 'ML'].map((initial, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#27768A] flex items-center justify-center text-white text-xs font-medium">
+                    {initial}
+                  </div>
+                  <div className="text-sm">Team Member {i + 1}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }

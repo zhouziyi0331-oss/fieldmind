@@ -1,139 +1,124 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { authService } from '@/services/fieldmind'
-import { useAuthStore } from '@/store/authStore'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Network } from 'lucide-react'
-import { useToast } from '@/components/ui/use-toast'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { authAPI } from '@/services/fieldmind-api';
 
-export default function Login() {
-  const navigate = useNavigate()
-  const { setAuth } = useAuthStore()
-  const { toast } = useToast()
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [isRegister, setIsRegister] = useState(false)
-  const [error, setError] = useState('')
-  const [formData, setFormData] = useState({
-    email: '',
-    username: '',
-    password: '',
-  })
+export default function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setIsLoading(true)
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
     try {
-      let response
-      if (isRegister) {
-        response = await authService.register(
-          formData.email,
-          formData.username,
-          formData.password
-        )
-      } else {
-        response = await authService.login(formData.email, formData.password)
-      }
-
-      setAuth(response.user, response.token)
-      toast({
-        title: '成功',
-        description: isRegister ? '注册成功！' : '登录成功！',
-        variant: 'success',
-      })
-      navigate('/dashboard')
-    } catch (error: any) {
-      const errorMsg = error.response?.data?.detail || (isRegister ? '注册失败' : '登录失败')
-      setError(errorMsg)
-      toast({
-        title: '错误',
-        description: errorMsg,
-        variant: 'error',
-      })
+      const response = await authAPI.login({ email, password });
+      localStorage.setItem('token', response.data.access_token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      navigate('/dashboard');
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Login failed');
     } finally {
-      setIsLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10 p-4">
-      <Card className="w-full max-w-md animate-scale-in">
-        <CardHeader className="space-y-1 text-center">
-          <div className="flex items-center justify-center mb-4">
-            <div className="h-16 w-16 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
-              <Network className="h-8 w-8 text-white" />
-            </div>
+    <div className="min-h-screen flex">
+      {/* Left Panel */}
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#27768A] to-[#589DA4] p-12 flex-col justify-between">
+        <div>
+          <h1 className="text-4xl font-bold text-white mb-4">FieldMind</h1>
+          <p className="text-white/90 text-lg">Knowledge Engine</p>
+        </div>
+        <div className="space-y-6">
+          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+            <h3 className="text-white font-semibold mb-2">Intelligent Knowledge Management</h3>
+            <p className="text-white/80 text-sm">Transform your data into actionable insights</p>
           </div>
-          <CardTitle className="text-2xl font-bold">
-            {isRegister ? '注册 FieldMind' : '登录 FieldMind'}
-          </CardTitle>
-          <CardDescription>
-            {isRegister ? '创建账号开始使用' : '输入您的账号信息'}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <Alert variant="error">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
+        </div>
+      </div>
 
-            <Input
-              label="邮箱"
-              type="email"
-              placeholder="your@email.com"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-              autoFocus
-            />
+      {/* Right Panel */}
+      <div className="flex-1 flex items-center justify-center p-8 bg-gray-50">
+        <div className="w-full max-w-md space-y-8">
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-gray-900">Welcome Back</h2>
+            <p className="mt-2 text-gray-600">Sign in to your account</p>
+          </div>
 
-            {isRegister && (
-              <Input
-                label="用户名"
-                type="text"
-                placeholder="username"
-                value={formData.username}
-                onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                required
-              />
-            )}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+              {error}
+            </div>
+          )}
 
-            <Input
-              label="密码"
-              type="password"
-              placeholder="••••••••"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              required
-            />
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  Email Address
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#27768A] focus:border-transparent"
+                  placeholder="you@example.com"
+                />
+              </div>
 
-            <Button type="submit" className="w-full" loading={isLoading}>
-              {isRegister ? '注册' : '登录'}
-            </Button>
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#27768A] focus:border-transparent"
+                  placeholder="••••••••"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <label className="flex items-center">
+                <input type="checkbox" className="rounded border-gray-300 text-[#27768A] focus:ring-[#27768A]" />
+                <span className="ml-2 text-sm text-gray-600">Remember me</span>
+              </label>
+              <a href="#" className="text-sm text-[#27768A] hover:text-[#1F5E6E]">
+                Forgot password?
+              </a>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-3 px-4 bg-[#27768A] text-white rounded-lg hover:bg-[#1F5E6E] transition-colors font-medium"
+            >
+              Sign In
+            </button>
 
             <div className="text-center">
-              <Button
+              <span className="text-sm text-gray-600">Don't have an account? </span>
+              <button
                 type="button"
-                variant="link"
-                onClick={() => {
-                  setIsRegister(!isRegister)
-                  setError('')
-                }}
-                className="text-sm"
+                onClick={() => navigate('/register')}
+                className="text-sm text-[#27768A] hover:text-[#1F5E6E] font-medium"
               >
-                {isRegister ? '已有账号？立即登录' : '没有账号？立即注册'}
-              </Button>
+                Sign up
+              </button>
             </div>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
-  )
+  );
 }

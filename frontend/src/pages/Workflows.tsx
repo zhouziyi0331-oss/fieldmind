@@ -1,51 +1,50 @@
-import { useParams } from 'react-router-dom'
-import { useWorkflows, useCreateWorkflow, useExecuteWorkflow } from '@/hooks/useFieldMind'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Spinner } from '@/components/ui/spinner'
-import { Badge } from '@/components/ui/badge'
-import { Play, Plus, Settings, Pause } from 'lucide-react'
+import React from 'react';
+import { workflowAPI } from '@/services/fieldmind-api';
 
-export default function Workflows() {
-  const { id } = useParams<{ id: string }>()
-  const projectId = parseInt(id!)
-  const { data, isLoading } = useWorkflows(projectId)
-  const executeWorkflow = useExecuteWorkflow()
+const workflows = [
+  { id: 1, name: 'Data Processing Pipeline', description: 'Complete 6-step workflow', status: 'Active', runs: 42, color: '#27768A' },
+  { id: 2, name: 'Document Analysis', description: 'Automated document processing', status: 'Running', runs: 28, color: '#748D44' },
+  { id: 3, name: 'Knowledge Builder', description: 'Build knowledge base', status: 'Completed', runs: 15, color: '#F8B042' },
+];
 
-  if (isLoading) {
-    return <div className="flex items-center justify-center h-96"><Spinner size="lg" /></div>
-  }
-
+export default function WorkflowsPage() {
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex items-center justify-between">
+    <div className="p-8 space-y-8">
+      <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-text-primary">工作流</h1>
-          <p className="text-text-secondary mt-1">管理和执行自动化工作流</p>
+          <h1 className="page-title">Workflows</h1>
+          <p className="page-subtitle">Manage and execute workflows</p>
         </div>
-        <Button><Plus className="h-4 w-4 mr-2" />创建工作流</Button>
+        <button className="px-4 py-2 bg-[#27768A] text-white rounded-lg hover:bg-[#1F5E6E] transition-colors">
+          New Workflow
+        </button>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {data?.data?.map((workflow: any) => (
-          <Card key={workflow.id} hover>
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between">
-                {workflow.name}
-                <Badge>{workflow.status}</Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-text-secondary mb-4">{workflow.description}</p>
-              <div className="flex gap-2">
-                <Button size="sm" onClick={() => executeWorkflow.mutate({ projectId, workflowId: workflow.id })}>
-                  <Play className="h-4 w-4 mr-1" />执行
-                </Button>
-                <Button size="sm" variant="outline"><Settings className="h-4 w-4" /></Button>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {workflows.map((wf) => (
+          <div key={wf.id} className="card p-6 hover:shadow-lg transition-all cursor-pointer">
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white" style={{ backgroundColor: wf.color }}>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+            <h3 className="text-lg font-semibold mb-2">{wf.name}</h3>
+            <p className="text-sm text-gray-600 mb-4">{wf.description}</p>
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-500">{wf.runs} runs</span>
+              <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                wf.status === 'Active' ? 'bg-green-100 text-green-800' :
+                wf.status === 'Running' ? 'bg-blue-100 text-blue-800' :
+                'bg-gray-100 text-gray-800'
+              }`}>
+                {wf.status}
+              </span>
+            </div>
+          </div>
         ))}
       </div>
     </div>
-  )
+  );
 }

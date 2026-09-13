@@ -1,267 +1,72 @@
-import { useState } from 'react'
-import { useProjects, useCreateProject, useDeleteProject } from '@/hooks/useFieldMind'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Badge } from '@/components/ui/badge'
-import { Spinner } from '@/components/ui/spinner'
-import { EmptyState } from '@/components/ui/empty-state'
-import { Plus, Trash2, FolderOpen, Search, Grid3x3, List, FileText, Network } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { formatDistanceToNow } from 'date-fns'
-import { zhCN } from 'date-fns/locale'
+import React from 'react';
+import { projectAPI } from '@/services/fieldmind-api';
+import { useNavigate } from 'react-router-dom';
 
-type ViewMode = 'grid' | 'list'
+const projects = [
+  { id: 1, name: 'Data Analysis Project', description: 'Comprehensive data analysis workflow', status: 'Active', color: '#27768A', members: 5, tasks: 24, updated: '2 hours ago' },
+  { id: 2, name: 'ML Pipeline', description: 'Machine learning data pipeline', status: 'In Progress', color: '#748D44', members: 3, tasks: 18, updated: '5 hours ago' },
+  { id: 3, name: 'Research Documentation', description: 'Research knowledge base', status: 'Active', color: '#F8B042', members: 7, tasks: 32, updated: '1 day ago' },
+];
 
-export default function Projects() {
-  const { data: projectsData, isLoading } = useProjects()
-  const createProject = useCreateProject()
-  const deleteProject = useDeleteProject()
-
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
-  const [newProject, setNewProject] = useState({ name: '', description: '' })
-  const [viewMode, setViewMode] = useState<ViewMode>('grid')
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const handleCreate = async () => {
-    if (!newProject.name.trim()) return
-    await createProject.mutateAsync(newProject)
-    setIsCreateDialogOpen(false)
-    setNewProject({ name: '', description: '' })
-  }
-
-  const handleDelete = async (id: number, e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (confirm('确定要删除这个项目吗？此操作无法撤销。')) {
-      await deleteProject.mutateAsync(id)
-    }
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <Spinner size="lg" />
-      </div>
-    )
-  }
-
-  const projects = projectsData?.data || []
-  const filteredProjects = projects.filter(project =>
-    project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (project.description && project.description.toLowerCase().includes(searchQuery.toLowerCase()))
-  )
+export default function ProjectsPage() {
+  const navigate = useNavigate();
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      {/* 页面头部 */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="p-8 space-y-8">
+      <div className="flex justify-between items-start">
         <div>
-          <h1 className="text-3xl font-bold text-text-primary">项目</h1>
-          <p className="text-text-secondary mt-1">管理您的知识项目</p>
+          <h1 className="page-title">Projects</h1>
+          <p className="page-subtitle">Manage your knowledge projects</p>
         </div>
-
-        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              新建项目
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>创建新项目</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 py-4">
-              <Input
-                label="项目名称"
-                placeholder="输入项目名称"
-                value={newProject.name}
-                onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
-                autoFocus
-              />
-              <Textarea
-                label="项目描述"
-                placeholder="输入项目描述（可选）"
-                value={newProject.description}
-                onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
-                rows={4}
-              />
-            </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
-                取消
-              </Button>
-              <Button onClick={handleCreate} disabled={!newProject.name.trim() || createProject.isPending} loading={createProject.isPending}>
-                创建
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <button className="px-4 py-2 bg-[#27768A] text-white rounded-lg hover:bg-[#1F5E6E] transition-colors flex items-center gap-2">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          New Project
+        </button>
       </div>
 
-      {/* 工具栏 */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-        {/* 搜索框 */}
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-tertiary" />
-          <Input
-            placeholder="搜索项目..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
-        </div>
-
-        {/* 视图切换 */}
-        <div className="flex gap-2">
-          <Button
-            variant={viewMode === 'grid' ? 'primary' : 'outline'}
-            size="icon"
-            onClick={() => setViewMode('grid')}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            onClick={() => navigate(`/projects/${project.id}`)}
+            className="card p-6 hover:shadow-lg transition-all cursor-pointer"
           >
-            <Grid3x3 className="h-4 w-4" />
-          </Button>
-          <Button
-            variant={viewMode === 'list' ? 'primary' : 'outline'}
-            size="icon"
-            onClick={() => setViewMode('list')}
-          >
-            <List className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-
-      {/* 项目列表 */}
-      {filteredProjects.length === 0 ? (
-        <Card>
-          <CardContent className="py-16">
-            <EmptyState
-              icon={<FolderOpen className="h-16 w-16" />}
-              title={searchQuery ? '未找到匹配的项目' : '暂无项目'}
-              description={searchQuery ? '尝试使用其他关键词搜索' : '创建您的第一个项目开始使用'}
-              action={
-                !searchQuery && (
-                  <Button onClick={() => setIsCreateDialogOpen(true)}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    新建项目
-                  </Button>
-                )
-              }
-            />
-          </CardContent>
-        </Card>
-      ) : (
-        <>
-          {viewMode === 'grid' ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {filteredProjects.map((project, index) => (
-                <Link key={project.id} to={`/projects/${project.id}`}>
-                  <Card
-                    hover
-                    className="h-full animate-scale-in"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                            <FolderOpen className="h-6 w-6 text-white" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <CardTitle className="text-lg truncate">{project.name}</CardTitle>
-                          </div>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          className="flex-shrink-0"
-                          onClick={(e) => handleDelete(project.id, e)}
-                          disabled={deleteProject.isPending}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-text-secondary mb-4 line-clamp-2 h-10">
-                        {project.description || '暂无描述'}
-                      </p>
-                      <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-center gap-1 text-primary">
-                            <FileText className="h-4 w-4" />
-                            <span>{project.documents || 0}</span>
-                          </div>
-                          <div className="flex items-center gap-1 text-secondary">
-                            <Network className="h-4 w-4" />
-                            <span>{project.contexts || 0}</span>
-                          </div>
-                        </div>
-                        <span className="text-text-tertiary">
-                          {formatDistanceToNow(new Date(project.updated_at), {
-                            addSuffix: true,
-                            locale: zhCN,
-                          })}
-                        </span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+            <div className="flex items-start justify-between mb-4">
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white" style={{ backgroundColor: project.color }}>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                </svg>
+              </div>
+              <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">
+                {project.status}
+              </span>
             </div>
-          ) : (
-            <Card>
-              <CardContent className="p-0">
-                <div className="divide-y divide-border">
-                  {filteredProjects.map((project, index) => (
-                    <Link
-                      key={project.id}
-                      to={`/projects/${project.id}`}
-                      className="flex items-center justify-between p-4 hover:bg-surface-hover transition-colors animate-slide-in-up"
-                      style={{ animationDelay: `${index * 30}ms` }}
-                    >
-                      <div className="flex items-center gap-4 flex-1 min-w-0">
-                        <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                          <FolderOpen className="h-5 w-5 text-white" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-text-primary truncate">
-                            {project.name}
-                          </h3>
-                          <p className="text-sm text-text-secondary truncate">
-                            {project.description || '暂无描述'}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-4 ml-4">
-                        <Badge variant="outline">{project.documents || 0} 文档</Badge>
-                        <Badge variant="secondary">{project.contexts || 0} 上下文</Badge>
-                        <span className="text-sm text-text-tertiary hidden sm:inline">
-                          {formatDistanceToNow(new Date(project.updated_at), {
-                            addSuffix: true,
-                            locale: zhCN,
-                          })}
-                        </span>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={(e) => handleDelete(project.id, e)}
-                          disabled={deleteProject.isPending}
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </>
-      )}
+
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{project.name}</h3>
+            <p className="text-sm text-gray-600 mb-4">{project.description}</p>
+
+            <div className="flex items-center justify-between text-sm text-gray-500 pt-4 border-t">
+              <div className="flex items-center gap-4">
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                  {project.members}
+                </span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                  {project.tasks}
+                </span>
+              </div>
+              <span className="text-xs">{project.updated}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-  )
+  );
 }

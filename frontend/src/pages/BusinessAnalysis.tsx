@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { analyticsAPI, biAPI } from '@/services/fieldmind-api';
 import { useParams } from 'react-router-dom'
 import { useBusinessAnalysis } from '@/hooks/useFieldMind'
 import { Card } from '@/components/ui/card'
