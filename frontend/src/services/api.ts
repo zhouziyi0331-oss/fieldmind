@@ -30,6 +30,23 @@ apiClient.interceptors.request.use(
 // 响应拦截器
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
+    // 后端统一响应格式: { success: true, data: {...}, error: null, metadata: {...} }
+    if (response.data && typeof response.data === 'object') {
+      // 标准格式: { success, data, error, metadata }
+      if ('success' in response.data) {
+        // success = false 表示业务错误
+        if (!response.data.success) {
+          return Promise.reject({
+            message: response.data.error?.message || '请求失败',
+            code: response.data.error?.code,
+            details: response.data.error?.details
+          })
+        }
+        // success = true，返回 data 字段
+        return response.data.data
+      }
+    }
+    // 没有特殊格式，直接返回
     return response.data
   },
   (error) => {
