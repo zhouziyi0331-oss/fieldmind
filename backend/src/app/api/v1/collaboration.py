@@ -42,7 +42,7 @@ async def get_project_members(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.post("/projects/{project_id}/members", response_model=ApiResponse)
+@router.post("/projects/{project_id}/members", response_model=ApiResponse, operation_id="add_project_member_collaboration")
 async def add_project_member(
     request: Request,
     project_id: int,
@@ -104,7 +104,7 @@ async def add_project_member(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.delete("/projects/{project_id}/members/{user_id}", response_model=ApiResponse)
+@router.delete("/projects/{project_id}/members/{user_id}", response_model=ApiResponse, operation_id="remove_project_member_collaboration")
 async def remove_project_member(
     request: Request,
     project_id: int,

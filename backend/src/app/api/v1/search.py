@@ -3,13 +3,22 @@
 """
 
 from typing import Optional
-from fastapi import APIRouter, Query, Depends, Request
+from fastapi import APIRouter, Query, Depends, Request, Body
+from pydantic import BaseModel, Field
 
 from app.schemas.response import success_response, ApiResponse
 from app.services.unified_search import search, get_entity_graph
 
 
 router = APIRouter(prefix="/search", tags=["search"])
+
+
+class SearchRequest(BaseModel):
+    """搜索请求模型"""
+    query: str = Field(..., description="查询文本", min_length=1, max_length=200)
+    project_id: int = Field(..., description="项目ID", ge=1)
+    type: str = Field("hybrid", description="搜索类型: keyword, semantic, hybrid, entity")
+    top_k: int = Field(10, description="返回结果数", ge=1, le=100)
 
 
 @router.get("", response_model=ApiResponse)
@@ -25,7 +34,7 @@ async def unified_search(
     top_k: int = Query(10, description="返回结果数", ge=1, le=100)
 ):
     """
-    统一搜索接口
+    统一搜索接口 (GET)
 
     支持4种搜索类型:
     - keyword: 关键词全文搜索
@@ -44,6 +53,45 @@ async def unified_search(
         project_id=project_id,
         search_type=type,
         top_k=top_k
+    )
+
+    return success_response(
+        data=result,
+        request_id=request_id
+    )
+
+
+@router.post("", response_model=ApiResponse)
+async def unified_search_post(
+    request: Request,
+    search_request: SearchRequest
+):
+    """
+    统一搜索接口 (POST)
+
+    支持4种搜索类型:
+    - keyword: 关键词全文搜索
+    - semantic: 语义向量检索
+    - hybrid: 混合检索（推荐）
+    - entity: 实体查询
+
+    示例请求体:
+    ```json
+    {
+        "query": "图灵测试",
+        "project_id": 1,
+        "type": "hybrid",
+        "top_k": 10
+    }
+    ```
+    """
+    request_id = getattr(request.state, "request_id", None)
+
+    result = search(
+        query=search_request.query,
+        project_id=search_request.project_id,
+        search_type=search_request.type,
+        top_k=search_request.top_k
     )
 
     return success_response(

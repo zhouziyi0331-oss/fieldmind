@@ -412,7 +412,20 @@ class ObjectStorage:
         ]
 
         for bucket in default_buckets:
-            self.backend.create_bucket(bucket)
+            try:
+                self.backend.create_bucket(bucket)
+            except Exception as e:
+                # MinIO连接失败时，降级到本地存储
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.warning(f"创建bucket {bucket} 失败，尝试降级到本地存储: {e}")
+                if isinstance(self.backend, MinIOBackend):
+                    logger.info("MinIO不可用，切换到本地文件系统存储")
+                    self.backend = LocalBackend()
+                    # 使用本地存储重新创建buckets
+                    for bucket in default_buckets:
+                        self.backend.create_bucket(bucket)
+                    break
 
     # 代理所有backend方法
     def upload_file(self, bucket: str, object_name: str, file_path: str) -> bool:

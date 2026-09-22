@@ -98,8 +98,8 @@ class KnowledgeGraphBuilder:
                 "duration": time.time() - started,
             }
             log_document_processing(
-                document_id=document_id,
-                operation="build_knowledge_graph",
+                doc_id=document_id,
+                action="build_knowledge_graph",
                 status="completed",
                 duration=result["duration"],
                 details=result,

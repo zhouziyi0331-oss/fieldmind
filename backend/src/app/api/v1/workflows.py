@@ -132,7 +132,7 @@ async def get_workflow_service(db: AsyncSession = Depends(get_db)) -> WorkflowSe
 
 # ==================== 工作流执行 ====================
 
-@router.post("/executions", response_model=WorkflowExecutionResponse, summary="创建工作流执行")
+@router.post("/executions", response_model=WorkflowExecutionResponse, summary="创建工作流执行", operation_id="create_workflow_execution_v1")
 async def create_workflow_execution(
     execution: WorkflowExecutionCreate,
     current_user: User = Depends(get_current_user),
@@ -169,7 +169,7 @@ async def create_workflow_execution(
     )
 
 
-@router.post("/executions/{execution_id}/start", response_model=WorkflowExecutionResponse, summary="启动工作流执行")
+@router.post("/executions/{execution_id}/start", response_model=WorkflowExecutionResponse, summary="启动工作流执行", operation_id="start_workflow_execution_v1")
 async def start_workflow_execution(
     execution_id: int = Path(..., description="执行实例ID"),
     start_config: WorkflowExecutionStart = ...,
@@ -212,7 +212,7 @@ async def start_workflow_execution(
     )
 
 
-@router.post("/executions/{execution_id}/execute", summary="执行工作流（后台任务）")
+@router.post("/executions/{execution_id}/execute", summary="执行工作流（后台任务）", operation_id="execute_workflow_v1")
 async def execute_workflow(
     execution_id: int = Path(..., description="执行实例ID"),
     background_tasks: BackgroundTasks = ...,
@@ -240,7 +240,7 @@ async def execute_workflow(
     }
 
 
-@router.post("/executions/{execution_id}/cancel", response_model=WorkflowExecutionResponse, summary="取消工作流执行")
+@router.post("/executions/{execution_id}/cancel", response_model=WorkflowExecutionResponse, summary="取消工作流执行", operation_id="cancel_workflow_execution_v1")
 async def cancel_workflow_execution(
     execution_id: int = Path(..., description="执行实例ID"),
     current_user: User = Depends(get_current_user),
@@ -266,7 +266,7 @@ async def cancel_workflow_execution(
 
 # ==================== 工作流查询 ====================
 
-@router.get("/executions/{execution_id}", response_model=WorkflowExecutionResponse, summary="获取工作流执行详情")
+@router.get("/executions/{execution_id}", response_model=WorkflowExecutionResponse, summary="获取工作流执行详情", operation_id="get_workflow_execution_v1")
 async def get_workflow_execution(
     execution_id: int = Path(..., description="执行实例ID"),
     current_user: User = Depends(get_current_user),
@@ -293,7 +293,7 @@ async def get_workflow_execution(
     )
 
 
-@router.get("/executions", response_model=List[WorkflowExecutionResponse], summary="查询工作流执行列表")
+@router.get("/executions", response_model=List[WorkflowExecutionResponse], summary="查询工作流执行列表", operation_id="list_workflow_executions_v1")
 async def list_workflow_executions(
     project_id: Optional[int] = Query(None, description="筛选项目"),
     workflow_type: Optional[str] = Query(None, description="筛选工作流类型"),
@@ -338,7 +338,7 @@ async def list_workflow_executions(
     ]
 
 
-@router.get("/executions/{execution_id}/steps", response_model=List[WorkflowStepResponse], summary="获取工作流步骤列表")
+@router.get("/executions/{execution_id}/steps", response_model=List[WorkflowStepResponse], summary="获取工作流步骤列表", operation_id="get_workflow_steps_v1")
 async def get_workflow_steps(
     execution_id: int = Path(..., description="执行实例ID"),
     current_user: User = Depends(get_current_user),
@@ -370,7 +370,7 @@ async def get_workflow_steps(
     ]
 
 
-@router.get("/executions/{execution_id}/progress", response_model=WorkflowProgressResponse, summary="获取工作流进度")
+@router.get("/executions/{execution_id}/progress", response_model=WorkflowProgressResponse, summary="获取工作流进度", operation_id="get_workflow_progress_v1")
 async def get_workflow_progress(
     execution_id: int = Path(..., description="执行实例ID"),
     current_user: User = Depends(get_current_user),
@@ -416,7 +416,7 @@ async def workflow_progress_websocket(
 
 # ==================== 工作流模板 ====================
 
-@router.post("/templates", response_model=WorkflowTemplateResponse, summary="创建工作流模板")
+@router.post("/templates", response_model=WorkflowTemplateResponse, summary="创建工作流模板", operation_id="create_workflow_template_v1")
 async def create_workflow_template(
     template: WorkflowTemplateCreate,
     current_user: User = Depends(get_current_user),
@@ -454,7 +454,7 @@ async def create_workflow_template(
     )
 
 
-@router.get("/templates", response_model=List[WorkflowTemplateResponse], summary="获取工作流模板列表")
+@router.get("/templates", response_model=List[WorkflowTemplateResponse], summary="获取工作流模板列表", operation_id="list_workflow_templates_v1")
 async def list_workflow_templates(
     workflow_type: Optional[str] = Query(None, description="筛选工作流类型"),
     is_active: Optional[bool] = Query(True, description="筛选是否激活"),
@@ -486,7 +486,7 @@ async def list_workflow_templates(
 
 # ==================== 步骤管理 ====================
 
-@router.post("/steps/{step_id}/retry", response_model=WorkflowStepResponse, summary="重试失败的步骤")
+@router.post("/steps/{step_id}/retry", response_model=WorkflowStepResponse, summary="重试失败的步骤", operation_id="retry_workflow_step_v1")
 async def retry_workflow_step(
     step_id: int = Path(..., description="步骤ID"),
     max_retries: int = Query(3, description="最大重试次数", ge=1, le=10),
@@ -513,7 +513,7 @@ async def retry_workflow_step(
     )
 
 
-@router.get("/handlers", summary="获取已注册的步骤处理器")
+@router.get("/handlers", summary="获取已注册的步骤处理器", operation_id="get_registered_handlers_v1")
 async def get_registered_handlers(
     workflow_service: WorkflowService = Depends(get_workflow_service)
 ):
