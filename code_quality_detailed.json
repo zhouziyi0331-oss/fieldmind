@@ -1,0 +1,309 @@
+{
+  "summary": {
+    "long_functions_count": 98,
+    "complex_functions_count": 48,
+    "missing_docs_count": 372,
+    "todos_count": 118
+  },
+  "high_priority": {
+    "complex_functions": [
+      {
+        "file": "services/background_tasks.py",
+        "function": "process_document_async",
+        "complexity": 68,
+        "line": 64
+      },
+      {
+        "file": "services/enhanced_chat_service.py",
+        "function": "chat_with_skill",
+        "complexity": 46,
+        "line": 39
+      },
+      {
+        "file": "core/audit.py",
+        "function": "audit_log",
+        "complexity": 41,
+        "line": 19
+      },
+      {
+        "file": "core/audit.py",
+        "function": "decorator",
+        "complexity": 41,
+        "line": 51
+      },
+      {
+        "file": "api/reports_real.py",
+        "function": "generate_level2_report",
+        "complexity": 40,
+        "line": 368
+      },
+      {
+        "file": "core/structured_output/type_coercion.py",
+        "function": "coerce_value",
+        "complexity": 38,
+        "line": 57
+      },
+      {
+        "file": "api/reports_real.py",
+        "function": "generate_report",
+        "complexity": 33,
+        "line": 40
+      },
+      {
+        "file": "api/reports_real.py",
+        "function": "generate_level1_report",
+        "complexity": 33,
+        "line": 180
+      },
+      {
+        "file": "services/document_processing_pipeline_complete.py",
+        "function": "_run_external_enrichment",
+        "complexity": 33,
+        "line": 150
+      },
+      {
+        "file": "services/skills/business_analysis.py",
+        "function": "_synthesize_insights",
+        "complexity": 31,
+        "line": 122
+      }
+    ],
+    "long_functions": [
+      {
+        "file": "services/background_tasks.py",
+        "function": "process_document_async",
+        "lines": 511,
+        "start_line": 64
+      },
+      {
+        "file": "services/enhanced_chat_service.py",
+        "function": "chat_with_skill",
+        "lines": 473,
+        "start_line": 39
+      },
+      {
+        "file": "workflows/gap_analysis.py",
+        "function": "_analyze_gaps",
+        "lines": 345,
+        "start_line": 31
+      },
+      {
+        "file": "services/document_processing_pipeline_complete.py",
+        "function": "_run_external_enrichment",
+        "lines": 339,
+        "start_line": 150
+      },
+      {
+        "file": "services/document_processing_pipeline_complete.py",
+        "function": "process_document",
+        "lines": 295,
+        "start_line": 569
+      },
+      {
+        "file": "services/plugins/plugin_registry.py",
+        "function": "_infer_capabilities",
+        "lines": 258,
+        "start_line": 253
+      },
+      {
+        "file": "core/audit.py",
+        "function": "audit_log",
+        "lines": 251,
+        "start_line": 19
+      },
+      {
+        "file": "core/monitoring/metrics.py",
+        "function": "__init__",
+        "lines": 244,
+        "start_line": 55
+      },
+      {
+        "file": "api/reports_real.py",
+        "function": "generate_level2_report",
+        "lines": 241,
+        "start_line": 368
+      },
+      {
+        "file": "core/audit.py",
+        "function": "decorator",
+        "lines": 217,
+        "start_line": 51
+      }
+    ]
+  },
+  "medium_priority": {
+    "missing_docs_sample": [
+      {
+        "type": "function",
+        "file": "config.py",
+        "name": "parse_cors_origins",
+        "line": 78
+      },
+      {
+        "type": "function",
+        "file": "config.py",
+        "name": "normalize_database_url",
+        "line": 101
+      },
+      {
+        "type": "function",
+        "file": "config.py",
+        "name": "REDIS_URL",
+        "line": 127
+      },
+      {
+        "type": "function",
+        "file": "config.py",
+        "name": "normalize_chroma_persist_dir",
+        "line": 140
+      },
+      {
+        "type": "function",
+        "file": "config.py",
+        "name": "normalize_upload_dir",
+        "line": 161
+      },
+      {
+        "type": "module",
+        "file": "middleware/__init__.py",
+        "line": 1
+      },
+      {
+        "type": "function",
+        "file": "tools/transcript/__init__.py",
+        "name": "clean_transcript",
+        "line": 31
+      },
+      {
+        "type": "function",
+        "file": "tools/transcript/__init__.py",
+        "name": "extract_metrics",
+        "line": 35
+      },
+      {
+        "type": "function",
+        "file": "tools/summary/skill_analyzer.py",
+        "name": "analyze_with_skills",
+        "line": 10
+      },
+      {
+        "type": "function",
+        "file": "core/hermes_governance.py",
+        "name": "decorator",
+        "line": 537
+      },
+      {
+        "type": "function",
+        "file": "core/logging.py",
+        "name": "decorator",
+        "line": 522
+      },
+      {
+        "type": "class",
+        "file": "core/logging.py",
+        "name": "_FallbackLogger",
+        "line": 17
+      },
+      {
+        "type": "function",
+        "file": "core/logging.py",
+        "name": "wrapper",
+        "line": 524
+      },
+      {
+        "type": "function",
+        "file": "core/logging.py",
+        "name": "bind",
+        "line": 27
+      },
+      {
+        "type": "function",
+        "file": "core/logging.py",
+        "name": "contextualize",
+        "line": 31
+      },
+      {
+        "type": "function",
+        "file": "core/logging.py",
+        "name": "remove",
+        "line": 34
+      },
+      {
+        "type": "function",
+        "file": "core/logging.py",
+        "name": "add",
+        "line": 37
+      },
+      {
+        "type": "function",
+        "file": "core/logging.py",
+        "name": "info",
+        "line": 40
+      },
+      {
+        "type": "function",
+        "file": "core/logging.py",
+        "name": "debug",
+        "line": 43
+      },
+      {
+        "type": "function",
+        "file": "core/logging.py",
+        "name": "warning",
+        "line": 46
+      }
+    ],
+    "todos_sample": [
+      {
+        "file": "tasks/rag_tasks.py",
+        "line": 147,
+        "content": "# TODO: 集成实际的 PostgreSQL 连接"
+      },
+      {
+        "file": "tasks/crawler_tasks.py",
+        "line": 109,
+        "content": "TODO: 需要预定义爬虫规则"
+      },
+      {
+        "file": "tools/vectorization/entity_recognition_service.py",
+        "line": 52,
+        "content": "TODO: 使用自定义训练的模型"
+      },
+      {
+        "file": "tools/vectorization/entity_recognition_service.py",
+        "line": 105,
+        "content": "# TODO: 从外部文件加载更多方言词"
+      },
+      {
+        "file": "tools/vectorization/entity_recognition_service.py",
+        "line": 214,
+        "content": "# TODO: 从外部文件加载更多遗产信息"
+      },
+      {
+        "file": "core/funasr_service.py",
+        "line": 151,
+        "content": "# TODO: 集成CAM++说话人分离模型"
+      },
+      {
+        "file": "core/transcription.py",
+        "line": 328,
+        "content": "# TODO: 集成pyannote.audio进行说话人分离"
+      },
+      {
+        "file": "core/skill_chat_adapter.py",
+        "line": 434,
+        "content": "# TODO: 实现更智能的参数提取"
+      },
+      {
+        "file": "core/skill_chat_adapter.py",
+        "line": 626,
+        "content": "# TODO: 从执行追踪获取使用统计"
+      },
+      {
+        "file": "core/ai_call_manager.py",
+        "line": 270,
+        "content": "# TODO: 使用模型总结"
+      }
+    ]
+  }
+}

@@ -1,0 +1,239 @@
+import Foundation
+import Combine
+
+// MARK: - 数据模型
+
+struct ExistingBusiness: Codable, Identifiable {
+    let id = UUID()
+    let name: String
+    let description: String
+    let score: Double
+    let sustainability: Double
+    let coverage: Double
+    let emotion: Double
+    let trend: Double
+    let frequency: Int
+    let tags: [String]
+    let supportingMaterials: [BusinessMaterial]
+    let materialCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case name, description, score, sustainability, coverage, emotion, trend, frequency, tags
+        case supportingMaterials = "supporting_materials"
+        case materialCount = "material_count"
+    }
+}
+
+struct PotentialBusiness: Codable, Identifiable {
+    let id = UUID()
+    let name: String
+    let description: String
+    let feasibilityScore: Double
+    let keywordFrequency: Int
+    let emotionScore: Double
+    let policySupport: Double
+    let resourceAvailability: Double
+    let reasoning: String
+    let supportingMaterials: [BusinessMaterial]
+    let baseKeyword: String
+    let materialCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case name, description, reasoning
+        case feasibilityScore = "feasibility_score"
+        case keywordFrequency = "keyword_frequency"
+        case emotionScore = "emotion_score"
+        case policySupport = "policy_support"
+        case resourceAvailability = "resource_availability"
+        case supportingMaterials = "supporting_materials"
+        case baseKeyword = "base_keyword"
+        case materialCount = "material_count"
+    }
+}
+
+struct BusinessMaterial: Codable, Identifiable {
+    let id: Int
+    let title: String
+    let filename: String?
+    let excerpt: String?
+}
+
+struct AIEvaluation: Codable {
+    let evaluation: String
+    let suggestions: [String]
+    let risks: [String]
+    let dataEvidence: DataEvidence
+
+    enum CodingKeys: String, CodingKey {
+        case evaluation, suggestions, risks
+        case dataEvidence = "data_evidence"
+    }
+}
+
+struct DataEvidence: Codable {
+    let materialCount: Int
+    let score: Double
+    let supportingMaterials: [BusinessMaterial]
+
+    enum CodingKeys: String, CodingKey {
+        case score
+        case materialCount = "material_count"
+        case supportingMaterials = "supporting_materials"
+    }
+}
+
+struct ExistingBusinessResponse: Codable {
+    let businesses: [ExistingBusiness]
+}
+
+struct PotentialBusinessResponse: Codable {
+    let potentialBusinesses: [PotentialBusiness]
+
+    enum CodingKeys: String, CodingKey {
+        case potentialBusinesses = "potential_businesses"
+    }
+}
+
+// MARK: - ViewModel
+
+@MainActor
+class BusinessAnalysisViewModel: ObservableObject {
+    @Published var existingBusinesses: [ExistingBusiness] = []
+    @Published var potentialBusinesses: [PotentialBusiness] = []
+    @Published var aiEvaluation: AIEvaluation?
+    @Published var isLoading = false
+    @Published var isLoadingAI = false
+    @Published var errorMessage: String?
+    @Published var selectedTab = 0 // 0: 现有业态, 1: 可能业态, 2: AI评估
+
+    private var cancellables = Set<AnyCancellable>()
+
+    // 加载现有业态
+    func loadExistingBusinesses(projectId: Int) {
+        isLoading = true
+        errorMessage = nil
+
+        guard let url = URL(string: "\(APIConfig.baseURL)/api/v1/projects/\(projectId)/business-analysis/existing") else {
+            errorMessage = "无效的URL"
+            isLoading = false
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        URLSession.shared.dataTaskPublisher(for: request)
+            .map(\.data)
+            .decode(type: APIResponse<ExistingBusinessResponse>.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                if case .failure(let error) = completion {
+                    self?.errorMessage = "加载现有业态失败: \(error.localizedDescription)"
+                }
+            } receiveValue: { [weak self] response in
+                if response.success, let data = response.data {
+                    self?.existingBusinesses = data.businesses
+                } else {
+                    self?.errorMessage = response.message ?? "加载现有业态失败"
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    // 加载可能业态
+    func loadPotentialBusinesses(projectId: Int) {
+        isLoading = true
+        errorMessage = nil
+
+        guard let url = URL(string: "\(APIConfig.baseURL)/api/v1/projects/\(projectId)/business-analysis/potential") else {
+            errorMessage = "无效的URL"
+            isLoading = false
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        URLSession.shared.dataTaskPublisher(for: request)
+            .map(\.data)
+            .decode(type: APIResponse<PotentialBusinessResponse>.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                if case .failure(let error) = completion {
+                    self?.errorMessage = "加载可能业态失败: \(error.localizedDescription)"
+                }
+            } receiveValue: { [weak self] response in
+                if response.success, let data = response.data {
+                    self?.potentialBusinesses = data.potentialBusinesses
+                } else {
+                    self?.errorMessage = response.message ?? "加载可能业态失败"
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    // 获取AI评估
+    func getAIEvaluation(projectId: Int, businessType: String, businessName: String) {
+        isLoadingAI = true
+        errorMessage = nil
+
+        guard let url = URL(string: "\(APIConfig.baseURL)/api/v1/projects/\(projectId)/business-analysis/ai-evaluation") else {
+            errorMessage = "无效的URL"
+            isLoadingAI = false
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let body: [String: String] = [
+            "business_type": businessType,
+            "business_name": businessName
+        ]
+
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+        URLSession.shared.dataTaskPublisher(for: request)
+            .map(\.data)
+            .decode(type: APIResponse<AIEvaluation>.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                self?.isLoadingAI = false
+                if case .failure(let error) = completion {
+                    self?.errorMessage = "AI评估失败: \(error.localizedDescription)"
+                }
+            } receiveValue: { [weak self] response in
+                if response.success {
+                    self?.aiEvaluation = response.data
+                } else {
+                    self?.errorMessage = response.message ?? "AI评估失败"
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    // 加载所有数据
+    func loadAll(projectId: Int) {
+        loadExistingBusinesses(projectId: projectId)
+        loadPotentialBusinesses(projectId: projectId)
+    }
+}
+
+// MARK: - API Response
+
+struct APIResponse<T: Codable>: Codable {
+    let success: Bool
+    let message: String?
+    let data: T?
+}
+
+// MARK: - API Config
+
+struct APIConfig {
+    static let baseURL = "http://localhost:8000"
+}

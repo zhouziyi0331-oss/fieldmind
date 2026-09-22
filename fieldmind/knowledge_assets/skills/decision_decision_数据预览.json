@@ -1,0 +1,26 @@
+{
+  "skill_id": "skill_97a7c02f4850",
+  "skill_name": "decision_decision_数据预览",
+  "skill_title": "决策：数据预览",
+  "skill_type": "decision",
+  "topic": "decision_数据预览",
+  "pattern_count": 3,
+  "quality_avg": 0.5750000000000001,
+  "description": "基于 3 个实际决策的框架",
+  "parameters": {
+    "options": {
+      "type": "array",
+      "description": "可选方案"
+    },
+    "criteria": {
+      "type": "array",
+      "description": "评估标准"
+    }
+  },
+  "template": "# {{skill_title}}\n\n## 决策场景\n[描述需要决策的场景]\n\n## 方案评估\n\n### 方案 1\n数据预览:理工大学企业家校友俱乐部成立大会 · 物料确认时间跟踪表 | None | None | None | None | None | None | None | None | None | None | None | None | None----------------------------------------------------------------------------...\n\n### 方案 2\n数据预览:砚湖企业家俱乐部 · 会议物资归档核对表 | None | None | None | None | None | None | None | None | None | None | None-------------------------------------------------------------------------------------------------填...\n\n### 方案 3\n数据预览:砚湖企业家俱乐部 · 会议物资归档核对表 | None | None | None | None | None | None | None | None | None | None | None-------------------------------------------------------------------------------------------------填...\n\n\n## 评估标准\n{{{{#each criteria}}}}\n- {{{{this}}}}\n{{{{/each}}}}\n\n## 参考案例\n- chk_57c3227e9b11\n- chk_223904f05911\n- chk_0c786f66a6cf\n",
+  "examples": [
+    "chk_57c3227e9b11",
+    "chk_223904f05911",
+    "chk_0c786f66a6cf"
+  ]
+}

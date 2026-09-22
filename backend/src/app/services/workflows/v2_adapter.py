@@ -27,8 +27,13 @@ class WorkflowV2Adapter:
 
     让WorkflowBase能够调用6-Agent v2架构中的Agents
     """
+    def __init__(self, use_workflow_engine: bool = True):
 
-    def __init__(self):
+        self.use_workflow_engine = use_workflow_engine
+
+        if use_workflow_engine:
+            from app.services.workflow_engine import WorkflowEngine
+            self.workflow_engine = WorkflowEngine(max_workers=4)
         """初始化适配器，懒加载所有v2 Agents"""
         self._ingestion_agent = None
         self._chunking_agent = None

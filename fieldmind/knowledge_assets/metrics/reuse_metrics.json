@@ -1,0 +1,148 @@
+{
+  "overview": {
+    "total_patterns": 520,
+    "total_skills": 8,
+    "patterns_with_usage": 520,
+    "skills_with_usage": 8,
+    "pattern_reuse_rate": 100.0,
+    "skill_reuse_rate": 100.0,
+    "overall_reuse_rate": 100.0
+  },
+  "usage": {
+    "total_views": 21445,
+    "total_uses": 14571,
+    "total_shares": 7181,
+    "avg_views_per_asset": 40.62,
+    "avg_uses_per_asset": 27.6,
+    "avg_shares_per_asset": 13.6,
+    "view_to_use_conversion": 67.95
+  },
+  "quality": {
+    "avg_rating": 0.57
+  },
+  "engagement": {
+    "active_users": 50
+  },
+  "top_assets": [
+    {
+      "asset_id": "solution_solution_7_通过社群",
+      "asset_type": "skill",
+      "total_uses": 125,
+      "avg_rating": 4.0
+    },
+    {
+      "asset_id": "lesson_lesson_learned_1_分钟",
+      "asset_type": "skill",
+      "total_uses": 122,
+      "avg_rating": 2.875
+    },
+    {
+      "asset_id": "decision_decision_2_内容",
+      "asset_type": "skill",
+      "total_uses": 112,
+      "avg_rating": 3.4285714285714284
+    },
+    {
+      "asset_id": "process_process_6_新增物资",
+      "asset_type": "skill",
+      "total_uses": 109,
+      "avg_rating": 4.333333333333333
+    },
+    {
+      "asset_id": "lesson_lesson_learned_0_提升内容",
+      "asset_type": "skill",
+      "total_uses": 105,
+      "avg_rating": 2.0
+    },
+    {
+      "asset_id": "process_process_5_答错伤信",
+      "asset_type": "skill",
+      "total_uses": 96,
+      "avg_rating": 3.375
+    },
+    {
+      "asset_id": "process_process_4_中台",
+      "asset_type": "skill",
+      "total_uses": 78,
+      "avg_rating": 2.6666666666666665
+    },
+    {
+      "asset_id": "decision_decision_3_真实价值",
+      "asset_type": "skill",
+      "total_uses": 74,
+      "avg_rating": 2.75
+    },
+    {
+      "asset_id": "chk_de5f69ce5638",
+      "asset_type": "pattern",
+      "total_uses": 59,
+      "avg_rating": 0.0
+    },
+    {
+      "asset_id": "chk_a182d6401e07",
+      "asset_type": "pattern",
+      "total_uses": 57,
+      "avg_rating": 4.166666666666667
+    },
+    {
+      "asset_id": "chk_28a09bc5c9bb",
+      "asset_type": "pattern",
+      "total_uses": 56,
+      "avg_rating": 0.0
+    },
+    {
+      "asset_id": "chk_3eae99be1e08",
+      "asset_type": "pattern",
+      "total_uses": 54,
+      "avg_rating": 3.75
+    },
+    {
+      "asset_id": "chk_b840b50dad0f",
+      "asset_type": "pattern",
+      "total_uses": 54,
+      "avg_rating": 2.0
+    },
+    {
+      "asset_id": "chk_960a962012fc",
+      "asset_type": "pattern",
+      "total_uses": 53,
+      "avg_rating": 5.0
+    },
+    {
+      "asset_id": "chk_9127a5c62e11",
+      "asset_type": "pattern",
+      "total_uses": 52,
+      "avg_rating": 4.0
+    },
+    {
+      "asset_id": "chk_e33a9604a6f1",
+      "asset_type": "pattern",
+      "total_uses": 52,
+      "avg_rating": 3.3333333333333335
+    },
+    {
+      "asset_id": "chk_0fd6521f7ff0",
+      "asset_type": "pattern",
+      "total_uses": 51,
+      "avg_rating": 0.0
+    },
+    {
+      "asset_id": "chk_517b307142cc",
+      "asset_type": "pattern",
+      "total_uses": 51,
+      "avg_rating": 0.0
+    },
+    {
+      "asset_id": "chk_b85cb5b58a43",
+      "asset_type": "pattern",
+      "total_uses": 51,
+      "avg_rating": 4.5
+    },
+    {
+      "asset_id": "chk_7961f0c2086e",
+      "asset_type": "pattern",
+      "total_uses": 50,
+      "avg_rating": 2.8333333333333335
+    }
+  ]
+}

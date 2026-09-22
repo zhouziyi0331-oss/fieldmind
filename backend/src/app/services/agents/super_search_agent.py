@@ -173,12 +173,13 @@ class SuperSearchAgent(AgentBase):
         print(result.output_data['contents'])
     """
 
-    def __init__(
-        self,
+    def __init__(self,
         agent_id: Optional[str] = None,
         registry: Optional[PluginRegistry] = None,
-        loader: Optional[PluginLoader] = None
-    ):
+        loader: Optional[PluginLoader] = None,
+
+
+        use_workflow_engine: bool = True):
         """
         初始化SuperSearchAgent
 
@@ -839,3 +840,21 @@ class SuperSearchAgent(AgentBase):
             }
 
         return status
+
+
+
+
+        # WorkflowEngine 集成
+
+
+        self.use_workflow_engine = use_workflow_engine
+
+
+        if use_workflow_engine:
+
+
+            from app.services.workflow_engine import WorkflowEngine
+
+
+            self.workflow_engine = WorkflowEngine(max_workers=4)
+

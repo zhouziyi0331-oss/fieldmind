@@ -1,0 +1,1364 @@
+{
+  "total_plugins": 31,
+  "scan_time": "2026-08-15T22:27:03.373120",
+  "plugins": {
+    "codebase-memory-mcp": {
+      "plugin_id": "codebase-memory-mcp",
+      "plugin_name": "codebase-memory-mcp",
+      "plugin_type": "rag_memory",
+      "version": "unknown",
+      "description": "",
+      "repo_path": "/Users/alwan/FieldMind/repos/codebase-memory-mcp",
+      "main_module": null,
+      "capabilities": [],
+      "dependencies": [],
+      "languages": [],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.657477",
+      "metadata": {}
+    },
+    "PDF-Guru": {
+      "plugin_id": "PDF-Guru",
+      "plugin_name": "PDF-Guru",
+      "plugin_type": "document_conversion",
+      "version": "unknown",
+      "description": "<p align=\"left\"> <img src=\"https://guru.kevin2li.top/img/appicon.png\" align=\"middle\" width = \"100\"/> </p>",
+      "repo_path": "/Users/alwan/FieldMind/repos/PDF-Guru",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "pdf_processing",
+          "category": "conversion",
+          "description": "Advanced PDF processing",
+          "input_types": [
+            "pdf"
+          ],
+          "output_types": [
+            "text",
+            "images",
+            "tables",
+            "markdown"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "Go",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.658495",
+      "metadata": {}
+    },
+    "cognee": {
+      "plugin_id": "cognee",
+      "plugin_name": "cognee",
+      "plugin_type": "other",
+      "version": "1.4.0",
+      "description": "<div align=\"center\"> <a href=\"https://github.com/topoteretes/cognee\"> <img src=\"https://raw.githubusercontent.com/topoteretes/cognee/refs/heads/dev/assets/cognee-logo-transparent.png\" alt=\"Cognee Logo\" height=\"60\"> </a>",
+      "repo_path": "/Users/alwan/FieldMind/repos/cognee",
+      "main_module": null,
+      "capabilities": [],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.664182",
+      "metadata": {
+        "pyproject_toml": true
+      }
+    },
+    "crawl4ai": {
+      "plugin_id": "crawl4ai",
+      "plugin_name": "crawl4ai",
+      "plugin_type": "search_crawler",
+      "version": "0.0.0",
+      "description": "<div align=\"center\">",
+      "repo_path": "/Users/alwan/FieldMind/repos/crawl4ai",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "ai_web_crawl",
+          "category": "search",
+          "description": "AI-powered web crawling",
+          "input_types": [
+            "url",
+            "urls"
+          ],
+          "output_types": [
+            "html",
+            "markdown",
+            "structured_data"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.772149",
+      "metadata": {
+        "setup_py": true,
+        "pyproject_toml": true
+      }
+    },
+    "nvd3": {
+      "plugin_id": "nvd3",
+      "plugin_name": "nvd3",
+      "plugin_type": "visualization",
+      "version": "1.8.6-dev",
+      "description": "Inspired by the work of Mike Bostock's [Towards Reusable Charts](http://bost.ocks.org/mike/chart/), and supported by a combined effort of [Novus](http://www.novus.com) and the NVD3 community.",
+      "repo_path": "/Users/alwan/FieldMind/repos/nvd3",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "data_visualization",
+          "category": "visualization",
+          "description": "Create data visualizations",
+          "input_types": [
+            "data",
+            "csv",
+            "json"
+          ],
+          "output_types": [
+            "charts",
+            "graphs",
+            "svg"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.802682",
+      "metadata": {
+        "package_json": true
+      }
+    },
+    "LightRAG": {
+      "plugin_id": "LightRAG",
+      "plugin_name": "LightRAG",
+      "plugin_type": "rag_memory",
+      "version": "py310",
+      "description": "<div align=\"center\">",
+      "repo_path": "/Users/alwan/FieldMind/repos/LightRAG",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "lightweight_rag",
+          "category": "rag",
+          "description": "Lightweight RAG implementation",
+          "input_types": [
+            "text",
+            "query"
+          ],
+          "output_types": [
+            "answers",
+            "context"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.809743",
+      "metadata": {
+        "setup_py": true,
+        "pyproject_toml": true
+      }
+    },
+    "rawgraphs-app": {
+      "plugin_id": "rawgraphs-app",
+      "plugin_name": "rawgraphs-app",
+      "plugin_type": "knowledge_graph",
+      "version": "2.0.1",
+      "description": "**RAWGraphs** is an open web tool to create custom vector-based visualizations on top of the amazing [d3.js](https://github.com/mbostock/d3) library. It has been developed by [DensityDesign Research Lab](http://www.densitydesign.org/) ([Politecnico di Milano](http://www.polimi.it/)), [Calibro](http://calib.ro/) and [INMAGIK](https://inmagik.com/).",
+      "repo_path": "/Users/alwan/FieldMind/repos/rawgraphs-app",
+      "main_module": null,
+      "capabilities": [],
+      "dependencies": [
+        "@rawgraphs/rawgraphs-calendar-heatmap",
+        "@rawgraphs/rawgraphs-charts",
+        "@rawgraphs/rawgraphs-core",
+        "@rdfjs-elements/sparql-editor",
+        "@testing-library/jest-dom",
+        "@testing-library/react",
+        "@testing-library/user-event",
+        "array-insert",
+        "array-move",
+        "bootstrap",
+        "classnames",
+        "clipboard",
+        "comlink",
+        "d3",
+        "dayjs",
+        "js-sha3",
+        "lit-html",
+        "lodash",
+        "lru-cache",
+        "rdf-literal",
+        "react",
+        "react-bootstrap",
+        "react-color",
+        "react-cookie-consent",
+        "react-data-grid",
+        "react-dnd",
+        "react-dnd-html5-backend",
+        "react-dom",
+        "react-dropzone",
+        "react-icons",
+        "react-scripts",
+        "sparql-http-client",
+        "sparqljs",
+        "typeface-inter",
+        "worker-loader"
+      ],
+      "languages": [
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.839575",
+      "metadata": {
+        "package_json": true
+      }
+    },
+    "Neo4j-KGBuilder": {
+      "plugin_id": "Neo4j-KGBuilder",
+      "plugin_name": "Neo4j-KGBuilder",
+      "plugin_type": "knowledge_graph",
+      "version": "unknown",
+      "description": "**Neo4j-KGBuilder** 是一个基于 Neo4j 和 Spring Boot 的知识图谱构建与可视化工具。",
+      "repo_path": "/Users/alwan/FieldMind/repos/Neo4j-KGBuilder",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "graph_database",
+          "category": "storage",
+          "description": "Neo4j graph database operations",
+          "input_types": [
+            "cypher",
+            "graph_data"
+          ],
+          "output_types": [
+            "query_results",
+            "graph"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Java",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.860739",
+      "metadata": {}
+    },
+    "exif-reader": {
+      "plugin_id": "exif-reader",
+      "plugin_name": "exif-reader",
+      "plugin_type": "utility",
+      "version": "2.0.3",
+      "description": "A small EXIF image metadata reader.",
+      "repo_path": "/Users/alwan/FieldMind/repos/exif-reader",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "exif_extraction",
+          "category": "utility",
+          "description": "Extract EXIF metadata from images",
+          "input_types": [
+            "image"
+          ],
+          "output_types": [
+            "metadata",
+            "exif"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.869725",
+      "metadata": {
+        "package_json": true
+      }
+    },
+    "mind-map": {
+      "plugin_id": "mind-map",
+      "plugin_name": "mind-map",
+      "plugin_type": "visualization",
+      "version": "unknown",
+      "description": "<h1 align=\"center\">Simple mind map</h1>",
+      "repo_path": "/Users/alwan/FieldMind/repos/mind-map",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "mindmap_generation",
+          "category": "visualization",
+          "description": "Generate mind maps",
+          "input_types": [
+            "text",
+            "structure"
+          ],
+          "output_types": [
+            "mindmap",
+            "svg",
+            "png"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.870908",
+      "metadata": {}
+    },
+    "graphrag": {
+      "plugin_id": "graphrag",
+      "plugin_name": "graphrag",
+      "plugin_type": "knowledge_graph",
+      "version": "0.0.0",
+      "description": "👉 [Microsoft Research Blog Post](https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/)<br/> 👉 [Read the docs](https://microsoft.github.io/graphrag)<br/> 👉 [GraphRAG Arxiv](https://arxiv.org/pdf/2404.16130)",
+      "repo_path": "/Users/alwan/FieldMind/repos/graphrag",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "graph_rag",
+          "category": "knowledge",
+          "description": "Graph-based RAG with community detection",
+          "input_types": [
+            "text",
+            "documents"
+          ],
+          "output_types": [
+            "graph",
+            "entities",
+            "communities"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        },
+        {
+          "capability_id": "entity_extraction",
+          "category": "knowledge",
+          "description": "Extract entities and relationships",
+          "input_types": [
+            "text"
+          ],
+          "output_types": [
+            "entities",
+            "relations"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.895770",
+      "metadata": {
+        "pyproject_toml": true
+      }
+    },
+    "firecrawl": {
+      "plugin_id": "firecrawl",
+      "plugin_name": "firecrawl",
+      "plugin_type": "search_crawler",
+      "version": "unknown",
+      "description": "<h3 align=\"center\"> <a name=\"readme-top\"></a> <img src=\"https://raw.githubusercontent.com/firecrawl/firecrawl/main/img/firecrawl_logo.png\" height=\"200\" > </h3>",
+      "repo_path": "/Users/alwan/FieldMind/repos/firecrawl",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "fast_web_crawl",
+          "category": "search",
+          "description": "Fast web crawling with API",
+          "input_types": [
+            "url"
+          ],
+          "output_types": [
+            "markdown",
+            "cleaned_html"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "JavaScript/TypeScript",
+        "Python",
+        "Java",
+        "Rust",
+        "Go"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.931494",
+      "metadata": {}
+    },
+    "khoj": {
+      "plugin_id": "khoj",
+      "plugin_name": "khoj",
+      "plugin_type": "rag_memory",
+      "version": "unknown",
+      "description": "<p align=\"center\"><img src=\"https://assets.khoj.dev/khoj-logo-sideways-1200x540.png\" width=\"230\" alt=\"Khoj Logo\"></p>",
+      "repo_path": "/Users/alwan/FieldMind/repos/khoj",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "personal_rag",
+          "category": "rag",
+          "description": "Personal knowledge assistant",
+          "input_types": [
+            "documents",
+            "notes",
+            "query"
+          ],
+          "output_types": [
+            "answers",
+            "sources"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "Java",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:02.990107",
+      "metadata": {
+        "pyproject_toml": true
+      }
+    },
+    "markitdown": {
+      "plugin_id": "markitdown",
+      "plugin_name": "markitdown",
+      "plugin_type": "document_conversion",
+      "version": "unknown",
+      "description": "> MarkItDown performs I/O with the privileges of the current process. Like open() or requests.get(), it will access resources that the process itself can access. Sanitize your inputs in untrusted environments, and call the narrowest `convert_*` function needed for your use case (e.g., `convert_stream()`, or `convert_local()`). See the [Security Considerations](#security-considerations) section of the documentation for more information.",
+      "repo_path": "/Users/alwan/FieldMind/repos/markitdown",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "universal_markdown",
+          "category": "conversion",
+          "description": "Convert any document to markdown",
+          "input_types": [
+            "pdf",
+            "docx",
+            "pptx",
+            "xlsx",
+            "html"
+          ],
+          "output_types": [
+            "markdown"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.016165",
+      "metadata": {}
+    },
+    "dialect-preservation-fieldwork-minutes": {
+      "plugin_id": "dialect-preservation-fieldwork-minutes",
+      "plugin_name": "dialect-preservation-fieldwork-minutes",
+      "plugin_type": "other",
+      "version": "unknown",
+      "description": "跳过：网络错误",
+      "repo_path": "/Users/alwan/FieldMind/repos/dialect-preservation-fieldwork-minutes",
+      "main_module": null,
+      "capabilities": [],
+      "dependencies": [],
+      "languages": [],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.021297",
+      "metadata": {}
+    },
+    "pyhanlp": {
+      "plugin_id": "pyhanlp",
+      "plugin_name": "pyhanlp",
+      "plugin_type": "nlp_processing",
+      "version": "0.1.89",
+      "description": "```bash conda install -c conda-forge openjdk python=3.8 -y pip install pyhanlp ```",
+      "repo_path": "/Users/alwan/FieldMind/repos/pyhanlp",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "chinese_nlp",
+          "category": "nlp",
+          "description": "Chinese NLP processing",
+          "input_types": [
+            "text"
+          ],
+          "output_types": [
+            "tokens",
+            "pos",
+            "ner",
+            "dependencies"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        },
+        {
+          "capability_id": "word_segmentation",
+          "category": "nlp",
+          "description": "Chinese word segmentation",
+          "input_types": [
+            "text"
+          ],
+          "output_types": [
+            "tokens"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.021709",
+      "metadata": {
+        "setup_py": true
+      }
+    },
+    "gecco": {
+      "plugin_id": "gecco",
+      "plugin_name": "gecco",
+      "plugin_type": "utility",
+      "version": "unknown",
+      "description": "Gecco is a easy to use lightweight web crawler developed with java language.Gecco integriert jsoup, httpclient, fastjson, spring, htmlunit, redission ausgezeichneten framework,Let you only need to configure a number of jQuery style selector can be very quick to write a crawler.Gecco framework has excellent scalability, the framework based on the principle of open and close design, to modify the closure, the expansion of open.At the same time Gecco is based on a very open MIT open source protocol",
+      "repo_path": "/Users/alwan/FieldMind/repos/gecco",
+      "main_module": null,
+      "capabilities": [],
+      "dependencies": [],
+      "languages": [
+        "Java"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.026734",
+      "metadata": {}
+    },
+    "neo4j-knowledge-graph-builder": {
+      "plugin_id": "neo4j-knowledge-graph-builder",
+      "plugin_name": "neo4j-knowledge-graph-builder",
+      "plugin_type": "knowledge_graph",
+      "version": "unknown",
+      "description": "Transform unstructured data (PDFs, DOCs, TXTs, YouTube videos, web pages, etc.) into a structured Knowledge Graph stored in Neo4j using the power of Large Language Models (LLMs) and the LangChain framework.",
+      "repo_path": "/Users/alwan/FieldMind/repos/neo4j-knowledge-graph-builder",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "graph_database",
+          "category": "storage",
+          "description": "Neo4j graph database operations",
+          "input_types": [
+            "cypher",
+            "graph_data"
+          ],
+          "output_types": [
+            "query_results",
+            "graph"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.034821",
+      "metadata": {}
+    },
+    "graphiti": {
+      "plugin_id": "graphiti",
+      "plugin_name": "graphiti",
+      "plugin_type": "knowledge_graph",
+      "version": "0.29.3",
+      "description": "<p align=\"center\"> <a href=\"https://www.getzep.com/\"> <img src=\"https://github.com/user-attachments/assets/119c5682-9654-4257-8922-56b7cb8ffd73\" width=\"150\" alt=\"Zep Logo\"> </a> </p>",
+      "repo_path": "/Users/alwan/FieldMind/repos/graphiti",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "temporal_graph",
+          "category": "knowledge",
+          "description": "Temporal knowledge graph construction",
+          "input_types": [
+            "events",
+            "text"
+          ],
+          "output_types": [
+            "temporal_graph"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.046847",
+      "metadata": {
+        "pyproject_toml": true
+      }
+    },
+    "awesome-knowledge-graph": {
+      "plugin_id": "awesome-knowledge-graph",
+      "plugin_name": "awesome-knowledge-graph",
+      "plugin_type": "knowledge_graph",
+      "version": "unknown",
+      "description": "整理知识图谱相关学习资料，提供系统化的知识图谱学习路径。",
+      "repo_path": "/Users/alwan/FieldMind/repos/awesome-knowledge-graph",
+      "main_module": null,
+      "capabilities": [],
+      "dependencies": [],
+      "languages": [],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.059203",
+      "metadata": {}
+    },
+    "Pillow": {
+      "plugin_id": "Pillow",
+      "plugin_name": "Pillow",
+      "plugin_type": "utility",
+      "version": "unknown",
+      "description": "Pillow已通过pip安装",
+      "repo_path": "/Users/alwan/FieldMind/repos/Pillow",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "image_processing",
+          "category": "utility",
+          "description": "Image processing operations",
+          "input_types": [
+            "image"
+          ],
+          "output_types": [
+            "image",
+            "thumbnail",
+            "converted"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.062347",
+      "metadata": {}
+    },
+    "quivr": {
+      "plugin_id": "quivr",
+      "plugin_name": "quivr",
+      "plugin_type": "rag_memory",
+      "version": "unknown",
+      "description": "<div align=\"center\"> <img src=\"./logo.png\" alt=\"Quivr-logo\" width=\"31%\"  style=\"border-radius: 50%; padding-bottom: 20px\"/> </div>",
+      "repo_path": "/Users/alwan/FieldMind/repos/quivr",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "personal_rag",
+          "category": "rag",
+          "description": "Personal knowledge assistant",
+          "input_types": [
+            "documents",
+            "notes",
+            "query"
+          ],
+          "output_types": [
+            "answers",
+            "sources"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.062577",
+      "metadata": {}
+    },
+    "duckdb": {
+      "plugin_id": "duckdb",
+      "plugin_name": "duckdb",
+      "plugin_type": "database",
+      "version": "unknown",
+      "description": "DuckDB已通过pip安装",
+      "repo_path": "/Users/alwan/FieldMind/repos/duckdb",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "analytical_database",
+          "category": "storage",
+          "description": "In-process analytical database",
+          "input_types": [
+            "sql",
+            "dataframe"
+          ],
+          "output_types": [
+            "query_results",
+            "tables"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.070425",
+      "metadata": {}
+    },
+    "mem0": {
+      "plugin_id": "mem0",
+      "plugin_name": "mem0",
+      "plugin_type": "rag_memory",
+      "version": "2.0.14",
+      "description": "<p align=\"center\"> <a href=\"https://github.com/mem0ai/mem0\"> <img src=\"docs/images/banner-sm.png\" width=\"800px\" alt=\"Mem0 - The Memory Layer for Personalized AI\"> </a> </p> <p align=\"center\" style=\"display: flex; justify-content: center; gap: 20px; align-items: center;\"> <a href=\"https://trendshift.io/repositories/11194\" target=\"blank\"> <img src=\"https://trendshift.io/api/badge/repositories/11194\" alt=\"mem0ai%2Fmem0 | Trendshift\" width=\"250\" height=\"55\"/> </a> </p>",
+      "repo_path": "/Users/alwan/FieldMind/repos/mem0",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "persistent_memory",
+          "category": "memory",
+          "description": "Persistent memory for AI agents",
+          "input_types": [
+            "interactions",
+            "facts"
+          ],
+          "output_types": [
+            "memory",
+            "context"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.070757",
+      "metadata": {
+        "pyproject_toml": true
+      }
+    },
+    "file-transfer-go": {
+      "plugin_id": "file-transfer-go",
+      "plugin_name": "file-transfer-go",
+      "plugin_type": "utility",
+      "version": "unknown",
+      "description": "**安全、快速、简单的点对点文件传输解决方案 - 无需注册，即传即用**",
+      "repo_path": "/Users/alwan/FieldMind/repos/file-transfer-go",
+      "main_module": null,
+      "capabilities": [],
+      "dependencies": [],
+      "languages": [
+        "Go",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.144638",
+      "metadata": {}
+    },
+    "ragflow": {
+      "plugin_id": "ragflow",
+      "plugin_name": "ragflow",
+      "plugin_type": "rag_memory",
+      "version": "0.26.4",
+      "description": "<div align=\"center\"> <a href=\"https://cloud.ragflow.io/\"> <img src=\"https://raw.githubusercontent.com/infiniflow/ragflow/main/web/src/assets/logo-with-text.svg\" width=\"520\" alt=\"ragflow logo\"> </a> </div>",
+      "repo_path": "/Users/alwan/FieldMind/repos/ragflow",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "enterprise_rag",
+          "category": "rag",
+          "description": "Enterprise-grade RAG system",
+          "input_types": [
+            "documents",
+            "query"
+          ],
+          "output_types": [
+            "answers",
+            "chunks",
+            "sources"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        },
+        {
+          "capability_id": "document_parsing",
+          "category": "processing",
+          "description": "Advanced document parsing",
+          "input_types": [
+            "pdf",
+            "docx",
+            "html"
+          ],
+          "output_types": [
+            "text",
+            "chunks",
+            "metadata"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "C/C++",
+        "Go",
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.149400",
+      "metadata": {
+        "pyproject_toml": true
+      }
+    },
+    "HanLP": {
+      "plugin_id": "HanLP",
+      "plugin_name": "HanLP",
+      "plugin_type": "nlp_processing",
+      "version": "unknown",
+      "description": "<h2 align=\"center\">HanLP: Han Language Processing</h2>",
+      "repo_path": "/Users/alwan/FieldMind/repos/HanLP",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "chinese_nlp",
+          "category": "nlp",
+          "description": "Chinese NLP processing",
+          "input_types": [
+            "text"
+          ],
+          "output_types": [
+            "tokens",
+            "pos",
+            "ner",
+            "dependencies"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        },
+        {
+          "capability_id": "word_segmentation",
+          "category": "nlp",
+          "description": "Chinese word segmentation",
+          "input_types": [
+            "text"
+          ],
+          "output_types": [
+            "tokens"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python",
+        "Java"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.318553",
+      "metadata": {
+        "setup_py": true
+      }
+    },
+    "browser-use": {
+      "plugin_id": "browser-use",
+      "plugin_name": "browser-use",
+      "plugin_type": "search_crawler",
+      "version": "0.13.7",
+      "description": "<!-- mcp-name: com.browser-use/browser-use --> <picture> <source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.com/user-attachments/assets/2ccdb752-22fb-41c7-8948-857fc1ad7e24\"> <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/user-attachments/assets/774a46d5-27a0-490c-b7d0-e65fcbbfa358\"> <img alt=\"Shows a black Browser Use Logo in light color mode and a white one in dark color mode.\" src=\"https://github.com/user-attachments/assets/2ccdb752-22fb-41c7-8948-85",
+      "repo_path": "/Users/alwan/FieldMind/repos/browser-use",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "browser_automation",
+          "category": "search",
+          "description": "Browser automation for complex scraping",
+          "input_types": [
+            "url",
+            "actions"
+          ],
+          "output_types": [
+            "html",
+            "screenshots",
+            "data"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.344482",
+      "metadata": {
+        "pyproject_toml": true
+      }
+    },
+    "markdown-nice": {
+      "plugin_id": "markdown-nice",
+      "plugin_name": "markdown-nice",
+      "plugin_type": "document_conversion",
+      "version": "1.8.22",
+      "description": "<div align=\"center\"> <a href=\"https://mdnice.com\"> <img width=\"500\" src=\"https://files.mdnice.com/logo.svg\"/> </a> </div> <h1 align=\"center\">Markdown Nice</h1>",
+      "repo_path": "/Users/alwan/FieldMind/repos/markdown-nice",
+      "main_module": null,
+      "capabilities": [],
+      "dependencies": [
+        "@sitdown/juejin",
+        "@sitdown/wechat",
+        "@sitdown/zhihu",
+        "@uiw/react-codemirror",
+        "ali-oss",
+        "antd",
+        "axios",
+        "diff-match-patch",
+        "highlight.js",
+        "juice",
+        "lodash.debounce",
+        "lodash.throttle",
+        "markdown-it",
+        "markdown-it-deflist",
+        "markdown-it-footnote",
+        "markdown-it-implicit-figures",
+        "markdown-it-imsize",
+        "markdown-it-katex",
+        "markdown-it-ruby",
+        "markdown-it-table-of-contents",
+        "mathjax",
+        "mobx",
+        "mobx-react",
+        "prettier",
+        "qiniu-js",
+        "react",
+        "react-dom",
+        "react-helmet",
+        "sitdown"
+      ],
+      "languages": [
+        "JavaScript/TypeScript"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.359354",
+      "metadata": {
+        "package_json": true
+      }
+    },
+    "funNLP": {
+      "plugin_id": "funNLP",
+      "plugin_name": "funNLP",
+      "plugin_type": "nlp_processing",
+      "version": "unknown",
+      "description": "<center> <img style=\"border-radius: 0.3125em; box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);\" src=\"./data/.logo图片/.img.jpg\"width=\"180\"> <br> <div style=\"color:orange; border-bottom: 1px solid #d9d9d9; display: inline-block; color: #999; padding: 2px;\">NLP民工的乐园</div> </center> <br>",
+      "repo_path": "/Users/alwan/FieldMind/repos/funNLP",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "chinese_nlp",
+          "category": "nlp",
+          "description": "Chinese NLP processing",
+          "input_types": [
+            "text"
+          ],
+          "output_types": [
+            "tokens",
+            "pos",
+            "ner",
+            "dependencies"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        },
+        {
+          "capability_id": "word_segmentation",
+          "category": "nlp",
+          "description": "Chinese word segmentation",
+          "input_types": [
+            "text"
+          ],
+          "output_types": [
+            "tokens"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.365705",
+      "metadata": {}
+    },
+    "awesome-pretrained-chinese-nlp-models": {
+      "plugin_id": "awesome-pretrained-chinese-nlp-models",
+      "plugin_name": "awesome-pretrained-chinese-nlp-models",
+      "plugin_type": "nlp_processing",
+      "version": "unknown",
+      "description": "<div align=\"center\"> <a href=\"https://arxiv.org/pdf/2303.18223.pdf\">论文: A Survey of Large Language Models</a> </div>",
+      "repo_path": "/Users/alwan/FieldMind/repos/awesome-pretrained-chinese-nlp-models",
+      "main_module": null,
+      "capabilities": [
+        {
+          "capability_id": "chinese_nlp",
+          "category": "nlp",
+          "description": "Chinese NLP processing",
+          "input_types": [
+            "text"
+          ],
+          "output_types": [
+            "tokens",
+            "pos",
+            "ner",
+            "dependencies"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        },
+        {
+          "capability_id": "word_segmentation",
+          "category": "nlp",
+          "description": "Chinese word segmentation",
+          "input_types": [
+            "text"
+          ],
+          "output_types": [
+            "tokens"
+          ],
+          "parameters": {},
+          "performance_hints": {}
+        }
+      ],
+      "dependencies": [],
+      "languages": [
+        "Python"
+      ],
+      "status": "scanned",
+      "last_updated": "2026-08-15T22:27:03.372165",
+      "metadata": {}
+    }
+  },
+  "capability_index": {
+    "pdf_processing": {
+      "category": "conversion",
+      "providers": [
+        "PDF-Guru"
+      ],
+      "priority_order": [
+        "PDF-Guru"
+      ]
+    },
+    "ai_web_crawl": {
+      "category": "search",
+      "providers": [
+        "crawl4ai"
+      ],
+      "priority_order": [
+        "crawl4ai"
+      ]
+    },
+    "data_visualization": {
+      "category": "visualization",
+      "providers": [
+        "nvd3"
+      ],
+      "priority_order": [
+        "nvd3"
+      ]
+    },
+    "lightweight_rag": {
+      "category": "rag",
+      "providers": [
+        "LightRAG"
+      ],
+      "priority_order": [
+        "LightRAG"
+      ]
+    },
+    "graph_database": {
+      "category": "storage",
+      "providers": [
+        "Neo4j-KGBuilder",
+        "neo4j-knowledge-graph-builder"
+      ],
+      "priority_order": [
+        "Neo4j-KGBuilder",
+        "neo4j-knowledge-graph-builder"
+      ]
+    },
+    "exif_extraction": {
+      "category": "utility",
+      "providers": [
+        "exif-reader"
+      ],
+      "priority_order": [
+        "exif-reader"
+      ]
+    },
+    "mindmap_generation": {
+      "category": "visualization",
+      "providers": [
+        "mind-map"
+      ],
+      "priority_order": [
+        "mind-map"
+      ]
+    },
+    "graph_rag": {
+      "category": "knowledge",
+      "providers": [
+        "graphrag"
+      ],
+      "priority_order": [
+        "graphrag"
+      ]
+    },
+    "entity_extraction": {
+      "category": "knowledge",
+      "providers": [
+        "graphrag"
+      ],
+      "priority_order": [
+        "graphrag"
+      ]
+    },
+    "fast_web_crawl": {
+      "category": "search",
+      "providers": [
+        "firecrawl"
+      ],
+      "priority_order": [
+        "firecrawl"
+      ]
+    },
+    "personal_rag": {
+      "category": "rag",
+      "providers": [
+        "khoj",
+        "quivr"
+      ],
+      "priority_order": [
+        "khoj",
+        "quivr"
+      ]
+    },
+    "universal_markdown": {
+      "category": "conversion",
+      "providers": [
+        "markitdown"
+      ],
+      "priority_order": [
+        "markitdown"
+      ]
+    },
+    "chinese_nlp": {
+      "category": "nlp",
+      "providers": [
+        "pyhanlp",
+        "HanLP",
+        "funNLP",
+        "awesome-pretrained-chinese-nlp-models"
+      ],
+      "priority_order": [
+        "HanLP",
+        "pyhanlp",
+        "funNLP",
+        "awesome-pretrained-chinese-nlp-models"
+      ]
+    },
+    "word_segmentation": {
+      "category": "nlp",
+      "providers": [
+        "pyhanlp",
+        "HanLP",
+        "funNLP",
+        "awesome-pretrained-chinese-nlp-models"
+      ],
+      "priority_order": [
+        "HanLP",
+        "pyhanlp",
+        "funNLP",
+        "awesome-pretrained-chinese-nlp-models"
+      ]
+    },
+    "temporal_graph": {
+      "category": "knowledge",
+      "providers": [
+        "graphiti"
+      ],
+      "priority_order": [
+        "graphiti"
+      ]
+    },
+    "image_processing": {
+      "category": "utility",
+      "providers": [
+        "Pillow"
+      ],
+      "priority_order": [
+        "Pillow"
+      ]
+    },
+    "analytical_database": {
+      "category": "storage",
+      "providers": [
+        "duckdb"
+      ],
+      "priority_order": [
+        "duckdb"
+      ]
+    },
+    "persistent_memory": {
+      "category": "memory",
+      "providers": [
+        "mem0"
+      ],
+      "priority_order": [
+        "mem0"
+      ]
+    },
+    "enterprise_rag": {
+      "category": "rag",
+      "providers": [
+        "ragflow"
+      ],
+      "priority_order": [
+        "ragflow"
+      ]
+    },
+    "document_parsing": {
+      "category": "processing",
+      "providers": [
+        "ragflow"
+      ],
+      "priority_order": [
+        "ragflow"
+      ]
+    },
+    "browser_automation": {
+      "category": "search",
+      "providers": [
+        "browser-use"
+      ],
+      "priority_order": [
+        "browser-use"
+      ]
+    }
+  },
+  "type_index": {
+    "rag_memory": [
+      "codebase-memory-mcp",
+      "LightRAG",
+      "khoj",
+      "quivr",
+      "mem0",
+      "ragflow"
+    ],
+    "document_conversion": [
+      "PDF-Guru",
+      "markitdown",
+      "markdown-nice"
+    ],
+    "other": [
+      "cognee",
+      "dialect-preservation-fieldwork-minutes"
+    ],
+    "search_crawler": [
+      "crawl4ai",
+      "firecrawl",
+      "browser-use"
+    ],
+    "visualization": [
+      "nvd3",
+      "mind-map"
+    ],
+    "knowledge_graph": [
+      "rawgraphs-app",
+      "Neo4j-KGBuilder",
+      "graphrag",
+      "neo4j-knowledge-graph-builder",
+      "graphiti",
+      "awesome-knowledge-graph"
+    ],
+    "utility": [
+      "exif-reader",
+      "gecco",
+      "Pillow",
+      "file-transfer-go"
+    ],
+    "nlp_processing": [
+      "pyhanlp",
+      "HanLP",
+      "funNLP",
+      "awesome-pretrained-chinese-nlp-models"
+    ],
+    "database": [
+      "duckdb"
+    ]
+  }
+}

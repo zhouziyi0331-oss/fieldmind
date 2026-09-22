@@ -1,0 +1,55 @@
+🔍 检查代码 bug...
+
+============================================================
+
+📌 Python 语法错误：
+   ❌ src/app/services/rag_retrieval_service.py:48 - invalid syntax. Perhaps you forgot a comma?
+   ❌ src/app/services/agents/agent_mesh.py:24 - invalid syntax
+
+📌 常见 bug 模式：
+   ⚠️ test_mvp_api.py:51 - 裸 except（应指定异常类型）
+   ⚠️ test_structured_output.py:254 - 裸 except（应指定异常类型）
+   ⚠️ verify_rag_system.py:87 - 裸 except（应指定异常类型）
+   ⚠️ app/services/rag/real_llm.py:62 - 可能的硬编码密钥
+   ⚠️ tests/conftest.py:76 - 可能的硬编码密钥
+   ⚠️ tests/conftest.py:91 - 可能的硬编码密钥
+   ⚠️ audit/5_check_boundaries.py:101 - 裸 except（应指定异常类型）
+   ⚠️ audit/4_check_workflow.py:34 - 裸 except（应指定异常类型）
+   ⚠️ audit/3_check_api_connections.py:34 - 裸 except（应指定异常类型）
+   ⚠️ audit/3_check_api_connections.py:71 - 裸 except（应指定异常类型）
+   ⚠️ audit/6_check_bugs.py:47 - 裸 except（应指定异常类型）
+   ⚠️ audit/6_check_bugs.py:64 - 裸 except（应指定异常类型）
+   ⚠️ audit/2_check_data_integrity.py:65 - 裸 except（应指定异常类型）
+   ⚠️ audit/2_check_data_integrity.py:74 - 裸 except（应指定异常类型）
+   ⚠️ audit/7_check_gaps.py:39 - 裸 except（应指定异常类型）
+   ⚠️ src/analyze_system_architecture.py:22 - 裸 except（应指定异常类型）
+   ⚠️ src/app/core/skill_chat_adapter.py:534 - 裸 except（应指定异常类型）
+   ⚠️ src/app/core/audit.py:170 - 裸 except（应指定异常类型）
+   ⚠️ src/app/core/audit_refactored.py:170 - 裸 except（应指定异常类型）
+   ⚠️ src/app/core/memory_aggregator.py:820 - 裸 except（应指定异常类型）
+   ... 还有 80 个
+
+📌 未完成的 TODO/FIXME：
+   📝 test_structured_output.py:72 - "address": "北京市朝阳区xxx街"
+   📝 test_structured_output.py:116 - 住址：北京市朝阳区xxx街
+   📝 audit/6_check_bugs.py:52 - def check_todo_fixme():
+   📝 audit/6_check_bugs.py:53 - """检查未完成的 TODO/FIXME"""
+   📝 audit/6_check_bugs.py:54 - todos = []
+   📝 audit/6_check_bugs.py:62 - if re.search(r'(TODO|FIXME|XXX|HACK)', line, re.I):
+   📝 audit/6_check_bugs.py:63 - todos.append(f"{f}:{i} - {line.strip()[:80]}")
+   📝 audit/6_check_bugs.py:66 - return todos
+   📝 audit/6_check_bugs.py:92 - print("\n📌 未完成的 TODO/FIXME：")
+   📝 audit/6_check_bugs.py:93 - todos = check_todo_fixme()
+   📝 audit/6_check_bugs.py:94 - if todos:
+   📝 audit/6_check_bugs.py:95 - for t in todos[:20]:
+   📝 audit/6_check_bugs.py:97 - if len(todos) > 20:
+   📝 audit/6_check_bugs.py:98 - print(f"   ... 还有 {len(todos) - 20} 个")
+   📝 audit/6_check_bugs.py:99 - print(f"\n   共 {len(todos)} 个")
+   📝 examples/enhanced_agent_examples.py:318 - ("kb_it_support", "IT支持：工作日9:00-18:00提供技术支持。紧急问题拨打热线400-xxx-xxxx，一般问题提交工单系统。"),
+   📝 src/app/tasks/rag_tasks.py:147 - # TODO: 集成实际的 PostgreSQL 连接
+   📝 src/app/tasks/crawler_tasks.py:109 - TODO: 需要预定义爬虫规则
+   📝 src/app/tools/vectorization/entity_recognition_service.py:52 - TODO: 使用自定义训练的模型
+   📝 src/app/tools/vectorization/entity_recognition_service.py:105 - # TODO: 从外部文件加载更多方言词
+   ... 还有 210 个
+
+   共 230 个

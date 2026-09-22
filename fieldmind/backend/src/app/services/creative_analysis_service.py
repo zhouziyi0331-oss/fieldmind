@@ -1,0 +1,313 @@
+"""
+在地文创分析服务
+使用 Claude Opus 5 深度思考，避免刻板建议
+"""
+
+from typing import List, Dict, Any
+from sqlalchemy.orm import Session
+from anthropic import Anthropic
+import os
+import json
+
+from app.models.project import ProjectDocument
+
+
+class CreativeAnalysisService:
+    def __init__(self, db: Session):
+        self.db = db
+        self.anthropic = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+
+    async def analyze_creative_possibilities(
+        self,
+        project_id: int,
+        keywords: List[str],
+        mode: str = "creative"
+    ) -> Dict[str, Any]:
+        """
+        使用 Claude Opus 5 深度思考文创可能性
+
+        核心：避免刻板建议，真正结合在地特色
+        """
+
+        # 1. 从数据库提取项目相关信息
+        project_context = await self._get_project_context(project_id, keywords)
+
+        # 2. 构建深度思考 Prompt
+        prompt = self._build_creative_prompt(keywords, project_context, mode)
+
+        # 3. 调用 Claude Opus 5（如果有 API Key）
+        try:
+            if not os.getenv("ANTHROPIC_API_KEY"):
+                return self._unavailable_analysis(
+                    project_id,
+                    keywords,
+                    "未配置 ANTHROPIC_API_KEY，无法生成基于证据的文创建议",
+                )
+
+            response = self.anthropic.messages.create(
+                model="claude-opus-4-20250514",  # Opus 5 的实际模型 ID
+                max_tokens=16000,
+                messages=[{
+                    "role": "user",
+                    "content": prompt
+                }]
+            )
+
+            # 4. 解析和结构化结果
+            analysis = self._parse_creative_response(response)
+
+        except Exception as e:
+            print(f"调用 Claude API 失败: {e}")
+            analysis = self._unavailable_analysis(
+                project_id, keywords, f"外部分析服务调用失败: {e}"
+            )
+
+        return analysis
+
+    def _unavailable_analysis(
+        self,
+        project_id: int,
+        keywords: List[str],
+        reason: str,
+    ) -> Dict[str, Any]:
+        """模型不可用时不注入演示数据，保留可审核的接口结果。"""
+        return {
+            "project_id": project_id,
+            "keywords": keywords,
+            "status": "unavailable",
+            "analysis_source": "none",
+            "reason": reason,
+            "cultural_elements": [],
+            "creative_possibilities": [],
+            "anti_patterns": [],
+            "evidence": [],
+        }
+
+    def _build_creative_prompt(
+        self,
+        keywords: List[str],
+        context: str,
+        mode: str
+    ) -> str:
+        """
+        构建创意分析 Prompt
+        """
+        keywords_str = "、".join(keywords)
+
+        prompt = f"""
+你是一位深谙乡村文化的创意策划专家。现在需要你基于调研数据，为"{keywords_str}"提供**真正有创意、接地气的文创建议**。
+
+## 调研背景
+{context}
+
+## 核心要求
+
+### ❌ 避免这些刻板建议：
+- 制作XX纪念品、文创产品
+- 举办XX表演、展览
+- 开发XX旅游路线
+- 建设XX文化馆
+
+### ✅ 你应该这样思考：
+
+1. **深度理解在地特色**
+   - {keywords_str} 的独特性是什么？
+   - 与其他地方的同类事物有何不同？
+   - 背后的文化逻辑和生活方式是什么？
+
+2. **寻找创新结合点**
+   - 能否与当代年轻人的生活方式结合？
+   - 能否与新技术（AR/VR/AI）结合？
+   - 能否与其他文化形式跨界？
+   - 能否创造新的体验方式？
+
+3. **确保真实可行**
+   - 是否尊重当地文化？
+   - 是否有实际落地可能？
+   - 当地人是否愿意参与？
+   - 游客是否真的感兴趣？
+
+## 输出格式
+
+请以 JSON 格式返回分析结果：
+
+```json
+{{
+  "cultural_elements": [
+    {{
+      "element": "布依族山歌",
+      "uniqueness": "对歌形式独特，即兴创作能力强",
+      "cultural_meaning": "社交、情感表达、传承的重要方式"
+    }}
+  ],
+  "creative_possibilities": [
+    {{
+      "idea": "山歌对唱互动体验",
+      "description": "游客学习基本对歌技巧，与当地人现场对唱，AI实时翻译和指导，录制专属山歌作品带走",
+      "innovation_point": "从被动观赏到主动参与，从表演到真实社交",
+      "feasibility_score": 85,
+      "required_resources": ["3-5位当地歌手", "录音设备", "AI翻译系统"],
+      "target_audience": "18-35岁年轻人，喜欢社交体验",
+      "market_potential": "中高",
+      "unique_value": "真正的文化交流，非刻板表演",
+      "risks": ["歌手时间安排", "对歌难度控制"],
+      "implementation_difficulty": "中等"
+    }}
+  ],
+  "anti_patterns": [
+    "❌ 制作山歌CD/音像制品 - 过时且无互动",
+    "❌ 山歌广场表演 - 游客只是旁观者",
+    "❌ 山歌文创周边 - 缺乏文化深度"
+  ]
+}}
+```
+
+请开始你的深度思考和创意分析。
+"""
+        return prompt
+
+    async def _get_project_context(self, project_id: int, keywords: List[str]) -> str:
+        """
+        提取项目相关信息作为背景
+        """
+        documents = self.db.query(ProjectDocument).filter(
+            ProjectDocument.project_id == project_id
+        ).all()
+
+        if not documents:
+            return "暂无调研数据"
+
+        # 提取包含关键词的文档内容
+        relevant_texts = []
+        for doc in documents:
+            content = doc.text_content or ""
+            for keyword in keywords:
+                if keyword in content:
+                    relevant_texts.append(f"文档《{doc.filename}》提到：{content[:500]}...")
+                    break
+
+        if not relevant_texts:
+            # 如果没有包含关键词的文档，返回所有文档摘要
+            for doc in documents[:3]:  # 最多3个
+                content = doc.text_content or ""
+                relevant_texts.append(f"文档《{doc.filename}》：{content[:300]}...")
+
+        context = "\n\n".join(relevant_texts)
+        return context
+
+    def _parse_creative_response(self, response) -> Dict[str, Any]:
+        """
+        解析 Claude 的响应
+        """
+        try:
+            # 提取 content
+            content = response.content[0].text
+
+            # 尝试提取 JSON
+            # 查找 ```json 和 ``` 之间的内容
+            import re
+            json_match = re.search(r'```json\s*\n(.*?)\n```', content, re.DOTALL)
+            if json_match:
+                json_str = json_match.group(1)
+                result = json.loads(json_str)
+                return result
+            else:
+                # 如果没有找到 JSON block，尝试直接解析整个内容
+                result = json.loads(content)
+                return result
+
+        except Exception as e:
+            print(f"解析响应失败: {e}")
+            # 返回默认结构
+            return {
+                "cultural_elements": [],
+                "creative_possibilities": [],
+                "anti_patterns": []
+            }
+
+    def _get_mock_creative_analysis(self, keywords: List[str]) -> Dict[str, Any]:
+        """
+        返回模拟的文创分析数据（用于演示或没有 API Key 的情况）
+        """
+        keywords_str = "、".join(keywords)
+
+        return {
+            "keywords": keywords,
+            "cultural_elements": [
+                {
+                    "element": f"{keywords_str}",
+                    "uniqueness": "具有独特的地方特色和文化内涵",
+                    "cultural_meaning": "承载着当地人的生活智慧和情感表达"
+                }
+            ],
+            "creative_possibilities": [
+                {
+                    "idea": f"{keywords_str}互动体验工作坊",
+                    "description": f"游客深度参与{keywords_str}的制作/学习过程，与当地人互动交流，创造属于自己的作品",
+                    "innovation_point": "从被动观赏到主动参与，从表演到真实体验",
+                    "feasibility_score": 82,
+                    "required_resources": ["当地老师傅", "体验场地", "原材料"],
+                    "target_audience": "25-45岁中产家庭，重视文化体验",
+                    "market_potential": "中高",
+                    "unique_value": "真实的文化传承体验，非商业化表演",
+                    "risks": ["老师傅时间精力有限", "游客学习曲线"],
+                    "implementation_difficulty": "中等"
+                },
+                {
+                    "idea": f"{keywords_str} × 当代艺术跨界",
+                    "description": f"邀请艺术家驻村，将{keywords_str}与当代艺术结合，创作装置艺术或互动作品",
+                    "innovation_point": "传统与当代的对话，吸引年轻群体",
+                    "feasibility_score": 75,
+                    "required_resources": ["艺术家资源", "展览空间", "运营团队"],
+                    "target_audience": "18-35岁年轻人，艺术爱好者",
+                    "market_potential": "中",
+                    "unique_value": "独特的艺术表达，社交传播性强",
+                    "risks": ["艺术性与商业性平衡", "持续运营"],
+                    "implementation_difficulty": "较高"
+                },
+                {
+                    "idea": f"{keywords_str}数字化传承平台",
+                    "description": f"用 AR/VR 技术记录和呈现{keywords_str}，让远程观众也能沉浸式体验",
+                    "innovation_point": "技术赋能文化传承，打破地域限制",
+                    "feasibility_score": 70,
+                    "required_resources": ["技术团队", "拍摄设备", "数字化平台"],
+                    "target_audience": "全球对中国文化感兴趣的人群",
+                    "market_potential": "高（长期）",
+                    "unique_value": "永久保存，可持续传播",
+                    "risks": ["技术成本高", "内容制作周期长"],
+                    "implementation_difficulty": "高"
+                }
+            ],
+            "anti_patterns": [
+                f"❌ 制作{keywords_str}纪念品/周边 - 缺乏文化深度，同质化严重",
+                f"❌ 举办{keywords_str}表演秀 - 游客只是旁观者，无参与感",
+                f"❌ 建设{keywords_str}博物馆 - 传统陈列方式，吸引力有限"
+            ]
+        }
+
+    async def extract_cultural_elements(self, project_id: int) -> List[Dict[str, str]]:
+        """
+        从项目文档中提取文化元素
+        """
+        documents = self.db.query(ProjectDocument).filter(
+            ProjectDocument.project_id == project_id
+        ).all()
+
+        elements = []
+
+        # 简单的关键词提取（实际应用中可以用 NLP）
+        cultural_keywords = [
+            "传统", "手工艺", "民俗", "节日", "习俗", "歌舞",
+            "建筑", "服饰", "饮食", "语言", "技艺"
+        ]
+
+        for doc in documents:
+            content = doc.text_content or ""
+            for keyword in cultural_keywords:
+                if keyword in content:
+                    elements.append({
+                        "element": keyword,
+                        "source": doc.filename
+                    })
+
+        return elements

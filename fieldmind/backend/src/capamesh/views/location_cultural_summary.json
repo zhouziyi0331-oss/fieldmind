@@ -1,0 +1,116 @@
+{
+  "view_id": "location_cultural_summary",
+  "name": "地点文化资源汇总视图",
+  "description": "查询特定地点的所有文化资源、人物和事件",
+  "version": "1.0",
+  "input_parameters": {
+    "location_name": {
+      "type": "string",
+      "required": true,
+      "description": "地点名称"
+    }
+  },
+  "data_bindings": [
+    {
+      "binding_id": "graph_location_resources",
+      "channel_type": "graph",
+      "query_template": "MATCH (loc:Location {name: $location_name})\nOPTIONAL MATCH (asset:CulturalAsset)-[:located_in]->(loc)\nOPTIONAL MATCH (person:Person)-[:lives_in]->(loc)\nOPTIONAL MATCH (event:Event)-[:occurs_at]->(loc)\nRETURN loc, collect(DISTINCT asset) as assets, collect(DISTINCT person) as people, collect(DISTINCT event) as events",
+      "output_mapping": {
+        "location": "loc",
+        "cultural_assets": "assets",
+        "local_people": "people",
+        "events": "events"
+      }
+    },
+    {
+      "binding_id": "sql_location_documents",
+      "channel_type": "sql",
+      "query_template": "SELECT dc.id, dc.text, dc.document_id\nFROM document_chunks dc\nJOIN chunk_entities ce ON dc.id = ce.chunk_id\nJOIN entities e ON ce.entity_id = e.id\nWHERE e.name = :location_name AND e.entity_type = 'Location'\nLIMIT 15",
+      "output_mapping": {
+        "related_documents": "rows"
+      }
+    }
+  ],
+  "output": {
+    "location_name": {
+      "type": "string",
+      "source": "graph_query",
+      "description": "地点名称"
+    },
+    "cultural_assets": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "该地的文化资产列表"
+    },
+    "local_people": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "当地重要人物"
+    },
+    "events": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "发生的事件"
+    },
+    "asset_count": {
+      "type": "integer",
+      "source": "inference",
+      "description": "文化资产数量"
+    },
+    "people_count": {
+      "type": "integer",
+      "source": "inference",
+      "description": "人物数量"
+    },
+    "cultural_richness_score": {
+      "type": "float",
+      "source": "inference",
+      "description": "文化丰富度评分"
+    },
+    "richness_level": {
+      "type": "string",
+      "source": "inference",
+      "description": "文化丰富度等级"
+    }
+  },
+  "inference_logic": {
+    "count_assets": {
+      "type": "aggregation",
+      "operation": "count",
+      "source_field": "cultural_assets",
+      "depends_on": ["cultural_assets"],
+      "target_field": "asset_count"
+    },
+    "count_people": {
+      "type": "aggregation",
+      "operation": "count",
+      "source_field": "local_people",
+      "depends_on": ["local_people"],
+      "target_field": "people_count"
+    },
+    "calculate_richness": {
+      "type": "scoring",
+      "depends_on": ["asset_count", "people_count"],
+      "weights": {
+        "asset_count": 0.7,
+        "people_count": 0.3
+      },
+      "target_field": "cultural_richness_score"
+    },
+    "classify_richness": {
+      "type": "classification",
+      "depends_on": ["cultural_richness_score"],
+      "rules": [
+        {"condition": "cultural_richness_score >= 8", "result": "文化资源丰富"},
+        {"condition": "cultural_richness_score >= 5", "result": "文化资源较多"},
+        {"condition": "cultural_richness_score >= 2", "result": "文化资源一般"},
+        {"condition": "cultural_richness_score >= 0", "result": "文化资源较少"}
+      ],
+      "target_field": "richness_level"
+    }
+  },
+  "execution_strategy": {
+    "parallel_bindings": true,
+    "timeout_ms": 6000
+  }
+}

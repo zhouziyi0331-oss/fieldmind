@@ -3,6 +3,7 @@ RAG (Retrieval Augmented Generation) 引擎
 """
 
 from typing import List, Dict, Any, Optional
+from pathlib import Path
 try:
     from langchain_text_splitters import RecursiveCharacterTextSplitter
 except ImportError:
@@ -27,7 +28,8 @@ except ImportError:
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 
-from app.config import settings
+from app.core.config import settings
+from app.services.semantic_embedding import load_embedding_backend
 import logging
 
 logger = logging.getLogger(__name__)
@@ -37,75 +39,65 @@ class RAGEngine:
     """RAG引擎 - 文档检索增强生成"""
 
     def __init__(self):
-        # 初始化嵌入模型（强制使用FlagEmbedding - 中文优化）
-        logger.info("🔄 初始化RAG嵌入模型: FlagEmbedding (bge-small-zh-v1.5)")
+        # 初始化嵌入模型（优先使用本机缓存的中文语义模型）
+        logger.info("🔄 初始化RAG嵌入模型: 本地中文语义模型 (bge-large-zh-v1.5)")
 
-        try:
-            import os
-            from FlagEmbedding import FlagModel
+        self.embedding_backend = load_embedding_backend()
+        if self.embedding_backend is None:
+            raise RuntimeError("本地语义嵌入模型不可用，请检查 backend/src/models/bge-large-zh-v1.5")
 
-            # 强制使用ModelScope下载的本地模型
-            model_cache = os.getenv("BGE_MODEL_PATH", os.path.expanduser("~/.cache/modelscope/models/AI-ModelScope--bge-small-zh-v1.5/snapshots/master"))
+        self.embeddings = self.embedding_backend
+        self.embedding_dim = self._probe_embedding_dimension()
+        logger.info(
+            f"✅ 语义嵌入模型加载完成: {self.embedding_backend.model_name}，维度: {self.embedding_dim}"
+        )
 
-            if not os.path.exists(model_cache):
-                raise FileNotFoundError(f"本地模型未找到: {model_cache}")
-
-            logger.info(f"使用本地模型: {model_cache}")
-
-            # 直接初始化FlagModel
-            self.flag_model = FlagModel(
-                model_cache,
-                query_instruction_for_retrieval="为这个句子生成表示以用于检索相关文章：",
-                use_fp16=True
-            )
-
-            # 创建LangChain兼容的包装器
-            class FlagEmbeddingsWrapper:
-                def __init__(self, model):
-                    self.model = model
-
-                def embed_query(self, text: str):
-                    return self.model.encode_queries([text])[0].tolist()
-
-                def embed_documents(self, texts):
-                    return self.model.encode(texts).tolist()
-
-            self.embeddings = FlagEmbeddingsWrapper(self.flag_model)
-
-            logger.info("✅ FlagEmbedding加载完成（中文准确率+20%）")
-
-        except Exception as e:
-            logger.error(f"❌ FlagEmbedding加载失败: {e}")
-            import traceback
-            traceback.print_exc()
-            raise RuntimeError(f"必须使用FlagEmbedding，请先运行: python3 /tmp/download_flag_embedding.py") from e
+        self.chroma_enabled = False
+        self.chroma_disabled_reason = None
 
         # 使用持久化的本地ChromaDB（不依赖服务器）
         try:
-            chroma_db_path = os.getenv("CHROMA_PERSIST_DIR", "./data/chroma_db")
-            import os
-            os.makedirs(chroma_db_path, exist_ok=True)
+            chroma_db_path = Path(settings.chromadb.persist_dir)
+            chroma_db_path.mkdir(parents=True, exist_ok=True)
 
-            self.chroma_client = chromadb.PersistentClient(
-                path=chroma_db_path,
-                settings=ChromaSettings(
-                    anonymized_telemetry=False,
-                    allow_reset=True
+            expected_dim = int(getattr(settings.chromadb, "expected_dimension", 0) or 0)
+            enable_indexing = bool(getattr(settings.chromadb, "enable_indexing", False))
+            if not enable_indexing:
+                self.chroma_disabled_reason = "disabled_by_config"
+                logger.info("ℹ️ Chroma索引已按配置关闭，SQLite为主结构化存储")
+                self.chroma_client = None
+                self.collection = None
+            else:
+                if expected_dim and self.embedding_dim != expected_dim:
+                    logger.warning(
+                        f"⚠️ Chroma维度配置与实际模型不一致：实际={self.embedding_dim}, 期望={expected_dim}，继续使用实际维度"
+                    )
+                self.chroma_client = chromadb.PersistentClient(
+                    path=str(chroma_db_path),
+                    settings=ChromaSettings(
+                        anonymized_telemetry=False,
+                        allow_reset=True
+                    )
                 )
-            )
 
-            # 获取或创建集合
-            self.collection = self.chroma_client.get_or_create_collection(
-                name="fieldmind_documents",
-                metadata={"description": "FieldMind文档向量存储"}
-            )
-
-            logger.info(f"✅ ChromaDB已初始化（持久化路径: {chroma_db_path}）")
+                # 获取或创建集合
+                self.collection = self.chroma_client.get_or_create_collection(
+                    name=settings.chromadb.collection_name,
+                    metadata={
+                        "description": "FieldMind文档向量存储",
+                        "embedding_dim": self.embedding_dim,
+                    }
+                )
+                self.chroma_enabled = True
+                logger.info(
+                    f"✅ ChromaDB已初始化（持久化路径: {chroma_db_path}, 维度: {self.embedding_dim}）"
+                )
 
         except Exception as e:
             logger.error(f"初始化ChromaDB失败: {e}")
             self.chroma_client = None
             self.collection = None
+            self.chroma_disabled_reason = str(e)
 
         # 文本分割器
         self.text_splitter = RecursiveCharacterTextSplitter(
@@ -117,23 +109,36 @@ class RAGEngine:
         # LLM
         self.llm = self._init_llm()
 
+    def _probe_embedding_dimension(self) -> int:
+        return self.embedding_backend.get_sentence_embedding_dimension()
+
     def _init_llm(self):
-        """初始化LLM"""
-        if settings.ANTHROPIC_API_KEY:
-            return ChatAnthropic(
-                anthropic_api_key=settings.ANTHROPIC_API_KEY,
-                model="claude-3-5-sonnet-20241022",
-                temperature=0.7,
-            )
-        elif settings.OPENAI_API_KEY:
-            return ChatOpenAI(
-                openai_api_key=settings.OPENAI_API_KEY,
-                model="gpt-4",
-                temperature=0.7,
-            )
-        else:
-            logger.warning("未配置LLM API Key，RAG问答功能将不可用")
-            return None
+        """初始化LLM - 使用 P3 智能路由"""
+        try:
+            # 尝试使用 P3 LLM 适配器（智能路由 + 成本优化）
+            from app.services.llm_adapter import get_llm_adapter
+
+            logger.info("✅ 使用 P3 LLM 适配器（智能路由 + 成本优化）")
+            return get_llm_adapter(strategy="cost_optimized")
+
+        except ImportError:
+            # 回退到原有方案
+            logger.warning("P3 LLM 适配器不可用，使用传统方式")
+            if settings.ai.anthropic_api_key:
+                return ChatAnthropic(
+                    anthropic_api_key=settings.ai.anthropic_api_key,
+                    model="claude-3-5-sonnet-20241022",
+                    temperature=0.7,
+                )
+            elif settings.ai.openai_api_key:
+                return ChatOpenAI(
+                    openai_api_key=settings.ai.openai_api_key,
+                    model="gpt-4",
+                    temperature=0.7,
+                )
+            else:
+                logger.warning("未配置LLM API Key，RAG问答功能将不可用")
+                return None
 
     def ingest_documents(
         self,
@@ -152,12 +157,22 @@ class RAGEngine:
         """
         logger.info(f"开始索引 {len(documents)} 个文档")
 
+        if not self.collection or not self.chroma_enabled:
+            logger.info("ℹ️ Chroma未启用，跳过向量索引，保留SQLite结构化数据")
+            return {
+                "documents": len(documents),
+                "chunks": 0,
+                "status": "skipped",
+                "reason": self.chroma_disabled_reason or "not_initialized"
+            }
+
         total_chunks = 0
         for doc in documents:
             # 分割文档
             chunks = self.text_splitter.split_text(doc["text"])
 
-            # 生成嵌入并存储
+            embeddings = self.embeddings.embed_documents(chunks)
+
             for i, chunk in enumerate(chunks):
                 chunk_id = f"{doc['id']}_chunk_{i}"
                 metadata = {
@@ -166,11 +181,11 @@ class RAGEngine:
                     "chunk_index": i,
                 }
 
-                # 添加到ChromaDB
-                self.collection.add(
+                self.collection.upsert(
                     ids=[chunk_id],
                     documents=[chunk],
-                    metadatas=[metadata]
+                    metadatas=[metadata],
+                    embeddings=[embeddings[i]],
                 )
 
             total_chunks += len(chunks)
@@ -202,9 +217,13 @@ class RAGEngine:
         """
         logger.info(f"执行语义搜索: {query}")
 
+        if not self.collection or not self.chroma_enabled:
+            logger.info("ℹ️ Chroma未启用，语义搜索返回空结果")
+            return []
+
         # 查询ChromaDB
         results = self.collection.query(
-            query_texts=[query],
+            query_embeddings=[self.embeddings.embed_query(query)],
             n_results=top_k,
             where=filter_dict
         )
@@ -301,6 +320,9 @@ class RAGEngine:
         Args:
             document_id: 文档ID
         """
+        if not self.collection or not self.chroma_enabled:
+            return
+
         # 查找该文档的所有分块
         results = self.collection.get(
             where={"document_id": document_id}

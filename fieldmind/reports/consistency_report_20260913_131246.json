@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-09-13T13:12:46.342336",
+  "mode": "REAL",
+  "checks": {
+    "entity_counts": {
+      "postgresql": 1132,
+      "neo4j": 0,
+      "match": false,
+      "difference": 1132
+    },
+    "chunk_counts": {
+      "postgresql_total": 1036,
+      "chromadb_total": 0,
+      "marked_synced": 0,
+      "pending_sync": 1036,
+      "match": true,
+      "sync_rate": "0.0%"
+    },
+    "id_formats": {
+      "entities_checked": 100,
+      "entities_errors": 0,
+      "chunks_checked": 100,
+      "chunks_errors": 100,
+      "total_errors": 100,
+      "error_details": {
+        "entities": [],
+        "chunks": [
+          {
+            "chunk_id": "test_999_0",
+            "error": "ID 格式不匹配: test_999_0"
+          },
+          {
+            "chunk_id": "doc_2_chunk_0",
+            "error": "ID 格式不匹配: doc_2_chunk_0"
+          },
+          {
+            "chunk_id": "doc_2_chunk_1",
+            "error": "ID 格式不匹配: doc_2_chunk_1"
+          },
+          {
+            "chunk_id": "doc_2_chunk_2",
+            "error": "ID 格式不匹配: doc_2_chunk_2"
+          },
+          {
+            "chunk_id": "doc_2_chunk_3",
+            "error": "ID 格式不匹配: doc_2_chunk_3"
+          }
+        ]
+      }
+    },
+    "foreign_key_integrity": {
+      "chunks_checked": 100,
+      "total_entities": 0,
+      "orphan_references": 0,
+      "orphan_details": []
+    },
+    "new_fields": {
+      "sample_size": 100,
+      "field_statistics": {
+        "emotion_polarity": {
+          "filled": 0,
+          "null": 100,
+          "out_of_range": 0
+        },
+        "quality_score": {
+          "filled": 0,
+          "null": 100,
+          "out_of_range": 0
+        },
+        "speaker_id": {
+          "filled": 0,
+          "null": 100
+        },
+        "synced_to_chromadb": {
+          "synced": 0,
+          "pending": 100
+        }
+      }
+    }
+  },
+  "summary": {
+    "total_checks": 5,
+    "total_issues": 2,
+    "status": "FAIL"
+  },
+  "issues": [
+    "实体数量不匹配：PostgreSQL=1132, Neo4j=0, 差异=1132",
+    "发现 100 个 ID 格式错误"
+  ]
+}

@@ -1,0 +1,142 @@
+# Prometheus 告警规则
+groups:
+  # 应用性能告警
+  - name: application_performance
+    interval: 30s
+    rules:
+      # 高错误率
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          component: backend
+        annotations:
+          summary: "高错误率检测"
+          description: "HTTP 5xx 错误率超过 5%: {{ $value | humanizePercentage }}"
+
+      # API 响应时间慢
+      - alert: SlowAPIResponse
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 5
+        for: 5m
+        labels:
+          severity: warning
+          component: backend
+        annotations:
+          summary: "API 响应时间过长"
+          description: "95th 百分位响应时间: {{ $value }}s"
+
+      # 文档处理失败率高
+      - alert: HighDocumentProcessingFailureRate
+        expr: rate(documents_processed_total{status="failed"}[10m]) / rate(documents_processed_total[10m]) > 0.1
+        for: 10m
+        labels:
+          severity: warning
+          component: document-processing
+        annotations:
+          summary: "文档处理失败率高"
+          description: "文档处理失败率超过 10%"
+
+  # 系统资源告警
+  - name: system_resources
+    interval: 30s
+    rules:
+      # 高内存使用
+      - alert: HighMemoryUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 0.9
+        for: 5m
+        labels:
+          severity: critical
+          component: system
+        annotations:
+          summary: "内存使用率过高"
+          description: "内存使用率: {{ $value | humanizePercentage }}"
+
+      # 活跃请求数过高
+      - alert: TooManyActiveRequests
+        expr: http_requests_active > 100
+        for: 5m
+        labels:
+          severity: warning
+          component: backend
+        annotations:
+          summary: "活跃请求数过多"
+          description: "当前活跃请求: {{ $value }}"
+
+  # 缓存性能告警
+  - name: cache_performance
+    interval: 30s
+    rules:
+      # Redis 不可用
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: redis
+        annotations:
+          summary: "Redis 服务不可用"
+          description: "Redis 服务已停止响应"
+
+      # 缓存命中率低
+      - alert: LowCacheHitRate
+        expr: rate(cache_hits_total[5m]) / (rate(cache_hits_total[5m]) + rate(cache_misses_total[5m])) < 0.5
+        for: 10m
+        labels:
+          severity: warning
+          component: cache
+        annotations:
+          summary: "缓存命中率低"
+          description: "缓存命中率: {{ $value | humanizePercentage }}"
+
+  # AI 服务告警
+  - name: ai_service
+    interval: 30s
+    rules:
+      # AI API 调用失败率高
+      - alert: HighAIAPIFailureRate
+        expr: rate(ai_api_calls_total{status="failed"}[5m]) / rate(ai_api_calls_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          component: ai-service
+        annotations:
+          summary: "AI API 调用失败率高"
+          description: "AI API 失败率超过 10%"
+
+      # AI API 成本过高
+      - alert: HighAIAPICost
+        expr: increase(ai_api_cost_dollars[1h]) > 10
+        for: 5m
+        labels:
+          severity: warning
+          component: ai-service
+        annotations:
+          summary: "AI API 成本过高"
+          description: "过去1小时 AI API 成本: ${{ $value }}"
+
+  # 健康检查告警
+  - name: health_checks
+    interval: 30s
+    rules:
+      # 应用不健康
+      - alert: ApplicationUnhealthy
+        expr: fieldmind_health_status == 0
+        for: 2m
+        labels:
+          severity: critical
+          component: backend
+        annotations:
+          summary: "应用健康检查失败"
+          description: "FieldMind 应用健康状态异常"
+
+      # 后端服务不可用
+      - alert: BackendDown
+        expr: up{job="fieldmind-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: backend
+        annotations:
+          summary: "后端服务不可用"
+          description: "FieldMind 后端服务已停止响应"

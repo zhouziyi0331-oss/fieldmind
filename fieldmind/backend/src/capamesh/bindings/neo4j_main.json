@@ -1,0 +1,23 @@
+{
+  "binding_id": "neo4j_main",
+  "name": "Neo4j主数据库绑定",
+  "description": "连接到Neo4j图数据库，执行Cypher查询",
+  "channel_type": "graph",
+  "connection": {
+    "uri": "bolt://localhost:7687",
+    "user": "neo4j",
+    "password": "fieldmind123",
+    "database": "neo4j"
+  },
+  "capabilities": [
+    "node_query",
+    "relationship_query",
+    "path_query",
+    "pattern_matching"
+  ],
+  "performance": {
+    "max_concurrent_queries": 10,
+    "query_timeout_ms": 30000,
+    "connection_pool_size": 5
+  }
+}

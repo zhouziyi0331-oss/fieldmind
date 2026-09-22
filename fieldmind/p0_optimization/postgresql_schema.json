@@ -1,0 +1,199 @@
+{
+  "tables": {
+    "projects": {
+      "description": "\u9879\u76ee\u4e3b\u8868",
+      "columns": {
+        "id": "VARCHAR(20) PRIMARY KEY -- proj_{uuid12}",
+        "name": "VARCHAR(255) NOT NULL",
+        "description": "TEXT",
+        "created_by": "VARCHAR(20) REFERENCES users(id)",
+        "created_at": "TIMESTAMP DEFAULT NOW()",
+        "updated_at": "TIMESTAMP DEFAULT NOW()",
+        "status": "VARCHAR(20) DEFAULT 'active'",
+        "metadata": "JSONB -- \u6269\u5c55\u5b57\u6bb5"
+      },
+      "indexes": [
+        "created_by",
+        "status",
+        "created_at"
+      ]
+    },
+    "documents": {
+      "description": "\u6587\u6863\u4e3b\u8868",
+      "columns": {
+        "id": "VARCHAR(20) PRIMARY KEY -- doc_{uuid12}",
+        "project_id": "VARCHAR(20) REFERENCES projects(id)",
+        "title": "VARCHAR(500) NOT NULL",
+        "content": "TEXT",
+        "file_path": "VARCHAR(1000)",
+        "file_size": "BIGINT",
+        "file_type": "VARCHAR(50)",
+        "created_by": "VARCHAR(20) REFERENCES users(id)",
+        "created_at": "TIMESTAMP DEFAULT NOW()",
+        "updated_at": "TIMESTAMP DEFAULT NOW()",
+        "status": "VARCHAR(20) DEFAULT 'active'",
+        "metadata": "JSONB"
+      },
+      "indexes": [
+        "project_id",
+        "created_by",
+        "status"
+      ]
+    },
+    "chunks": {
+      "description": "\u6587\u6863\u5207\u7247\u8868\uff08\u589e\u5f3a\u7248\uff09",
+      "columns": {
+        "id": "VARCHAR(20) PRIMARY KEY -- chk_{uuid12}",
+        "document_id": "VARCHAR(20) REFERENCES documents(id)",
+        "project_id": "VARCHAR(20) REFERENCES projects(id)",
+        "text": "TEXT NOT NULL",
+        "position": "INTEGER",
+        "word_count": "INTEGER",
+        "speaker": "VARCHAR(255) -- \u8bf4\u8bdd\u4eba\u6807\u8bc6",
+        "speaker_role": "VARCHAR(100) -- \u8bf4\u8bdd\u4eba\u89d2\u8272",
+        "timestamp_start": "FLOAT -- \u97f3\u9891/\u89c6\u9891\u8d77\u59cb\u65f6\u95f4\uff08\u79d2\uff09",
+        "timestamp_end": "FLOAT -- \u7ed3\u675f\u65f6\u95f4",
+        "sentiment_polarity": "FLOAT -- \u60c5\u611f\u6781\u6027 [-1, 1]",
+        "sentiment_subjectivity": "FLOAT -- \u4e3b\u89c2\u6027 [0, 1]",
+        "emotion_scores": "JSONB -- \u591a\u7ef4\u60c5\u7eea\u5206\u6570",
+        "dimension_category": "VARCHAR(100) -- \u4e00\u7ea7\u7ef4\u5ea6",
+        "dimension_sub_category": "VARCHAR(100) -- \u4e8c\u7ea7\u7ef4\u5ea6",
+        "dimension_confidence": "FLOAT -- \u5206\u7c7b\u7f6e\u4fe1\u5ea6",
+        "entities": "JSONB -- [{id, name, type, confidence}]",
+        "keywords": "JSONB -- \u5173\u952e\u8bcd\u5217\u8868",
+        "embedding": "VECTOR(1536) -- \u5411\u91cf\u8868\u793a",
+        "quality_score": "FLOAT",
+        "created_at": "TIMESTAMP DEFAULT NOW()",
+        "updated_at": "TIMESTAMP DEFAULT NOW()",
+        "metadata": "JSONB"
+      },
+      "indexes": [
+        "document_id",
+        "project_id",
+        "dimension_category",
+        "speaker",
+        "quality_score"
+      ],
+      "notes": [
+        "chunk \u4ece\u8bde\u751f\u8d77\u5c31\u643a\u5e26\u5b8c\u6574\u4fe1\u606f",
+        "\u5207\u5206\u65f6\u540c\u6b65\u5b8c\u6210\uff1a\u8bf4\u8bdd\u4eba\u6807\u6ce8\u3001\u60c5\u7eea\u91cf\u5316\u3001\u5b9e\u4f53\u8bc6\u522b\u3001\u7ef4\u5ea6\u5f52\u7c7b",
+        "\u4efb\u4f55\u4e00\u4e2a chunk\uff0c\u90fd\u80fd\u76f4\u63a5\u56de\u7b54\uff1a\u8c01\u8bf4\u7684\u3001\u4ec0\u4e48\u60c5\u7eea\u3001\u5c5e\u4e8e\u4ec0\u4e48\u7ef4\u5ea6\u3001\u6d89\u53ca\u4ec0\u4e48\u5b9e\u4f53"
+      ]
+    },
+    "entities": {
+      "description": "\u5b9e\u4f53\u4e3b\u8868\uff08\u589e\u5f3a\u7248\uff09",
+      "columns": {
+        "id": "VARCHAR(20) PRIMARY KEY -- ent_{uuid12}",
+        "project_id": "VARCHAR(20) REFERENCES projects(id)",
+        "name": "VARCHAR(255) NOT NULL",
+        "type": "VARCHAR(50) -- person/organization/location/concept",
+        "description": "TEXT",
+        "mention_count": "INTEGER DEFAULT 0 -- \u63d0\u53ca\u6b21\u6570",
+        "sentiment_avg": "FLOAT -- \u5e73\u5747\u60c5\u611f\u503c",
+        "first_appearance": "TIMESTAMP -- \u9996\u6b21\u51fa\u73b0\u65f6\u95f4",
+        "last_appearance": "TIMESTAMP -- \u6700\u540e\u51fa\u73b0\u65f6\u95f4",
+        "related_entities": "JSONB -- \u5173\u8054\u5b9e\u4f53\u5217\u8868",
+        "related_events": "JSONB -- \u5173\u8054\u4e8b\u4ef6\u5217\u8868",
+        "timeline": "JSONB -- \u65f6\u95f4\u7ebf [{date, event, context, sentiment}]",
+        "importance_score": "FLOAT -- \u91cd\u8981\u6027\u8bc4\u5206",
+        "centrality_score": "FLOAT -- \u4e2d\u5fc3\u6027\u8bc4\u5206",
+        "created_at": "TIMESTAMP DEFAULT NOW()",
+        "updated_at": "TIMESTAMP DEFAULT NOW()",
+        "metadata": "JSONB"
+      },
+      "indexes": [
+        "project_id",
+        "type",
+        "mention_count",
+        "importance_score"
+      ],
+      "notes": [
+        "\u5b9e\u4f53\u8282\u70b9\u643a\u5e26\u751f\u547d\u5468\u671f\u4fe1\u606f",
+        "\u4e0d\u53ea\u662f'\u540d\u5b57'\uff0c\u800c\u662f'\u540d\u5b57 + \u63d0\u53ca\u6b21\u6570 + \u60c5\u7eea\u53d8\u5316 + \u5173\u8054\u4e8b\u4ef6'"
+      ]
+    },
+    "relations": {
+      "description": "\u5173\u7cfb\u4e3b\u8868",
+      "columns": {
+        "id": "VARCHAR(20) PRIMARY KEY -- rel_{uuid12}",
+        "project_id": "VARCHAR(20) REFERENCES projects(id)",
+        "source_entity_id": "VARCHAR(20) REFERENCES entities(id)",
+        "target_entity_id": "VARCHAR(20) REFERENCES entities(id)",
+        "relation_type": "VARCHAR(100) NOT NULL",
+        "description": "TEXT",
+        "confidence": "FLOAT",
+        "evidence_chunks": "JSONB -- \u652f\u6301\u8bc1\u636e\u7684 chunk_id \u5217\u8868",
+        "created_at": "TIMESTAMP DEFAULT NOW()",
+        "updated_at": "TIMESTAMP DEFAULT NOW()",
+        "metadata": "JSONB"
+      },
+      "indexes": [
+        "project_id",
+        "source_entity_id",
+        "target_entity_id",
+        "relation_type"
+      ]
+    },
+    "skills": {
+      "description": "Skill \u5e93\uff08\u589e\u5f3a\u7248\uff09",
+      "columns": {
+        "id": "VARCHAR(20) PRIMARY KEY -- skl_{uuid12}",
+        "name": "VARCHAR(255) NOT NULL",
+        "skill_type": "VARCHAR(50) -- process/decision/solution/lesson_learned",
+        "description": "TEXT",
+        "source_project_id": "VARCHAR(20) -- \u4ece\u54ea\u4e2a\u9879\u76ee\u751f\u6210",
+        "source_data": "JSONB -- \u57fa\u4e8e\u54ea\u4e9b\u6570\u636e",
+        "auto_generated": "BOOLEAN DEFAULT FALSE -- \u662f\u5426\u81ea\u52a8\u751f\u6210",
+        "version": "VARCHAR(20) DEFAULT 'v1.0'",
+        "parent_skill_id": "VARCHAR(20) -- \u4e0a\u4e00\u7248\u672c",
+        "usage_count": "INTEGER DEFAULT 0",
+        "success_count": "INTEGER DEFAULT 0",
+        "feedback_score": "FLOAT -- \u7528\u6237\u53cd\u9988\u8bc4\u5206",
+        "rules": "JSONB -- [{condition, action, weight}]",
+        "template": "TEXT",
+        "parameters": "JSONB",
+        "created_at": "TIMESTAMP DEFAULT NOW()",
+        "updated_at": "TIMESTAMP DEFAULT NOW()",
+        "metadata": "JSONB"
+      },
+      "indexes": [
+        "skill_type",
+        "source_project_id",
+        "usage_count",
+        "auto_generated"
+      ],
+      "notes": [
+        "Skill \u4ece\u5206\u6790\u4e2d\u81ea\u52a8\u751f\u957f",
+        "\u8bb0\u5f55\u6765\u6e90\u9879\u76ee\u3001\u57fa\u4e8e\u6570\u636e\u3001\u7248\u672c\u53f7",
+        "\u7528\u6237\u53cd\u9988\u81ea\u52a8\u8c03\u6574\u6743\u91cd"
+      ]
+    },
+    "knowledge_base": {
+      "description": "\u7ec4\u7ec7\u77e5\u8bc6\u5e93",
+      "columns": {
+        "id": "VARCHAR(20) PRIMARY KEY",
+        "type": "VARCHAR(50) -- case/template/insight/lesson",
+        "title": "VARCHAR(500) NOT NULL",
+        "content": "TEXT",
+        "source_project_id": "VARCHAR(20)",
+        "source_report_id": "VARCHAR(20)",
+        "tags": "JSONB -- \u6807\u7b7e\u5217\u8868",
+        "related_skills": "JSONB -- \u5173\u8054\u7684 Skill ID \u5217\u8868",
+        "reuse_count": "INTEGER DEFAULT 0",
+        "quality_score": "FLOAT",
+        "created_at": "TIMESTAMP DEFAULT NOW()",
+        "updated_at": "TIMESTAMP DEFAULT NOW()",
+        "metadata": "JSONB"
+      },
+      "indexes": [
+        "type",
+        "source_project_id",
+        "reuse_count"
+      ],
+      "notes": [
+        "\u62a5\u544a\u7ed3\u8bba\u56de\u6d41\u4e3a'\u7ec4\u7ec7\u77e5\u8bc6\u5e93'",
+        "\u65b0\u9879\u76ee\u81ea\u52a8\u63a8\u8350\u76f8\u4f3c\u6848\u4f8b\u3001\u6a21\u677f\u3001Skill"
+      ]
+    }
+  }
+}

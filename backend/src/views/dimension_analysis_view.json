@@ -1,0 +1,329 @@
+{
+  "view_id": "dimension_analysis_view",
+  "name": "维度分析视图",
+  "version": "1.0",
+  "description": "按业务维度（衣食住行、民俗、非遗、物质遗产、政策、历史）进行统计分析",
+
+  "intent": "按业务维度分析数据分布和趋势",
+  "keywords": ["维度", "分类", "统计", "分布", "趋势"],
+
+  "input": {
+    "required": [
+      {
+        "name": "dimension",
+        "type": "string",
+        "description": "业务维度",
+        "enum": ["衣食住行", "民俗", "非物质文化遗产", "物质文化遗产", "政策", "历史", "all"],
+        "example": "非物质文化遗产"
+      }
+    ],
+    "optional": [
+      {
+        "name": "aggregation",
+        "type": "string",
+        "description": "聚合方式",
+        "enum": ["count", "percentage", "trend", "correlation"],
+        "default": "count"
+      },
+      {
+        "name": "group_by",
+        "type": "string",
+        "description": "分组字段",
+        "enum": ["location", "time_period", "document", "sub_category"],
+        "default": "time_period"
+      },
+      {
+        "name": "project_id",
+        "type": "integer",
+        "description": "项目ID（可选，用于项目级别统计）"
+      }
+    ]
+  },
+
+  "output": {
+    "dimension_stats": {
+      "type": "object",
+      "source": "sql_query",
+      "fields": {
+        "dimension_name": "string",
+        "total_chunks": "integer",
+        "percentage": "float",
+        "avg_confidence": "float",
+        "top_keywords": "array"
+      }
+    },
+    "distribution": {
+      "type": "array",
+      "source": "sql_query",
+      "description": "按group_by字段分组的分布",
+      "fields": {
+        "group_key": "string",
+        "chunk_count": "integer",
+        "percentage": "float"
+      }
+    },
+    "top_entities": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "该维度下的top实体",
+      "fields": {
+        "entity_id": "string",
+        "entity_name": "string",
+        "entity_type": "string",
+        "mention_count": "integer",
+        "importance_score": "float"
+      }
+    },
+    "coverage_analysis": {
+      "type": "object",
+      "source": "computed",
+      "fields": {
+        "total_documents": "integer",
+        "covered_documents": "integer",
+        "coverage_rate": "float",
+        "missing_locations": "array",
+        "missing_time_periods": "array"
+      }
+    },
+    "time_trend": {
+      "type": "array",
+      "source": "sql_query",
+      "description": "时间趋势（如果aggregation=trend）",
+      "fields": {
+        "time_period": "string",
+        "chunk_count": "integer",
+        "trend": "string"
+      }
+    },
+    "correlation_analysis": {
+      "type": "object",
+      "source": "computed",
+      "description": "维度相关性分析（如果aggregation=correlation）",
+      "fields": {
+        "correlated_dimensions": "array",
+        "correlation_score": "float",
+        "common_topics": "array"
+      }
+    },
+    "quality_metrics": {
+      "type": "object",
+      "source": "sql_query",
+      "fields": {
+        "avg_confidence_score": "float",
+        "avg_word_count": "float",
+        "avg_emotion_polarity": "float",
+        "high_confidence_rate": "float"
+      }
+    },
+    "sample_chunks": {
+      "type": "array",
+      "source": "sql_query",
+      "description": "典型示例文本块",
+      "fields": {
+        "chunk_id": "string",
+        "text": "string",
+        "confidence_score": "float",
+        "keywords_matched": "array"
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "source": "inference",
+      "description": "数据治理建议",
+      "item_type": "string"
+    }
+  },
+
+  "data_bindings": [
+    {
+      "binding_id": "sql_dimension_stats",
+      "description": "查询维度统计",
+      "channel_type": "sql",
+      "query_template": "SELECT dimension_category, COUNT(*) as total_chunks, ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM document_chunks WHERE dimension_category IS NOT NULL), 2) as percentage, ROUND(AVG(confidence_score), 3) as avg_confidence FROM document_chunks WHERE (:dimension = 'all' OR dimension_category = :dimension) AND dimension_category IS NOT NULL GROUP BY dimension_category",
+      "output_mapping": {
+        "dimension_stats": "result"
+      }
+    },
+    {
+      "binding_id": "sql_distribution",
+      "description": "按指定字段分组统计",
+      "channel_type": "sql",
+      "query_template": "SELECT :group_by as group_key, COUNT(*) as chunk_count, ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM document_chunks WHERE dimension_category = :dimension), 2) as percentage FROM document_chunks WHERE dimension_category = :dimension AND :group_by IS NOT NULL GROUP BY :group_by ORDER BY chunk_count DESC",
+      "output_mapping": {
+        "distribution": "result"
+      }
+    },
+    {
+      "binding_id": "sql_time_trend",
+      "description": "查询时间趋势",
+      "channel_type": "sql",
+      "query_template": "SELECT time_period, COUNT(*) as chunk_count FROM document_chunks WHERE dimension_category = :dimension AND time_period IS NOT NULL GROUP BY time_period ORDER BY time_period",
+      "output_mapping": {
+        "time_trend": "result"
+      }
+    },
+    {
+      "binding_id": "sql_quality_metrics",
+      "description": "查询质量指标",
+      "channel_type": "sql",
+      "query_template": "SELECT ROUND(AVG(confidence_score), 3) as avg_confidence_score, ROUND(AVG(word_count), 2) as avg_word_count, ROUND(AVG(emotion_polarity), 3) as avg_emotion_polarity, ROUND(COUNT(CASE WHEN confidence_score >= 0.8 THEN 1 END) * 100.0 / COUNT(*), 2) as high_confidence_rate FROM document_chunks WHERE dimension_category = :dimension",
+      "output_mapping": {
+        "quality_metrics": "result"
+      }
+    },
+    {
+      "binding_id": "sql_sample_chunks",
+      "description": "查询典型示例",
+      "channel_type": "sql",
+      "query_template": "SELECT chunk_id, text, confidence_score, keywords_matched FROM document_chunks WHERE dimension_category = :dimension ORDER BY confidence_score DESC LIMIT 10",
+      "output_mapping": {
+        "sample_chunks": "result"
+      }
+    },
+    {
+      "binding_id": "graph_top_entities",
+      "description": "查询该维度下的top实体",
+      "channel_type": "graph",
+      "query_template": "MATCH (e)-[:mentioned_in]->(c:Chunk {dimension_category: $dimension}) WITH e, count(c) as mention_count ORDER BY mention_count DESC LIMIT 20 RETURN e, mention_count",
+      "output_mapping": {
+        "top_entities": "result"
+      }
+    }
+  ],
+
+  "inference_logic": {
+    "analyze_coverage": {
+      "description": "分析覆盖率",
+      "depends_on": ["dimension_stats", "distribution"],
+      "logic": {
+        "total_documents": "count_distinct_documents()",
+        "covered_documents": "count_documents_with_dimension(dimension)",
+        "coverage_rate": "covered_documents / total_documents",
+        "identify_gaps": {
+          "missing_locations": "find_locations_without_dimension(dimension)",
+          "missing_time_periods": "find_time_periods_with_low_coverage(dimension, threshold=0.1)"
+        }
+      }
+    },
+    "calculate_trend": {
+      "description": "计算时间趋势",
+      "depends_on": ["time_trend"],
+      "logic": {
+        "for_each_period": {
+          "compare_with_previous": true,
+          "calculate_growth_rate": true,
+          "label_trend": {
+            "growing": "growth_rate > 0.1",
+            "stable": "-0.1 <= growth_rate <= 0.1",
+            "declining": "growth_rate < -0.1"
+          }
+        }
+      }
+    },
+    "analyze_correlation": {
+      "description": "分析维度相关性",
+      "depends_on": ["dimension_stats"],
+      "logic": {
+        "method": "co_occurrence",
+        "find_dimensions_often_together": {
+          "threshold": 0.3,
+          "measure": "jaccard_similarity"
+        },
+        "extract_common_topics": {
+          "from": "sample_chunks",
+          "method": "keyword_intersection"
+        }
+      }
+    },
+    "generate_recommendations": {
+      "description": "生成数据治理建议",
+      "depends_on": ["coverage_analysis", "quality_metrics"],
+      "logic": {
+        "rules": [
+          {
+            "condition": "coverage_analysis.coverage_rate < 0.5",
+            "recommendation": "该维度覆盖率较低（{coverage_rate}%），建议补充相关材料"
+          },
+          {
+            "condition": "quality_metrics.avg_confidence_score < 0.6",
+            "recommendation": "该维度平均置信度较低（{avg_confidence}），建议人工验证标注准确性"
+          },
+          {
+            "condition": "len(coverage_analysis.missing_time_periods) > 0",
+            "recommendation": "缺少以下时期的数据：{missing_time_periods}，建议针对性采集"
+          },
+          {
+            "condition": "quality_metrics.high_confidence_rate < 0.5",
+            "recommendation": "高置信度样本占比较低（{high_confidence_rate}%），建议优化分类规则"
+          },
+          {
+            "condition": "dimension_stats.total_chunks < 50",
+            "recommendation": "该维度样本量较少（{total_chunks}条），可能影响分析准确性"
+          }
+        ]
+      }
+    }
+  },
+
+  "execution_strategy": {
+    "parallel_bindings": true,
+    "timeout_ms": 8000,
+    "cache_ttl_seconds": 1800,
+    "fallback_on_error": true
+  },
+
+  "visualization_hints": {
+    "charts": [
+      {
+        "type": "pie",
+        "data": "dimension_stats",
+        "title": "维度分布",
+        "value_field": "total_chunks",
+        "label_field": "dimension_name"
+      },
+      {
+        "type": "bar",
+        "data": "distribution",
+        "title": "按{group_by}分布",
+        "x_field": "group_key",
+        "y_field": "chunk_count"
+      },
+      {
+        "type": "line",
+        "data": "time_trend",
+        "title": "时间趋势",
+        "x_field": "time_period",
+        "y_field": "chunk_count",
+        "show_trend_line": true
+      }
+    ],
+    "tables": [
+      {
+        "data": "top_entities",
+        "title": "Top实体",
+        "columns": ["entity_name", "entity_type", "mention_count"]
+      },
+      {
+        "data": "sample_chunks",
+        "title": "典型示例",
+        "columns": ["text", "confidence_score"]
+      }
+    ]
+  },
+
+  "test_cases": [
+    {
+      "name": "分析非遗维度",
+      "input": {
+        "dimension": "非物质文化遗产",
+        "aggregation": "count",
+        "group_by": "time_period"
+      },
+      "expected_output": {
+        "dimension_stats.dimension_name": "非物质文化遗产",
+        "dimension_stats.total_chunks": ">= 0",
+        "coverage_analysis.coverage_rate": ">= 0"
+      }
+    }
+  ]
+}

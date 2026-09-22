@@ -1,0 +1,210 @@
+{
+  "timestamp": "2026-09-13T15:34:33.809734",
+  "kpis": {
+    "overall_reuse_rate": 100.0,
+    "total_uses": 14571,
+    "active_users": 50,
+    "avg_rating": 0.57,
+    "overall_score": 65.0,
+    "overall_grade": "C"
+  },
+  "charts": {
+    "daily_usage": [
+      {
+        "date": "2026-08-15",
+        "uses": 147
+      },
+      {
+        "date": "2026-08-16",
+        "uses": 179
+      },
+      {
+        "date": "2026-08-17",
+        "uses": 148
+      },
+      {
+        "date": "2026-08-18",
+        "uses": 147
+      },
+      {
+        "date": "2026-08-19",
+        "uses": 140
+      },
+      {
+        "date": "2026-08-20",
+        "uses": 163
+      },
+      {
+        "date": "2026-08-21",
+        "uses": 166
+      },
+      {
+        "date": "2026-08-22",
+        "uses": 161
+      },
+      {
+        "date": "2026-08-23",
+        "uses": 186
+      },
+      {
+        "date": "2026-08-24",
+        "uses": 156
+      },
+      {
+        "date": "2026-08-25",
+        "uses": 167
+      },
+      {
+        "date": "2026-08-26",
+        "uses": 153
+      },
+      {
+        "date": "2026-08-27",
+        "uses": 141
+      },
+      {
+        "date": "2026-08-28",
+        "uses": 154
+      },
+      {
+        "date": "2026-08-29",
+        "uses": 145
+      },
+      {
+        "date": "2026-08-30",
+        "uses": 158
+      },
+      {
+        "date": "2026-08-31",
+        "uses": 170
+      },
+      {
+        "date": "2026-09-01",
+        "uses": 162
+      },
+      {
+        "date": "2026-09-02",
+        "uses": 173
+      },
+      {
+        "date": "2026-09-03",
+        "uses": 161
+      },
+      {
+        "date": "2026-09-04",
+        "uses": 158
+      },
+      {
+        "date": "2026-09-05",
+        "uses": 156
+      },
+      {
+        "date": "2026-09-06",
+        "uses": 158
+      },
+      {
+        "date": "2026-09-07",
+        "uses": 156
+      },
+      {
+        "date": "2026-09-08",
+        "uses": 178
+      },
+      {
+        "date": "2026-09-09",
+        "uses": 155
+      },
+      {
+        "date": "2026-09-10",
+        "uses": 153
+      },
+      {
+        "date": "2026-09-11",
+        "uses": 145
+      },
+      {
+        "date": "2026-09-12",
+        "uses": 145
+      },
+      {
+        "date": "2026-09-13",
+        "uses": 168
+      }
+    ],
+    "top_assets": [
+      {
+        "asset_id": "solution_solution_7_通过社群",
+        "asset_type": "skill",
+        "total_uses": 125,
+        "avg_rating": 4.0
+      },
+      {
+        "asset_id": "lesson_lesson_learned_1_分钟",
+        "asset_type": "skill",
+        "total_uses": 122,
+        "avg_rating": 2.875
+      },
+      {
+        "asset_id": "decision_decision_2_内容",
+        "asset_type": "skill",
+        "total_uses": 112,
+        "avg_rating": 3.4285714285714284
+      },
+      {
+        "asset_id": "process_process_6_新增物资",
+        "asset_type": "skill",
+        "total_uses": 109,
+        "avg_rating": 4.333333333333333
+      },
+      {
+        "asset_id": "lesson_lesson_learned_0_提升内容",
+        "asset_type": "skill",
+        "total_uses": 105,
+        "avg_rating": 2.0
+      },
+      {
+        "asset_id": "process_process_5_答错伤信",
+        "asset_type": "skill",
+        "total_uses": 96,
+        "avg_rating": 3.375
+      },
+      {
+        "asset_id": "process_process_4_中台",
+        "asset_type": "skill",
+        "total_uses": 78,
+        "avg_rating": 2.6666666666666665
+      },
+      {
+        "asset_id": "decision_decision_3_真实价值",
+        "asset_type": "skill",
+        "total_uses": 74,
+        "avg_rating": 2.75
+      },
+      {
+        "asset_id": "chk_de5f69ce5638",
+        "asset_type": "pattern",
+        "total_uses": 59,
+        "avg_rating": 0.0
+      },
+      {
+        "asset_id": "chk_a182d6401e07",
+        "asset_type": "pattern",
+        "total_uses": 57,
+        "avg_rating": 4.166666666666667
+      }
+    ],
+    "reuse_by_type": {
+      "patterns": 520,
+      "skills": 8
+    }
+  },
+  "grades": {
+    "reuse_effectiveness": "A",
+    "usage_intensity": "C",
+    "content_quality": "F",
+    "user_engagement": "A"
+  },
+  "recommendations": [
+    "内容质量需要提升，建议审查低评分内容"
+  ]
+}

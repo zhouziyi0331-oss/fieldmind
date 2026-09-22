@@ -1,0 +1,967 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		009F441A880D0F26A0E1466D /* VeinService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D4B11997AEA09EA73AE0A /* VeinService_Merged.swift */; };
+		028A46E394BD41E7AF57E843 /* KnowledgeGraphViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77364AACAEBC0F397E214178 /* KnowledgeGraphViewModel_Merged.swift */; };
+		02ED4EB89FFCC38E56B31BA0 /* TimelineService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF984DF78228F1A042F5EF92 /* TimelineService_Merged.swift */; };
+		03EC463D924E31985AD19389 /* KeywordSearchService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13B462480B3A95112D0B8CE /* KeywordSearchService_Merged.swift */; };
+		06614CE3BA67CF0A1238085B /* DocumentService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B24CC0BF657F57D0EFE1DC /* DocumentService_Merged.swift */; };
+		06F7429F960A19E5747C564E /* CitationViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2F4C97B03CFB90AED6FE23 /* CitationViewModel_Merged.swift */; };
+		085D4122849982B84FFB1DB5 /* DocumentViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6130409E82AE5D8DF24759D0 /* DocumentViewModel_Merged.swift */; };
+		0E094612989461FF739A471B /* MonitoringService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11BF4B66B68A3EFE08BFF454 /* MonitoringService_Merged.swift */; };
+		0E3D4105A46AE321150828E8 /* KnowledgeGraphService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE04BD682D4CFEB4F0A203E /* KnowledgeGraphService_Merged.swift */; };
+		0E4B4789A457327F27C9D01B /* TableService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9C45B2AE0D22C3698E580A /* TableService_Merged.swift */; };
+		0F634E578FB7DF8E8FCC4963 /* MemoryService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D4353A62F0351D9EDBF39 /* MemoryService_Merged.swift */; };
+		12324B1EA5E68CE03C167EFE /* SkillService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD54F929154469907DBC45C /* SkillService_Merged.swift */; };
+		14B446D5940DC0EE524A8F3F /* DataPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D60453F94F5434BD1BFD576 /* DataPipeline.swift */; };
+		1E3C45408B5436F1A310D686 /* KnowledgeVaultService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB84F91A63223223D11BCBB /* KnowledgeVaultService.swift */; };
+		1EDF4B399CFAF818133E99CC /* FileManagerService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53E4A1CBAC9D3D6A0C42A59 /* FileManagerService_Merged.swift */; };
+		204A4FD88860FAAAC533A83C /* BackendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D54B77A3160321300517F6 /* BackendService.swift */; };
+		21444CCE93773FFDC3D1BE63 /* KeywordSearchViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEDE4A5DB15A2CD3ED3048FA /* KeywordSearchViewModel_Merged.swift */; };
+		27DD4A3C96F95AFE1984370D /* ChatService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47A43678A094B85D722F6E5 /* ChatService_Merged.swift */; };
+		2BDD407692EE901C78C61FCC /* FileAccessManager_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C243C99A354C86F97778CA /* FileAccessManager_Merged.swift */; };
+		2E6A49E991495B2711109124 /* WorkflowViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192748D688E1B6CFEEAE2D5B /* WorkflowViewModel_Merged.swift */; };
+		2EC0491487C9A6EE28773C70 /* SOPService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB524B1FA2B51DC17F9D756F /* SOPService_Merged.swift */; };
+		30F7409C8A9054B4973EF22F /* ProposalService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = A683403892CC1D7971895915 /* ProposalService_Merged.swift */; };
+		31074D1E88CCA67B1136A77D /* ProjectViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B841F18E86BB0C6C76AB90 /* ProjectViewModel_Merged.swift */; };
+		322949B2AC40E24C2D45920B /* ProposalViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A847C7878ABAFFDCD68A9A /* ProposalViewModel_Merged.swift */; };
+		32FC4C3B805F37D6BC40FFB5 /* DashboardViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D04F26A0364D0E73BD35E7 /* DashboardViewModel_Merged.swift */; };
+		34174DEEA2EC38E0B99A1A02 /* ChatViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43AE42FE843D943B6DBB8676 /* ChatViewModel_Merged.swift */; };
+		368B479582912937A9A37A43 /* PhotoViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F514FEB908ADDEF0FF5EDE7 /* PhotoViewModel_Merged.swift */; };
+		36C446E89D8B696039EEF0AC /* TimelineViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449942DC8DA875445C48B3C0 /* TimelineViewModel_Merged.swift */; };
+		3FCA497D96F5010669D96B80 /* PhotoService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3F45A08824466D14378501 /* PhotoService_Merged.swift */; };
+		40B8446085364B75B84FD7E2 /* SOPViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD64969B95F525BB433FB9B /* SOPViewModel_Merged.swift */; };
+		48D9456DA5655A9B2B4ACF72 /* ChronicleViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB4D8A87AFB79500E898C0 /* ChronicleViewModel_Merged.swift */; };
+		49BA498D90DDCB4D262017ED /* MemoryViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E94DB5B715093A01482BDD /* MemoryViewModel_Merged.swift */; };
+		4CFE4DDBBE4546A81C7ECEC8 /* VeinViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F3042F8B0743A4194033B5D /* VeinViewModel_Merged.swift */; };
+		51964865ACC33969C5FFB039 /* DistillationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D194403F9F20975F87B78CDA /* DistillationView.swift */; };
+		5208407DBC9979E890C704ED /* BusinessAnalysisService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9A4AEC940063F196E6DAD3 /* BusinessAnalysisService_Merged.swift */; };
+		5524475B9359D13E680B6B98 /* SOPAnalysisViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC044C319449B64B1D70D858 /* SOPAnalysisViewModel_Merged.swift */; };
+		55C54BD89B80275F93A35554 /* SOPAnalysisService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FBA400CB25186D11284066F /* SOPAnalysisService_Merged.swift */; };
+		576242C4BE22C7FB5F798484 /* DashboardService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E244E4A54EF91A7BD30842 /* DashboardService_Merged.swift */; };
+		58A041678DB557C6EEBCE682 /* ChronicleService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927B4F28A0D115E3F6F9911A /* ChronicleService_Merged.swift */; };
+		5A6C4D079AE4D46AA6CC7275 /* FileManagerViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69C42A684B892126FD63960 /* FileManagerViewModel_Merged.swift */; };
+		5FD1400A95C20793FBAC8DE0 /* ModelConfigViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5A489C89630DEF649B6D8A /* ModelConfigViewModel_Merged.swift */; };
+		67BA4ABF8EB6413FE38208E9 /* DistillationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D564818BEB5F8E29AB78E60 /* DistillationService.swift */; };
+		6A1C4DD595CDD1BAEFCA67B3 /* KnowledgeVaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED0419ABCE6C06A90374AAD /* KnowledgeVaultView.swift */; };
+		6A364FC5A27CFB33B2CB5202 /* ProjectService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33904263AFB5851B3B9BC7C9 /* ProjectService_Merged.swift */; };
+		6D5A44C8B615311C07DE6F70 /* ReportViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB54DAD9636B8D15CA624E5 /* ReportViewModel_Merged.swift */; };
+		731A407CBE8D3033AA449E25 /* ReportService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F34616914A2C91BBAAEC2F /* ReportService_Merged.swift */; };
+		74EB4DB3B0D7D52DC16801FB /* WorkflowService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94264A23B807D0908C198728 /* WorkflowService_Merged.swift */; };
+		760643DB840F1FD5BCAAE7AA /* MonitoringViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F764CEF97D48496DAFCCF1A /* MonitoringViewModel_Merged.swift */; };
+		76E54E55B5724C246124C63F /* UnifiedAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04F491783CAC01AFBFA780C /* UnifiedAppState.swift */; };
+		7BC24528B49370B8DC6777F0 /* UploadFileSelectionHelper_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472C496EAD8F311FA67DF774 /* UploadFileSelectionHelper_Merged.swift */; };
+		877B48279629C82C18724AF9 /* TableViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CF4280834B7667DFF6A517 /* TableViewModel_Merged.swift */; };
+		89CA4A559072929431DDE676 /* ConversationViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C004B6F8C6221B56183C138 /* ConversationViewModel_Merged.swift */; };
+		8D1945AF81CD6CC452ADAE8E /* CitationService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFA4D4D990A6312CDB28B2A /* CitationService_Merged.swift */; };
+		959A4CBDA381299AADF6728E /* ModelConfigService_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A74DCC828D305CB90FB530 /* ModelConfigService_Merged.swift */; };
+		A61E4D7D9DF1DC6F9A5C839D /* SkillViewModel_Merged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA1496F8EC18A23A5C1BE84 /* SkillViewModel_Merged.swift */; };
+		C4364157B524937E6150F9D2 /* MainNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA64EE4998817B6211632EB /* MainNavigationView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E943246C3054208B00E48A67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E94324533054208700E48A67 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E943245A3054208800E48A67;
+			remoteInfo = fieldmind;
+		};
+		E94324763054208B00E48A67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E94324533054208700E48A67 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E943245A3054208800E48A67;
+			remoteInfo = fieldmind;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0AD64969B95F525BB433FB9B /* SOPViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SOPViewModel_Merged.swift; path = fieldmind/ViewModels/SOPViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		0D564818BEB5F8E29AB78E60 /* DistillationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DistillationService.swift; path = Services/DistillationService.swift; sourceTree = SOURCE_ROOT; };
+		0F764CEF97D48496DAFCCF1A /* MonitoringViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MonitoringViewModel_Merged.swift; path = fieldmind/ViewModels/MonitoringViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		11BF4B66B68A3EFE08BFF454 /* MonitoringService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MonitoringService_Merged.swift; path = fieldmind/Services/MonitoringService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		15E94DB5B715093A01482BDD /* MemoryViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemoryViewModel_Merged.swift; path = fieldmind/ViewModels/MemoryViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		192748D688E1B6CFEEAE2D5B /* WorkflowViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WorkflowViewModel_Merged.swift; path = fieldmind/ViewModels/WorkflowViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		1AA1496F8EC18A23A5C1BE84 /* SkillViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SkillViewModel_Merged.swift; path = fieldmind/ViewModels/SkillViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		1B9A4AEC940063F196E6DAD3 /* BusinessAnalysisService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BusinessAnalysisService_Merged.swift; path = fieldmind/Services/BusinessAnalysisService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		1D60453F94F5434BD1BFD576 /* DataPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataPipeline.swift; path = fieldmind/Core/DataPipeline/DataPipeline.swift; sourceTree = SOURCE_ROOT; };
+		28E244E4A54EF91A7BD30842 /* DashboardService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DashboardService_Merged.swift; path = fieldmind/Services/DashboardService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		29C243C99A354C86F97778CA /* FileAccessManager_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileAccessManager_Merged.swift; path = fieldmind/Services/FileAccessManager_Merged.swift; sourceTree = SOURCE_ROOT; };
+		2C004B6F8C6221B56183C138 /* ConversationViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ConversationViewModel_Merged.swift; path = fieldmind/ViewModels/ConversationViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		2CB84F91A63223223D11BCBB /* KnowledgeVaultService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KnowledgeVaultService.swift; path = fieldmind/Services/KnowledgeVaultService.swift; sourceTree = SOURCE_ROOT; };
+		2F514FEB908ADDEF0FF5EDE7 /* PhotoViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoViewModel_Merged.swift; path = fieldmind/ViewModels/PhotoViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		33904263AFB5851B3B9BC7C9 /* ProjectService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectService_Merged.swift; path = fieldmind/Services/ProjectService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		37B24CC0BF657F57D0EFE1DC /* DocumentService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentService_Merged.swift; path = fieldmind/Services/DocumentService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		3C5A489C89630DEF649B6D8A /* ModelConfigViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModelConfigViewModel_Merged.swift; path = fieldmind/ViewModels/ModelConfigViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		3CD54F929154469907DBC45C /* SkillService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SkillService_Merged.swift; path = fieldmind/Services/SkillService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		40F34616914A2C91BBAAEC2F /* ReportService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReportService_Merged.swift; path = fieldmind/Services/ReportService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		43AE42FE843D943B6DBB8676 /* ChatViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatViewModel_Merged.swift; path = fieldmind/ViewModels/ChatViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		449942DC8DA875445C48B3C0 /* TimelineViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimelineViewModel_Merged.swift; path = fieldmind/ViewModels/TimelineViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		472C496EAD8F311FA67DF774 /* UploadFileSelectionHelper_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UploadFileSelectionHelper_Merged.swift; path = fieldmind/Services/UploadFileSelectionHelper_Merged.swift; sourceTree = SOURCE_ROOT; };
+		4B9C45B2AE0D22C3698E580A /* TableService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TableService_Merged.swift; path = fieldmind/Services/TableService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		4EE04BD682D4CFEB4F0A203E /* KnowledgeGraphService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KnowledgeGraphService_Merged.swift; path = fieldmind/Services/KnowledgeGraphService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		4FBA400CB25186D11284066F /* SOPAnalysisService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SOPAnalysisService_Merged.swift; path = fieldmind/Services/SOPAnalysisService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		55D04F26A0364D0E73BD35E7 /* DashboardViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DashboardViewModel_Merged.swift; path = fieldmind/ViewModels/DashboardViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		6130409E82AE5D8DF24759D0 /* DocumentViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewModel_Merged.swift; path = fieldmind/ViewModels/DocumentViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		66D54B77A3160321300517F6 /* BackendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BackendService.swift; path = fieldmind/Services/BackendService.swift; sourceTree = SOURCE_ROOT; };
+		6E2F4C97B03CFB90AED6FE23 /* CitationViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CitationViewModel_Merged.swift; path = fieldmind/ViewModels/CitationViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		77364AACAEBC0F397E214178 /* KnowledgeGraphViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KnowledgeGraphViewModel_Merged.swift; path = fieldmind/ViewModels/KnowledgeGraphViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		8ED0419ABCE6C06A90374AAD /* KnowledgeVaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KnowledgeVaultView.swift; path = fieldmind/Views/KnowledgeVaultView.swift; sourceTree = SOURCE_ROOT; };
+		8EDB4D8A87AFB79500E898C0 /* ChronicleViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChronicleViewModel_Merged.swift; path = fieldmind/ViewModels/ChronicleViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		927B4F28A0D115E3F6F9911A /* ChronicleService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChronicleService_Merged.swift; path = fieldmind/Services/ChronicleService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		94264A23B807D0908C198728 /* WorkflowService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WorkflowService_Merged.swift; path = fieldmind/Services/WorkflowService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		94B841F18E86BB0C6C76AB90 /* ProjectViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProjectViewModel_Merged.swift; path = fieldmind/ViewModels/ProjectViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		94CF4280834B7667DFF6A517 /* TableViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TableViewModel_Merged.swift; path = fieldmind/ViewModels/TableViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		9E3F45A08824466D14378501 /* PhotoService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoService_Merged.swift; path = fieldmind/Services/PhotoService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		9F3042F8B0743A4194033B5D /* VeinViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VeinViewModel_Merged.swift; path = fieldmind/ViewModels/VeinViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		A13B462480B3A95112D0B8CE /* KeywordSearchService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeywordSearchService_Merged.swift; path = fieldmind/Services/KeywordSearchService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		A683403892CC1D7971895915 /* ProposalService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProposalService_Merged.swift; path = fieldmind/Services/ProposalService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		B04F491783CAC01AFBFA780C /* UnifiedAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnifiedAppState.swift; path = fieldmind/Core/UnifiedAppState.swift; sourceTree = SOURCE_ROOT; };
+		B53D4B11997AEA09EA73AE0A /* VeinService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VeinService_Merged.swift; path = fieldmind/Services/VeinService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		BB524B1FA2B51DC17F9D756F /* SOPService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SOPService_Merged.swift; path = fieldmind/Services/SOPService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		BC044C319449B64B1D70D858 /* SOPAnalysisViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SOPAnalysisViewModel_Merged.swift; path = fieldmind/ViewModels/SOPAnalysisViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		BCFA4D4D990A6312CDB28B2A /* CitationService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CitationService_Merged.swift; path = fieldmind/Services/CitationService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		BF984DF78228F1A042F5EF92 /* TimelineService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimelineService_Merged.swift; path = fieldmind/Services/TimelineService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		C24D4353A62F0351D9EDBF39 /* MemoryService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemoryService_Merged.swift; path = fieldmind/Services/MemoryService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		D194403F9F20975F87B78CDA /* DistillationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DistillationView.swift; path = Views/DistillationView.swift; sourceTree = SOURCE_ROOT; };
+		D53E4A1CBAC9D3D6A0C42A59 /* FileManagerService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileManagerService_Merged.swift; path = fieldmind/Services/FileManagerService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		D5A847C7878ABAFFDCD68A9A /* ProposalViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProposalViewModel_Merged.swift; path = fieldmind/ViewModels/ProposalViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		D69C42A684B892126FD63960 /* FileManagerViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileManagerViewModel_Merged.swift; path = fieldmind/ViewModels/FileManagerViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		DAB54DAD9636B8D15CA624E5 /* ReportViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReportViewModel_Merged.swift; path = fieldmind/ViewModels/ReportViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+		E943245B3054208800E48A67 /* fieldmind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fieldmind.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E943246B3054208B00E48A67 /* fieldmindTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fieldmindTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E94324753054208B00E48A67 /* fieldmindUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fieldmindUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F47A43678A094B85D722F6E5 /* ChatService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatService_Merged.swift; path = fieldmind/Services/ChatService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		F5A74DCC828D305CB90FB530 /* ModelConfigService_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModelConfigService_Merged.swift; path = fieldmind/Services/ModelConfigService_Merged.swift; sourceTree = SOURCE_ROOT; };
+		FBA64EE4998817B6211632EB /* MainNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainNavigationView.swift; path = Views/MainNavigationView.swift; sourceTree = SOURCE_ROOT; };
+		FEDE4A5DB15A2CD3ED3048FA /* KeywordSearchViewModel_Merged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeywordSearchViewModel_Merged.swift; path = fieldmind/ViewModels/KeywordSearchViewModel_Merged.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E943247D3054208B00E48A67 /* Exceptions for "fieldmind" folder in "fieldmind" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = E943245A3054208800E48A67 /* fieldmind */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E943245D3054208800E48A67 /* fieldmind */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				E943247D3054208B00E48A67 /* Exceptions for "fieldmind" folder in "fieldmind" target */,
+			);
+			path = fieldmind;
+			sourceTree = "<group>";
+		};
+		E943246E3054208B00E48A67 /* fieldmindTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = fieldmindTests;
+			sourceTree = "<group>";
+		};
+		E94324783054208B00E48A67 /* fieldmindUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = fieldmindUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E94324583054208800E48A67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E94324683054208B00E48A67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E94324723054208B00E48A67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0EC64DD88E8FDD5D52230313 /* fieldmind/Services */ = {
+			isa = PBXGroup;
+			children = (
+				66D54B77A3160321300517F6 /* BackendService.swift */,
+				2CB84F91A63223223D11BCBB /* KnowledgeVaultService.swift */,
+			);
+			name = fieldmind/Services;
+			sourceTree = "<group>";
+		};
+		24B840C2A660292A6E334BCC /* fieldmind/Core/DataPipeline */ = {
+			isa = PBXGroup;
+			children = (
+				1D60453F94F5434BD1BFD576 /* DataPipeline.swift */,
+			);
+			name = fieldmind/Core/DataPipeline;
+			sourceTree = "<group>";
+		};
+		3B7345579901BE141371EE28 /* fieldmind/Views */ = {
+			isa = PBXGroup;
+			children = (
+				8ED0419ABCE6C06A90374AAD /* KnowledgeVaultView.swift */,
+			);
+			name = fieldmind/Views;
+			sourceTree = "<group>";
+		};
+		418B4B0FB3489C695E97785E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				43AE42FE843D943B6DBB8676 /* ChatViewModel_Merged.swift */,
+				8EDB4D8A87AFB79500E898C0 /* ChronicleViewModel_Merged.swift */,
+				6E2F4C97B03CFB90AED6FE23 /* CitationViewModel_Merged.swift */,
+				2C004B6F8C6221B56183C138 /* ConversationViewModel_Merged.swift */,
+				55D04F26A0364D0E73BD35E7 /* DashboardViewModel_Merged.swift */,
+				6130409E82AE5D8DF24759D0 /* DocumentViewModel_Merged.swift */,
+				D69C42A684B892126FD63960 /* FileManagerViewModel_Merged.swift */,
+				FEDE4A5DB15A2CD3ED3048FA /* KeywordSearchViewModel_Merged.swift */,
+				77364AACAEBC0F397E214178 /* KnowledgeGraphViewModel_Merged.swift */,
+				15E94DB5B715093A01482BDD /* MemoryViewModel_Merged.swift */,
+				3C5A489C89630DEF649B6D8A /* ModelConfigViewModel_Merged.swift */,
+				0F764CEF97D48496DAFCCF1A /* MonitoringViewModel_Merged.swift */,
+				2F514FEB908ADDEF0FF5EDE7 /* PhotoViewModel_Merged.swift */,
+				94B841F18E86BB0C6C76AB90 /* ProjectViewModel_Merged.swift */,
+				D5A847C7878ABAFFDCD68A9A /* ProposalViewModel_Merged.swift */,
+				DAB54DAD9636B8D15CA624E5 /* ReportViewModel_Merged.swift */,
+				BC044C319449B64B1D70D858 /* SOPAnalysisViewModel_Merged.swift */,
+				0AD64969B95F525BB433FB9B /* SOPViewModel_Merged.swift */,
+				1AA1496F8EC18A23A5C1BE84 /* SkillViewModel_Merged.swift */,
+				94CF4280834B7667DFF6A517 /* TableViewModel_Merged.swift */,
+				449942DC8DA875445C48B3C0 /* TimelineViewModel_Merged.swift */,
+				9F3042F8B0743A4194033B5D /* VeinViewModel_Merged.swift */,
+				192748D688E1B6CFEEAE2D5B /* WorkflowViewModel_Merged.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		7A3D46CFB92A00B708C66886 /* fieldmind/Core */ = {
+			isa = PBXGroup;
+			children = (
+				B04F491783CAC01AFBFA780C /* UnifiedAppState.swift */,
+			);
+			name = fieldmind/Core;
+			sourceTree = "<group>";
+		};
+		B7A84C3AB72E001B9B4962C3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FBA64EE4998817B6211632EB /* MainNavigationView.swift */,
+				D194403F9F20975F87B78CDA /* DistillationView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		E94324523054208700E48A67 = {
+			isa = PBXGroup;
+			children = (
+				E943245D3054208800E48A67 /* fieldmind */,
+				E943246E3054208B00E48A67 /* fieldmindTests */,
+				E94324783054208B00E48A67 /* fieldmindUITests */,
+				E943245C3054208800E48A67 /* Products */,
+				EA27434783E67FE5DEF7E368 /* Services */,
+				B7A84C3AB72E001B9B4962C3 /* Views */,
+				7A3D46CFB92A00B708C66886 /* fieldmind/Core */,
+				24B840C2A660292A6E334BCC /* fieldmind/Core/DataPipeline */,
+				0EC64DD88E8FDD5D52230313 /* fieldmind/Services */,
+				3B7345579901BE141371EE28 /* fieldmind/Views */,
+				418B4B0FB3489C695E97785E /* ViewModels */,
+			);
+			sourceTree = "<group>";
+		};
+		E943245C3054208800E48A67 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E943245B3054208800E48A67 /* fieldmind.app */,
+				E943246B3054208B00E48A67 /* fieldmindTests.xctest */,
+				E94324753054208B00E48A67 /* fieldmindUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA27434783E67FE5DEF7E368 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0D564818BEB5F8E29AB78E60 /* DistillationService.swift */,
+				1B9A4AEC940063F196E6DAD3 /* BusinessAnalysisService_Merged.swift */,
+				F47A43678A094B85D722F6E5 /* ChatService_Merged.swift */,
+				927B4F28A0D115E3F6F9911A /* ChronicleService_Merged.swift */,
+				BCFA4D4D990A6312CDB28B2A /* CitationService_Merged.swift */,
+				28E244E4A54EF91A7BD30842 /* DashboardService_Merged.swift */,
+				37B24CC0BF657F57D0EFE1DC /* DocumentService_Merged.swift */,
+				29C243C99A354C86F97778CA /* FileAccessManager_Merged.swift */,
+				D53E4A1CBAC9D3D6A0C42A59 /* FileManagerService_Merged.swift */,
+				A13B462480B3A95112D0B8CE /* KeywordSearchService_Merged.swift */,
+				4EE04BD682D4CFEB4F0A203E /* KnowledgeGraphService_Merged.swift */,
+				C24D4353A62F0351D9EDBF39 /* MemoryService_Merged.swift */,
+				F5A74DCC828D305CB90FB530 /* ModelConfigService_Merged.swift */,
+				11BF4B66B68A3EFE08BFF454 /* MonitoringService_Merged.swift */,
+				9E3F45A08824466D14378501 /* PhotoService_Merged.swift */,
+				33904263AFB5851B3B9BC7C9 /* ProjectService_Merged.swift */,
+				A683403892CC1D7971895915 /* ProposalService_Merged.swift */,
+				40F34616914A2C91BBAAEC2F /* ReportService_Merged.swift */,
+				4FBA400CB25186D11284066F /* SOPAnalysisService_Merged.swift */,
+				BB524B1FA2B51DC17F9D756F /* SOPService_Merged.swift */,
+				3CD54F929154469907DBC45C /* SkillService_Merged.swift */,
+				4B9C45B2AE0D22C3698E580A /* TableService_Merged.swift */,
+				BF984DF78228F1A042F5EF92 /* TimelineService_Merged.swift */,
+				472C496EAD8F311FA67DF774 /* UploadFileSelectionHelper_Merged.swift */,
+				B53D4B11997AEA09EA73AE0A /* VeinService_Merged.swift */,
+				94264A23B807D0908C198728 /* WorkflowService_Merged.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E943245A3054208800E48A67 /* fieldmind */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E943247E3054208B00E48A67 /* Build configuration list for PBXNativeTarget "fieldmind" */;
+			buildPhases = (
+				E94324573054208800E48A67 /* Sources */,
+				E94324583054208800E48A67 /* Frameworks */,
+				E94324593054208800E48A67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				E943245D3054208800E48A67 /* fieldmind */,
+			);
+			name = fieldmind;
+			packageProductDependencies = (
+			);
+			productName = fieldmind;
+			productReference = E943245B3054208800E48A67 /* fieldmind.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E943246A3054208B00E48A67 /* fieldmindTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E94324833054208B00E48A67 /* Build configuration list for PBXNativeTarget "fieldmindTests" */;
+			buildPhases = (
+				E94324673054208B00E48A67 /* Sources */,
+				E94324683054208B00E48A67 /* Frameworks */,
+				E94324693054208B00E48A67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E943246D3054208B00E48A67 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E943246E3054208B00E48A67 /* fieldmindTests */,
+			);
+			name = fieldmindTests;
+			packageProductDependencies = (
+			);
+			productName = fieldmindTests;
+			productReference = E943246B3054208B00E48A67 /* fieldmindTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E94324743054208B00E48A67 /* fieldmindUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E94324863054208B00E48A67 /* Build configuration list for PBXNativeTarget "fieldmindUITests" */;
+			buildPhases = (
+				E94324713054208B00E48A67 /* Sources */,
+				E94324723054208B00E48A67 /* Frameworks */,
+				E94324733054208B00E48A67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E94324773054208B00E48A67 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E94324783054208B00E48A67 /* fieldmindUITests */,
+			);
+			name = fieldmindUITests;
+			packageProductDependencies = (
+			);
+			productName = fieldmindUITests;
+			productReference = E94324753054208B00E48A67 /* fieldmindUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E94324533054208700E48A67 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					E943245A3054208800E48A67 = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					E943246A3054208B00E48A67 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = E943245A3054208800E48A67;
+					};
+					E94324743054208B00E48A67 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = E943245A3054208800E48A67;
+					};
+				};
+			};
+			buildConfigurationList = E94324563054208800E48A67 /* Build configuration list for PBXProject "fieldmind" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E94324523054208700E48A67;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = E943245C3054208800E48A67 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E943245A3054208800E48A67 /* fieldmind */,
+				E943246A3054208B00E48A67 /* fieldmindTests */,
+				E94324743054208B00E48A67 /* fieldmindUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E94324593054208800E48A67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E94324693054208B00E48A67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E94324733054208B00E48A67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E94324573054208800E48A67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4364157B524937E6150F9D2 /* MainNavigationView.swift in Sources */,
+				204A4FD88860FAAAC533A83C /* BackendService.swift in Sources */,
+				6A1C4DD595CDD1BAEFCA67B3 /* KnowledgeVaultView.swift in Sources */,
+				58A041678DB557C6EEBCE682 /* ChronicleService_Merged.swift in Sources */,
+				06614CE3BA67CF0A1238085B /* DocumentService_Merged.swift in Sources */,
+				0F634E578FB7DF8E8FCC4963 /* MemoryService_Merged.swift in Sources */,
+				731A407CBE8D3033AA449E25 /* ReportService_Merged.swift in Sources */,
+				2EC0491487C9A6EE28773C70 /* SOPService_Merged.swift in Sources */,
+				02ED4EB89FFCC38E56B31BA0 /* TimelineService_Merged.swift in Sources */,
+				48D9456DA5655A9B2B4ACF72 /* ChronicleViewModel_Merged.swift in Sources */,
+				89CA4A559072929431DDE676 /* ConversationViewModel_Merged.swift in Sources */,
+				31074D1E88CCA67B1136A77D /* ProjectViewModel_Merged.swift in Sources */,
+				40B8446085364B75B84FD7E2 /* SOPViewModel_Merged.swift in Sources */,
+				A61E4D7D9DF1DC6F9A5C839D /* SkillViewModel_Merged.swift in Sources */,
+				36C446E89D8B696039EEF0AC /* TimelineViewModel_Merged.swift in Sources */,
+				4CFE4DDBBE4546A81C7ECEC8 /* VeinViewModel_Merged.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E94324673054208B00E48A67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67BA4ABF8EB6413FE38208E9 /* DistillationService.swift in Sources */,
+				51964865ACC33969C5FFB039 /* DistillationView.swift in Sources */,
+				76E54E55B5724C246124C63F /* UnifiedAppState.swift in Sources */,
+				14B446D5940DC0EE524A8F3F /* DataPipeline.swift in Sources */,
+				5208407DBC9979E890C704ED /* BusinessAnalysisService_Merged.swift in Sources */,
+				27DD4A3C96F95AFE1984370D /* ChatService_Merged.swift in Sources */,
+				2BDD407692EE901C78C61FCC /* FileAccessManager_Merged.swift in Sources */,
+				1EDF4B399CFAF818133E99CC /* FileManagerService_Merged.swift in Sources */,
+				03EC463D924E31985AD19389 /* KeywordSearchService_Merged.swift in Sources */,
+				0E3D4105A46AE321150828E8 /* KnowledgeGraphService_Merged.swift in Sources */,
+				0E094612989461FF739A471B /* MonitoringService_Merged.swift in Sources */,
+				6A364FC5A27CFB33B2CB5202 /* ProjectService_Merged.swift in Sources */,
+				55C54BD89B80275F93A35554 /* SOPAnalysisService_Merged.swift in Sources */,
+				12324B1EA5E68CE03C167EFE /* SkillService_Merged.swift in Sources */,
+				009F441A880D0F26A0E1466D /* VeinService_Merged.swift in Sources */,
+				74EB4DB3B0D7D52DC16801FB /* WorkflowService_Merged.swift in Sources */,
+				06F7429F960A19E5747C564E /* CitationViewModel_Merged.swift in Sources */,
+				32FC4C3B805F37D6BC40FFB5 /* DashboardViewModel_Merged.swift in Sources */,
+				085D4122849982B84FFB1DB5 /* DocumentViewModel_Merged.swift in Sources */,
+				5A6C4D079AE4D46AA6CC7275 /* FileManagerViewModel_Merged.swift in Sources */,
+				21444CCE93773FFDC3D1BE63 /* KeywordSearchViewModel_Merged.swift in Sources */,
+				028A46E394BD41E7AF57E843 /* KnowledgeGraphViewModel_Merged.swift in Sources */,
+				49BA498D90DDCB4D262017ED /* MemoryViewModel_Merged.swift in Sources */,
+				760643DB840F1FD5BCAAE7AA /* MonitoringViewModel_Merged.swift in Sources */,
+				368B479582912937A9A37A43 /* PhotoViewModel_Merged.swift in Sources */,
+				322949B2AC40E24C2D45920B /* ProposalViewModel_Merged.swift in Sources */,
+				2E6A49E991495B2711109124 /* WorkflowViewModel_Merged.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E94324713054208B00E48A67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E3C45408B5436F1A310D686 /* KnowledgeVaultService.swift in Sources */,
+				8D1945AF81CD6CC452ADAE8E /* CitationService_Merged.swift in Sources */,
+				576242C4BE22C7FB5F798484 /* DashboardService_Merged.swift in Sources */,
+				959A4CBDA381299AADF6728E /* ModelConfigService_Merged.swift in Sources */,
+				3FCA497D96F5010669D96B80 /* PhotoService_Merged.swift in Sources */,
+				30F7409C8A9054B4973EF22F /* ProposalService_Merged.swift in Sources */,
+				0E4B4789A457327F27C9D01B /* TableService_Merged.swift in Sources */,
+				7BC24528B49370B8DC6777F0 /* UploadFileSelectionHelper_Merged.swift in Sources */,
+				34174DEEA2EC38E0B99A1A02 /* ChatViewModel_Merged.swift in Sources */,
+				5FD1400A95C20793FBAC8DE0 /* ModelConfigViewModel_Merged.swift in Sources */,
+				6D5A44C8B615311C07DE6F70 /* ReportViewModel_Merged.swift in Sources */,
+				5524475B9359D13E680B6B98 /* SOPAnalysisViewModel_Merged.swift in Sources */,
+				877B48279629C82C18724AF9 /* TableViewModel_Merged.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E943246D3054208B00E48A67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E943245A3054208800E48A67 /* fieldmind */;
+			targetProxy = E943246C3054208B00E48A67 /* PBXContainerItemProxy */;
+		};
+		E94324773054208B00E48A67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E943245A3054208800E48A67 /* fieldmind */;
+			targetProxy = E94324763054208B00E48A67 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E943247F3054208B00E48A67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = fieldmind/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphonesimulator*]" = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Services",
+					"$(SRCROOT)/Views",
+					"$(SRCROOT)/fieldmind/Core",
+					"$(SRCROOT)/fieldmind/Core/DataPipeline",
+					"$(SRCROOT)/fieldmind/Services",
+					"$(SRCROOT)/fieldmind/Views",
+					"$(SRCROOT)/fieldmind/ViewModels",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-122.fieldmind";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		E94324803054208B00E48A67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = fieldmind/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphonesimulator*]" = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Services",
+					"$(SRCROOT)/Views",
+					"$(SRCROOT)/fieldmind/Core",
+					"$(SRCROOT)/fieldmind/Core/DataPipeline",
+					"$(SRCROOT)/fieldmind/Services",
+					"$(SRCROOT)/fieldmind/Views",
+					"$(SRCROOT)/fieldmind/ViewModels",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-122.fieldmind";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		E94324813054208B00E48A67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E94324823054208B00E48A67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		E94324843054208B00E48A67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Services",
+					"$(SRCROOT)/Views",
+					"$(SRCROOT)/fieldmind/Core",
+					"$(SRCROOT)/fieldmind/Core/DataPipeline",
+					"$(SRCROOT)/fieldmind/Services",
+					"$(SRCROOT)/fieldmind/Views",
+					"$(SRCROOT)/fieldmind/ViewModels",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-122.fieldmindTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/fieldmind.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/fieldmind";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		E94324853054208B00E48A67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Services",
+					"$(SRCROOT)/Views",
+					"$(SRCROOT)/fieldmind/Core",
+					"$(SRCROOT)/fieldmind/Core/DataPipeline",
+					"$(SRCROOT)/fieldmind/Services",
+					"$(SRCROOT)/fieldmind/Views",
+					"$(SRCROOT)/fieldmind/ViewModels",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-122.fieldmindTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/fieldmind.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/fieldmind";
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+		E94324873054208B00E48A67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Services",
+					"$(SRCROOT)/Views",
+					"$(SRCROOT)/fieldmind/Core",
+					"$(SRCROOT)/fieldmind/Core/DataPipeline",
+					"$(SRCROOT)/fieldmind/Services",
+					"$(SRCROOT)/fieldmind/Views",
+					"$(SRCROOT)/fieldmind/ViewModels",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-122.fieldmindUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = fieldmind;
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Debug;
+		};
+		E94324883054208B00E48A67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/Services",
+					"$(SRCROOT)/Views",
+					"$(SRCROOT)/fieldmind/Core",
+					"$(SRCROOT)/fieldmind/Core/DataPipeline",
+					"$(SRCROOT)/fieldmind/Services",
+					"$(SRCROOT)/fieldmind/Views",
+					"$(SRCROOT)/fieldmind/ViewModels",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 26.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "-122.fieldmindUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = fieldmind;
+				XROS_DEPLOYMENT_TARGET = 26.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E94324563054208800E48A67 /* Build configuration list for PBXProject "fieldmind" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E94324813054208B00E48A67 /* Debug */,
+				E94324823054208B00E48A67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E943247E3054208B00E48A67 /* Build configuration list for PBXNativeTarget "fieldmind" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E943247F3054208B00E48A67 /* Debug */,
+				E94324803054208B00E48A67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E94324833054208B00E48A67 /* Build configuration list for PBXNativeTarget "fieldmindTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E94324843054208B00E48A67 /* Debug */,
+				E94324853054208B00E48A67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E94324863054208B00E48A67 /* Build configuration list for PBXNativeTarget "fieldmindUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E94324873054208B00E48A67 /* Debug */,
+				E94324883054208B00E48A67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E94324533054208700E48A67 /* Project object */;
+}

@@ -1,0 +1,1598 @@
+====================================================================================================
+API响应格式统一 - 迁移计划报告
+====================================================================================================
+生成时间: 2026-08-26 19:52:56
+
+📊 统计信息
+----------------------------------------------------------------------------------------------------
+需要迁移的文件数: 62
+需要迁移的端点数: 387
+
+📋 详细迁移清单
+----------------------------------------------------------------------------------------------------
+
+1. app/api/aggregate.py
+   端点数: 2
+   需要添加导入: 是
+
+   • GET /dashboard/{project_id}/
+     函数: get_dashboard_aggregate (行 22-25)
+
+   • GET /quick-stats/{project_id}/
+     函数: get_quick_stats (行 330-333)
+
+2. app/api/analytics.py
+   端点数: 5
+   需要添加导入: 是
+
+   • GET /projects/{project_id}/topic-distribution/
+     函数: get_topic_distribution (行 25-28)
+
+   • GET /projects/{project_id}/top-entities/
+     函数: get_top_entities (行 84-89)
+
+   • GET /projects/{project_id}/word-count-stats/
+     函数: get_word_count_stats (行 137-140)
+
+   • GET /projects/{project_id}/timeline-distribution/
+     函数: get_timeline_distribution (行 172-175)
+
+   • POST /projects/{project_id}/generate-report/
+     函数: generate_report (行 228-232)
+
+3. app/api/batch_processing.py
+   端点数: 4
+   需要添加导入: 是
+
+   • POST /process
+     函数: batch_process_documents (行 156-161)
+
+   • GET /status
+     函数: get_batch_status (行 209-212)
+
+   • POST /reprocess-failed
+     函数: reprocess_failed_documents (行 258-262)
+
+   • POST /process-project
+     函数: process_entire_project (行 301-306)
+
+4. app/api/business_analysis.py
+   端点数: 3
+   需要添加导入: 是
+
+   • POST /projects/{project_id}/analyze
+     函数: analyze_business_formats (行 46-49)
+
+   • GET /projects/{project_id}/formats/existing/
+     函数: get_existing_formats (行 95-98)
+
+   • GET /projects/{project_id}/synergy/
+     函数: analyze_synergy (行 108-111)
+
+5. app/api/chat.py
+   端点数: 7
+   需要添加导入: 是
+
+   • POST /sessions
+     函数: create_chat_session (行 26-29)
+
+   • GET /sessions/{session_id}
+     函数: get_chat_session (行 65-68)
+
+   • GET /projects/{project_id}/sessions/
+     函数: list_project_sessions (行 86-91)
+
+   • POST /sessions/{session_id}/messages
+     函数: send_message (行 118-122)
+
+   • GET /sessions/{session_id}/messages/
+     函数: get_session_messages (行 276-281)
+
+   • DELETE /sessions/{session_id}/
+     函数: delete_session (行 306-309)
+
+   • POST /sessions/{session_id}/evolve-skill/
+     函数: evolve_session_skill (行 332-335)
+
+6. app/api/chat_rag.py
+   端点数: 3
+   需要添加导入: 是
+
+   • POST /query
+     函数: rag_query (行 37-40)
+
+   • GET /available-documents/{project_id}/
+     函数: get_available_documents (行 191-194)
+
+   • GET /status
+     函数: rag_status (行 228-266)
+     返回类型: Dict
+     返回键: status, vectorized_documents, chromadb_status, vector_count, message
+
+7. app/api/citations.py
+   端点数: 7
+   需要添加导入: 是
+
+   • POST /citations
+     函数: create_citation (行 110-113)
+
+   • GET /citations
+     函数: list_citations (行 162-172)
+
+   • GET /citations/{citation_id}
+     函数: get_citation (行 235-238)
+
+   • PUT /citations/{citation_id}
+     函数: update_citation (行 247-251)
+
+   • DELETE /citations/{citation_id}/
+     函数: delete_citation (行 282-285)
+
+   • GET /citations/stats/{project_id}
+     函数: get_citation_stats (行 310-313)
+
+   • POST /citations/batch
+     函数: batch_create_citations (行 372-375)
+
+8. app/api/conversation_memory.py
+   端点数: 3
+   需要添加导入: 是
+
+   • POST /projects/{project_id}/ask/
+     函数: ask_with_context (行 25-29)
+
+   • GET /projects/{project_id}/context/
+     函数: get_project_context (行 84-88)
+
+   • GET /projects/{project_id}/conversations/
+     函数: get_conversation_history (行 109-113)
+
+9. app/api/creative_analysis.py
+   端点数: 2
+   需要添加导入: 是
+
+   • POST /projects/{project_id}/analyze
+     函数: analyze_creative_possibilities (行 50-54)
+
+   • GET /projects/{project_id}/cultural-elements/
+     函数: get_cultural_elements (行 95-98)
+
+10. app/api/dashboard.py
+   端点数: 3
+   需要添加导入: 是
+
+   • GET /stats/{project_id}
+     函数: get_dashboard_stats (行 65-68)
+
+   • GET /timeline/{project_id}
+     函数: get_project_timeline (行 255-259)
+
+   • GET /progress/{project_id}
+     函数: get_project_progress (行 320-323)
+
+11. app/api/deep_rag.py
+   端点数: 10
+   需要添加导入: 是
+
+   • GET /health
+     函数: health_check (行 58-80)
+     返回类型: Dict
+     返回键: status, service, available_sources, total_sources, active_conversations, timestamp
+
+   • POST /chat
+     函数: deep_chat (行 81-123)
+     返回类型: Dict
+     返回键: success, data, timestamp
+
+   • POST /retrieve
+     函数: multi_source_retrieve (行 124-161)
+     返回类型: Dict
+     返回键: success, data, timestamp
+
+   • POST /rank-fuse
+     函数: rank_and_fuse (行 162-195)
+     返回类型: Dict
+     返回键: success, data, results, count, fusion_method
+
+   • GET /conversation/{session_id}/
+     函数: get_conversation_history (行 196-225)
+     返回类型: Dict
+     返回键: success, data, session_id, messages, count
+
+   • DELETE /conversation/{session_id}/
+     函数: clear_conversation (行 226-251)
+     返回类型: Dict
+     返回键: success, message
+
+   • GET /sources
+     函数: list_available_sources (行 252-285)
+     返回类型: Dict
+     返回键: success, data, sources, total
+
+   • POST /chat/batch
+     函数: batch_chat (行 286-291)
+
+   • POST /chat/stream
+     函数: stream_chat (行 337-349)
+
+   • GET /statistics
+     函数: get_statistics (行 350-379)
+     返回类型: Dict
+     返回键: success, data, timestamp
+
+12. app/api/document_processing.py
+   端点数: 5
+   需要添加导入: 是
+
+   • GET /documents/{document_id}/status/
+     函数: get_processing_status (行 21-24)
+
+   • POST /documents/{document_id}/reprocess/
+     函数: reprocess_document (行 45-48)
+
+   • GET /documents/{document_id}/chunks/preview/
+     函数: get_chunks_preview (行 81-85)
+
+   • GET /projects/{project_id}/chunks/statistics/
+     函数: get_project_chunks_statistics (行 128-131)
+
+   • POST /projects/{project_id}/semantic-search/
+     函数: semantic_search (行 142-148)
+
+13. app/api/document_processing_v2.py
+   端点数: 7
+   需要添加导入: 是
+
+   • POST /process
+     函数: process_document_v2 (行 64-67)
+
+   • POST /search-with-citation
+     函数: search_with_citation (行 130-133)
+
+   • GET /chunk/{chunk_id}/
+     函数: get_chunk_with_citation (行 212-215)
+
+   • POST /reprocess/{document_id}/
+     函数: reprocess_document (行 244-248)
+
+   • GET /metadata-stats/{project_id}/
+     函数: get_metadata_stats (行 303-306)
+
+   • POST /process-audio
+     函数: process_audio_with_timestamps (行 359-362)
+
+   • GET /audio-segment/{chunk_id}/
+     函数: get_audio_segment (行 409-412)
+
+14. app/api/documents.py
+   端点数: 18
+   需要添加导入: 是
+
+   • POST /upload
+     函数: upload_document (行 28-33)
+
+   • GET /projects/{project_id}/documents/
+     函数: list_project_documents (行 85-91)
+
+   • GET /{document_id}
+     函数: get_document (行 113-116)
+
+   • DELETE /{document_id}/
+     函数: delete_document (行 137-140)
+
+   • GET /knowledge-base/status
+     函数: get_knowledge_base_status (行 169-230)
+     返回类型: Dict
+     返回键: total_documents, status_breakdown, pending, processing, completed, failed
+
+   • GET /list/status
+     函数: get_documents_status (行 231-234)
+
+   • GET /aggregate/keywords
+     函数: get_aggregated_keywords (行 286-290)
+
+   • GET /skill/analysis/{document_id}/
+     函数: get_skill_analysis (行 359-362)
+
+   • GET /aggregate/skills
+     函数: get_aggregated_skills (行 392-395)
+
+   • GET /{document_id}/fact-statements/
+     函数: get_document_fact_statements (行 445-448)
+
+   • GET /{document_id}/audio/
+     函数: get_document_audio (行 512-515)
+
+   • POST /upload/batch
+     函数: upload_documents_batch (行 554-559)
+
+   • GET /batch/{batch_id}/status
+     函数: get_batch_status (行 662-665)
+
+   • DELETE /batch
+     函数: delete_documents_batch (行 703-706)
+
+   • POST /batch/reprocess
+     函数: reprocess_documents_batch (行 753-756)
+
+   • POST /batch/quality-check
+     函数: quality_check_batch (行 841-844)
+
+   • GET /batch
+     函数: list_batch_operations (行 942-949)
+
+   • DELETE /batch/{batch_id}/cancel/
+     函数: cancel_batch_operation (行 1009-1012)
+
+15. app/api/dynamic_discovery_api.py
+   端点数: 5
+   需要添加导入: 是
+
+   • GET /documents/{document_id}
+     函数: get_document_discovery (行 95-98)
+
+   • GET /projects/{project_id}/summary
+     函数: get_project_discovery_summary (行 156-159)
+
+   • GET /projects/{project_id}/topics/
+     函数: get_all_discovered_topics (行 231-234)
+
+   • GET /projects/{project_id}/entities/
+     函数: get_all_discovered_entities (行 276-281)
+
+   • GET /health
+     函数: health_check (行 351-359)
+     返回类型: Dict
+     返回键: service, status, description
+
+16. app/api/federation_api.py
+   端点数: 14
+   需要添加导入: 是
+
+   • GET /objects/{fid}/lineage
+     函数: get_object_lineage (行 76-79)
+
+   • GET /objects/{fid}
+     函数: get_object_full_data (行 91-94)
+
+   • GET /projects/{project_id}/objects/
+     函数: list_project_objects (行 106-111)
+
+   • POST /relations/discover
+     函数: discover_relations (行 140-143)
+
+   • POST /projects/{project_id}/relations/discover-all/
+     函数: discover_project_relations (行 156-160)
+
+   • GET /objects/{fid}/relations/
+     函数: get_object_relations (行 173-178)
+
+   • POST /documents/{document_id}/align-timestamps/
+     函数: align_timestamps (行 204-208)
+
+   • GET /documents/{document_id}/content-at-time
+     函数: get_content_at_time (行 221-227)
+
+   • GET /entities/{entity_name}/timeline/
+     函数: get_entity_timeline (行 236-241)
+
+   • GET /entities/{entity_name}/profile/
+     函数: get_entity_profile (行 254-258)
+
+   • GET /events/{event_summary}/profile/
+     函数: get_event_profile (行 267-271)
+
+   • GET /documents/{document_id}/timestamp-validation/
+     函数: validate_timestamps (行 280-284)
+
+   • GET /objects/{fid}/recommend
+     函数: get_recommendations (行 295-300)
+
+   • GET /projects/{project_id}/hot-connections/
+     函数: get_hot_connections (行 309-313)
+
+17. app/api/file_manager.py
+   端点数: 6
+   需要添加导入: 是
+
+   • GET /file-tree/{project_id}
+     函数: get_file_tree (行 226-229)
+
+   • POST /folders
+     函数: create_folder (行 269-272)
+
+   • PUT /files/{file_id}/move/
+     函数: move_file (行 307-311)
+
+   • DELETE /files/{file_id}
+     函数: delete_file (行 367-370)
+
+   • DELETE /folders
+     函数: delete_folder (行 404-408)
+
+   • GET /folder-contents
+     函数: get_folder_contents (行 466-470)
+
+18. app/api/hierarchical_retrieval.py
+   端点数: 3
+   需要添加导入: 是
+
+   • POST /search
+     函数: hierarchical_search (行 59-62)
+
+   • GET /stats
+     函数: get_hierarchy_stats (行 150-153)
+
+   • POST /compare-strategies
+     函数: compare_strategies (行 247-251)
+
+19. app/api/keyword_search.py
+   端点数: 3
+   需要添加导入: 是
+
+   • POST /projects/{project_id}/search
+     函数: search_by_keyword (行 60-64)
+
+   • GET /projects/{project_id}/keywords/top/
+     函数: get_top_keywords (行 100-104)
+
+   • GET /projects/{project_id}/keywords/timeline/
+     函数: get_keyword_timeline (行 114-118)
+
+20. app/api/knowledge_graph.py
+   端点数: 9
+   需要添加导入: 是
+
+   • POST /build
+     函数: build_knowledge_graph (行 48-52)
+
+   • GET /entities
+     函数: get_entities (行 108-114)
+
+   • GET /entities/{entity_id}
+     函数: get_entity_detail (行 157-160)
+
+   • GET /visualize
+     函数: get_graph_visualization (行 171-176)
+
+   • GET /stats
+     函数: get_knowledge_graph_stats (行 233-236)
+
+   • DELETE /entities/{entity_id}/
+     函数: delete_entity (行 292-295)
+
+   • GET /projects/{project_id}/graph/
+     函数: get_project_knowledge_graph (行 311-314)
+
+   • GET /projects/{project_id}/keywords/
+     函数: get_project_keywords (行 380-384)
+
+   • GET /documents/{document_id}/entities/
+     函数: get_document_entities (行 434-437)
+
+21. app/api/knowledge_graph_v3.py
+   端点数: 6
+   需要添加导入: 是
+
+   • POST /extract-evidences
+     函数: extract_evidences (行 69-72)
+
+   • GET /entities/{entity_id}/evidences/
+     函数: get_entity_evidences (行 162-166)
+
+   • GET /categories/{category}/evidences/
+     函数: get_category_evidences (行 222-227)
+
+   • GET /categories/stats
+     函数: get_category_stats (行 270-273)
+
+   • GET /search
+     函数: search_entities_with_evidences (行 308-313)
+
+   • DELETE /evidences/{evidence_id}/
+     函数: delete_evidence (行 359-362)
+
+22. app/api/memory.py
+   端点数: 11
+   需要添加导入: 是
+
+   • POST /create
+     函数: create_memory (行 68-71)
+
+   • GET /project/{project_id}
+     函数: get_project_memories (行 122-127)
+
+   • GET /{memory_id}
+     函数: get_memory_detail (行 163-166)
+
+   • POST /build-prompt
+     函数: build_system_prompt (行 193-196)
+
+   • POST /promote
+     函数: promote_memory (行 248-251)
+
+   • POST /auto-promote/{project_id}/
+     函数: auto_promote_memories (行 288-292)
+
+   • DELETE /{memory_id}/
+     函数: delete_memory (行 316-319)
+
+   • POST /cleanup/{project_id}/
+     函数: cleanup_old_memories (行 333-337)
+
+   • GET /stats/{project_id}/
+     函数: get_memory_stats (行 358-361)
+
+   • POST /quick/from-chat
+     函数: quick_create_from_chat (行 414-421)
+
+   • POST /quick/from-document
+     函数: quick_create_from_document (行 448-455)
+
+23. app/api/monitoring.py
+   端点数: 4
+   需要添加导入: 是
+
+   • GET /health
+     函数: health_check (行 90-119)
+     返回类型: Dict
+     返回键: status, timestamp, components, api, database, disk
+
+   • GET /metrics
+     函数: get_metrics (行 120-160)
+     返回类型: Dict
+     返回键: timestamp, system, cpu_percent, memory_percent, memory_available_gb, disk_percent, disk_free_gb
+
+   • GET /logs/recent
+     函数: get_recent_logs (行 161-202)
+     返回类型: Dict
+     返回键: lines, logs, events, total_lines, message
+
+   • GET /stats/api
+     函数: get_api_stats (行 203-245)
+     返回类型: Dict
+     返回键: total_calls, message
+
+24. app/api/ocr.py
+   端点数: 7
+   需要添加导入: 是
+
+   • POST /recognize
+     函数: recognize_image (行 81-86)
+
+   • POST /recognize-pdf
+     函数: recognize_pdf (行 159-165)
+
+   • POST /recognize-batch
+     函数: recognize_batch (行 255-260)
+
+   • GET /statistics
+     函数: get_ocr_statistics (行 367-387)
+     返回类型: Dict
+     返回键: success, statistics, timestamp
+
+   • GET /supported-languages
+     函数: get_supported_languages (行 388-415)
+     返回类型: Dict
+     返回键: success, languages, default, recommended_for_chinese
+
+   • POST /quality-check
+     函数: check_ocr_quality_endpoint (行 416-419)
+
+   • GET /health
+     函数: ocr_health_check (行 464-492)
+     返回类型: Dict
+     返回键: status, service, initialized, statistics, timestamp
+
+25. app/api/permissions.py
+   端点数: 6
+   需要添加导入: 是
+
+   • GET /all
+     函数: get_all_permissions (行 66-68)
+
+   • GET /roles
+     函数: get_role_permissions (行 87-89)
+
+   • GET /roles/{role}
+     函数: get_role_permission_detail (行 107-110)
+
+   • GET /me
+     函数: get_my_permissions (行 133-135)
+
+   • GET /check/{permission}/
+     函数: check_permission (行 152-155)
+
+   • GET /matrix
+     函数: get_permission_matrix (行 181-183)
+
+26. app/api/photos.py
+   端点数: 5
+   需要添加导入: 是
+
+   • POST /photos/upload
+     函数: upload_photo (行 186-192)
+
+   • GET /photos
+     函数: list_photos (行 295-304)
+
+   • GET /photos/stats/{project_id}
+     函数: get_photo_stats (行 417-420)
+
+   • GET /photos/stats/{project_id}/
+     函数: get_photo_stats (行 417-420)
+
+   • DELETE /photos/{photo_id}/
+     函数: delete_photo (行 508-511)
+
+27. app/api/proposal.py
+   端点数: 3
+   需要添加导入: 是
+
+   • POST /projects/{project_id}/generate/
+     函数: generate_proposal (行 23-27)
+
+   • GET /projects/{project_id}/templates/
+     函数: get_proposal_templates (行 60-63)
+
+   • POST /projects/{project_id}/export/
+     函数: export_proposal (行 98-103)
+
+28. app/api/quality.py
+   端点数: 11
+   需要添加导入: 是
+
+   • POST /validate/document
+     函数: validate_document (行 99-128)
+
+   • POST /validate/ocr
+     函数: validate_ocr (行 129-158)
+
+   • POST /validate/entities
+     函数: validate_entities (行 159-185)
+
+   • POST /validate/embedding
+     函数: validate_embedding (行 186-212)
+
+   • POST /validate/graph
+     函数: validate_graph (行 213-240)
+
+   • POST /validate/batch
+     函数: validate_batch (行 241-287)
+
+   • GET /statistics
+     函数: get_statistics (行 288-303)
+
+   • POST /statistics/reset
+     函数: reset_statistics (行 304-319)
+     返回类型: Dict
+     返回键: message, timestamp
+
+   • GET /issue-types
+     函数: get_issue_types (行 320-336)
+     返回类型: Dict
+     返回键: issue_types, type, name, category
+
+   • GET /quality-levels
+     函数: get_quality_levels (行 337-352)
+     返回类型: Dict
+     返回键: quality_levels, level, min_score, description
+
+   • GET /health
+     函数: health_check (行 353-379)
+     返回类型: Dict
+     返回键: status, timestamp, checks_performed, auto_fix_enabled
+
+29. app/api/quantification.py
+   端点数: 5
+   需要添加导入: 是
+
+   • GET /stats/{project_id}
+     函数: get_quantification_stats (行 55-115)
+
+   • GET /clusters/{project_id}/
+     函数: get_cluster_results (行 116-170)
+     返回类型: Dict
+     返回键: project_id, n_clusters, total_chunks, clusters
+
+   • GET /comparisons/{project_id}/
+     函数: get_comparison_results (行 171-174)
+
+   • GET /wordcloud/{project_id}/
+     函数: get_wordcloud_data (行 230-233)
+
+   • GET /chunk/{chunk_id}/
+     函数: get_chunk_quantification (行 282-351)
+     返回类型: Dict
+     返回键: chunk_id, text, structural, word_count, sentence_count, paragraph_count, avg_word_length, avg_sentence_length
+
+30. app/api/reports_real.py
+   端点数: 2
+   需要添加导入: 是
+
+   • POST /generate
+     函数: generate_report (行 39-42)
+
+   • GET /preview/{report_level}/
+     函数: preview_report (行 713-717)
+
+31. app/api/routes/agent_pipeline.py
+   端点数: 6
+   需要添加导入: 是
+
+   • POST /process-document
+     函数: process_document (行 61-64)
+
+   • POST /approve/{packet_id}
+     函数: approve_packet (行 100-103)
+
+   • POST /reject/{packet_id}
+     函数: reject_packet (行 127-131)
+
+   • GET /status/{packet_id}
+     函数: get_packet_status (行 155-173)
+
+   • GET /project/{project_id}/status/
+     函数: get_project_status (行 174-187)
+
+   • GET /stages
+     函数: get_all_stages (行 188-214)
+     返回类型: Dict
+     返回键: total_stages, stages
+
+32. app/api/routes/file_management.py
+   端点数: 6
+   需要添加导入: 是
+
+   • GET /projects/{project_id}/files
+     函数: list_project_files (行 73-77)
+
+   • GET /files/{file_id}/transcript
+     函数: get_file_transcript (行 125-128)
+
+   • GET /projects/{project_id}/merged
+     函数: get_project_merged (行 180-183)
+
+   • GET /sources/{sentence_index}
+     函数: query_source (行 258-263)
+
+   • DELETE /files/{file_id}/
+     函数: delete_file (行 326-329)
+
+   • GET /files/{file_id}/download/
+     函数: download_original_file (行 350-353)
+
+33. app/api/routes/skills.py
+   端点数: 6
+   需要添加导入: 是
+
+   • GET /list
+     函数: list_available_skills (行 20-109)
+     返回类型: Dict
+     返回键: skills, id, name, description, dimensions, author, keywords, enabled
+
+   • GET /document/{document_id}/results/
+     函数: get_document_skill_results (行 110-113)
+
+   • GET /document/{document_id}/skill/{skill_id}/
+     函数: get_document_single_skill_result (行 153-157)
+
+   • GET /project/{project_id}/settings/
+     函数: get_project_skill_settings (行 203-206)
+
+   • PUT /project/{project_id}/settings/
+     函数: update_project_skill_settings (行 247-251)
+
+   • GET /project/{project_id}/statistics/
+     函数: get_project_skills_statistics (行 314-317)
+
+34. app/api/scheduler.py
+   端点数: 8
+   需要添加导入: 是
+
+   • POST /tasks
+     函数: create_scheduled_task (行 26-29)
+
+   • GET /tasks/{task_id}
+     函数: get_scheduled_task (行 79-82)
+
+   • GET /tasks
+     函数: list_scheduled_tasks (行 94-101)
+
+   • PUT /tasks/{task_id}
+     函数: update_scheduled_task (行 140-144)
+
+   • DELETE /tasks/{task_id}
+     函数: delete_scheduled_task (行 180-183)
+
+   • POST /tasks/{task_id}/run
+     函数: run_task_manually (行 194-197)
+
+   • GET /executions
+     函数: list_task_executions (行 227-233)
+
+   • GET /executions/{execution_id}
+     函数: get_task_execution (行 269-272)
+
+35. app/api/skill_config.py
+   端点数: 4
+   需要添加导入: 是
+
+   • GET /available
+     函数: get_available_skills (行 113-123)
+     返回类型: Dict
+     返回键: skills, total
+
+   • GET /config/{project_id}
+     函数: get_skill_config (行 124-127)
+
+   • POST /config
+     函数: update_skill_config (行 163-166)
+
+   • POST /toggle/{project_id}/{skill_id}/
+     函数: toggle_skill (行 215-220)
+
+36. app/api/source_traceback.py
+   端点数: 8
+   需要添加导入: 是
+
+   • POST /analyses
+     函数: save_analysis (行 32-35)
+
+   • GET /analyses/{analysis_id}/
+     函数: get_analysis_with_sources (行 63-66)
+
+   • GET /projects/{project_id}/analyses/
+     函数: list_project_analyses (行 87-93)
+
+   • GET /statements/{statement_id}/sources/
+     函数: get_statement_sources (行 131-134)
+
+   • POST /sources/{source_id}/verify/
+     函数: verify_source (行 151-155)
+
+   • GET /chunks/{chunk_id}/detail/
+     函数: get_chunk_detail (行 188-191)
+
+   • DELETE /analyses/{analysis_id}/
+     函数: delete_analysis (行 268-271)
+
+   • GET /projects/{project_id}/statistics/
+     函数: get_project_source_statistics (行 291-294)
+
+37. app/api/tables.py
+   端点数: 10
+   需要添加导入: 是
+
+   • GET /projects/{project_id}/tables
+     函数: list_tables (行 90-100)
+     返回类型: Dict
+     返回键: tables, total
+
+   • GET /projects/{project_id}/tables/
+     函数: list_tables (行 90-100)
+     返回类型: Dict
+     返回键: tables, total
+
+   • GET /projects/{project_id}/tables/statistics
+     函数: table_statistics (行 102-117)
+     返回类型: Dict
+     返回键: total_tables, total_rows, total_size, format_counts
+
+   • GET /projects/{project_id}/tables/statistics/
+     函数: table_statistics (行 102-117)
+     返回类型: Dict
+     返回键: total_tables, total_rows, total_size, format_counts
+
+   • GET /projects/{project_id}/tables/{table_id}
+     函数: get_table (行 119-123)
+
+   • GET /projects/{project_id}/tables/{table_id}/
+     函数: get_table (行 119-123)
+
+   • POST /projects/{project_id}/tables/upload
+     函数: upload_table (行 125-132)
+
+   • POST /projects/{project_id}/tables/upload/
+     函数: upload_table (行 125-132)
+
+   • DELETE /projects/{project_id}/tables/{table_id}
+     函数: delete_table (行 188-196)
+     返回类型: Dict
+     返回键: status, message
+
+   • DELETE /projects/{project_id}/tables/{table_id}/
+     函数: delete_table (行 188-196)
+     返回类型: Dict
+     返回键: status, message
+
+38. app/api/timeline.py
+   端点数: 5
+   需要添加导入: 是
+
+   • POST /build
+     函数: build_timeline (行 123-127)
+
+   • GET /events
+     函数: get_timeline_events (行 219-226)
+
+   • GET /stats
+     函数: get_timeline_stats (行 305-308)
+
+   • GET /projects/{project_id}/events/
+     函数: get_project_timeline (行 371-374)
+
+   • GET /projects/{project_id}/events/grouped/
+     函数: get_grouped_timeline (行 434-438)
+
+39. app/api/v1/audio.py
+   端点数: 3
+   需要添加导入: 是
+
+   • POST /upload
+     函数: upload_audio (行 20-25)
+
+   • GET /status/{task_id}/
+     函数: get_audio_processing_status (行 98-101)
+
+   • GET /list
+     函数: list_audio_files (行 127-132)
+
+40. app/api/v1/auth.py
+   端点数: 5
+   需要添加导入: 是
+
+   • POST /register
+     函数: register (行 18-59)
+
+   • POST /login
+     函数: login (行 60-100)
+
+   • POST /logout
+     函数: logout (行 101-108)
+     返回类型: Dict
+     返回键: message
+
+   • GET /me
+     函数: get_current_user_info (行 109-114)
+
+   • POST /refresh
+     函数: refresh_token (行 115-156)
+     返回类型: Dict
+     返回键: access_token, token_type
+
+41. app/api/v1/chunks_quantification.py
+   端点数: 5
+   需要添加导入: 是
+
+   • GET /{chunk_id}/metrics/
+     函数: get_chunk_metrics (行 21-24)
+
+   • GET /document/{document_id}/metrics/
+     函数: get_document_chunks_metrics (行 80-83)
+
+   • GET /document/{document_id}/metrics/summary/
+     函数: get_document_metrics_summary (行 141-144)
+
+   • GET /document/{document_id}/emotion-distribution/
+     函数: get_emotion_distribution (行 199-202)
+
+   • GET /search
+     函数: search_chunks_by_metrics (行 256-264)
+
+42. app/api/v1/crawler.py
+   端点数: 6
+   需要添加导入: 是
+
+   • POST /crawl
+     函数: crawl_url (行 33-73)
+     返回类型: Dict
+     返回键: success, message, url, crawler_type, auto_process, task_id, status_url
+
+   • POST /batch-crawl
+     函数: batch_crawl_urls (行 74-108)
+     返回类型: Dict
+     返回键: success, message
+
+   • POST /news
+     函数: crawl_news_article (行 109-135)
+     返回类型: Dict
+     返回键: success, message, url, method, task_id, status_url
+
+   • POST /government
+     函数: crawl_government_document (行 136-162)
+     返回类型: Dict
+     返回键: success, message, url, method, task_id, status_url
+
+   • GET /status/{task_id}/
+     函数: get_crawl_status (行 163-188)
+
+   • GET /supported-crawlers
+     函数: get_supported_crawlers (行 189-234)
+     返回类型: Dict
+     返回键: crawlers, type, name, description, free, speed
+
+43. app/api/v1/enhanced_chat.py
+   端点数: 8
+   需要添加导入: 是
+
+   • POST /chat/enhanced
+     函数: enhanced_chat (行 74-77)
+
+   • POST /chat/enhanced/stream
+     函数: enhanced_chat_stream (行 171-174)
+
+   • POST /chat/sessions
+     函数: create_chat_session (行 247-250)
+
+   • GET /chat/sessions/{project_id}/
+     函数: list_chat_sessions (行 282-285)
+
+   • GET /chat/sessions/{session_id}/messages/
+     函数: get_session_messages (行 311-315)
+
+   • POST /memory/search
+     函数: search_memory (行 345-366)
+     返回类型: Dict
+     返回键: success, query, results, count
+
+   • GET /memory/statistics
+     函数: get_memory_statistics (行 367-381)
+     返回类型: Dict
+     返回键: success, statistics
+
+   • DELETE /chat/sessions/{session_id}/
+     函数: delete_chat_session (行 382-385)
+
+44. app/api/v1/governance_validation.py
+   端点数: 5
+   需要添加导入: 是
+
+   • GET /validation/dimension-distribution
+     函数: get_dimension_distribution (行 24-27)
+
+   • GET /validation/chunk-continuity
+     函数: check_chunk_continuity (行 88-91)
+
+   • GET /validation/missing-analysis
+     函数: analyze_missing_data (行 181-184)
+
+   • GET /validation/document-coverage/{document_id}/
+     函数: get_document_coverage (行 300-303)
+
+   • GET /validation/full-report
+     函数: get_full_validation_report (行 353-356)
+
+45. app/api/v1/industry.py
+   端点数: 4
+   需要添加导入: 是
+
+   • GET /categories
+     函数: get_industry_categories (行 22-25)
+
+   • GET /{category}/details
+     函数: get_industry_details (行 53-57)
+
+   • GET /{category}/statistics
+     函数: get_industry_statistics (行 277-281)
+
+   • GET /{category}/trends
+     函数: get_industry_trends (行 370-375)
+
+46. app/api/v1/knowledge_graph_api.py
+   端点数: 6
+   需要添加导入: 是
+
+   • GET /stats
+     函数: get_graph_stats (行 40-64)
+
+   • GET /data
+     函数: get_graph_data (行 65-84)
+
+   • POST /query/related
+     函数: query_related_entities (行 85-113)
+     返回类型: Dict
+     返回键: entity, related, count
+
+   • POST /build/{document_id}/
+     函数: build_graph_for_document (行 114-166)
+     返回类型: Dict
+     返回键: success, document_id, entities_extracted, relations_extracted, message
+
+   • POST /rebuild
+     函数: rebuild_entire_graph (行 167-216)
+     返回类型: Dict
+     返回键: success, documents_processed, total_entities, total_relations, graph_stats
+
+   • GET /export/html
+     函数: export_visualization (行 217-247)
+     返回类型: Dict
+     返回键: success, file_path, url, message
+
+47. app/api/v1/knowledge_graph_enhanced.py
+   端点数: 9
+   需要添加导入: 是
+
+   • POST /construct
+     函数: construct_graph (行 123-205)
+
+   • POST /query/node
+     函数: query_node_neighborhood (行 206-236)
+
+   • POST /reasoning
+     函数: perform_reasoning (行 237-287)
+
+   • POST /skills/link
+     函数: link_skill (行 288-363)
+     返回类型: Dict
+     返回键: success, associations_created, message
+
+   • POST /skills/query
+     函数: query_triple_interaction (行 364-412)
+
+   • POST /timeline
+     函数: get_timeline (行 413-459)
+
+   • POST /export
+     函数: export_graph (行 460-538)
+     返回类型: Dict
+     返回键: success, format, file_path, file_name, url
+
+   • POST /cypher/query
+     函数: cypher_query (行 539-575)
+     返回类型: Dict
+     返回键: success, cypher, results, count, enhanced
+
+   • GET /stats
+     函数: get_graph_statistics (行 576-610)
+     返回类型: Dict
+     返回键: success, construction, integration, message
+
+48. app/api/v1/learning.py
+   端点数: 6
+   需要添加导入: 是
+
+   • POST /experience
+     函数: record_experience (行 93-97)
+
+   • POST /suggest
+     函数: suggest_action (行 151-155)
+
+   • GET /stats
+     函数: get_learning_stats (行 210-213)
+
+   • POST /skill
+     函数: register_skill (行 234-238)
+
+   • GET /skills
+     函数: get_skills (行 279-283)
+
+   • GET /health
+     函数: learning_health_check (行 322-343)
+     返回类型: Dict
+     返回键: status, learning_enabled, total_experiences, total_skills
+
+49. app/api/v1/project_chat.py
+   端点数: 2
+   需要添加导入: 是
+
+   • POST /{project_id}/chat-sessions/{session_id}/messages
+     函数: send_chat_message (行 19-24)
+
+   • GET /{project_id}/chat-sessions/{session_id}/messages
+     函数: get_chat_messages (行 129-135)
+
+50. app/api/v1/project_documents.py
+   端点数: 8
+   需要添加导入: 是
+
+   • POST /{project_id}/documents/upload
+     函数: upload_document (行 71-75)
+
+   • GET /{project_id}/documents/{document_id}
+     函数: get_document_detail (行 126-130)
+
+   • GET /{project_id}/documents/{document_id}/tags/
+     函数: list_document_tags (行 143-147)
+
+   • POST /{project_id}/documents/{document_id}/tags/
+     函数: add_document_tag (行 159-164)
+
+   • DELETE /{project_id}/documents/{document_id}/tags/{tag_id}
+     函数: delete_document_tag (行 193-198)
+
+   • POST /{project_id}/documents/{document_id}/process/
+     函数: process_document (行 219-223)
+
+   • DELETE /{project_id}/documents/{document_id}
+     函数: delete_document (行 263-267)
+
+   • GET /{project_id}/documents/{document_id}/content/
+     函数: get_document_content (行 301-305)
+
+51. app/api/v1/project_workflow.py
+   端点数: 2
+   需要添加导入: 是
+
+   • POST /projects/{project_id}/analyze/
+     函数: analyze_project (行 220-224)
+
+   • GET /projects/{project_id}/workflow-status/
+     函数: get_workflow_status (行 245-248)
+
+52. app/api/v1/projects.py
+   端点数: 18
+   需要添加导入: 是
+
+   • POST /
+     函数: create_project (行 29-33)
+
+   • GET /
+     函数: list_projects (行 53-58)
+
+   • GET /{project_id}/
+     函数: get_project (行 108-111)
+
+   • PUT /{project_id}
+     函数: update_project (行 120-124)
+
+   • DELETE /{project_id}
+     函数: delete_project (行 145-148)
+
+   • POST /{project_id}/archive
+     函数: archive_project (行 161-164)
+
+   • POST /{project_id}/restore
+     函数: restore_project (行 179-182)
+
+   • GET /{project_id}/documents
+     函数: list_project_documents (行 199-205)
+
+   • GET /{project_id}/documents/{document_id}
+     函数: get_project_document (行 222-226)
+
+   • POST /{project_id}/contexts
+     函数: create_project_context (行 242-246)
+
+   • GET /{project_id}/contexts
+     函数: list_project_contexts (行 287-292)
+
+   • GET /{project_id}/contexts/{context_id}
+     函数: get_project_context (行 312-316)
+
+   • POST /{project_id}/chat-sessions
+     函数: create_chat_session (行 332-336)
+
+   • GET /{project_id}/chat-sessions
+     函数: list_chat_sessions (行 370-375)
+
+   • GET /{project_id}/chat-sessions/{session_id}
+     函数: get_chat_session (行 390-395)
+
+   • GET /{project_id}/dashboard
+     函数: get_project_dashboard (行 417-420)
+
+   • GET /{project_id}/memories
+     函数: list_project_memories (行 472-478)
+
+   • GET /{project_id}/sessions/
+     函数: list_project_sessions (行 501-506)
+
+53. app/api/v1/query_api.py
+   端点数: 6
+   需要添加导入: 是
+
+   • POST /
+     函数: execute_query (行 54-145)
+
+   • GET /views
+     函数: list_views (行 146-159)
+
+   • GET /view/{view_id}
+     函数: get_view_definition (行 160-178)
+
+   • GET /metrics
+     函数: get_metrics (行 179-193)
+
+   • POST /cache/clear
+     函数: clear_cache (行 194-204)
+     返回类型: Dict
+     返回键: status, message
+
+   • POST /metrics/reset
+     函数: reset_metrics (行 205-214)
+     返回类型: Dict
+     返回键: status, message
+
+54. app/api/v1/rag.py
+   端点数: 3
+   需要添加导入: 是
+
+   • POST /retrieve
+     函数: rag_retrieve (行 44-137)
+
+   • GET /stats
+     函数: rag_stats (行 138-155)
+     返回类型: Dict
+     返回键: success, stats
+
+   • POST /test
+     函数: test_rag (行 156-186)
+     返回类型: Dict
+     返回键: success, message, results_count, stats
+
+55. app/api/v1/reports.py
+   端点数: 5
+   需要添加导入: 是
+
+   • POST /generate
+     函数: create_report (行 26-30)
+
+   • GET /{report_id}
+     函数: get_report (行 96-100)
+
+   • GET /{report_id}/download/
+     函数: download_report (行 113-118)
+
+   • DELETE /{report_id}
+     函数: delete_report (行 157-161)
+
+   • POST /summary-document
+     函数: generate_summary_document (行 184-188)
+
+56. app/api/v1/skills.py
+   端点数: 6
+   需要添加导入: 是
+
+   • POST /upload
+     函数: upload_skill (行 217-222)
+
+   • PUT /{skill_id}/activate
+     函数: activate_skill (行 351-355)
+
+   • PUT /{skill_id}/deactivate
+     函数: deactivate_skill (行 379-383)
+
+   • DELETE /{skill_id}
+     函数: delete_skill (行 399-403)
+
+   • POST /{skill_id}/test
+     函数: test_skill (行 431-436)
+
+   • GET /available-for-task
+     函数: get_available_skills_for_task (行 465-469)
+
+57. app/api/v1/super_agents.py
+   端点数: 7
+   需要添加导入: 是
+
+   • POST /knowledge/analyze
+     函数: knowledge_analyze (行 120-124)
+
+   • POST /search/query
+     函数: search_query (行 308-311)
+
+   • POST /summary/generate
+     函数: summary_generate (行 417-420)
+
+   • POST /transcript/process
+     函数: transcript_process (行 540-543)
+
+   • POST /orchestrate
+     函数: orchestrate_agents (行 662-666)
+
+   • GET /status/{execution_id}
+     函数: get_execution_status (行 803-842)
+
+   • GET /health
+     函数: agents_health_check (行 843-895)
+
+58. app/api/v1/topic_analysis.py
+   端点数: 7
+   需要添加导入: 是
+
+   • POST /extract-keywords
+     函数: extract_keywords (行 40-88)
+     返回类型: Dict
+     返回键: status, message
+
+   • GET /keywords/chunk/{chunk_id}/
+     函数: get_chunk_keywords (行 89-111)
+     返回类型: Dict
+     返回键: status, chunk_id, keywords
+
+   • GET /keywords/project/{project_id}/
+     函数: get_project_top_keywords (行 112-135)
+     返回类型: Dict
+     返回键: status, project_id, top_n, keywords
+
+   • POST /cluster
+     函数: cluster_project (行 136-162)
+     返回类型: Dict
+     返回键: status, message
+
+   • GET /clusters/{project_id}/
+     函数: get_project_clusters (行 163-186)
+     返回类型: Dict
+     返回键: status, project_id, n_clusters, clusters
+
+   • GET /clusters/{project_id}/{cluster_id}/chunks/
+     函数: get_cluster_chunks (行 187-211)
+     返回类型: Dict
+     返回键: status, project_id, cluster_id, chunk_count, chunks
+
+   • POST /auto-analyze/{project_id}/
+     函数: auto_analyze_project (行 212-253)
+     返回类型: Dict
+     返回键: status, message
+
+59. app/api/v1/workflows.py
+   端点数: 4
+   需要添加导入: 是
+
+   • GET /{workflow_id}
+     函数: get_workflow (行 109-113)
+
+   • POST /{workflow_id}/execute
+     函数: execute_workflow (行 159-164)
+
+   • DELETE /{workflow_id}
+     函数: delete_workflow (行 222-226)
+
+   • GET /{workflow_id}/executions
+     函数: get_workflow_executions (行 249-254)
+
+60. app/api/visualize.py
+   端点数: 10
+   需要添加导入: 是
+
+   • GET /health
+     函数: health_check (行 79-96)
+     返回类型: Dict
+     返回键: status, tools
+
+   • POST /plotly/bar
+     函数: create_plotly_bar (行 97-127)
+     返回类型: Dict
+     返回键: success, html
+
+   • POST /plotly/line
+     函数: create_plotly_line (行 128-158)
+     返回类型: Dict
+     返回键: success, html
+
+   • POST /plotly/scatter3d
+     函数: create_plotly_scatter3d (行 159-193)
+     返回类型: Dict
+     返回键: success, html
+
+   • POST /pyecharts/pie
+     函数: create_pyecharts_pie (行 194-224)
+     返回类型: Dict
+     返回键: success, html
+
+   • POST /pyecharts/graph
+     函数: create_pyecharts_graph (行 225-258)
+     返回类型: Dict
+     返回键: success, html
+
+   • POST /networkx/knowledge-graph
+     函数: create_networkx_kg (行 259-292)
+     返回类型: Dict
+     返回键: success, html
+
+   • POST /wordcloud
+     函数: create_wordcloud (行 293-332)
+     返回类型: Dict
+     返回键: success, image
+
+   • POST /document-stats
+     函数: create_document_stats_viz (行 333-372)
+     返回类型: Dict
+     返回键: success, visualizations
+
+   • POST /knowledge-graph
+     函数: create_knowledge_graph_viz (行 373-399)
+     返回类型: Dict
+     返回键: success, html
+
+61. app/api/websocket.py
+   端点数: 11
+   需要添加导入: 是
+
+   • POST /broadcast
+     函数: broadcast_message (行 171-197)
+     返回类型: Dict
+     返回键: success, message, recipients
+
+   • POST /rooms/{room_id}/broadcast/
+     函数: broadcast_to_room (行 198-224)
+     返回类型: Dict
+     返回键: success, message
+
+   • POST /rooms/{room_id}/join/
+     函数: join_room_http (行 225-245)
+     返回类型: Dict
+     返回键: success, client_id, room_id
+
+   • POST /rooms/{room_id}/leave/
+     函数: leave_room_http (行 246-260)
+     返回类型: Dict
+     返回键: success, client_id, room_id
+
+   • GET /stats
+     函数: get_stats (行 261-280)
+     返回类型: Dict
+     返回键: success, data
+
+   • GET /clients/{client_id}/
+     函数: get_client_info (行 281-297)
+     返回类型: Dict
+     返回键: success, data
+
+   • GET /rooms/{room_id}/
+     函数: get_room_info_endpoint (行 298-313)
+     返回类型: Dict
+     返回键: success, data
+
+   • POST /events/emit
+     函数: emit_event (行 314-337)
+     返回类型: Dict
+     返回键: success, message
+
+   • GET /events/history
+     函数: get_event_history (行 338-341)
+
+   • GET /events/stats
+     函数: get_event_stats (行 360-375)
+     返回类型: Dict
+     返回键: success, data
+
+   • GET /health
+     函数: health_check (行 376-395)
+     返回类型: Dict
+     返回键: status, websocket, active_connections, total_rooms
+
+62. app/api/workflows.py
+   端点数: 9
+   需要添加导入: 是
+
+   • POST /execute
+     函数: execute_workflow (行 56-60)
+
+   • GET /{workflow_id}
+     函数: get_workflow_status (行 118-121)
+
+   • GET /
+     函数: list_workflows (行 152-156)
+
+   • POST /{workflow_id}/cancel/
+     函数: cancel_workflow (行 199-202)
+
+   • GET /templates/list
+     函数: list_workflow_templates (行 217-267)
+     返回类型: Dict
+     返回键: templates, type, name, description, required_params, steps
+
+   • GET /stats
+     函数: get_workflow_stats (行 268-316)
+     返回类型: Dict
+     返回键: total_executions, running, completed, failed, cancelled, success_rate
+
+   • POST /quick/document/{document_id}/
+     函数: quick_process_document (行 317-321)
+
+   • POST /quick/knowledge-graph
+     函数: quick_build_knowledge_graph (行 340-344)
+
+   • POST /quick/full-analysis
+     函数: quick_full_analysis (行 363-366)
+
+====================================================================================================
+下一步:
+----------------------------------------------------------------------------------------------------
+1. 审查此迁移计划
+2. 确认无误后，执行备份
+3. 执行迁移
+4. 运行测试验证
+====================================================================================================

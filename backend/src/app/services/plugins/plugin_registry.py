@@ -109,8 +109,13 @@ class PluginRegistry:
     4. 提供插件查询接口
     5. 管理插件生命周期
     """
+    def __init__(self, repos_dir: str = "/Users/alwan/FieldMind/repos", use_workflow_engine: bool = True):
 
-    def __init__(self, repos_dir: str = "/Users/alwan/FieldMind/repos"):
+        self.use_workflow_engine = use_workflow_engine
+
+        if use_workflow_engine:
+            from app.services.workflow_engine import WorkflowEngine
+            self.workflow_engine = WorkflowEngine(max_workers=4)
         """
         初始化插件注册表
 

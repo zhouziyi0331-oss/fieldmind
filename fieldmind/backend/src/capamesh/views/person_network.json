@@ -1,0 +1,88 @@
+{
+  "view_id": "person_network",
+  "name": "人物关系网络视图",
+  "description": "查询特定人物的社交网络和关系图谱",
+  "version": "1.0",
+  "input_parameters": {
+    "person_name": {
+      "type": "string",
+      "required": true,
+      "description": "人物姓名"
+    },
+    "depth": {
+      "type": "integer",
+      "required": false,
+      "default": 2,
+      "description": "关系深度（1-3层）"
+    }
+  },
+  "data_bindings": [
+    {
+      "binding_id": "graph_person_network",
+      "channel_type": "graph",
+      "query_template": "MATCH path = (p:Person {name: $person_name})-[*1..2]-(related)\nWHERE related:Person OR related:CulturalAsset OR related:Location OR related:Organization\nRETURN p, collect(DISTINCT related) as related_entities, collect(DISTINCT relationships(path)) as relations",
+      "output_mapping": {
+        "person": "p",
+        "related_entities": "related_entities",
+        "relations": "relations"
+      }
+    },
+    {
+      "binding_id": "sql_person_activities",
+      "channel_type": "sql",
+      "query_template": "SELECT dc.text, e.entity_type, e.name\nFROM document_chunks dc\nJOIN chunk_entities ce ON dc.id = ce.chunk_id\nJOIN entities e ON ce.entity_id = e.id\nWHERE dc.id IN (\n  SELECT DISTINCT ce2.chunk_id\n  FROM chunk_entities ce2\n  JOIN entities e2 ON ce2.entity_id = e2.id\n  WHERE e2.name = :person_name AND e2.entity_type = 'Person'\n)\nAND e.entity_type IN ('Event', 'CulturalAsset')\nLIMIT 20",
+      "output_mapping": {
+        "activities": "rows"
+      }
+    }
+  ],
+  "output": {
+    "person_name": {
+      "type": "string",
+      "source": "graph_query",
+      "description": "人物姓名"
+    },
+    "direct_connections": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "直接关联的实体"
+    },
+    "connection_count": {
+      "type": "integer",
+      "source": "inference",
+      "description": "关联实体数量"
+    },
+    "activities": {
+      "type": "array",
+      "source": "sql_query",
+      "description": "参与的活动和事件"
+    },
+    "network_density": {
+      "type": "float",
+      "source": "inference",
+      "description": "关系网络密度评分"
+    }
+  },
+  "inference_logic": {
+    "count_connections": {
+      "type": "aggregation",
+      "operation": "count",
+      "source_field": "direct_connections",
+      "depends_on": ["direct_connections"],
+      "target_field": "connection_count"
+    },
+    "calculate_network_density": {
+      "type": "scoring",
+      "depends_on": ["connection_count", "activities"],
+      "weights": {
+        "connection_count": 0.6,
+        "activities": 0.4
+      },
+      "target_field": "network_density"
+    }
+  },
+  "execution_strategy": {
+    "parallel_bindings": true,
+    "timeout_ms": 8000
+  }
+}

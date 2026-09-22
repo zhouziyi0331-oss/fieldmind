@@ -1,0 +1,47 @@
+🔍 检查 API 断联...
+
+正在扫描前端调用...
+   找到 0 个前端 API 调用
+
+正在扫描后端路由...
+   找到 793 个后端路由
+
+============================================================
+
+✅ 前端所有调用都有对应的后端路由
+
+============================================================
+
+⚠️ 发现 793 个后端路由未被前端调用：
+
+   
+   /test
+   /documents/{document_id}/entities
+   /projects/{project_id}/years/{year}
+   /stats/api
+   /performance/{skill_id}/summary
+   /projects/{project_id}/keywords/top
+   /knowledge-graph/document/{dirty_doc_id}/manual/relation
+   /projects/{project_id}/edges
+   /api/v1/skill-gen
+   /dimensions
+   /traceability/document/{document_id}/chunks
+   /api/v1/health
+   /{document_id}/audio
+   /projects/{project_id}/graph
+   /upload/batch
+   /tags/{tag_id}
+   /projects/{project_id}
+   /projects/{project_id}/search-suggestions
+   /ws/connections
+   /available
+   /lineage/upstream/{target_type}/{target_id}
+   /knowledge-graph/{project_id}
+   /chat/enhanced
+   /cleanup/{project_id}
+   /events/{event_id}/narrative
+   /pyecharts/graph
+   /projects/{project_id}/quality
+   /traceability/chunk/{chunk_id}/context
+   /api/v1/dashboard/stats/{project_id}
+   ... 还有 763 个

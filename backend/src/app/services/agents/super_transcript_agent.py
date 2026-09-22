@@ -200,12 +200,13 @@ class SuperTranscriptAgent(AgentBase):
     - redundant: 两者并行，交叉验证
     """
 
-    def __init__(
-        self,
+    def __init__(self,
         agent_id: Optional[str] = None,
         registry: Optional[Any] = None,
-        loader: Optional[Any] = None
-    ):
+        loader: Optional[Any] = None,
+
+
+        use_workflow_engine: bool = True):
         """
         初始化 SuperTranscriptAgent
 
@@ -780,6 +781,24 @@ class SuperTranscriptAgent(AgentBase):
         # 默认综合策略
         return TranscriptStrategy.COMPREHENSIVE
 
+
+
+
+
+
+        # WorkflowEngine 集成
+
+
+        self.use_workflow_engine = use_workflow_engine
+
+
+        if use_workflow_engine:
+
+
+            from app.services.workflow_engine import WorkflowEngine
+
+
+            self.workflow_engine = WorkflowEngine(max_workers=4)
 
 # ============================================================================
 # 导出

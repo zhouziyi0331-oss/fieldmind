@@ -1,0 +1,140 @@
+[
+  {
+    "table": "entities",
+    "column": "entity_id",
+    "total_records": 1132,
+    "non_null_count": 1132,
+    "matches_old_id": 0,
+    "matches_new_id": 1132,
+    "sample_values": [
+      "ent_0003e2223c34",
+      "ent_009d97b58526",
+      "ent_00ac567e4ba4",
+      "ent_0101e6fc366a",
+      "ent_012d6e24b2db"
+    ],
+    "needs_update": false
+  },
+  {
+    "table": "embeddings",
+    "column": "entity_id",
+    "total_records": 0,
+    "non_null_count": 0,
+    "matches_old_id": 0,
+    "matches_new_id": 0,
+    "sample_values": [],
+    "needs_update": false
+  },
+  {
+    "table": "document_entities",
+    "column": "entity_id",
+    "total_records": 0,
+    "non_null_count": 0,
+    "matches_old_id": 0,
+    "matches_new_id": 0,
+    "sample_values": [],
+    "needs_update": false
+  },
+  {
+    "table": "entity_relations",
+    "column": "source_entity_id",
+    "total_records": 41,
+    "non_null_count": 41,
+    "matches_old_id": 40,
+    "matches_new_id": 0,
+    "sample_values": [
+      "018f7dda-0635-4afa-8f4d-2d7534776d70",
+      "039a5a98-f610-4fa1-9e11-bdcbcce704f5",
+      "04ce0e3f-4fa3-4500-abb8-0b72bb03a6dd",
+      "0607ebc4-9a33-4488-8f1f-6e647b668493",
+      "0895a42e-c608-447f-81f1-b89b30678f2e"
+    ],
+    "needs_update": true
+  },
+  {
+    "table": "entity_relations",
+    "column": "target_entity_id",
+    "total_records": 41,
+    "non_null_count": 41,
+    "matches_old_id": 41,
+    "matches_new_id": 0,
+    "sample_values": [
+      "036bd1f6-d582-4e3c-99b3-cb5bd415b4ba",
+      "09f409c1-388c-4e1d-a1f2-db737d6f3ab2",
+      "0db00daa-755b-44b4-b764-31fe9252dce7",
+      "1c0017b0-dfea-44aa-ab3e-b0e93825abf3",
+      "20983b3c-91de-44e2-aadd-a53c8ba175c8"
+    ],
+    "needs_update": true
+  },
+  {
+    "table": "fact_statements",
+    "column": "entity_fids",
+    "total_records": 1035,
+    "non_null_count": 0,
+    "matches_old_id": 0,
+    "matches_new_id": 0,
+    "sample_values": [],
+    "needs_update": false
+  },
+  {
+    "table": "chunk_entities",
+    "column": "entity_id",
+    "total_records": 0,
+    "non_null_count": 0,
+    "matches_old_id": 0,
+    "matches_new_id": 0,
+    "sample_values": [],
+    "needs_update": false
+  },
+  {
+    "table": "analysis_reports",
+    "column": "entity_ids",
+    "total_records": 0,
+    "non_null_count": 0,
+    "matches_old_id": 0,
+    "matches_new_id": 0,
+    "sample_values": [],
+    "needs_update": false
+  },
+  {
+    "table": "user_taggings",
+    "column": "entity_id",
+    "total_records": 0,
+    "non_null_count": 0,
+    "matches_old_id": 0,
+    "matches_new_id": 0,
+    "sample_values": [],
+    "needs_update": false
+  },
+  {
+    "table": "_alembic_tmp_entity_relations",
+    "column": "source_entity_id",
+    "total_records": 0,
+    "non_null_count": 0,
+    "matches_old_id": 0,
+    "matches_new_id": 0,
+    "sample_values": [],
+    "needs_update": false
+  },
+  {
+    "table": "_alembic_tmp_entity_relations",
+    "column": "target_entity_id",
+    "total_records": 0,
+    "non_null_count": 0,
+    "matches_old_id": 0,
+    "matches_new_id": 0,
+    "sample_values": [],
+    "needs_update": false
+  },
+  {
+    "table": "entity_evidences",
+    "column": "entity_id",
+    "total_records": 0,
+    "non_null_count": 0,
+    "matches_old_id": 0,
+    "matches_new_id": 0,
+    "sample_values": [],
+    "needs_update": false
+  }
+]

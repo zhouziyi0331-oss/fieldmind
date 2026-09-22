@@ -1,0 +1,82 @@
+{
+  "dashboard": {
+    "title": "FieldMind 系统监控",
+    "tags": ["fieldmind", "system"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+        "type": "graph",
+        "title": "API 请求速率",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "{{method}} {{endpoint}}"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
+        "type": "graph",
+        "title": "API 响应时间 (P95)",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))",
+            "legendFormat": "{{method}} {{endpoint}}"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "gridPos": { "x": 0, "y": 8, "w": 6, "h": 6 },
+        "type": "stat",
+        "title": "缓存命中率",
+        "targets": [
+          {
+            "expr": "rate(cache_hits_total[5m]) / (rate(cache_hits_total[5m]) + rate(cache_misses_total[5m])) * 100"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "gridPos": { "x": 6, "y": 8, "w": 6, "h": 6 },
+        "type": "stat",
+        "title": "数据库查询速率",
+        "targets": [
+          {
+            "expr": "rate(db_queries_total[5m])"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "gridPos": { "x": 12, "y": 8, "w": 6, "h": 6 },
+        "type": "stat",
+        "title": "错误率",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{status_code=~\"5..\"}[5m]) / rate(http_requests_total[5m]) * 100"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "gridPos": { "x": 18, "y": 8, "w": 6, "h": 6 },
+        "type": "stat",
+        "title": "活跃连接数",
+        "targets": [
+          {
+            "expr": "db_connections_active"
+          }
+        ]
+      }
+    ],
+    "refresh": "10s",
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    }
+  }
+}

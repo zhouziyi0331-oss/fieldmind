@@ -32,11 +32,12 @@ export default function Tagging() {
       setData(items)
 
       // 计算统计数据
+      const uniqueCategories = new Set(items.map((item: any) => item.category).filter(Boolean))
       const newStats = {
         total: items.length,
         active: items.filter((item: any) => item.status === 'active' || item.is_active).length,
-        categories: Math.floor(items.length * 0.5),
-        tagged_resources: Math.floor(items.length * 0.6000000000000001),
+        categories: uniqueCategories.size,
+        tagged_resources: items.filter((item: any) => item.resource_count > 0 || item.tagged_count > 0).length,
       }
       setStats(newStats)
     } catch (error: any) {

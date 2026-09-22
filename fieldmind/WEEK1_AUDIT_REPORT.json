@@ -1,0 +1,421 @@
+{
+  "audit_time": "2026-09-13T12:29:28.724289",
+  "database": {
+    "index.db": {
+      "path": "repos/firecrawl/.pnpm-store/v11/index.db",
+      "size_mb": 0.0078125,
+      "tables": {
+        "package_index": {
+          "count": 0,
+          "columns": 2
+        }
+      }
+    },
+    "build.db": {
+      "path": "fieldmind/frontend/fieldmind-native/.build/build.db",
+      "size_mb": 0.171875,
+      "tables": {
+        "info": {
+          "count": 1,
+          "columns": 4
+        },
+        "key_names": {
+          "count": 357,
+          "columns": 2
+        },
+        "rule_results": {
+          "count": 357,
+          "columns": 8
+        }
+      }
+    },
+    "fieldmind.db": {
+      "path": "data/fieldmind.db",
+      "size_mb": 0.01953125,
+      "tables": {
+        "chunks_fts_simple_data": {
+          "count": 2,
+          "columns": 2
+        },
+        "chunks_fts_simple_idx": {
+          "count": 0,
+          "columns": 3
+        },
+        "chunks_fts_simple_docsize": {
+          "count": 0,
+          "columns": 2
+        },
+        "chunks_fts_simple_config": {
+          "count": 1,
+          "columns": 2
+        }
+      }
+    },
+    "migration_database.sqlite": {
+      "path": "repos/cognee/cognee/tests/test_data/migration_database.sqlite",
+      "size_mb": 0.046875,
+      "tables": {
+        "Album": {
+          "count": 5,
+          "columns": 3
+        },
+        "Artist": {
+          "count": 3,
+          "columns": 2
+        },
+        "Customer": {
+          "count": 3,
+          "columns": 13
+        },
+        "Employee": {
+          "count": 8,
+          "columns": 15
+        },
+        "Genre": {
+          "count": 1,
+          "columns": 2
+        },
+        "Invoice": {
+          "count": 21,
+          "columns": 9
+        },
+        "InvoiceLine": {
+          "count": 114,
+          "columns": 5
+        },
+        "MediaType": {
+          "count": 2,
+          "columns": 2
+        },
+        "Playlist": {
+          "count": 18,
+          "columns": 2
+        },
+        "PlaylistTrack": {
+          "count": 97,
+          "columns": 2
+        },
+        "Track": {
+          "count": 37,
+          "columns": 9
+        }
+      }
+    }
+  },
+  "api": {
+    "total": 654,
+    "by_method": {
+      "POST": 235,
+      "GET": 359,
+      "PUT": 22,
+      "DELETE": 36,
+      "PATCH": 2
+    },
+    "duplicates": 44,
+    "sample": [
+      {
+        "method": "POST",
+        "path": "/citations",
+        "file": "backend/src/app/api/citations.py"
+      },
+      {
+        "method": "GET",
+        "path": "/citations",
+        "file": "backend/src/app/api/citations.py"
+      },
+      {
+        "method": "GET",
+        "path": "/citations/{citation_id}",
+        "file": "backend/src/app/api/citations.py"
+      },
+      {
+        "method": "PUT",
+        "path": "/citations/{citation_id}",
+        "file": "backend/src/app/api/citations.py"
+      },
+      {
+        "method": "DELETE",
+        "path": "/citations/{citation_id}/",
+        "file": "backend/src/app/api/citations.py"
+      },
+      {
+        "method": "GET",
+        "path": "/citations/stats/{project_id}",
+        "file": "backend/src/app/api/citations.py"
+      },
+      {
+        "method": "POST",
+        "path": "/citations/batch",
+        "file": "backend/src/app/api/citations.py"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/{document_id}/status/",
+        "file": "backend/src/app/api/document_processing.py"
+      },
+      {
+        "method": "POST",
+        "path": "/documents/{document_id}/reprocess/",
+        "file": "backend/src/app/api/document_processing.py"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/{document_id}/chunks/preview/",
+        "file": "backend/src/app/api/document_processing.py"
+      }
+    ]
+  },
+  "models": {
+    "analysis": {
+      "lines": 129,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "analysis_report": {
+      "lines": 99,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "audit_log": {
+      "lines": 81,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "background_learning": {
+      "lines": 289,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "batch_operation": {
+      "lines": 41,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "chat": {
+      "lines": 90,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "chunk_entity": {
+      "lines": 94,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "citation": {
+      "lines": 76,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "collaboration": {
+      "lines": 61,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "context": {
+      "lines": 68,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "data_lineage": {
+      "lines": 255,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "document": {
+      "lines": 153,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "document_chunk": {
+      "lines": 218,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "document_chunks": {
+      "lines": 4,
+      "has_sqlalchemy": false,
+      "has_class": false
+    },
+    "document_metadata": {
+      "lines": 49,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "document_relation": {
+      "lines": 51,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "enriched_chunk": {
+      "lines": 310,
+      "has_sqlalchemy": false,
+      "has_class": true
+    },
+    "entity": {
+      "lines": 223,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "entity_alignment": {
+      "lines": 52,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "entity_evidence": {
+      "lines": 92,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "execution_record": {
+      "lines": 188,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "fact_statement": {
+      "lines": 6,
+      "has_sqlalchemy": false,
+      "has_class": false
+    },
+    "federation": {
+      "lines": 193,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "feedback_loop": {
+      "lines": 354,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "generated_skill": {
+      "lines": 230,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "governance": {
+      "lines": 159,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "industry": {
+      "lines": 35,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "knowledge_graph": {
+      "lines": 265,
+      "has_sqlalchemy": false,
+      "has_class": true
+    },
+    "metrics": {
+      "lines": 245,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "pattern_library": {
+      "lines": 224,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "permission": {
+      "lines": 202,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "phase5": {
+      "lines": 134,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "pipeline_state": {
+      "lines": 6,
+      "has_sqlalchemy": false,
+      "has_class": false
+    },
+    "project": {
+      "lines": 369,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "relationship": {
+      "lines": 8,
+      "has_sqlalchemy": false,
+      "has_class": false
+    },
+    "report": {
+      "lines": 59,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "scheduled_task": {
+      "lines": 59,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "skill": {
+      "lines": 92,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "skill_optimization": {
+      "lines": 257,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "skill_version": {
+      "lines": 131,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "sop": {
+      "lines": 124,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "structured_insight": {
+      "lines": 97,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "support_models": {
+      "lines": 180,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "tag": {
+      "lines": 81,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "thinking_pattern": {
+      "lines": 276,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "timeline": {
+      "lines": 40,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "user": {
+      "lines": 41,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "user_engagement": {
+      "lines": 439,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "workflow": {
+      "lines": 117,
+      "has_sqlalchemy": true,
+      "has_class": true
+    },
+    "workflow_execution": {
+      "lines": 198,
+      "has_sqlalchemy": true,
+      "has_class": true
+    }
+  },
+  "files": {}
+}

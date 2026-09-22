@@ -1,0 +1,89 @@
+{
+  "binding_id": "sqlite_fulltext_binding",
+  "binding_name": "SQLite 全文搜索绑定",
+  "version": "1.0",
+  "description": "使用 SQLite FTS5 进行全文检索",
+
+  "channel_type": "fulltext",
+  "protocol": "sqlite_fts5",
+  "engine": "sqlite3",
+
+  "connection": {
+    "database_path": "data/fieldmind.db",
+    "fts_table": "document_chunks_fts",
+    "create_fts_if_not_exists": true
+  },
+
+  "fts_configuration": {
+    "tokenizer": "unicode61",
+    "remove_diacritics": true,
+    "categories": "L* N* Co",
+    "separators": " \t\r\n",
+    "min_token_length": 2,
+    "max_token_length": 50
+  },
+
+  "search_settings": {
+    "default_limit": 20,
+    "max_limit": 100,
+    "snippet_length": 200,
+    "highlight_start": "<mark>",
+    "highlight_end": "</mark>",
+    "enable_ranking": true,
+    "rank_algorithm": "bm25"
+  },
+
+  "query_settings": {
+    "default_timeout_ms": 3000,
+    "enable_query_expansion": true,
+    "fuzzy_matching": false,
+    "case_sensitive": false,
+    "enable_proximity_search": true
+  },
+
+  "cache": {
+    "enabled": true,
+    "backend": "memory",
+    "ttl_seconds": 600,
+    "cache_key_prefix": "fts:",
+    "max_cache_size_mb": 50
+  },
+
+  "health_check": {
+    "enabled": true,
+    "interval_seconds": 120,
+    "check_fts_table_exists": true,
+    "timeout_ms": 3000
+  },
+
+  "metrics": {
+    "enabled": true,
+    "metrics_to_collect": [
+      "search_count",
+      "search_duration",
+      "results_count",
+      "cache_hit_rate"
+    ]
+  },
+
+  "query_templates": {
+    "simple_search": {
+      "sql": "SELECT chunk_id, text, rank FROM document_chunks_fts WHERE text MATCH ? ORDER BY rank LIMIT ?",
+      "parameters": ["query", "limit"]
+    },
+    "filtered_search": {
+      "sql": "SELECT c.chunk_id, c.text, c.dimension_category, fts.rank FROM document_chunks c JOIN document_chunks_fts fts ON c.chunk_id = fts.chunk_id WHERE fts.text MATCH ? AND c.dimension_category = ? ORDER BY fts.rank LIMIT ?",
+      "parameters": ["query", "dimension_category", "limit"]
+    },
+    "phrase_search": {
+      "sql": "SELECT chunk_id, text, rank FROM document_chunks_fts WHERE text MATCH '\"' || ? || '\"' ORDER BY rank LIMIT ?",
+      "parameters": ["phrase", "limit"]
+    }
+  },
+
+  "notes": [
+    "此绑定用于全文检索",
+    "FTS5 表需要与 document_chunks 表同步",
+    "支持中文分词需要配置相应的 tokenizer"
+  ]
+}

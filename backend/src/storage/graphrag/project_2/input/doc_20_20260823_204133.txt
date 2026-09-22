@@ -1,0 +1,3 @@
+FieldMind end-to-end verify. 
+项目上传、切分、关键词、结构化、插件状态都要贯通。
+这是一次最小验证。

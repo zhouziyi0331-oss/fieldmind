@@ -197,8 +197,13 @@ class SuperSummaryAgent(AgentBase):
     - 多级总结：ragflow详细分析 + LightRAG快速概览 + mem0补充上下文
     - 知识提取：3个插件不同角度提取，覆盖率提升200%
     """
+    def __init__(self, agent_id: Optional[str] = None, registry=None, loader=None, use_workflow_engine: bool = True):
 
-    def __init__(self, agent_id: Optional[str] = None, registry=None, loader=None):
+        self.use_workflow_engine = use_workflow_engine
+
+        if use_workflow_engine:
+            from app.services.workflow_engine import WorkflowEngine
+            self.workflow_engine = WorkflowEngine(max_workers=4)
         """
         初始化SuperSummaryAgent
 

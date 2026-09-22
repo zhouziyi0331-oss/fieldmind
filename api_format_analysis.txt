@@ -1,0 +1,109 @@
+====================================================================================================
+API 返回格式深度分析报告
+====================================================================================================
+
+📊 端点返回类型统计
+----------------------------------------------------------------------------------------------------
+  UNKNOWN: 306 个端点
+  DICT: 81 个端点
+  MODEL: 18 个端点
+
+📋 纯Dict返回的端点 (81个)
+----------------------------------------------------------------------------------------------------
+
+  文件: app/api/visualize.py (10个端点)
+    GET /health - health_check
+    POST /plotly/bar - create_plotly_bar
+    POST /plotly/line - create_plotly_line
+    POST /plotly/scatter3d - create_plotly_scatter3d
+    POST /pyecharts/pie - create_pyecharts_pie
+
+  文件: app/api/websocket.py (10个端点)
+    POST /broadcast - broadcast_message
+    POST /rooms/{room_id}/broadcast/ - broadcast_to_room
+    POST /rooms/{room_id}/join/ - join_room_http
+    POST /rooms/{room_id}/leave/ - leave_room_http
+    GET /stats - get_stats
+
+  文件: app/api/deep_rag.py (8个端点)
+    GET /health - health_check
+    POST /chat - deep_chat
+    POST /retrieve - multi_source_retrieve
+    POST /rank-fuse - rank_and_fuse
+    GET /conversation/{session_id}/ - get_conversation_history
+
+  文件: app/api/v1/topic_analysis.py (7个端点)
+    POST /extract-keywords - extract_keywords
+    GET /keywords/chunk/{chunk_id}/ - get_chunk_keywords
+    GET /keywords/project/{project_id}/ - get_project_top_keywords
+    POST /cluster - cluster_project
+    GET /clusters/{project_id}/ - get_project_clusters
+
+  文件: app/api/v1/crawler.py (5个端点)
+    POST /crawl - crawl_url
+    POST /batch-crawl - batch_crawl_urls
+    POST /news - crawl_news_article
+    POST /government - crawl_government_document
+    GET /supported-crawlers - get_supported_crawlers
+
+  文件: app/api/v1/knowledge_graph_api.py (4个端点)
+    POST /query/related - query_related_entities
+    POST /build/{document_id}/ - build_graph_for_document
+    POST /rebuild - rebuild_entire_graph
+    GET /export/html - export_visualization
+
+  文件: app/api/v1/knowledge_graph_enhanced.py (4个端点)
+    POST /skills/link - link_skill
+    POST /export - export_graph
+    POST /cypher/query - cypher_query
+    GET /stats - get_graph_statistics
+
+  文件: app/api/monitoring.py (4个端点)
+    GET /health - health_check
+    GET /metrics - get_metrics
+    GET /logs/recent - get_recent_logs
+    GET /stats/api - get_api_stats
+
+  文件: app/api/quality.py (4个端点)
+    POST /statistics/reset - reset_statistics
+    GET /issue-types - get_issue_types
+    GET /quality-levels - get_quality_levels
+    GET /health - health_check
+
+  文件: app/api/tables.py (3个端点)
+    GET /projects/{project_id}/tables/ - list_tables
+    GET /projects/{project_id}/tables/statistics/ - table_statistics
+    DELETE /projects/{project_id}/tables/{table_id}/ - delete_table
+
+📝 已定义的Response Schema
+----------------------------------------------------------------------------------------------------
+  - ApprovePacketResponse
+  - BatchOCRResponse
+  - BatchProcessResponse
+  - BatchValidationResponse
+  - BusinessAnalysisResponse
+  - ChatResponse
+  - CitationListResponse
+  - CitationResponse
+  - CitationStatsResponse
+  - CreativeAnalysisResponse
+  - DataDimensionResponse
+  - DocumentDiscoveryResponse
+  - DocumentUploadResponse
+  - DynamicEntityResponse
+  - DynamicTopicResponse
+  - EntityResponse
+  - EntityWithEvidencesResponse
+  - ErrorResponse
+  - EvidenceResponse
+  - FileNodeResponse
+
+  总计: 62 个不同的Schema
+
+🔍 常见返回格式模式
+----------------------------------------------------------------------------------------------------
+  {"message": ...}: 21次
+  {"success": ...}: 14次
+  {"total": ..., pagination}: 2次
+
+====================================================================================================

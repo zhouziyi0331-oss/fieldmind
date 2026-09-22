@@ -1,0 +1,181 @@
+{
+  "overview": {
+    "total_patterns": 520,
+    "total_skills": 8,
+    "avg_pattern_quality": 0.6418828846153879,
+    "avg_skill_quality": 0.73725
+  },
+  "patterns": {
+    "by_domain": {
+      "技术开发": 37,
+      "产品设计": 17,
+      "商业运营": 15,
+      "内容创作": 5,
+      "数据分析": 3,
+      "项目管理": 6,
+      "通用": 437
+    },
+    "by_quality": {
+      "中等质量": 33,
+      "高质量": 68,
+      "基础质量": 419
+    },
+    "by_type": {
+      "lesson_learned": 25,
+      "decision": 19,
+      "process": 471,
+      "solution": 5
+    },
+    "by_length": {
+      "中等": 141,
+      "详细": 370,
+      "简短": 9
+    }
+  },
+  "skills": {
+    "by_type": {
+      "lesson_learned": 2,
+      "decision": 2,
+      "process": 3,
+      "solution": 1
+    },
+    "avg_patterns_per_skill": 4.75,
+    "total_pattern_coverage": 38
+  },
+  "quality_distribution": {
+    "min": 0.48750000000000004,
+    "max": 0.81,
+    "avg": 0.6418828846153879,
+    "median": 0.6000000000000001
+  },
+  "top_patterns": [
+    {
+      "chunk_id": "chk_22bd75aff3f3",
+      "title": "需要追踪的关键指标· 航海转化率:参加航海实战营的人数 / 付费星球总人数· 交付完成率:完成航海并",
+      "type": "solution",
+      "quality": 0.81,
+      "domain": "商业运营"
+    },
+    {
+      "chunk_id": "chk_77ca9163155e",
+      "title": "· 传播价值:展示长期价值,为续费做铺垫· 采集方式:每季度整理一次,做成员成长追踪二、产品化路径:",
+      "type": "solution",
+      "quality": 0.81,
+      "domain": "产品设计"
+    },
+    {
+      "chunk_id": "chk_279f36f80ea3",
+      "title": "投影 / 大屏、计时器、话筒 2–3 支茶歇（可选）十一、会后跟进十二、风险与预案十三、附件成都理工",
+      "type": "solution",
+      "quality": 0.81,
+      "domain": "产品设计"
+    },
+    {
+      "chunk_id": "chk_869ca76998bb",
+      "title": ":免费给一套像样的品牌方案,让犹豫的创作者先进场;同时所有输出统一挂蘑菇母叙事,解决\"品牌各说各话\"",
+      "type": "solution",
+      "quality": 0.81,
+      "domain": "技术开发"
+    },
+    {
+      "chunk_id": "chk_4c50b59829fa",
+      "title": "（一）「启程」OPC订单式孵化引擎——高校学生创新创业与就业解决方案该平台的核心定位为:以项目制方式",
+      "type": "solution",
+      "quality": 0.81,
+      "domain": "技术开发"
+    },
+    {
+      "chunk_id": "chk_ac3365fbafa7",
+      "title": "🎯 核心目标（创赛可量化,增强说服力）:3个月内账号粉丝破5万,打造至少1条百万播放爆款视频,单条视",
+      "type": "process",
+      "quality": 0.8,
+      "domain": "产品设计"
+    },
+    {
+      "chunk_id": "chk_3746eaa23276",
+      "title": "「小空没信号 · 蜀境数字旅人」创赛商业计划书一、项目名称「小空没信号 · 蜀境数字旅人」备注:突出",
+      "type": "process",
+      "quality": 0.8,
+      "domain": "技术开发"
+    },
+    {
+      "chunk_id": "chk_3eae99be1e08",
+      "title": "主角C:卡在瓶颈的单干老手· 初期状态:能接单、能交付,但月收入卡在2-3万上不去,因为一个人只能做",
+      "type": "process",
+      "quality": 0.8,
+      "domain": "技术开发"
+    },
+    {
+      "chunk_id": "chk_048083b182b6",
+      "title": "小白逆袭”叙事延展:让口号变成可复制的商业引擎前面我们已经把三大飞轮的战略框架搭好了",
+      "type": "process",
+      "quality": 0.8,
+      "domain": "技术开发"
+    },
+    {
+      "chunk_id": "chk_581275cbbea7",
+      "title": "· 内容积累:每周专业知识分享、AI创意接龙、线下工作坊借鉴生财有术,将这些资产系统化、产品化、可复",
+      "type": "process",
+      "quality": 0.8,
+      "domain": "技术开发"
+    }
+  ],
+  "top_skills": [
+    {
+      "skill_name": "solution_solution_7_通过社群",
+      "skill_title": "解决方案：solution_7_通过社群",
+      "type": "solution",
+      "quality": 0.81,
+      "pattern_count": 4
+    },
+    {
+      "skill_name": "process_process_6_新增物资",
+      "skill_title": "流程：新增物资",
+      "type": "process",
+      "quality": 0.8000000000000002,
+      "pattern_count": 3
+    },
+    {
+      "skill_name": "lesson_lesson_learned_0_提升内容",
+      "skill_title": "经验：lesson_learned_0_提升内容",
+      "type": "lesson_learned",
+      "quality": 0.7565,
+      "pattern_count": 9
+    },
+    {
+      "skill_name": "process_process_4_中台",
+      "skill_title": "流程：process_4_中台",
+      "type": "process",
+      "quality": 0.7520000000000001,
+      "pattern_count": 5
+    },
+    {
+      "skill_name": "lesson_lesson_learned_1_分钟",
+      "skill_title": "经验：分钟",
+      "type": "lesson_learned",
+      "quality": 0.7395,
+      "pattern_count": 3
+    },
+    {
+      "skill_name": "decision_decision_2_内容",
+      "skill_title": "决策：为什么做",
+      "type": "decision",
+      "quality": 0.7000000000000001,
+      "pattern_count": 3
+    },
+    {
+      "skill_name": "decision_decision_3_真实价值",
+      "skill_title": "决策：decision_3_真实价值",
+      "type": "decision",
+      "quality": 0.7000000000000001,
+      "pattern_count": 6
+    },
+    {
+      "skill_name": "process_process_5_答错伤信",
+      "skill_title": "流程：process_5_答错伤信",
+      "type": "process",
+      "quality": 0.64,
+      "pattern_count": 5
+    }
+  ]
+}

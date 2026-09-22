@@ -1,0 +1,674 @@
+{
+  "ontology_version": "1.0",
+  "domain": "田野调查与文化遗产",
+  "description": "FieldMind 本体模型 - 用于乡村文化遗产调查、保护与转化的语义数据模型",
+  "created_at": "2026-08-21",
+  "last_updated": "2026-08-21",
+
+  "entities": [
+    {
+      "entity_type": "Person",
+      "description": "人物实体 - 包括村民、传承人、村干部、外来者等",
+      "id_field": "person_id",
+      "attributes": {
+        "person_id": {
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "description": "人物唯一标识符"
+        },
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "姓名"
+        },
+        "age": {
+          "type": "integer",
+          "required": false,
+          "min": 0,
+          "max": 120,
+          "description": "年龄"
+        },
+        "gender": {
+          "type": "enum",
+          "values": ["male", "female", "unknown"],
+          "required": false,
+          "description": "性别"
+        },
+        "role": {
+          "type": "enum",
+          "values": ["villager", "inheritor", "village_official", "outsider", "researcher"],
+          "required": true,
+          "description": "角色类型"
+        },
+        "status": {
+          "type": "enum",
+          "values": ["active", "inactive", "deceased"],
+          "required": true,
+          "default": "active",
+          "description": "状态"
+        },
+        "phone": {
+          "type": "string",
+          "required": false,
+          "description": "联系电话"
+        },
+        "first_mentioned": {
+          "type": "datetime",
+          "required": false,
+          "description": "首次出现时间"
+        },
+        "last_updated": {
+          "type": "datetime",
+          "required": false,
+          "description": "最后更新时间"
+        }
+      },
+      "indexes": ["name", "role", "status"]
+    },
+
+    {
+      "entity_type": "Location",
+      "description": "地点实体 - 包括村落、寨子、田地、河流、建筑等",
+      "id_field": "location_id",
+      "attributes": {
+        "location_id": {
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "description": "地点唯一标识符"
+        },
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "地点名称"
+        },
+        "type": {
+          "type": "enum",
+          "values": ["village", "hamlet", "field", "river", "building", "mountain", "road", "bridge"],
+          "required": true,
+          "description": "地点类型"
+        },
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "latitude": {"type": "float"},
+            "longitude": {"type": "float"}
+          },
+          "required": false,
+          "description": "地理坐标"
+        },
+        "status": {
+          "type": "enum",
+          "values": ["existing", "demolished", "renovated", "abandoned"],
+          "required": true,
+          "default": "existing",
+          "description": "状态"
+        },
+        "population": {
+          "type": "integer",
+          "required": false,
+          "min": 0,
+          "description": "人口数量（如果是村寨）"
+        },
+        "established_date": {
+          "type": "string",
+          "required": false,
+          "description": "建立时间（可能是模糊的，如'清代'）"
+        }
+      },
+      "indexes": ["name", "type", "status"]
+    },
+
+    {
+      "entity_type": "CulturalAsset",
+      "description": "文化资产实体 - 包括山歌、蜡染、节庆、建筑、手工艺等",
+      "id_field": "asset_id",
+      "attributes": {
+        "asset_id": {
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "description": "文化资产唯一标识符"
+        },
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "名称"
+        },
+        "type": {
+          "type": "enum",
+          "values": ["folk_song", "handicraft", "festival", "architecture", "food_culture", "costume", "dance", "ritual", "oral_tradition"],
+          "required": true,
+          "description": "类型"
+        },
+        "category": {
+          "type": "enum",
+          "values": ["intangible", "tangible", "mixed"],
+          "required": true,
+          "description": "遗产类别"
+        },
+        "status": {
+          "type": "enum",
+          "values": ["active", "endangered", "lost", "protected"],
+          "required": true,
+          "default": "active",
+          "description": "保护状态"
+        },
+        "protection_level": {
+          "type": "enum",
+          "values": ["national", "provincial", "municipal", "county", "none"],
+          "required": false,
+          "description": "保护级别"
+        },
+        "description": {
+          "type": "text",
+          "required": false,
+          "description": "详细描述"
+        },
+        "origin_period": {
+          "type": "string",
+          "required": false,
+          "description": "起源时期"
+        },
+        "risk_level": {
+          "type": "integer",
+          "min": 0,
+          "max": 10,
+          "required": false,
+          "description": "濒危等级（0-10，10最危险）"
+        }
+      },
+      "indexes": ["name", "type", "status", "protection_level"]
+    },
+
+    {
+      "entity_type": "Event",
+      "description": "事件实体 - 包括节庆、会议、签约、选举等",
+      "id_field": "event_id",
+      "attributes": {
+        "event_id": {
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "description": "事件唯一标识符"
+        },
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "事件名称"
+        },
+        "type": {
+          "type": "enum",
+          "values": ["festival", "meeting", "contract_signing", "election", "construction", "celebration", "disaster", "policy_implementation"],
+          "required": true,
+          "description": "事件类型"
+        },
+        "date": {
+          "type": "string",
+          "required": false,
+          "description": "发生日期（可能是模糊的）"
+        },
+        "status": {
+          "type": "enum",
+          "values": ["planned", "ongoing", "completed", "cancelled"],
+          "required": true,
+          "default": "completed",
+          "description": "状态"
+        },
+        "participants_count": {
+          "type": "integer",
+          "required": false,
+          "min": 0,
+          "description": "参与人数"
+        },
+        "significance": {
+          "type": "enum",
+          "values": ["high", "medium", "low"],
+          "required": false,
+          "description": "重要性"
+        },
+        "description": {
+          "type": "text",
+          "required": false,
+          "description": "事件描述"
+        }
+      },
+      "indexes": ["name", "type", "date", "status"]
+    },
+
+    {
+      "entity_type": "Policy",
+      "description": "政策实体 - 包括文件、规定、补贴等",
+      "id_field": "policy_id",
+      "attributes": {
+        "policy_id": {
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "description": "政策唯一标识符"
+        },
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "政策名称"
+        },
+        "type": {
+          "type": "enum",
+          "values": ["document", "regulation", "subsidy", "protection_policy", "development_policy"],
+          "required": true,
+          "description": "政策类型"
+        },
+        "level": {
+          "type": "enum",
+          "values": ["national", "provincial", "municipal", "county", "village"],
+          "required": false,
+          "description": "政策级别"
+        },
+        "effective_date": {
+          "type": "date",
+          "required": false,
+          "description": "生效日期"
+        },
+        "expiry_date": {
+          "type": "date",
+          "required": false,
+          "description": "失效日期"
+        },
+        "status": {
+          "type": "enum",
+          "values": ["draft", "effective", "expired", "revoked"],
+          "required": true,
+          "default": "effective",
+          "description": "状态"
+        },
+        "budget": {
+          "type": "float",
+          "required": false,
+          "min": 0,
+          "description": "预算金额"
+        },
+        "content_summary": {
+          "type": "text",
+          "required": false,
+          "description": "内容摘要"
+        }
+      },
+      "indexes": ["name", "type", "status", "level"]
+    },
+
+    {
+      "entity_type": "Document",
+      "description": "文档实体 - 包括音频、视频、图片、文本等原始材料",
+      "id_field": "document_id",
+      "attributes": {
+        "document_id": {
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "description": "文档唯一标识符"
+        },
+        "title": {
+          "type": "string",
+          "required": true,
+          "description": "标题"
+        },
+        "type": {
+          "type": "enum",
+          "values": ["audio", "video", "image", "text", "pdf", "excel"],
+          "required": true,
+          "description": "文档类型"
+        },
+        "file_path": {
+          "type": "string",
+          "required": true,
+          "description": "文件路径"
+        },
+        "upload_date": {
+          "type": "datetime",
+          "required": true,
+          "description": "上传日期"
+        },
+        "status": {
+          "type": "enum",
+          "values": ["uploaded", "processing", "annotated", "validated", "archived"],
+          "required": true,
+          "default": "uploaded",
+          "description": "处理状态"
+        },
+        "duration": {
+          "type": "float",
+          "required": false,
+          "description": "时长（秒，仅音频/视频）"
+        },
+        "size": {
+          "type": "integer",
+          "required": false,
+          "description": "文件大小（字节）"
+        },
+        "collector": {
+          "type": "string",
+          "required": false,
+          "description": "采集人"
+        },
+        "collection_date": {
+          "type": "date",
+          "required": false,
+          "description": "采集日期"
+        }
+      },
+      "indexes": ["title", "type", "status", "upload_date"]
+    },
+
+    {
+      "entity_type": "Chunk",
+      "description": "文本块实体 - 文档切分后的语义单元",
+      "id_field": "chunk_id",
+      "attributes": {
+        "chunk_id": {
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "description": "文本块唯一标识符"
+        },
+        "text": {
+          "type": "text",
+          "required": true,
+          "description": "文本内容"
+        },
+        "chunk_index": {
+          "type": "integer",
+          "required": true,
+          "min": 0,
+          "description": "在文档中的序号"
+        },
+        "status": {
+          "type": "enum",
+          "values": ["raw", "processed", "annotated", "validated"],
+          "required": true,
+          "default": "raw",
+          "description": "处理状态"
+        },
+        "dimension_category": {
+          "type": "enum",
+          "values": ["衣食住行", "民俗", "非物质文化遗产", "物质文化遗产", "政策", "历史", "未分类"],
+          "required": false,
+          "description": "业务维度分类"
+        },
+        "time_period": {
+          "type": "string",
+          "required": false,
+          "description": "时间区间"
+        },
+        "confidence_score": {
+          "type": "float",
+          "min": 0.0,
+          "max": 1.0,
+          "required": false,
+          "description": "标注置信度"
+        }
+      },
+      "indexes": ["chunk_index", "status", "dimension_category"]
+    },
+
+    {
+      "entity_type": "Organization",
+      "description": "组织实体 - 包括政府、企业、NGO、合作社等",
+      "id_field": "org_id",
+      "attributes": {
+        "org_id": {
+          "type": "string",
+          "required": true,
+          "unique": true,
+          "description": "组织唯一标识符"
+        },
+        "name": {
+          "type": "string",
+          "required": true,
+          "description": "组织名称"
+        },
+        "type": {
+          "type": "enum",
+          "values": ["government", "enterprise", "ngo", "cooperative", "community"],
+          "required": true,
+          "description": "组织类型"
+        },
+        "status": {
+          "type": "enum",
+          "values": ["active", "inactive", "dissolved"],
+          "required": true,
+          "default": "active",
+          "description": "状态"
+        },
+        "established_date": {
+          "type": "date",
+          "required": false,
+          "description": "成立日期"
+        },
+        "contact": {
+          "type": "string",
+          "required": false,
+          "description": "联系方式"
+        }
+      },
+      "indexes": ["name", "type", "status"]
+    }
+  ],
+
+  "relations": [
+    {
+      "relation_type": "belongs_to",
+      "description": "属于关系 - 人物属于某个地点",
+      "source": "Person",
+      "target": "Location",
+      "cardinality": "many_to_one",
+      "required": false,
+      "attributes": {
+        "since": {
+          "type": "date",
+          "description": "开始时间"
+        },
+        "relation_type_detail": {
+          "type": "enum",
+          "values": ["native", "migrant", "temporary"],
+          "description": "归属类型"
+        }
+      }
+    },
+
+    {
+      "relation_type": "lives_in",
+      "description": "居住在 - 人物居住在某个地点",
+      "source": "Person",
+      "target": "Location",
+      "cardinality": "one_to_one",
+      "required": false,
+      "attributes": {
+        "move_in_date": {
+          "type": "date",
+          "description": "迁入日期"
+        }
+      }
+    },
+
+    {
+      "relation_type": "inherits",
+      "description": "传承关系 - 人物传承某个文化资产",
+      "source": "Person",
+      "target": "CulturalAsset",
+      "cardinality": "many_to_many",
+      "required": false,
+      "attributes": {
+        "proficiency": {
+          "type": "enum",
+          "values": ["master", "skilled", "learning"],
+          "description": "熟练程度"
+        },
+        "since": {
+          "type": "date",
+          "description": "开始传承时间"
+        },
+        "inheritance_method": {
+          "type": "enum",
+          "values": ["family", "apprentice", "school", "self_taught"],
+          "description": "传承方式"
+        }
+      }
+    },
+
+    {
+      "relation_type": "participates_in",
+      "description": "参与 - 人物参与某个事件",
+      "source": "Person",
+      "target": "Event",
+      "cardinality": "many_to_many",
+      "required": false,
+      "attributes": {
+        "role_in_event": {
+          "type": "string",
+          "description": "在事件中的角色"
+        }
+      }
+    },
+
+    {
+      "relation_type": "occurs_at",
+      "description": "发生在 - 事件发生在某个地点",
+      "source": "Event",
+      "target": "Location",
+      "cardinality": "one_to_one",
+      "required": false,
+      "attributes": {}
+    },
+
+    {
+      "relation_type": "related_to",
+      "description": "关联到 - 文化资产关联到政策",
+      "source": "CulturalAsset",
+      "target": "Policy",
+      "cardinality": "many_to_many",
+      "required": false,
+      "attributes": {
+        "relation_strength": {
+          "type": "enum",
+          "values": ["strong", "medium", "weak"],
+          "description": "关联强度"
+        }
+      }
+    },
+
+    {
+      "relation_type": "mentioned_in",
+      "description": "提及于 - 实体在文本块中被提及",
+      "source": ["Person", "Location", "CulturalAsset", "Event", "Policy", "Organization"],
+      "target": "Chunk",
+      "cardinality": "many_to_many",
+      "required": false,
+      "attributes": {
+        "mention_count": {
+          "type": "integer",
+          "description": "提及次数"
+        },
+        "context": {
+          "type": "text",
+          "description": "上下文片段"
+        }
+      }
+    },
+
+    {
+      "relation_type": "extracted_from",
+      "description": "提取自 - 文本块提取自文档",
+      "source": "Chunk",
+      "target": "Document",
+      "cardinality": "many_to_one",
+      "required": true,
+      "attributes": {
+        "start_time": {
+          "type": "float",
+          "description": "起始时间（秒，仅音频/视频）"
+        },
+        "end_time": {
+          "type": "float",
+          "description": "结束时间（秒，仅音频/视频）"
+        },
+        "page_number": {
+          "type": "integer",
+          "description": "页码（仅文本）"
+        }
+      }
+    },
+
+    {
+      "relation_type": "knows",
+      "description": "认识 - 人物之间的社会关系",
+      "source": "Person",
+      "target": "Person",
+      "cardinality": "many_to_many",
+      "required": false,
+      "attributes": {
+        "relationship": {
+          "type": "enum",
+          "values": ["family", "friend", "neighbor", "colleague", "acquaintance"],
+          "description": "关系类型"
+        },
+        "strength": {
+          "type": "integer",
+          "min": 1,
+          "max": 10,
+          "description": "关系强度"
+        }
+      }
+    },
+
+    {
+      "relation_type": "manages",
+      "description": "管理 - 人物管理组织",
+      "source": "Person",
+      "target": "Organization",
+      "cardinality": "one_to_many",
+      "required": false,
+      "attributes": {
+        "position": {
+          "type": "string",
+          "description": "职位"
+        },
+        "since": {
+          "type": "date",
+          "description": "任职日期"
+        }
+      }
+    },
+
+    {
+      "relation_type": "located_in",
+      "description": "位于 - 文化资产位于某个地点",
+      "source": "CulturalAsset",
+      "target": "Location",
+      "cardinality": "one_to_one",
+      "required": false,
+      "attributes": {}
+    },
+
+    {
+      "relation_type": "implements",
+      "description": "实施 - 组织实施政策",
+      "source": "Organization",
+      "target": "Policy",
+      "cardinality": "many_to_many",
+      "required": false,
+      "attributes": {
+        "implementation_status": {
+          "type": "enum",
+          "values": ["planned", "ongoing", "completed", "suspended"],
+          "description": "实施状态"
+        },
+        "effectiveness": {
+          "type": "enum",
+          "values": ["high", "medium", "low", "unknown"],
+          "description": "实施效果"
+        }
+      }
+    }
+  ]
+}

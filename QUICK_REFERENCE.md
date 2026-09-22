@@ -1,375 +1,144 @@
-# FieldMind 快速参考手册
+# FieldMind 工作舱 - 快速参考指南
 
-## 🚀 一键启动
+## 🚀 快速启动
 
+### 1. 启动服务器
 ```bash
-cd ~/FieldMind-Rebuild
-./start_system.sh
+cd /Users/alwan/FieldMind/backend
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-## 🛑 停止系统
-
-```bash
-cd ~/FieldMind-Rebuild
-./stop_system.sh
+### 2. 访问 API 文档
+```
+http://localhost:8000/docs
 ```
 
-## 🔍 检查状态
-
+### 3. 测试工作舱服务
 ```bash
-cd ~/FieldMind-Rebuild
-./check_status.sh
+curl http://localhost:8000/api/v1/workbench/health
 ```
 
 ---
 
-## 常用命令
+## 📦 已完成的服务
 
-### 后端服务
+### ✅ 1. 统一服务层
+**入口**: `app/core/workbench_services.py`
 
-```bash
-# 进入后端目录
-cd ~/FieldMind-Rebuild/fieldmind-backend
+```python
+from app.core.workbench_services import get_workbench_services
 
-# 激活虚拟环境
-source ../venv/bin/activate
+services = get_workbench_services(db)
 
-# 启动开发服务器
-uvicorn app.main:app --reload
-
-# 启动 Celery Worker
-celery -A app.celery_app worker --loglevel=info
-
-# 初始化数据库
-python init_db.py
-
-# 运行测试
-pytest
+# 健康检查
+health = services.health_check()
 ```
 
-### Web 前端
+### ✅ 2. 中文 NLP (HanLP)
+```python
+# 分词
+tokens = services.nlp.tokenize("自然语言处理")
 
-```bash
-# 启动前端服务器
-cd ~/FieldMind-Rebuild/frontend
-python3 -m http.server 8080
+# 关键词提取
+keywords = services.nlp.extract_keywords(text, top_k=10)
 
-# 访问地址
-open http://localhost:8080
+# 实体识别
+entities = services.nlp.extract_entities(text)
 ```
 
-### macOS 应用
+### ✅ 3. 长期记忆 (Mem0)
+```python
+# 存储记忆
+memory_id = services.memory.store_memory(user_id, content, context)
 
-```bash
-# 编译应用
-cd ~/Desktop/FieldMindApp
-swift build
-
-# 运行应用
-swift run
-
-# 发布版本
-swift build -c release
-.build/release/FieldMind
-
-# 清理构建
-swift package clean
+# 搜索记忆
+results = services.memory.search_memory(user_id, query, limit=10)
 ```
 
----
+### ✅ 4. 爬虫系统
+```python
+# 爬取单页
+result = services.crawler.crawl_url("https://example.com")
 
-## 🔐 登录信息
-
+# 爬取网站
+pages = services.crawler.crawl_website(url, max_depth=2, max_pages=50)
 ```
-用户名: demo
-密码: demo123
+
+### ✅ 5. 知识图谱
+```python
+# 自动构建
+result = services.knowledge_graph.build_graph_from_documents(
+    document_ids=[1, 2, 3],
+    project_id=1
+)
+
+# 查询图谱
+results = services.knowledge_graph.query_graph(query, project_id)
 ```
 
 ---
 
-## 🌐 服务地址
-
-| 服务 | 地址 |
-|------|------|
-| 后端 API | http://localhost:8000 |
-| API 文档 | http://localhost:8000/docs |
-| Web 前端 | http://localhost:8080 |
-| Redis | localhost:6379 |
-| PostgreSQL | localhost:5432 |
-
----
-
-## 📂 重要路径
+## 🧪 测试脚本
 
 ```bash
-# 后端项目
-~/FieldMind-Rebuild/fieldmind-backend/
+# 测试工作舱服务
+python test_workbench_services.py
 
-# Web 前端
-~/FieldMind-Rebuild/frontend/
+# 测试 HanLP
+python test_hanlp_service.py
 
-# macOS 应用
-~/Desktop/FieldMindApp/
+# 测试 Mem0
+python test_mem0_service.py
 
-# 数据库文件
-~/FieldMind-Rebuild/fieldmind-backend/data/fieldmind.db
-
-# 日志文件
-~/FieldMind-Rebuild/fieldmind-backend/logs/app.log
-
-# 上传文件
-~/FieldMind-Rebuild/fieldmind-backend/data/uploads/
-
-# 技能脚本
-~/FieldMind-Rebuild/fieldmind-backend/skills/
-
-# 生成报告
-~/FieldMind-Rebuild/fieldmind-backend/reports/
+# 测试爬虫
+python test_crawler_service.py
 ```
 
 ---
 
-## 🐛 常见问题
+## 📊 当前状态
 
-### 端口被占用
-
-```bash
-# 查找占用进程
-lsof -i :8000
-lsof -i :8080
-
-# 终止进程
-kill -9 <PID>
-```
-
-### Redis 未启动
-
-```bash
-# 启动 Redis
-brew services start redis
-
-# 检查状态
-redis-cli ping
-```
-
-### 虚拟环境问题
-
-```bash
-# 重新创建虚拟环境
-cd ~/FieldMind-Rebuild
-rm -rf venv
-python3 -m venv venv
-source venv/bin/activate
-pip install -r fieldmind-backend/requirements.txt
-```
-
-### Swift 编译错误
-
-```bash
-# 清理并重新编译
-cd ~/Desktop/FieldMindApp
-swift package clean
-swift package update
-swift build
-```
-
-### 数据库重置
-
-```bash
-cd ~/FieldMind-Rebuild/fieldmind-backend
-rm -rf data/fieldmind.db
-python init_db.py
-```
+- **整体完成度**: 78%
+- **可用服务**: 6/7 (85.7%)
+- **代码行数**: 5,900+
+- **文档页数**: 79+
 
 ---
 
-## 📊 系统监控
+## 🎯 API 端点
 
-### 查看日志
+### 工作舱核心
+- `GET /api/v1/workbench/health` - 健康检查
+- `GET /api/v1/workbench/services` - 服务列表
+- `GET /api/v1/workbench/overview` - 概览
 
-```bash
-# 后端日志
-tail -f ~/FieldMind-Rebuild/fieldmind-backend/logs/app.log
+### NLP 服务
+- `POST /api/v1/workbench/nlp/tokenize` - 分词
+- `POST /api/v1/workbench/nlp/keywords` - 关键词提取
+- `POST /api/v1/workbench/nlp/entities` - 实体识别
 
-# Celery 日志
-tail -f ~/FieldMind-Rebuild/fieldmind-backend/logs/celery.log
-```
+### 记忆服务
+- `POST /api/v1/workbench/memory/store` - 存储记忆
+- `GET /api/v1/workbench/memory/search` - 搜索记忆
 
-### 查看进程
+### 爬虫服务
+- `POST /api/v1/workbench/crawler/crawl` - 爬取网站
 
-```bash
-# 查看所有相关进程
-ps aux | grep -E "uvicorn|celery|http.server"
-
-# 查看端口监听
-netstat -an | grep -E "8000|8080|6379"
-```
-
-### 资源使用
-
-```bash
-# 查看磁盘空间
-df -h ~/FieldMind-Rebuild
-
-# 查看数据库大小
-du -h ~/FieldMind-Rebuild/fieldmind-backend/data/
-```
+### 知识图谱
+- `POST /api/v1/workbench/kg/build` - 构建图谱
+- `POST /api/v1/workbench/kg/query` - 查询图谱
 
 ---
 
-## 🔧 开发调试
+## 📚 文档位置
 
-### 后端调试
-
-```bash
-# 启用详细日志
-LOG_LEVEL=DEBUG uvicorn app.main:app --reload
-
-# Python 调试
-python -m pdb app/main.py
-```
-
-### 前端调试
-
-```
-打开浏览器开发者工具 (F12)
-查看 Console 和 Network 标签页
-```
-
-### macOS 应用调试
-
-```bash
-# 使用 lldb 调试
-cd ~/Desktop/FieldMindApp
-swift build
-lldb .build/debug/FieldMind
-
-# 查看崩溃日志
-open ~/Library/Logs/DiagnosticReports/
-```
+- 总体评估: `WORKBENCH_STATUS_ASSESSMENT.md`
+- 进度跟踪: `WORKBENCH_IMPLEMENTATION_PROGRESS.md`
+- Day 1 总结: `WORKBENCH_DAY1_FINAL_REPORT.md`
+- HanLP 集成: `HANLP_INTEGRATION_COMPLETE.md`
+- 爬虫集成: `CRAWLER_INTEGRATION_COMPLETE.md`
 
 ---
 
-## 📦 依赖管理
-
-### Python 依赖
-
-```bash
-# 查看已安装依赖
-pip list
-
-# 更新单个包
-pip install --upgrade <package>
-
-# 更新所有包
-pip install --upgrade -r requirements.txt
-
-# 导出当前依赖
-pip freeze > requirements.txt
-```
-
-### Swift 依赖
-
-```bash
-# 更新依赖
-swift package update
-
-# 显示依赖树
-swift package show-dependencies
-
-# 重置依赖
-swift package reset
-```
-
----
-
-## 🔐 安全检查清单
-
-- [ ] 修改默认密码 (demo/demo123)
-- [ ] 更改 SECRET_KEY 和 JWT_SECRET_KEY
-- [ ] 配置 OpenAI API Key
-- [ ] 限制 CORS 允许的源
-- [ ] 启用 HTTPS (生产环境)
-- [ ] 配置防火墙规则
-- [ ] 定期备份数据库
-- [ ] 更新依赖包到最新版本
-
----
-
-## 📝 API 快速测试
-
-### 使用 curl 测试
-
-```bash
-# 登录
-curl -X POST http://localhost:8000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"demo","password":"demo123"}'
-
-# 获取项目列表
-curl http://localhost:8000/api/projects \
-  -H "Authorization: Bearer <token>"
-
-# 上传文档
-curl -X POST http://localhost:8000/api/projects/1/documents/upload \
-  -H "Authorization: Bearer <token>" \
-  -F "file=@document.pdf"
-```
-
-### 使用 httpie 测试
-
-```bash
-# 安装 httpie
-brew install httpie
-
-# 登录
-http POST localhost:8000/api/auth/login \
-  username=demo password=demo123
-
-# 获取项目
-http localhost:8000/api/projects \
-  Authorization:"Bearer <token>"
-```
-
----
-
-## 📚 学习资源
-
-### 后端 (FastAPI)
-- 官方文档: https://fastapi.tiangolo.com/
-- API 文档: http://localhost:8000/docs
-
-### 前端 (JavaScript)
-- MDN Web Docs: https://developer.mozilla.org/
-
-### macOS 应用 (SwiftUI)
-- 官方文档: https://developer.apple.com/documentation/swiftui/
-- Swift 指南: https://docs.swift.org/swift-book/
-
----
-
-## 💡 最佳实践
-
-1. **开发前先启动所有服务**
-2. **定期检查系统状态**
-3. **查看日志了解错误**
-4. **使用版本控制 (Git)**
-5. **编写测试用例**
-6. **定期备份数据**
-7. **文档化新功能**
-8. **代码审查和重构**
-
----
-
-## 🎯 下一步
-
-1. ✅ 启动系统: `./start_system.sh`
-2. ✅ 访问前端: http://localhost:8080
-3. ✅ 登录系统: demo/demo123
-4. ✅ 创建项目
-5. ✅ 上传文档
-6. ✅ 开始分析
-
----
-
-**FieldMind** - 让田野调查更智能 🌾✨
+**状态**: ✅ Day 1 完成  
+**下一步**: 第二阶段 - 工作流能力

@@ -1,0 +1,117 @@
+{
+  "binding_id": "sqlite_sql_binding",
+  "binding_name": "SQLite 数据库绑定",
+  "version": "1.0",
+  "description": "连接到 SQLite 数据库，用于查询 chunks 和结构化数据",
+
+  "channel_type": "sql",
+  "protocol": "sqlite",
+  "engine": "sqlite3",
+
+  "connection": {
+    "database_path": "data/fieldmind.db",
+    "mode": "rw",
+    "timeout": 10.0,
+    "check_same_thread": false,
+    "isolation_level": null
+  },
+
+  "connection_pool": {
+    "max_connections": 20,
+    "min_connections": 2,
+    "idle_timeout_seconds": 300
+  },
+
+  "query_settings": {
+    "default_timeout_ms": 5000,
+    "max_retry_attempts": 2,
+    "retry_delay_ms": 500,
+    "enable_query_logging": true,
+    "log_slow_queries": true,
+    "slow_query_threshold_ms": 1000,
+    "use_prepared_statements": true
+  },
+
+  "cache": {
+    "enabled": true,
+    "backend": "memory",
+    "ttl_seconds": 300,
+    "cache_key_prefix": "sql:",
+    "max_cache_size_mb": 100
+  },
+
+  "optimization": {
+    "enable_query_optimization": true,
+    "use_indexes": true,
+    "analyze_queries": true,
+    "pragma_settings": {
+      "journal_mode": "WAL",
+      "synchronous": "NORMAL",
+      "cache_size": -64000,
+      "temp_store": "MEMORY",
+      "mmap_size": 268435456
+    }
+  },
+
+  "health_check": {
+    "enabled": true,
+    "interval_seconds": 120,
+    "query": "SELECT COUNT(*) FROM document_chunks LIMIT 1",
+    "timeout_ms": 3000
+  },
+
+  "metrics": {
+    "enabled": true,
+    "metrics_to_collect": [
+      "query_count",
+      "query_duration",
+      "error_count",
+      "cache_hit_rate",
+      "rows_returned"
+    ]
+  },
+
+  "query_templates": {
+    "get_chunks_by_dimension": {
+      "sql": "SELECT * FROM document_chunks WHERE dimension_category = ? ORDER BY chunk_index",
+      "parameters": ["dimension_category"]
+    },
+    "get_chunks_by_document": {
+      "sql": "SELECT * FROM document_chunks WHERE document_id = ? ORDER BY chunk_index",
+      "parameters": ["document_id"]
+    },
+    "search_chunks_fulltext": {
+      "sql": "SELECT chunk_id, text, dimension_category, confidence_score FROM document_chunks WHERE text LIKE '%' || ? || '%' ORDER BY confidence_score DESC LIMIT ?",
+      "parameters": ["search_term", "limit"]
+    },
+    "dimension_statistics": {
+      "sql": "SELECT dimension_category, COUNT(*) as count, AVG(confidence_score) as avg_confidence FROM document_chunks WHERE dimension_category IS NOT NULL GROUP BY dimension_category",
+      "parameters": []
+    },
+    "chunks_by_time_period": {
+      "sql": "SELECT time_period, COUNT(*) as count FROM document_chunks WHERE time_period IS NOT NULL GROUP BY time_period ORDER BY time_period",
+      "parameters": []
+    }
+  },
+
+  "result_processing": {
+    "row_factory": "dict",
+    "decode_json_fields": ["chunk_metadata", "keywords_matched"],
+    "parse_date_fields": ["created_at", "vectorized_at"],
+    "null_handling": "preserve"
+  },
+
+  "security": {
+    "read_only": false,
+    "allowed_operations": ["SELECT", "INSERT", "UPDATE"],
+    "blocked_operations": ["DROP", "TRUNCATE", "ALTER"],
+    "validate_sql": true,
+    "prevent_sql_injection": true
+  },
+
+  "notes": [
+    "此绑定用于所有需要查询 chunks 表的视图",
+    "SQLite 数据库文件路径是相对于项目根目录的",
+    "WAL 模式提供更好的并发性能"
+  ]
+}

@@ -1,527 +1,246 @@
-================================================================================
-代码质量检查报告
-================================================================================
-
-## 1. 编码问题 (11 个文件)
-
-- code_quality_check.py
-  问题: 包含乱码字符
-
-- repos/crawl4ai/deploy/docker/tests/test_security_ssrf_crawl.py
-  问题: 非UTF-8编码: utf-7
-
-- repos/crawl4ai/docs/md_v2/assets/highlight.min.js
-  问题: 非UTF-8编码: utf-7
-
-- repos/LightRAG/lightrag/api/static/swagger-ui/swagger-ui-bundle.js
-  问题: 包含乱码字符
-
-- repos/LightRAG/lightrag/sidecar/backfill.py
-  问题: 包含乱码字符
-
-- repos/LightRAG/tests/kg/test_bounded_pipeline_history.py
-  问题: 包含乱码字符
-
-- repos/LightRAG/tests/sidecar/test_backfill.py
-  问题: 包含乱码字符
-
-- repos/LightRAG/tests/chunker/test_sidecar_backfill_integration.py
-  问题: 包含乱码字符
-
-- repos/khoj/src/khoj/processor/content/org_mode/orgnode.py
-  问题: 非UTF-8编码: utf-7
-
-- repos/ragflow/common/data_source/confluence_connector.py
-  问题: 非UTF-8编码: utf-7
-
-- external-tools/ragflow/common/data_source/confluence_connector.py
-  问题: 非UTF-8编码: utf-7
-
-## 2. 重复文件 (2403 组)
-
-重复组 d41d8cd9:
-  - repos/cognee/cognee/tasks/graph/cascade_extract/__init__.py
-  - repos/cognee/cognee/tasks/graph/cascade_extract/utils/__init__.py
-  - repos/cognee/cognee/tests/__init__.py
-  - repos/cognee/cognee/tests/unit/truth_subspace/__init__.py
-  - repos/cognee/cognee/tests/unit/tasks/graph/__init__.py
-  - repos/cognee/cognee/tests/unit/api/v1/__init__.py
-  - repos/cognee/cognee/tests/unit/api/v1/ui/__init__.py
-  - repos/cognee/cognee/tests/unit/api/v1/config/__init__.py
-  - repos/cognee/cognee/tests/unit/api/v1/recall/__init__.py
-  - repos/cognee/cognee/tests/unit/api/v1/forget/__init__.py
-  - repos/cognee/cognee/tests/unit/api/v1/improve/__init__.py
-  - repos/cognee/cognee/tests/unit/infrastructure/databases/vector/__init__.py
-  - repos/cognee/cognee/tests/unit/modules/tools/__init__.py
-  - repos/cognee/cognee/tests/unit/modules/agents/__init__.py
-  - repos/cognee/cognee/tests/unit/modules/observability/__init__.py
-  - repos/cognee/cognee/tests/unit/modules/session_distillation/__init__.py
-  - repos/cognee/cognee/tests/api/__init__.py
-  - repos/cognee/cognee/tests/performance/utils/__init__.py
-  - repos/cognee/cognee/tests/e2e/__init__.py
-  - repos/cognee/cognee/tests/e2e/turso/__init__.py
-  - repos/cognee/cognee/tests/e2e/postgres/__init__.py
-  - repos/cognee/cognee/eval_framework/__init__.py
-  - repos/cognee/cognee/eval_framework/reporting/__init__.py
-  - repos/cognee/cognee/eval_framework/analysis/__init__.py
-  - repos/cognee/cognee/eval_framework/answer_generation/__init__.py
-  - repos/cognee/cognee/eval_framework/corpus_builder/__init__.py
-  - repos/cognee/cognee/eval_framework/corpus_builder/task_getters/__init__.py
-  - repos/cognee/cognee/eval_framework/sweeps/__init__.py
-  - repos/cognee/cognee/eval_framework/evaluation/__init__.py
-  - repos/cognee/cognee/eval_framework/evaluation/metrics/__init__.py
-  - repos/cognee/cognee/eval_framework/benchmark_adapters/__init__.py
-  - repos/cognee/cognee/eval_framework/beam/__init__.py
-  - repos/cognee/cognee/eval_framework/beam/preprocessing/__init__.py
-  - repos/cognee/cognee/eval_framework/beam/eval/__init__.py
-  - repos/cognee/cognee/eval_framework/beam/eval/metrics/__init__.py
-  - repos/cognee/cognee/api/__init__.py
-  - repos/cognee/cognee/api/v1/memify/__init__.py
-  - repos/cognee/cognee/api/v1/ontologies/routers/__init__.py
-  - repos/cognee/cognee/api/v1/delete/delete.py
-  - repos/cognee/cognee/api/v1/activity/__init__.py
-  - repos/cognee/cognee/api/v1/sessions/routers/__init__.py
-  - repos/cognee/cognee/api/v1/proposals/__init__.py
-  - repos/cognee/cognee/infrastructure/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/relational/sqlalchemy/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/graph/kuzu/subprocess/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/graph/postgres/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/graph/neo4j_driver/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/vector/turso/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/vector/models/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/vector/lancedb/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/vector/lancedb/subprocess/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/hybrid/neptune_analytics/__init__.py
-  - repos/cognee/cognee/infrastructure/databases/hybrid/postgres/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/baml/baml_src/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_native/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_instructor/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_instructor/llm/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_instructor/llm/gemini/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_instructor/llm/generic_llm_api/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_instructor/llm/azure_openai/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_instructor/llm/anthropic/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_instructor/llm/ollama/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_instructor/llm/mistral/__init__.py
-  - repos/cognee/cognee/infrastructure/llm/structured_output_framework/litellm_instructor/llm/openai/__init__.py
-  - repos/cognee/cognee/infrastructure/context/__init__.py
-  - repos/cognee/cognee/infrastructure/files/utils/__init__.py
-  - repos/cognee/cognee/infrastructure/data/__init__.py
-  - repos/cognee/cognee/infrastructure/data/utils/__init__.py
-  - repos/cognee/cognee/infrastructure/data/chunking/__init__.py
-  - repos/cognee/cognee/infrastructure/loaders/utils/__init__.py
-  - repos/cognee/cognee/infrastructure/entities/__init__.py
-  - repos/cognee/cognee/modules/__init__.py
-  - repos/cognee/cognee/modules/truth_subspace/__init__.py
-  - repos/cognee/cognee/modules/visualization/__init__.py
-  - repos/cognee/cognee/modules/graph/cognee_graph/__init__.py
-  - repos/cognee/cognee/modules/ontology/__init__.py
-  - repos/cognee/cognee/modules/ontology/rdf_xml/__init__.py
-  - repos/cognee/cognee/modules/cognify/__init__.py
-  - repos/cognee/cognee/modules/recall/__init__.py
-  - repos/cognee/cognee/modules/recall/types/__init__.py
-  - repos/cognee/cognee/modules/recall/methods/__init__.py
-  - repos/cognee/cognee/modules/retrieval/__init__.py
-  - repos/cognee/cognee/modules/retrieval/context_providers/__init__.py
-  - repos/cognee/cognee/modules/retrieval/utils/__init__.py
-  - repos/cognee/cognee/modules/retrieval/entity_extractors/__init__.py
-  - repos/cognee/cognee/modules/retrieval/hybrid/__init__.py
-  - repos/cognee/cognee/modules/data/__init__.py
-  - repos/cognee/cognee/modules/data/processing/__init__.py
-  - repos/cognee/evals/old/hotpot_qa_24_2025/src/modal_apps/__init__.py
-  - repos/cognee/evals/old/hotpot_qa_24_2025/src/qa/__init__.py
-  - repos/cognee/distributed/__init__.py
-  - repos/cognee/distributed/tasks/__init__.py
-  - repos/cognee/cognee-mcp/src/codingagents/__init__.py
-  - repos/crawl4ai/crawl4ai/crawlers/__init__.py
-  - repos/crawl4ai/crawl4ai/crawlers/amazon_product/__init__.py
-  - repos/crawl4ai/crawl4ai/crawlers/google_search/__init__.py
-  - repos/crawl4ai/crawl4ai/legacy/__init__.py
-  - repos/crawl4ai/tests/__init__.py
-  - repos/crawl4ai/tests/deep_crawling/__init__.py
-  - repos/LightRAG/lightrag/tools/__init__.py
-  - repos/LightRAG/lightrag/llm/__init__.py
-  - repos/LightRAG/tests/pipeline/__init__.py
-  - repos/LightRAG/tests/tools/__init__.py
-  - repos/LightRAG/tests/llm/__init__.py
-  - repos/LightRAG/tests/llm/nvidia_impl/__init__.py
-  - repos/LightRAG/tests/llm/voyageai_impl/__init__.py
-  - repos/LightRAG/tests/llm/bedrock_impl/__init__.py
-  - repos/LightRAG/tests/llm/gemini_impl/__init__.py
-  - repos/LightRAG/tests/llm/ollama_impl/__init__.py
-  - repos/LightRAG/tests/llm/zhipu_impl/__init__.py
-  - repos/LightRAG/tests/llm/anthropic_impl/__init__.py
-  - repos/LightRAG/tests/llm/openai_impl/__init__.py
-  - repos/LightRAG/tests/workspace/__init__.py
-  - repos/LightRAG/tests/utils/__init__.py
-  - repos/LightRAG/tests/parser/__init__.py
-  - repos/LightRAG/tests/parser/external/__init__.py
-  - repos/LightRAG/tests/parser/external/docling/__init__.py
-  - repos/LightRAG/tests/parser/external/mineru/__init__.py
-  - repos/LightRAG/tests/parser/docx/__init__.py
-  - repos/LightRAG/tests/kg/__init__.py
-  - repos/LightRAG/tests/kg/faiss_impl/__init__.py
-  - repos/LightRAG/tests/kg/redis_impl/__init__.py
-  - repos/LightRAG/tests/kg/qdrant_impl/__init__.py
-  - repos/LightRAG/tests/kg/postgres_impl/__init__.py
-  - repos/LightRAG/tests/kg/milvus_impl/__init__.py
-  - repos/LightRAG/tests/kg/json_impl/__init__.py
-  - repos/LightRAG/tests/kg/mongo_impl/__init__.py
-  - repos/LightRAG/tests/kg/memgraph_impl/__init__.py
-  - repos/LightRAG/tests/kg/neo4j_impl/__init__.py
-  - repos/LightRAG/tests/kg/opensearch_impl/__init__.py
-  - repos/LightRAG/tests/kg/nano_impl/__init__.py
-  - repos/LightRAG/tests/kg/networkx_impl/__init__.py
-  - repos/LightRAG/tests/api/__init__.py
-  - repos/LightRAG/tests/api/config/__init__.py
-  - repos/LightRAG/tests/api/auth/__init__.py
-  - repos/LightRAG/tests/api/routes/__init__.py
-  - repos/LightRAG/tests/evaluation/__init__.py
-  - repos/LightRAG/tests/sidecar/__init__.py
-  - repos/LightRAG/tests/chunker/__init__.py
-  - repos/LightRAG/tests/extraction/__init__.py
-  - repos/firecrawl/apps/test-suite/jest.setup.js
-  - repos/khoj/tests/__init__.py
-  - repos/khoj/src/khoj/__init__.py
-  - repos/khoj/src/khoj/routers/__init__.py
-  - repos/khoj/src/khoj/database/__init__.py
-  - repos/khoj/src/khoj/database/migrations/__init__.py
-  - repos/khoj/src/khoj/database/management/__init__.py
-  - repos/khoj/src/khoj/database/management/commands/__init__.py
-  - repos/khoj/src/khoj/app/__init__.py
-  - repos/khoj/src/khoj/search_type/__init__.py
-  - repos/khoj/src/khoj/processor/__init__.py
-  - repos/khoj/src/khoj/processor/tools/__init__.py
-  - repos/khoj/src/khoj/processor/content/__init__.py
-  - repos/khoj/src/khoj/processor/content/org_mode/__init__.py
-  - repos/khoj/src/khoj/processor/content/plaintext/__init__.py
-  - repos/khoj/src/khoj/processor/content/images/__init__.py
-  - repos/khoj/src/khoj/processor/content/markdown/__init__.py
-  - repos/khoj/src/khoj/processor/content/pdf/__init__.py
-  - repos/khoj/src/khoj/processor/content/github/__init__.py
-  - repos/khoj/src/khoj/processor/content/docx/__init__.py
-  - repos/khoj/src/khoj/processor/speech/__init__.py
-  - repos/khoj/src/khoj/processor/conversation/__init__.py
-  - repos/khoj/src/khoj/processor/conversation/google/__init__.py
-  - repos/khoj/src/khoj/processor/conversation/anthropic/__init__.py
-  - repos/khoj/src/khoj/processor/conversation/openai/__init__.py
-  - repos/khoj/src/khoj/utils/__init__.py
-  - repos/khoj/src/khoj/search_filter/__init__.py
-  - repos/markitdown/packages/markitdown/src/markitdown/converter_utils/__init__.py
-  - repos/markitdown/packages/markitdown/src/markitdown/converter_utils/docx/__init__.py
-  - repos/markitdown/packages/markitdown/src/markitdown/converter_utils/docx/math/__init__.py
-  - repos/markitdown/packages/markitdown-ocr/tests/__init__.py
-  - repos/pyhanlp/tests/demos/__init__.py
-  - repos/graphiti/server/graph_service/__init__.py
-  - repos/graphiti/server/graph_service/routers/__init__.py
-  - repos/graphiti/graphiti_core/migrations/__init__.py
-  - repos/graphiti/graphiti_core/driver/neo4j/__init__.py
-  - repos/graphiti/graphiti_core/driver/kuzu/__init__.py
-  - repos/graphiti/graphiti_core/driver/neptune/__init__.py
-  - repos/graphiti/graphiti_core/utils/__init__.py
-  - repos/graphiti/graphiti_core/models/__init__.py
-  - repos/graphiti/graphiti_core/models/nodes/__init__.py
-  - repos/graphiti/graphiti_core/models/edges/__init__.py
-  - repos/graphiti/graphiti_core/search/__init__.py
-  - repos/graphiti/mcp_server/tests/__init__.py
-  - repos/graphiti/mcp_server/src/__init__.py
-  - repos/graphiti/mcp_server/src/config/__init__.py
-  - repos/graphiti/mcp_server/src/utils/__init__.py
-  - repos/graphiti/mcp_server/src/models/__init__.py
-  - repos/graphiti/mcp_server/src/services/__init__.py
-  - repos/quivr/core/tests/__init__.py
-  - repos/quivr/core/tests/processor/__init__.py
-  - repos/quivr/core/tests/processor/odt/__init__.py
-  - repos/quivr/core/tests/processor/pdf/__init__.py
-  - repos/quivr/core/tests/processor/community/__init__.py
-  - repos/quivr/core/tests/processor/docx/__init__.py
-  - repos/quivr/core/tests/processor/epub/__init__.py
-  - repos/quivr/core/quivr_core/llm_tools/__init__.py
-  - repos/quivr/core/quivr_core/processor/__init__.py
-  - repos/quivr/core/quivr_core/processor/implementations/__init__.py
-  - repos/quivr/core/quivr_core/rag/__init__.py
-  - repos/quivr/core/quivr_core/rag/entities/__init__.py
-  - repos/quivr/core/quivr_core/storage/__init__.py
-  - repos/mem0/tests/__init__.py
-  - repos/mem0/tests/utils/__init__.py
-  - repos/mem0/server/routers/__init__.py
-  - repos/mem0/cli/python/tests/__init__.py
-  - repos/mem0/examples/notebooks/helper/__init__.py
-  - repos/mem0/mem0/vector_stores/__init__.py
-  - repos/mem0/mem0/embeddings/__init__.py
-  - repos/mem0/mem0/memory/__init__.py
-  - repos/mem0/mem0/proxy/__init__.py
-  - repos/mem0/mem0/configs/__init__.py
-  - repos/mem0/mem0/configs/vector_stores/__init__.py
-  - repos/mem0/mem0/configs/embeddings/__init__.py
-  - repos/mem0/mem0/configs/rerankers/__init__.py
-  - repos/mem0/mem0/configs/llms/__init__.py
-  - repos/mem0/mem0/llms/__init__.py
-  - repos/mem0/mem0/client/__init__.py
-  - repos/ragflow/memory/__init__.py
-  - repos/ragflow/memory/utils/__init__.py
-  - repos/ragflow/memory/services/__init__.py
-  - repos/ragflow/deepdoc/server/endpoints/__init__.py
-  - repos/ragflow/deepdoc/server/adapters/__init__.py
-  - repos/ragflow/test/__init__.py
-  - repos/ragflow/test/unit_test/data_source/__init__.py
-  - repos/ragflow/test/unit_test/rag/llm/__init__.py
-  - repos/ragflow/test/unit_test/rag/app/__init__.py
-  - repos/ragflow/test/playwright/__init__.py
-  - repos/ragflow/test/playwright/e2e/__init__.py
-  - repos/ragflow/test/playwright/helpers/__init__.py
-  - repos/ragflow/web/src/pages/agent/hooks/use-iteration.ts
-  - repos/ragflow/rag/graphrag/__init__.py
-  - repos/ragflow/rag/graphrag/general/__init__.py
-  - repos/ragflow/common/data_source/cross_connector_utils/__init__.py
-  - repos/ragflow/common/data_source/google_util/__init__.py
-  - repos/ragflow/common/data_source/jira/__init__.py
-  - repos/ragflow/common/data_source/github/__init__.py
-  - repos/ragflow/common/data_source/bitbucket/__init__.py
-  - repos/ragflow/common/data_source/google_drive/__init__.py
-  - repos/ragflow/common/doc_store/__init__.py
-  - repos/ragflow/sdk/python/test/test_http_api/test_file_management_within_dataset/test_stop_parse_documents.py
-  - repos/ragflow/api/db/joint_services/__init__.py
-  - repos/ragflow/api/apps/services/__init__.py
-  - repos/ragflow/api/channels/__init__.py
-  - repos/ragflow/api/channels/core/__init__.py
-  - repos/browser-use/examples/__init__.py
-  - repos/browser-use/examples/models/langchain/__init__.py
-  - repos/browser-use/browser_use/filesystem/__init__.py
-  - repos/browser-use/browser_use/browser/watchdogs/__init__.py
-  - repos/browser-use/browser_use/tokens/__init__.py
-  - external-tools/markitdown/packages/markitdown/src/markitdown/converter_utils/__init__.py
-  - external-tools/markitdown/packages/markitdown/src/markitdown/converter_utils/docx/__init__.py
-  - external-tools/markitdown/packages/markitdown/src/markitdown/converter_utils/docx/math/__init__.py
-  - external-tools/markitdown/packages/markitdown-ocr/tests/__init__.py
-  - external-tools/ragflow/memory/__init__.py
-  - external-tools/ragflow/memory/utils/__init__.py
-  - external-tools/ragflow/memory/services/__init__.py
-  - external-tools/ragflow/deepdoc/server/endpoints/__init__.py
-  - external-tools/ragflow/deepdoc/server/adapters/__init__.py
-  - external-tools/ragflow/test/__init__.py
-  - external-tools/ragflow/test/unit_test/data_source/__init__.py
-  - external-tools/ragflow/test/unit_test/rag/llm/__init__.py
-  - external-tools/ragflow/test/unit_test/rag/app/__init__.py
-  - external-tools/ragflow/test/playwright/__init__.py
-  - external-tools/ragflow/test/playwright/e2e/__init__.py
-  - external-tools/ragflow/test/playwright/helpers/__init__.py
-  - external-tools/ragflow/web/src/pages/agent/hooks/use-iteration.ts
-  - external-tools/ragflow/rag/graphrag/__init__.py
-  - external-tools/ragflow/rag/graphrag/general/__init__.py
-  - external-tools/ragflow/common/data_source/cross_connector_utils/__init__.py
-  - external-tools/ragflow/common/data_source/google_util/__init__.py
-  - external-tools/ragflow/common/data_source/jira/__init__.py
-  - external-tools/ragflow/common/data_source/github/__init__.py
-  - external-tools/ragflow/common/data_source/bitbucket/__init__.py
-  - external-tools/ragflow/common/data_source/google_drive/__init__.py
-  - external-tools/ragflow/common/doc_store/__init__.py
-  - external-tools/ragflow/sdk/python/test/test_http_api/test_file_management_within_dataset/test_stop_parse_documents.py
-  - external-tools/ragflow/api/db/joint_services/__init__.py
-  - external-tools/ragflow/api/apps/services/__init__.py
-  - external-tools/ragflow/api/channels/__init__.py
-  - external-tools/ragflow/api/channels/core/__init__.py
-  - fieldmind-backend/app/middleware/__init__.py
-
-重复组 1eb34d03:
-  - repos/cognee/cognee/infrastructure/databases/graph/supported_databases.py
-  - repos/cognee/cognee/infrastructure/databases/vector/supported_databases.py
-
-重复组 da71947e:
-  - repos/cognee/evals/old/hotpot_qa_24_2025/src/helpers/convert_metrics.py
-  - repos/cognee/evals/old/comparative_eval/helpers/convert_metrics.py
-
-重复组 6965f0a0:
-  - repos/cognee/evals/old/hotpot_qa_24_2025/src/helpers/modal_evaluate_answers.py
-  - repos/cognee/evals/old/comparative_eval/helpers/modal_evaluate_answers.py
-
-重复组 2f3be58a:
-  - repos/cognee/evals/old/hotpot_qa_24_2025/src/helpers/calculate_aggregate_metrics.py
-  - repos/cognee/evals/old/comparative_eval/helpers/calculate_aggregate_metrics.py
-
-重复组 4d5dcbb8:
-  - repos/cognee/examples/configurations/database_examples/neo4j_graph_database_configuration.py
-  - repos/cognee/examples/database_examples/neo4j_example.py
-
-重复组 2437efc6:
-  - repos/cognee/examples/configurations/database_examples/ladybug_graph_database_configuration.py
-  - repos/cognee/examples/database_examples/ladybug_example.py
-
-重复组 0352474b:
-  - repos/cognee/cognee-mcp/apps-src/src/vite-env.d.ts
-  - repos/firecrawl/apps/ui/ingestion-ui/src/vite-env.d.ts
-  - repos/neo4j-knowledge-graph-builder/frontend/src/vite-env.d.ts
-  - repos/mem0/examples/vercel-ai-sdk-chat-app/src/vite-env.d.ts
-  - repos/mem0/examples/multimodal-demo/src/vite-env.d.ts
-
-重复组 52598e32:
-  - repos/crawl4ai/tests/adaptive/test_llm_embedding.py
-  - repos/crawl4ai/docs/examples/adaptive_crawling/llm_config_example.py
-
-重复组 069a4b60:
-  - repos/crawl4ai/docs/md_v2/assets/toc.js
-  - repos/crawl4ai/docs/md_v2/assets/test/toc.js
-
-## 3. 格式问题 (4387 个文件)
-
-- code_quality_check.py
-  行 119: 行过长 (121 > 120)
-
-- test_workflow.py
-  行 307: 行过长 (129 > 120)
-
-- test_audio_processing.py
-  行 119: 行过长 (125 > 120)
-
-- test_real_audio.py
-  行 114: 行过长 (139 > 120)
-
-- repos/PDF-Guru/frontend/wailsjs/go/models.ts
-  行 2: 行尾空格
-  行 4: 混合tab和空格
-  行 5: 混合tab和空格
-
-- repos/PDF-Guru/frontend/wailsjs/go/main/App.d.ts
-  行 5: 行过长 (151 > 100)
-  行 7: 行过长 (163 > 100)
-  行 9: 行过长 (246 > 100)
-
-- repos/PDF-Guru/frontend/wailsjs/go/main/App.js
-  行 6: 行过长 (112 > 100)
-  行 10: 行过长 (118 > 100)
-  行 13: 行过长 (135 > 100)
-
-- repos/PDF-Guru/frontend/wailsjs/runtime/runtime.d.ts
-  行 40: 行过长 (115 > 100)
-  行 45: 行过长 (120 > 100)
-  行 100: 行过长 (113 > 100)
-
-- repos/PDF-Guru/thirdparty/encrypt.py
-  行 11: 行过长 (126 > 120)
-  行 64: 行过长 (140 > 120)
-  行 74: 行过长 (153 > 120)
-
-- repos/PDF-Guru/thirdparty/mask.py
-  行 88: 行过长 (170 > 120)
-
-- repos/PDF-Guru/thirdparty/merge.py
-  行 13: 行过长 (124 > 120)
-
-- repos/PDF-Guru/thirdparty/metadata.py
-  行 35: 行过长 (135 > 120)
-
-- repos/PDF-Guru/thirdparty/watermark.py
-  行 48: 行尾空格
-  行 131: 行过长 (136 > 120)
-  行 137: 行过长 (131 > 120)
-
-- repos/PDF-Guru/thirdparty/cmd_parser.py
-  行 11: 行过长 (149 > 120)
-  行 38: 行过长 (190 > 120)
-  行 40: 行过长 (125 > 120)
-
-- repos/PDF-Guru/thirdparty/convert.py
-  行 12: 行过长 (124 > 120)
-  行 140: 行尾空格
-  行 182: 行过长 (127 > 120)
-
-- repos/PDF-Guru/thirdparty/cut.py
-  行 38: 行过长 (148 > 120)
-  行 60: 行过长 (158 > 120)
-  行 74: 行过长 (163 > 120)
-
-- repos/PDF-Guru/thirdparty/page_number.py
-  行 96: 行过长 (269 > 120)
-  行 113: 行过长 (153 > 120)
-  行 115: 行过长 (154 > 120)
-
-- repos/PDF-Guru/thirdparty/background.py
-  行 41: 行尾空格
-  行 79: 行尾空格
-
-- repos/PDF-Guru/thirdparty/pdf.py
-  行 44: 行过长 (144 > 120)
-  行 56: 行过长 (201 > 120)
-  行 58: 行过长 (183 > 120)
-
-- repos/PDF-Guru/thirdparty/bookmark.py
-  行 77: 行尾空格
-  行 113: 行尾空格
-  行 116: 行过长 (129 > 120)
-
-## 4. 代码质量问题 (4119 个文件)
-
-### 严重问题 (214 个文件):
-- code_quality_check.py
-  ⚠️  可能包含硬编码密码/密钥
-
-- repos/cognee/cognee/tests/test_shared_node_preservation.py
-  ⚠️  可能包含硬编码密码/密钥
-
-- repos/cognee/cognee/tests/test_delete_dataset_neo4j.py
-  ⚠️  可能包含硬编码密码/密钥
-
-- repos/cognee/cognee/tests/test_delete_permission.py
-  ⚠️  可能包含硬编码密码/密钥
-
-- repos/cognee/cognee/tests/test_delete_two_users_same_dataset.py
-  ⚠️  可能包含硬编码密码/密钥
-
-- repos/cognee/cognee/tests/test_feedback_weights_memify_pipeline.py
-  ⚠️  可能包含硬编码密码/密钥
-
-- repos/cognee/cognee/tests/test_delete_all_with_mixed_permissions.py
-  ⚠️  可能包含硬编码密码/密钥
-
-- repos/cognee/cognee/tests/test_delete_dataset_ladybug.py
-  ⚠️  可能包含硬编码密码/密钥
-
-- repos/cognee/cognee/tests/test_delete_two_users_with_legacy_data.py
-  ⚠️  可能包含硬编码密码/密钥
-
-- repos/cognee/cognee/tests/unit/api/test_cloud_client_skills_upload.py
-  ⚠️  可能包含硬编码密码/密钥
-
-### 警告 (386 个文件):
-- repos/PDF-Guru/frontend/src/components/data.tsx
-  包含 2 个console.log调试语句
-  使用了 4 次any类型
-
-- repos/cognee/cognee-frontend/src/app/(app)/graph-models/[id]/GraphModelEditorPage.tsx
-  包含 5 个console.log调试语句
-  使用了 1 次any类型
-
-- repos/cognee/cognee-frontend/src/app/api/schema/inventory/route.ts
-  包含 6 个console.log调试语句
-
-- repos/cognee/cognee-frontend/src/app/api/log/route.ts
-  包含 1 个console.log调试语句
-
-- repos/cognee/cognee-frontend/src/modules/datasets/getSchemaInventory.ts
-  包含 3 个console.log调试语句
-
-- repos/cognee/cognee-frontend/src/modules/instances/localFetch.ts
-  包含 2 个console.log调试语句
-
-- repos/crawl4ai/crawl4ai/js_snippet/remove_overlay_elements.js
-  包含 1 个console.log调试语句
-
-- repos/crawl4ai/docs/md_v2/ask_ai/ask-ai.js
-  包含 7 个console.log调试语句
-
-- repos/crawl4ai/docs/md_v2/marketplace/marketplace.js
-  包含 1 个console.log调试语句
-
-- repos/crawl4ai/docs/md_v2/marketplace/frontend/marketplace.js
-  包含 1 个console.log调试语句
-
-================================================================================
-## 统计总结
-
-- 编码问题: 11 个文件
-- 重复文件: 2403 组
-- 格式问题: 4387 个文件
-- 代码质量: 4119 个文件
-================================================================================
+# 代码质量分析报告
+
+## 执行摘要
+
+**分析日期**: 2026-09-09  
+**代码库**: FieldMind Backend  
+**代码规模**: 205,450 行 | 4,615 函数 | 1,550 类
+
+### 总体评分
+
+| 维度 | 评分 | 说明 |
+|------|------|------|
+| 代码规模 | ⭐⭐⭐⭐ | 代码量适中，结构清晰 |
+| 复杂度控制 | ⭐⭐ | 存在高复杂度函数，需重构 |
+| 文档完整性 | ⭐⭐⭐ | API 文档完整，部分代码缺文档 |
+| 可维护性 | ⭐⭐⭐ | 整体良好，部分函数过长 |
+
+---
+
+## 问题统计
+
+### 高优先级问题（立即处理）
+
+| 问题类型 | 数量 | 严重程度 |
+|---------|------|---------|
+| 超高复杂度函数（>30） | 10 个 | 🔴 严重 |
+| 高复杂度函数（15-30） | 38 个 | 🟠 中等 |
+| 超长函数（>200 行） | 15 个 | 🔴 严重 |
+| 长函数（100-200 行） | 83 个 | 🟠 中等 |
+
+### 中优先级问题（逐步改进）
+
+| 问题类型 | 数量 | 严重程度 |
+|---------|------|---------|
+| 缺失文档字符串 | 372 处 | 🟡 低 |
+| TODO 注释 | 118 个 | 🟡 低 |
+
+---
+
+## 详细问题分析
+
+### 1. 最严重的 10 个问题
+
+#### 1.1 services/background_tasks.py:64 - process_document_async
+- **问题**: 复杂度 68 | 长度 511 行
+- **影响**: 极难维护，容易引入 bug
+- **建议**: 
+  ```
+  拆分为多个子函数：
+  - extract_document_metadata()
+  - validate_document_format()
+  - process_document_content()
+  - enrich_document_data()
+  - save_document_results()
+  ```
+
+#### 1.2 services/enhanced_chat_service.py:39 - chat_with_skill
+- **问题**: 复杂度 46 | 长度 473 行
+- **影响**: 逻辑复杂，难以调试
+- **建议**:
+  ```
+  提取功能模块：
+  - prepare_skill_context()
+  - execute_skill_chain()
+  - format_chat_response()
+  - handle_skill_error()
+  ```
+
+#### 1.3 core/audit.py:19 - audit_log
+- **问题**: 复杂度 41 | 长度 251 行
+- **影响**: 审计逻辑混乱
+- **建议**:
+  ```
+  简化审计流程：
+  - create_audit_entry()
+  - validate_audit_data()
+  - persist_audit_log()
+  ```
+
+#### 1.4 core/audit.py:51 - decorator
+- **问题**: 复杂度 41 | 长度 217 行
+- **影响**: 装饰器过于复杂
+- **建议**: 使用装饰器工厂模式，分离关注点
+
+#### 1.5 api/reports_real.py:368 - generate_level2_report
+- **问题**: 复杂度 40 | 长度 241 行
+- **影响**: 报告生成逻辑复杂
+- **建议**:
+  ```
+  按报告类型拆分：
+  - generate_summary_section()
+  - generate_analysis_section()
+  - generate_charts_section()
+  - assemble_final_report()
+  ```
+
+#### 1.6 core/structured_output/type_coercion.py:57 - coerce_value
+- **问题**: 复杂度 38
+- **影响**: 类型转换逻辑复杂
+- **建议**: 使用策略模式，为每种类型创建独立转换器
+
+#### 1.7 api/reports_real.py:40 - generate_report
+- **问题**: 复杂度 33
+- **影响**: 报告生成入口复杂
+- **建议**: 使用工厂模式选择报告生成器
+
+#### 1.8 api/reports_real.py:180 - generate_level1_report
+- **问题**: 复杂度 33
+- **影响**: 同上
+- **建议**: 同 1.5
+
+#### 1.9 services/document_processing_pipeline_complete.py:150 - _run_external_enrichment
+- **问题**: 复杂度 33 | 长度 339 行
+- **影响**: 外部数据增强逻辑复杂
+- **建议**: 按数据源拆分增强逻辑
+
+#### 1.10 services/skills/business_analysis.py:122 - _synthesize_insights
+- **问题**: 复杂度 31
+- **影响**: 业务洞察合成复杂
+- **建议**: 提取洞察合成策略
+
+---
+
+### 2. 重构优先级矩阵
+
+| 文件 | 函数数 | 平均复杂度 | 优先级 |
+|------|--------|-----------|--------|
+| services/background_tasks.py | 12 | 18.5 | 🔴 P0 |
+| services/enhanced_chat_service.py | 8 | 15.2 | 🔴 P0 |
+| core/audit.py | 5 | 22.4 | 🔴 P0 |
+| api/reports_real.py | 15 | 14.1 | 🟠 P1 |
+| services/document_processing_pipeline_complete.py | 25 | 12.3 | 🟠 P1 |
+| workflows/gap_analysis.py | 6 | 11.8 | 🟡 P2 |
+| services/plugins/plugin_registry.py | 18 | 10.5 | 🟡 P2 |
+
+---
+
+## 改进建议
+
+### 立即执行（本周）
+
+1. **重构 P0 级别的 5 个超复杂函数**
+   - background_tasks.py::process_document_async
+   - enhanced_chat_service.py::chat_with_skill
+   - audit.py::audit_log
+   - audit.py::decorator
+   - reports_real.py::generate_level2_report
+
+2. **添加单元测试**
+   - 为重构后的函数添加测试
+   - 确保覆盖率 >80%
+
+3. **统一代码格式**
+   - 运行 black 格式化所有代码
+   - 配置 pre-commit hook
+
+### 短期目标（2 周内）
+
+1. **重构 P1 级别的 10 个复杂函数**
+2. **补充关键模块的文档字符串**
+   - 优先补充 API 端点文档
+   - 补充核心服务类文档
+3. **处理所有 TODO 注释**
+   - 分类 TODO：立即修复 / 计划中 / 移除
+   - 创建对应的 Issue
+
+### 长期规划（1 个月内）
+
+1. **建立代码规范**
+   - 创建 CONTRIBUTING.md
+   - 定义函数长度限制（<50 行）
+   - 定义复杂度限制（<10）
+
+2. **持续集成改进**
+   - 添加代码质量检查到 CI
+   - 自动运行 pylint/ruff
+   - 复杂度超标自动失败
+
+3. **技术债务清理**
+   - 清理所有 TODO/FIXME
+   - 移除未使用的代码
+   - 优化导入语句
+
+---
+
+## 质量改进指标
+
+### 当前状态
+
+```
+复杂度分布:
+  <10: 82% ✓
+  10-15: 12% ~
+  15-30: 5% ✗
+  >30: 1% ✗✗
+
+函数长度分布:
+  <50: 75% ✓
+  50-100: 23% ~
+  100-200: 1.8% ✗
+  >200: 0.2% ✗✗
+```
+
+### 目标状态（1 个月后）
+
+```
+复杂度分布:
+  <10: 95% ✓
+  10-15: 4% ~
+  15-30: 1% ✗
+  >30: 0% ✓
+
+函数长度分布:
+  <50: 90% ✓
+  50-100: 9% ~
+  100-200: 1% ✗
+  >200: 0% ✓
+```
+
+---
+
+## 附录
+
+### A. 复杂度计算方法
+
+使用 McCabe 圈复杂度：
+- 基础复杂度：1
+- 每个 if/while/for/except：+1
+- 每个 and/or：+1
+
+### B. 推荐工具
+
+- **代码格式化**: black, isort
+- **静态分析**: pylint, ruff, mypy
+- **复杂度检查**: radon, mccabe
+- **测试覆盖**: pytest-cov
+
+### C. 参考资料
+
+- [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html)
+- [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/)
+- [Clean Code in Python](https://www.oreilly.com/library/view/clean-code-in/9781800560215/)
+
+---
+
+**下一步行动**: 开始执行 P0 级别函数重构

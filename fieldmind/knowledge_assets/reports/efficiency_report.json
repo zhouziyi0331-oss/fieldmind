@@ -1,0 +1,28 @@
+{
+  "reuse_effectiveness": {
+    "overall_reuse_rate": 100.0,
+    "pattern_reuse_rate": 100.0,
+    "skill_reuse_rate": 100.0,
+    "grade": "A"
+  },
+  "usage_intensity": {
+    "avg_uses_per_asset": 27.6,
+    "view_to_use_conversion": 67.95,
+    "share_rate": 49.2828220437856,
+    "grade": "C"
+  },
+  "content_quality": {
+    "avg_rating": 0.57,
+    "grade": "F"
+  },
+  "user_engagement": {
+    "active_users": 50,
+    "avg_events_per_day": 474.6923076923077,
+    "grade": "A"
+  },
+  "overall_score": 65.0,
+  "overall_grade": "C",
+  "recommendations": [
+    "内容质量需要提升，建议审查低评分内容"
+  ]
+}

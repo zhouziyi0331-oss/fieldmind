@@ -1,0 +1,351 @@
+{
+  "view_id": "policy_impact_view",
+  "name": "政策影响视图",
+  "version": "1.0",
+  "description": "查看某个政策的影响范围、实施状态、受益对象、效果评估等",
+
+  "intent": "查看政策的实施效果和影响范围",
+  "keywords": ["政策", "影响", "实施", "效果", "评估"],
+
+  "input": {
+    "required": [
+      {
+        "name": "policy_id",
+        "type": "string",
+        "description": "政策ID或名称",
+        "example": "非遗保护政策"
+      }
+    ],
+    "optional": [
+      {
+        "name": "time_range",
+        "type": "object",
+        "description": "时间范围",
+        "fields": {
+          "start_date": "date",
+          "end_date": "date"
+        }
+      }
+    ]
+  },
+
+  "output": {
+    "policy_info": {
+      "type": "object",
+      "source": "graph_query",
+      "fields": {
+        "policy_id": "string",
+        "name": "string",
+        "type": "string",
+        "level": "string",
+        "effective_date": "date",
+        "expiry_date": "date",
+        "status": "string",
+        "budget": "float",
+        "content_summary": "string"
+      }
+    },
+    "affected_cultural_assets": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "受影响的文化资产",
+      "fields": {
+        "asset_id": "string",
+        "name": "string",
+        "type": "string",
+        "status": "string",
+        "protection_level": "string",
+        "relation_strength": "string"
+      }
+    },
+    "affected_locations": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "影响的地点",
+      "fields": {
+        "location_id": "string",
+        "name": "string",
+        "type": "string",
+        "population": "integer"
+      }
+    },
+    "affected_persons": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "受益人物",
+      "fields": {
+        "person_id": "string",
+        "name": "string",
+        "role": "string",
+        "benefit_type": "string"
+      }
+    },
+    "implementing_organizations": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "实施组织",
+      "fields": {
+        "org_id": "string",
+        "name": "string",
+        "type": "string",
+        "implementation_status": "string",
+        "effectiveness": "string"
+      }
+    },
+    "implementation_timeline": {
+      "type": "array",
+      "source": "computed",
+      "description": "实施时间线",
+      "fields": {
+        "date": "string",
+        "milestone": "string",
+        "status": "string",
+        "description": "string"
+      }
+    },
+    "budget_allocation": {
+      "type": "object",
+      "source": "computed",
+      "description": "预算分配",
+      "fields": {
+        "total_budget": "float",
+        "allocated": "float",
+        "spent": "float",
+        "remaining": "float",
+        "allocation_by_category": "object"
+      }
+    },
+    "impact_assessment": {
+      "type": "object",
+      "source": "inference",
+      "description": "影响评估",
+      "fields": {
+        "overall_effectiveness": "float",
+        "coverage_rate": "float",
+        "beneficiary_satisfaction": "float",
+        "cultural_preservation_impact": "float",
+        "economic_impact": "float"
+      }
+    },
+    "success_stories": {
+      "type": "array",
+      "source": "chunks_search",
+      "description": "成功案例",
+      "fields": {
+        "story_id": "string",
+        "title": "string",
+        "description": "string",
+        "evidence_chunk_id": "string"
+      }
+    },
+    "challenges": {
+      "type": "array",
+      "source": "inference",
+      "description": "面临的挑战",
+      "item_type": "string"
+    },
+    "recommendations": {
+      "type": "array",
+      "source": "inference",
+      "description": "改进建议",
+      "item_type": "string"
+    }
+  },
+
+  "data_bindings": [
+    {
+      "binding_id": "graph_policy_info",
+      "description": "查询政策基本信息",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Policy {policy_id: $policy_id}) RETURN p",
+      "output_mapping": {
+        "policy_info": "p"
+      }
+    },
+    {
+      "binding_id": "graph_affected_assets",
+      "description": "查询受影响的文化资产",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Policy {policy_id: $policy_id})<-[r:related_to]-(a:CulturalAsset) RETURN a, r",
+      "output_mapping": {
+        "affected_cultural_assets": "a",
+        "relation_details": "r"
+      }
+    },
+    {
+      "binding_id": "graph_affected_locations",
+      "description": "查询影响的地点",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Policy {policy_id: $policy_id})<-[:related_to]-(a:CulturalAsset)-[:located_in]->(l:Location) RETURN DISTINCT l",
+      "output_mapping": {
+        "affected_locations": "l"
+      }
+    },
+    {
+      "binding_id": "graph_implementing_orgs",
+      "description": "查询实施组织",
+      "channel_type": "graph",
+      "query_template": "MATCH (o:Organization)-[r:implements]->(p:Policy {policy_id: $policy_id}) RETURN o, r",
+      "output_mapping": {
+        "implementing_organizations": "o",
+        "implementation_details": "r"
+      }
+    },
+    {
+      "binding_id": "graph_affected_persons",
+      "description": "查询受益人物（间接）",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Policy {policy_id: $policy_id})<-[:related_to]-(a:CulturalAsset)<-[:inherits]-(person:Person) RETURN person, 'inheritor' AS benefit_type UNION MATCH (o:Organization)-[:implements]->(p:Policy {policy_id: $policy_id})<-[:manages]-(person:Person) RETURN person, 'manager' AS benefit_type",
+      "output_mapping": {
+        "affected_persons": "result"
+      }
+    },
+    {
+      "binding_id": "chunks_success_stories",
+      "description": "从文本中提取成功案例",
+      "channel_type": "sql",
+      "query_template": "SELECT chunk_id, text FROM document_chunks WHERE dimension_category = '政策' AND text LIKE '%' || :policy_name || '%' AND (text LIKE '%成功%' OR text LIKE '%有效%' OR text LIKE '%改善%') LIMIT 10",
+      "output_mapping": {
+        "success_evidence": "result"
+      }
+    }
+  ],
+
+  "inference_logic": {
+    "generate_implementation_timeline": {
+      "description": "生成实施时间线",
+      "depends_on": ["policy_info", "implementing_organizations"],
+      "logic": {
+        "milestones": [
+          {
+            "date": "policy_info.effective_date",
+            "milestone": "政策生效",
+            "status": "completed"
+          },
+          {
+            "condition": "len(implementing_organizations) > 0",
+            "milestone": "开始实施",
+            "status": "completed"
+          },
+          {
+            "estimate": "effective_date + 6_months",
+            "milestone": "中期评估",
+            "status": "planned"
+          },
+          {
+            "date": "policy_info.expiry_date",
+            "milestone": "政策到期",
+            "status": "planned"
+          }
+        ]
+      }
+    },
+    "calculate_budget_allocation": {
+      "description": "计算预算分配",
+      "depends_on": ["policy_info", "implementing_organizations"],
+      "logic": {
+        "total_budget": "policy_info.budget",
+        "allocated": "sum([org.allocated_amount for org in implementing_organizations])",
+        "spent": "sum([org.spent_amount for org in implementing_organizations])",
+        "remaining": "total_budget - spent",
+        "allocation_by_category": {
+          "protection": "allocated * 0.4",
+          "promotion": "allocated * 0.3",
+          "training": "allocated * 0.2",
+          "administration": "allocated * 0.1"
+        }
+      }
+    },
+    "assess_impact": {
+      "description": "评估政策影响",
+      "depends_on": ["affected_cultural_assets", "affected_locations", "affected_persons", "implementing_organizations"],
+      "logic": {
+        "coverage_rate": {
+          "formula": "len(affected_cultural_assets) / total_assets_in_region",
+          "description": "政策覆盖率"
+        },
+        "cultural_preservation_impact": {
+          "formula": "len([a for a in affected_assets if a.status == 'protected']) / len(affected_assets)",
+          "description": "文化保护效果"
+        },
+        "effectiveness_by_org": {
+          "formula": "mean([org.effectiveness_score for org in implementing_organizations])",
+          "description": "基于组织实施效果的平均值"
+        },
+        "overall_effectiveness": {
+          "formula": "coverage_rate * 0.3 + cultural_preservation_impact * 0.4 + effectiveness_by_org * 0.3",
+          "description": "综合效果评分（0-1）"
+        }
+      }
+    },
+    "identify_challenges": {
+      "description": "识别面临的挑战",
+      "depends_on": ["impact_assessment", "implementing_organizations", "chunks_evidence"],
+      "logic": {
+        "rules": [
+          {
+            "condition": "impact_assessment.coverage_rate < 0.5",
+            "challenge": "政策覆盖面不足，部分地区未能受益"
+          },
+          {
+            "condition": "len([org for org in implementing_organizations if org.implementation_status == 'suspended']) > 0",
+            "challenge": "部分组织实施受阻，需要协调支持"
+          },
+          {
+            "condition": "budget_allocation.spent / budget_allocation.allocated < 0.5",
+            "challenge": "预算执行率偏低，可能存在实施障碍"
+          },
+          {
+            "condition": "chunks_contain_keywords(['困难', '问题', '挑战'])",
+            "challenge": "extract_from_chunks(keywords=['困难', '问题', '挑战'])"
+          }
+        ]
+      }
+    },
+    "generate_recommendations": {
+      "description": "生成改进建议",
+      "depends_on": ["challenges", "impact_assessment"],
+      "logic": {
+        "rules": [
+          {
+            "condition": "'覆盖面不足' in challenges",
+            "recommendation": "建议扩大政策覆盖范围，增加受益对象"
+          },
+          {
+            "condition": "'实施受阻' in challenges",
+            "recommendation": "建议加强部门协调，提供技术和资金支持"
+          },
+          {
+            "condition": "'预算执行率偏低' in challenges",
+            "recommendation": "建议简化申报流程，加快资金拨付速度"
+          },
+          {
+            "condition": "impact_assessment.overall_effectiveness < 0.6",
+            "recommendation": "建议开展政策效果评估，优化实施方案"
+          }
+        ]
+      }
+    }
+  },
+
+  "execution_strategy": {
+    "parallel_bindings": true,
+    "timeout_ms": 7000,
+    "cache_ttl_seconds": 1800,
+    "fallback_on_error": true
+  },
+
+  "test_cases": [
+    {
+      "name": "查询非遗保护政策影响",
+      "input": {
+        "policy_id": "非遗保护政策"
+      },
+      "expected_output": {
+        "policy_info.name": "非遗保护政策",
+        "affected_cultural_assets.length": ">= 0",
+        "impact_assessment.overall_effectiveness": ">= 0"
+      }
+    }
+  ]
+}

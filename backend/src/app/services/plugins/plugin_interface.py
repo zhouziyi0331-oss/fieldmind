@@ -115,8 +115,13 @@ class PluginInterface(ABC):
 
     所有插件适配器必须实现此接口
     """
+    def __init__(self, plugin_id: str, capability_id: str, use_workflow_engine: bool = True):
 
-    def __init__(self, plugin_id: str, capability_id: str):
+        self.use_workflow_engine = use_workflow_engine
+
+        if use_workflow_engine:
+            from app.services.workflow_engine import WorkflowEngine
+            self.workflow_engine = WorkflowEngine(max_workers=4)
         """
         初始化插件接口
 

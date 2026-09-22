@@ -1,0 +1,168 @@
+groups:
+  - name: fieldmind_api_alerts
+    interval: 30s
+    rules:
+      # API错误率告警
+      - alert: HighAPIErrorRate
+        expr: |
+          (
+            sum(rate(http_requests_total{status=~"5.."}[5m])) by (endpoint)
+            /
+            sum(rate(http_requests_total[5m])) by (endpoint)
+          ) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+          component: api
+        annotations:
+          summary: "API错误率过高: {{ $labels.endpoint }}"
+          description: "端点 {{ $labels.endpoint }} 错误率为 {{ $value | humanizePercentage }}，超过5%阈值"
+
+      # API延迟告警
+      - alert: HighAPILatency
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint)
+          ) > 2.0
+        for: 3m
+        labels:
+          severity: warning
+          component: api
+        annotations:
+          summary: "API延迟过高: {{ $labels.endpoint }}"
+          description: "端点 {{ $labels.endpoint }} P95延迟为 {{ $value }}秒，超过2秒阈值"
+
+      # 极高延迟告警
+      - alert: CriticalAPILatency
+        expr: |
+          histogram_quantile(0.99,
+            sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint)
+          ) > 5.0
+        for: 1m
+        labels:
+          severity: critical
+          component: api
+        annotations:
+          summary: "API延迟严重: {{ $labels.endpoint }}"
+          description: "端点 {{ $labels.endpoint }} P99延迟为 {{ $value }}秒，超过5秒阈值"
+
+  - name: fieldmind_database_alerts
+    interval: 30s
+    rules:
+      # 数据库连接池耗尽
+      - alert: DatabaseConnectionPoolExhausted
+        expr: |
+          (db_connections_in_use / (db_connections_in_use + db_connections_idle)) > 0.9
+        for: 2m
+        labels:
+          severity: critical
+          component: database
+        annotations:
+          summary: "数据库连接池接近耗尽"
+          description: "连接池使用率为 {{ $value | humanizePercentage }}，超过90%"
+
+      # 数据库查询慢
+      - alert: SlowDatabaseQueries
+        expr: |
+          histogram_quantile(0.95,
+            sum(rate(db_query_duration_seconds_bucket[5m])) by (le, query_type)
+          ) > 1.0
+        for: 3m
+        labels:
+          severity: warning
+          component: database
+        annotations:
+          summary: "数据库查询变慢: {{ $labels.query_type }}"
+          description: "查询类型 {{ $labels.query_type }} P95延迟为 {{ $value }}秒"
+
+  - name: fieldmind_cache_alerts
+    interval: 30s
+    rules:
+      # 缓存命中率低
+      - alert: LowCacheHitRate
+        expr: cache_hit_rate < 70
+        for: 5m
+        labels:
+          severity: warning
+          component: cache
+        annotations:
+          summary: "Redis缓存命中率过低"
+          description: "缓存命中率为 {{ $value }}%，低于70%阈值"
+
+      # Redis连接失败
+      - alert: RedisConnectionFailure
+        expr: redis_connected_clients == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: cache
+        annotations:
+          summary: "Redis连接失败"
+          description: "Redis客户端连接数为0，缓存不可用"
+
+  - name: fieldmind_system_alerts
+    interval: 30s
+    rules:
+      # CPU使用率高
+      - alert: HighCPUUsage
+        expr: system_cpu_usage_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          component: system
+        annotations:
+          summary: "系统CPU使用率过高"
+          description: "CPU使用率为 {{ $value }}%，超过80%"
+
+      # 内存使用率高
+      - alert: HighMemoryUsage
+        expr: |
+          (system_memory_usage_bytes / (system_memory_usage_bytes + system_memory_available_bytes)) > 0.85
+        for: 5m
+        labels:
+          severity: warning
+          component: system
+        annotations:
+          summary: "系统内存使用率过高"
+          description: "内存使用率为 {{ $value | humanizePercentage }}，超过85%"
+
+      # 磁盘空间不足
+      - alert: LowDiskSpace
+        expr: system_disk_usage_percent > 85
+        for: 10m
+        labels:
+          severity: critical
+          component: system
+        annotations:
+          summary: "磁盘空间不足"
+          description: "磁盘使用率为 {{ $value }}%，超过85%"
+
+  - name: fieldmind_availability_alerts
+    interval: 30s
+    rules:
+      # 服务不健康
+      - alert: ServiceUnhealthy
+        expr: up{job="fieldmind-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: availability
+        annotations:
+          summary: "FieldMind后端服务不可用"
+          description: "服务已下线超过1分钟"
+
+      # 请求量异常下降
+      - alert: RequestRateDrop
+        expr: |
+          (
+            sum(rate(http_requests_total[5m]))
+            /
+            sum(rate(http_requests_total[5m] offset 1h))
+          ) < 0.5
+        for: 5m
+        labels:
+          severity: warning
+          component: availability
+        annotations:
+          summary: "API请求量异常下降"
+          description: "请求量相比1小时前下降超过50%"

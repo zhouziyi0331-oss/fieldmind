@@ -1,0 +1,736 @@
+{
+  "period": "Last 90 days",
+  "daily": [
+    {
+      "date": "2026-06-15",
+      "events": 449,
+      "views": 204,
+      "uses": 165,
+      "shares": 80
+    },
+    {
+      "date": "2026-06-16",
+      "events": 497,
+      "views": 240,
+      "uses": 172,
+      "shares": 85
+    },
+    {
+      "date": "2026-06-17",
+      "events": 475,
+      "views": 241,
+      "uses": 159,
+      "shares": 75
+    },
+    {
+      "date": "2026-06-18",
+      "events": 491,
+      "views": 262,
+      "uses": 153,
+      "shares": 76
+    },
+    {
+      "date": "2026-06-19",
+      "events": 486,
+      "views": 233,
+      "uses": 172,
+      "shares": 81
+    },
+    {
+      "date": "2026-06-20",
+      "events": 465,
+      "views": 230,
+      "uses": 171,
+      "shares": 64
+    },
+    {
+      "date": "2026-06-21",
+      "events": 463,
+      "views": 237,
+      "uses": 154,
+      "shares": 72
+    },
+    {
+      "date": "2026-06-22",
+      "events": 501,
+      "views": 237,
+      "uses": 178,
+      "shares": 86
+    },
+    {
+      "date": "2026-06-23",
+      "events": 494,
+      "views": 246,
+      "uses": 172,
+      "shares": 76
+    },
+    {
+      "date": "2026-06-24",
+      "events": 471,
+      "views": 224,
+      "uses": 163,
+      "shares": 84
+    },
+    {
+      "date": "2026-06-25",
+      "events": 485,
+      "views": 242,
+      "uses": 171,
+      "shares": 72
+    },
+    {
+      "date": "2026-06-26",
+      "events": 504,
+      "views": 259,
+      "uses": 168,
+      "shares": 77
+    },
+    {
+      "date": "2026-06-27",
+      "events": 470,
+      "views": 245,
+      "uses": 155,
+      "shares": 70
+    },
+    {
+      "date": "2026-06-28",
+      "events": 455,
+      "views": 237,
+      "uses": 148,
+      "shares": 70
+    },
+    {
+      "date": "2026-06-29",
+      "events": 518,
+      "views": 250,
+      "uses": 181,
+      "shares": 87
+    },
+    {
+      "date": "2026-06-30",
+      "events": 471,
+      "views": 232,
+      "uses": 155,
+      "shares": 84
+    },
+    {
+      "date": "2026-07-01",
+      "events": 471,
+      "views": 237,
+      "uses": 155,
+      "shares": 79
+    },
+    {
+      "date": "2026-07-02",
+      "events": 486,
+      "views": 227,
+      "uses": 186,
+      "shares": 73
+    },
+    {
+      "date": "2026-07-03",
+      "events": 501,
+      "views": 230,
+      "uses": 176,
+      "shares": 95
+    },
+    {
+      "date": "2026-07-04",
+      "events": 467,
+      "views": 234,
+      "uses": 145,
+      "shares": 88
+    },
+    {
+      "date": "2026-07-05",
+      "events": 468,
+      "views": 247,
+      "uses": 140,
+      "shares": 81
+    },
+    {
+      "date": "2026-07-06",
+      "events": 492,
+      "views": 248,
+      "uses": 163,
+      "shares": 81
+    },
+    {
+      "date": "2026-07-07",
+      "events": 478,
+      "views": 255,
+      "uses": 165,
+      "shares": 58
+    },
+    {
+      "date": "2026-07-08",
+      "events": 445,
+      "views": 243,
+      "uses": 133,
+      "shares": 69
+    },
+    {
+      "date": "2026-07-09",
+      "events": 464,
+      "views": 216,
+      "uses": 164,
+      "shares": 84
+    },
+    {
+      "date": "2026-07-10",
+      "events": 468,
+      "views": 238,
+      "uses": 152,
+      "shares": 78
+    },
+    {
+      "date": "2026-07-11",
+      "events": 454,
+      "views": 238,
+      "uses": 154,
+      "shares": 62
+    },
+    {
+      "date": "2026-07-12",
+      "events": 489,
+      "views": 243,
+      "uses": 172,
+      "shares": 74
+    },
+    {
+      "date": "2026-07-13",
+      "events": 487,
+      "views": 246,
+      "uses": 164,
+      "shares": 77
+    },
+    {
+      "date": "2026-07-14",
+      "events": 486,
+      "views": 251,
+      "uses": 144,
+      "shares": 91
+    },
+    {
+      "date": "2026-07-15",
+      "events": 480,
+      "views": 248,
+      "uses": 158,
+      "shares": 74
+    },
+    {
+      "date": "2026-07-16",
+      "events": 466,
+      "views": 232,
+      "uses": 150,
+      "shares": 84
+    },
+    {
+      "date": "2026-07-17",
+      "events": 489,
+      "views": 236,
+      "uses": 160,
+      "shares": 93
+    },
+    {
+      "date": "2026-07-18",
+      "events": 456,
+      "views": 211,
+      "uses": 166,
+      "shares": 79
+    },
+    {
+      "date": "2026-07-19",
+      "events": 453,
+      "views": 239,
+      "uses": 147,
+      "shares": 67
+    },
+    {
+      "date": "2026-07-20",
+      "events": 500,
+      "views": 251,
+      "uses": 165,
+      "shares": 84
+    },
+    {
+      "date": "2026-07-21",
+      "events": 456,
+      "views": 229,
+      "uses": 156,
+      "shares": 71
+    },
+    {
+      "date": "2026-07-22",
+      "events": 514,
+      "views": 227,
+      "uses": 185,
+      "shares": 102
+    },
+    {
+      "date": "2026-07-23",
+      "events": 493,
+      "views": 250,
+      "uses": 160,
+      "shares": 83
+    },
+    {
+      "date": "2026-07-24",
+      "events": 499,
+      "views": 235,
+      "uses": 189,
+      "shares": 75
+    },
+    {
+      "date": "2026-07-25",
+      "events": 477,
+      "views": 226,
+      "uses": 169,
+      "shares": 82
+    },
+    {
+      "date": "2026-07-26",
+      "events": 484,
+      "views": 235,
+      "uses": 171,
+      "shares": 78
+    },
+    {
+      "date": "2026-07-27",
+      "events": 485,
+      "views": 237,
+      "uses": 170,
+      "shares": 78
+    },
+    {
+      "date": "2026-07-28",
+      "events": 447,
+      "views": 217,
+      "uses": 146,
+      "shares": 84
+    },
+    {
+      "date": "2026-07-29",
+      "events": 475,
+      "views": 250,
+      "uses": 147,
+      "shares": 78
+    },
+    {
+      "date": "2026-07-30",
+      "events": 444,
+      "views": 212,
+      "uses": 156,
+      "shares": 76
+    },
+    {
+      "date": "2026-07-31",
+      "events": 459,
+      "views": 234,
+      "uses": 140,
+      "shares": 85
+    },
+    {
+      "date": "2026-08-01",
+      "events": 504,
+      "views": 240,
+      "uses": 182,
+      "shares": 82
+    },
+    {
+      "date": "2026-08-02",
+      "events": 456,
+      "views": 215,
+      "uses": 159,
+      "shares": 82
+    },
+    {
+      "date": "2026-08-03",
+      "events": 435,
+      "views": 242,
+      "uses": 129,
+      "shares": 64
+    },
+    {
+      "date": "2026-08-04",
+      "events": 483,
+      "views": 220,
+      "uses": 177,
+      "shares": 86
+    },
+    {
+      "date": "2026-08-05",
+      "events": 502,
+      "views": 254,
+      "uses": 160,
+      "shares": 88
+    },
+    {
+      "date": "2026-08-06",
+      "events": 457,
+      "views": 233,
+      "uses": 164,
+      "shares": 60
+    },
+    {
+      "date": "2026-08-07",
+      "events": 509,
+      "views": 236,
+      "uses": 181,
+      "shares": 92
+    },
+    {
+      "date": "2026-08-08",
+      "events": 458,
+      "views": 244,
+      "uses": 150,
+      "shares": 64
+    },
+    {
+      "date": "2026-08-09",
+      "events": 459,
+      "views": 222,
+      "uses": 159,
+      "shares": 78
+    },
+    {
+      "date": "2026-08-10",
+      "events": 477,
+      "views": 229,
+      "uses": 168,
+      "shares": 80
+    },
+    {
+      "date": "2026-08-11",
+      "events": 455,
+      "views": 224,
+      "uses": 156,
+      "shares": 75
+    },
+    {
+      "date": "2026-08-12",
+      "events": 475,
+      "views": 240,
+      "uses": 170,
+      "shares": 65
+    },
+    {
+      "date": "2026-08-13",
+      "events": 477,
+      "views": 235,
+      "uses": 150,
+      "shares": 92
+    },
+    {
+      "date": "2026-08-14",
+      "events": 447,
+      "views": 229,
+      "uses": 132,
+      "shares": 86
+    },
+    {
+      "date": "2026-08-15",
+      "events": 443,
+      "views": 225,
+      "uses": 147,
+      "shares": 71
+    },
+    {
+      "date": "2026-08-16",
+      "events": 512,
+      "views": 257,
+      "uses": 179,
+      "shares": 76
+    },
+    {
+      "date": "2026-08-17",
+      "events": 481,
+      "views": 249,
+      "uses": 148,
+      "shares": 84
+    },
+    {
+      "date": "2026-08-18",
+      "events": 456,
+      "views": 229,
+      "uses": 147,
+      "shares": 80
+    },
+    {
+      "date": "2026-08-19",
+      "events": 462,
+      "views": 254,
+      "uses": 140,
+      "shares": 68
+    },
+    {
+      "date": "2026-08-20",
+      "events": 461,
+      "views": 215,
+      "uses": 163,
+      "shares": 83
+    },
+    {
+      "date": "2026-08-21",
+      "events": 512,
+      "views": 265,
+      "uses": 166,
+      "shares": 81
+    },
+    {
+      "date": "2026-08-22",
+      "events": 469,
+      "views": 220,
+      "uses": 161,
+      "shares": 88
+    },
+    {
+      "date": "2026-08-23",
+      "events": 533,
+      "views": 249,
+      "uses": 186,
+      "shares": 98
+    },
+    {
+      "date": "2026-08-24",
+      "events": 474,
+      "views": 245,
+      "uses": 156,
+      "shares": 73
+    },
+    {
+      "date": "2026-08-25",
+      "events": 499,
+      "views": 253,
+      "uses": 167,
+      "shares": 79
+    },
+    {
+      "date": "2026-08-26",
+      "events": 469,
+      "views": 242,
+      "uses": 153,
+      "shares": 74
+    },
+    {
+      "date": "2026-08-27",
+      "events": 433,
+      "views": 212,
+      "uses": 141,
+      "shares": 80
+    },
+    {
+      "date": "2026-08-28",
+      "events": 453,
+      "views": 211,
+      "uses": 154,
+      "shares": 88
+    },
+    {
+      "date": "2026-08-29",
+      "events": 453,
+      "views": 229,
+      "uses": 145,
+      "shares": 79
+    },
+    {
+      "date": "2026-08-30",
+      "events": 444,
+      "views": 214,
+      "uses": 158,
+      "shares": 72
+    },
+    {
+      "date": "2026-08-31",
+      "events": 476,
+      "views": 226,
+      "uses": 170,
+      "shares": 80
+    },
+    {
+      "date": "2026-09-01",
+      "events": 488,
+      "views": 241,
+      "uses": 162,
+      "shares": 85
+    },
+    {
+      "date": "2026-09-02",
+      "events": 484,
+      "views": 232,
+      "uses": 173,
+      "shares": 79
+    },
+    {
+      "date": "2026-09-03",
+      "events": 471,
+      "views": 227,
+      "uses": 161,
+      "shares": 83
+    },
+    {
+      "date": "2026-09-04",
+      "events": 459,
+      "views": 227,
+      "uses": 158,
+      "shares": 74
+    },
+    {
+      "date": "2026-09-05",
+      "events": 493,
+      "views": 259,
+      "uses": 156,
+      "shares": 78
+    },
+    {
+      "date": "2026-09-06",
+      "events": 489,
+      "views": 249,
+      "uses": 158,
+      "shares": 82
+    },
+    {
+      "date": "2026-09-07",
+      "events": 457,
+      "views": 226,
+      "uses": 156,
+      "shares": 75
+    },
+    {
+      "date": "2026-09-08",
+      "events": 492,
+      "views": 230,
+      "uses": 178,
+      "shares": 84
+    },
+    {
+      "date": "2026-09-09",
+      "events": 463,
+      "views": 223,
+      "uses": 155,
+      "shares": 85
+    },
+    {
+      "date": "2026-09-10",
+      "events": 446,
+      "views": 221,
+      "uses": 153,
+      "shares": 72
+    },
+    {
+      "date": "2026-09-11",
+      "events": 449,
+      "views": 231,
+      "uses": 145,
+      "shares": 73
+    },
+    {
+      "date": "2026-09-12",
+      "events": 488,
+      "views": 256,
+      "uses": 145,
+      "shares": 87
+    },
+    {
+      "date": "2026-09-13",
+      "events": 466,
+      "views": 224,
+      "uses": 168,
+      "shares": 74
+    }
+  ],
+  "weekly": [
+    {
+      "week": "2026-W24",
+      "events": 3326,
+      "uses": 1146
+    },
+    {
+      "week": "2026-W25",
+      "events": 3380,
+      "uses": 1155
+    },
+    {
+      "week": "2026-W26",
+      "events": 3382,
+      "uses": 1138
+    },
+    {
+      "week": "2026-W27",
+      "events": 3290,
+      "uses": 1103
+    },
+    {
+      "week": "2026-W28",
+      "events": 3317,
+      "uses": 1089
+    },
+    {
+      "week": "2026-W29",
+      "events": 3423,
+      "uses": 1195
+    },
+    {
+      "week": "2026-W30",
+      "events": 3270,
+      "uses": 1100
+    },
+    {
+      "week": "2026-W31",
+      "events": 3303,
+      "uses": 1120
+    },
+    {
+      "week": "2026-W32",
+      "events": 3286,
+      "uses": 1102
+    },
+    {
+      "week": "2026-W33",
+      "events": 3374,
+      "uses": 1111
+    },
+    {
+      "week": "2026-W34",
+      "events": 3225,
+      "uses": 1074
+    },
+    {
+      "week": "2026-W35",
+      "events": 3360,
+      "uses": 1138
+    },
+    {
+      "week": "2026-W36",
+      "events": 3261,
+      "uses": 1100
+    }
+  ],
+  "monthly": [
+    {
+      "month": "2026-06",
+      "events": 7695,
+      "uses": 2637
+    },
+    {
+      "month": "2026-07",
+      "events": 14733,
+      "uses": 4948
+    },
+    {
+      "month": "2026-08",
+      "events": 14624,
+      "uses": 4918
+    },
+    {
+      "month": "2026-09",
+      "events": 6145,
+      "uses": 2068
+    }
+  ],
+  "summary": {
+    "total_days": 91,
+    "avg_events_per_day": 474.6923076923077,
+    "avg_uses_per_day": 160.12087912087912
+  }
+}

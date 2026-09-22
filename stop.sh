@@ -1,12 +1,6 @@
 #!/bin/bash
 # FieldMind 停止脚本
 
-echo "停止 FieldMind..."
-
-# 停止后端
-pkill -f "python -m app.main"
-
-# 停止桌面应用
-pkill -f "FieldMind"
-
-echo "✓ FieldMind 已停止"
+echo "停止 FieldMind 服务..."
+docker-compose -f docker-compose.prod.yml down
+echo "✓ 服务已停止"

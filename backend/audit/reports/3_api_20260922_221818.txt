@@ -1,0 +1,47 @@
+🔍 检查 API 断联...
+
+正在扫描前端调用...
+   找到 0 个前端 API 调用
+
+正在扫描后端路由...
+   找到 793 个后端路由
+
+============================================================
+
+✅ 前端所有调用都有对应的后端路由
+
+============================================================
+
+⚠️ 发现 793 个后端路由未被前端调用：
+
+   
+   /projects/{project_id}/events
+   /api/v1/batch
+   /conversations/recent
+   /plotly/bar
+   /process-project
+   /knowledge-graph/document/{dirty_doc_id}/manual/relation
+   /{notification_id}/read
+   /api/keyword-search
+   /projects/{project_id}/hot-connections
+   /api/batch
+   /lineage
+   /wiki/{document_id}/search
+   /versions
+   /projects/{project_id}/formats/existing
+   /patterns
+   /types/relations
+   /health/ready
+   /quick-stats/{project_id}
+   /statistics/timeline
+   /lineage/impact/{source_type}/{source_id}
+   /knowledge-graph
+   /projects/{project_id}/ask
+   /nlp/entities
+   /projects/{project_id}/context
+   /detect
+   /kg/query
+   /{agent_id}/pause
+   /projects/{project_id}/edges/{edge_id}
+   /projects/{project_id}/keyword-network/full-analysis
+   ... 还有 763 个

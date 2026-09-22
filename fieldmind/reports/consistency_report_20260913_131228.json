@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-09-13T13:12:28.773792",
+  "mode": "REAL",
+  "checks": {
+    "entity_counts": {
+      "postgresql": 1132,
+      "neo4j": 0,
+      "match": false,
+      "difference": 1132
+    },
+    "chunk_counts": {
+      "postgresql_total": 1036,
+      "chromadb_total": 0,
+      "marked_synced": 0,
+      "pending_sync": 1036,
+      "match": true,
+      "sync_rate": "0.0%"
+    }
+  },
+  "summary": {},
+  "issues": [
+    "实体数量不匹配：PostgreSQL=1132, Neo4j=0, 差异=1132"
+  ],
+  "error": "no such column: content"
+}

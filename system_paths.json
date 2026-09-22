@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "description": "FieldMind 系统路径映射配置 - 确保检测准确性",
+  "backend": {
+    "hermes": {
+      "core_engine": "app/core/hermes.py",
+      "governance_service": "app/core/hermes_governance.py",
+      "governance_examples": "app/core/hermes_governance_examples.py",
+      "learning_engine": "app/services/hermes_learning_engine.py",
+      "enterprise": "app/core/governance/enterprise_hermes.py",
+      "configuration": "app/core/governance/configuration.py",
+      "compliance": "app/core/governance/compliance.py"
+    },
+    "workbench": {
+      "core_services": "app/core/workbench_services.py",
+      "api": "app/api/v1/workbench.py"
+    },
+    "pipeline": {
+      "complete": "app/services/document_processing_pipeline_complete.py",
+      "optimized": "app/services/optimized_document_pipeline.py",
+      "v1": "app/services/document_processing_pipeline.py",
+      "v2": "app/services/document_processing_pipeline_v2.py",
+      "processor": "app/processors/document_pipeline.py"
+    },
+    "governance": {
+      "orchestrator": "app/orchestration/data_governance_orchestrator.py",
+      "model": "app/models/governance.py"
+    },
+    "learning": {
+      "service": "app/services/learning_service.py",
+      "model": "app/models/background_learning.py",
+      "api": "app/api/v1/learning.py",
+      "background_api": "app/api/v1/background_learning.py"
+    },
+    "contracts": {
+      "core": "app/contracts.py"
+    },
+    "knowledge_network": {
+      "api": "app/api/v1/knowledge_network.py",
+      "service": "app/services/knowledge_enhancement_service.py"
+    },
+    "business_analysis": {
+      "api": "app/api/v1/business_analysis.py",
+      "config": "app/config/business_database.py"
+    }
+  },
+  "frontend": {
+    "core": {
+      "main_view": "Views/MainView.swift",
+      "sidebar_view": "Views/SidebarView.swift",
+      "top_bar_view": "Views/TopBarView.swift"
+    },
+    "knowledge": {
+      "knowledge_network_view": "Views/KnowledgeNetworkView.swift",
+      "business_analysis_view": "Views/BusinessAnalysisView.swift",
+      "knowledge_network_viewmodel": "ViewModels/KnowledgeNetworkViewModel.swift",
+      "business_analysis_viewmodel": "ViewModels/BusinessAnalysisViewModel.swift"
+    },
+    "needed": {
+      "project_list": "Views/ProjectListView.swift",
+      "project_detail": "Views/ProjectDetailView.swift",
+      "new_project": "Views/NewProjectView.swift",
+      "document_upload": "Views/DocumentUploadView.swift",
+      "document_list": "Views/DocumentListView.swift",
+      "chat": "Views/ChatView.swift",
+      "dashboard": "Views/DashboardView.swift"
+    }
+  }
+}

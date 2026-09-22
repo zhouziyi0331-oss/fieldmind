@@ -1,0 +1,276 @@
+{
+  "view_id": "person_network_view",
+  "name": "人物社会网络视图",
+  "version": "1.0",
+  "description": "查看某个人物的社会关系网络，包括直接关系、间接关系、社群归属、影响力评分等",
+
+  "intent": "查看人物的社会关系网络",
+  "keywords": ["人物", "关系", "社交网络", "社群", "影响力"],
+
+  "input": {
+    "required": [
+      {
+        "name": "person_id",
+        "type": "string",
+        "description": "人物ID或姓名",
+        "example": "王大爷"
+      }
+    ],
+    "optional": [
+      {
+        "name": "depth",
+        "type": "integer",
+        "default": 2,
+        "min": 1,
+        "max": 3,
+        "description": "关系深度（1=直接关系，2=二度关系，3=三度关系）"
+      },
+      {
+        "name": "relationship_types",
+        "type": "array",
+        "default": ["all"],
+        "description": "关系类型过滤",
+        "enum": ["family", "friend", "neighbor", "colleague", "all"]
+      }
+    ]
+  },
+
+  "output": {
+    "person_info": {
+      "type": "object",
+      "source": "graph_query",
+      "fields": {
+        "person_id": "string",
+        "name": "string",
+        "age": "integer",
+        "gender": "string",
+        "role": "string",
+        "status": "string",
+        "phone": "string"
+      }
+    },
+    "direct_connections": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "直接关系（一度关系）",
+      "fields": {
+        "person_id": "string",
+        "name": "string",
+        "age": "integer",
+        "relationship": "string",
+        "strength": "integer",
+        "since": "date"
+      }
+    },
+    "indirect_connections": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "间接关系（二度及以上）",
+      "fields": {
+        "person_id": "string",
+        "name": "string",
+        "relationship_path": "array",
+        "degree": "integer"
+      }
+    },
+    "communities": {
+      "type": "array",
+      "source": "computed",
+      "description": "所属社群",
+      "fields": {
+        "community_id": "string",
+        "community_name": "string",
+        "member_count": "integer",
+        "common_interests": "array"
+      }
+    },
+    "influence_score": {
+      "type": "object",
+      "source": "computed",
+      "description": "影响力评分",
+      "fields": {
+        "overall_score": "float",
+        "network_centrality": "float",
+        "cultural_influence": "float",
+        "social_activity": "float"
+      }
+    },
+    "inherited_assets": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "传承的文化资产",
+      "fields": {
+        "asset_id": "string",
+        "asset_name": "string",
+        "proficiency": "string",
+        "since": "date"
+      }
+    },
+    "participated_events": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "参与的事件",
+      "fields": {
+        "event_id": "string",
+        "event_name": "string",
+        "event_type": "string",
+        "date": "string",
+        "role_in_event": "string"
+      }
+    },
+    "managed_organizations": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "管理的组织",
+      "fields": {
+        "org_id": "string",
+        "org_name": "string",
+        "position": "string",
+        "since": "date"
+      }
+    },
+    "related_locations": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "相关地点",
+      "fields": {
+        "location_id": "string",
+        "location_name": "string",
+        "relation_type": "string"
+      }
+    }
+  },
+
+  "data_bindings": [
+    {
+      "binding_id": "graph_person_info",
+      "description": "查询人物基本信息",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Person {person_id: $person_id}) RETURN p",
+      "output_mapping": {
+        "person_info": "p"
+      }
+    },
+    {
+      "binding_id": "graph_direct_relations",
+      "description": "查询直接关系（一度关系）",
+      "channel_type": "graph",
+      "query_template": "MATCH (p1:Person {person_id: $person_id})-[r:knows]-(p2:Person) RETURN p2, r ORDER BY r.strength DESC",
+      "output_mapping": {
+        "direct_connections": "p2",
+        "relation_details": "r"
+      }
+    },
+    {
+      "binding_id": "graph_indirect_relations",
+      "description": "查询间接关系（多度关系）",
+      "channel_type": "graph",
+      "query_template": "MATCH path = (p1:Person {person_id: $person_id})-[:knows*2..$depth]-(p2:Person) WHERE p1 <> p2 RETURN p2, [node in nodes(path) | node.name] AS path_names, length(path) AS degree LIMIT 50",
+      "output_mapping": {
+        "indirect_connections": "result"
+      }
+    },
+    {
+      "binding_id": "graph_inherited_assets",
+      "description": "查询传承的文化资产",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Person {person_id: $person_id})-[r:inherits]->(a:CulturalAsset) RETURN a, r",
+      "output_mapping": {
+        "inherited_assets": "a",
+        "inheritance_details": "r"
+      }
+    },
+    {
+      "binding_id": "graph_participated_events",
+      "description": "查询参与的事件",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Person {person_id: $person_id})-[r:participates_in]->(e:Event) RETURN e, r ORDER BY e.date DESC LIMIT 20",
+      "output_mapping": {
+        "participated_events": "e",
+        "participation_details": "r"
+      }
+    },
+    {
+      "binding_id": "graph_managed_orgs",
+      "description": "查询管理的组织",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Person {person_id: $person_id})-[r:manages]->(o:Organization) RETURN o, r",
+      "output_mapping": {
+        "managed_organizations": "o",
+        "management_details": "r"
+      }
+    },
+    {
+      "binding_id": "graph_locations",
+      "description": "查询相关地点",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Person {person_id: $person_id})-[r:belongs_to|lives_in]->(l:Location) RETURN l, type(r) AS relation_type",
+      "output_mapping": {
+        "related_locations": "result"
+      }
+    }
+  ],
+
+  "inference_logic": {
+    "detect_communities": {
+      "description": "检测社群归属",
+      "depends_on": ["direct_connections", "indirect_connections"],
+      "logic": {
+        "algorithm": "label_propagation",
+        "description": "使用标签传播算法检测社群，将紧密连接的人物归为同一社群"
+      }
+    },
+    "calculate_influence_score": {
+      "description": "计算影响力评分",
+      "depends_on": ["direct_connections", "indirect_connections", "inherited_assets", "participated_events", "managed_organizations"],
+      "logic": {
+        "network_centrality": {
+          "formula": "degree_centrality + betweenness_centrality",
+          "description": "基于网络拓扑的中心性指标"
+        },
+        "cultural_influence": {
+          "formula": "len(inherited_assets) * 10 + sum(asset.protection_level_score)",
+          "description": "基于传承的文化资产数量和级别"
+        },
+        "social_activity": {
+          "formula": "len(participated_events) + len(managed_organizations) * 5",
+          "description": "基于社会活动参与度"
+        },
+        "overall_score": {
+          "formula": "network_centrality * 0.3 + cultural_influence * 0.4 + social_activity * 0.3",
+          "description": "综合影响力评分（0-100）"
+        }
+      }
+    }
+  },
+
+  "execution_strategy": {
+    "parallel_bindings": true,
+    "timeout_ms": 8000,
+    "cache_ttl_seconds": 600,
+    "fallback_on_error": true
+  },
+
+  "visualization_hints": {
+    "graph_layout": "force_directed",
+    "node_size_by": "influence_score.overall_score",
+    "node_color_by": "role",
+    "edge_thickness_by": "relationship.strength",
+    "highlight_communities": true
+  },
+
+  "test_cases": [
+    {
+      "name": "查询王大爷的社会网络",
+      "input": {
+        "person_id": "王大爷",
+        "depth": 2
+      },
+      "expected_output": {
+        "person_info.name": "王大爷",
+        "direct_connections.length": ">= 0",
+        "influence_score.overall_score": ">= 0"
+      }
+    }
+  ]
+}

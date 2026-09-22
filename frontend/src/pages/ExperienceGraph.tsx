@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
-import { experienceGraphAPI } from '@/services/fieldmind-api'
+import { experienceGraphAPI, knowledgeGraphAPI } from '@/services/fieldmind-api'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Spinner } from '@/components/ui/spinner'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
-import { Workflow, Plus, Search, Edit, Trash2, Filter, RefreshCw } from 'lucide-react'
+import { Workflow, Plus, Search, Edit, Trash2, Filter, RefreshCw, GitBranch } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
+import { UnifiedKnowledgeGraph } from '@/components/ui/unified-knowledge-graph'
+import { useNavigate } from 'react-router-dom'
 
 export default function ExperienceGraph() {
   const { toast } = useToast()

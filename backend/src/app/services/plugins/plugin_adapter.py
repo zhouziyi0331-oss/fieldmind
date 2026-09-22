@@ -33,8 +33,13 @@ logger = logging.getLogger(__name__)
 
 class GraphRAGAdapter(BasePluginAdapter):
     """GraphRAG插件适配器 - 真实实现"""
+    def __init__(self, use_workflow_engine: bool = True):
 
-    def __init__(self):
+        self.use_workflow_engine = use_workflow_engine
+
+        if use_workflow_engine:
+            from app.services.workflow_engine import WorkflowEngine
+            self.workflow_engine = WorkflowEngine(max_workers=4)
         super().__init__(
             plugin_id="graphrag",
             capability_id="graph_rag"

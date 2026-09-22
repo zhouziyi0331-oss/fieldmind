@@ -1,15 +1,15 @@
 """认证API路由 - 完整实现"""
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import datetime
 
 from app.core.database import get_db
 from app.core.security import verify_password, get_password_hash, create_tokens, decode_token
-from app.core.exceptions import ValidationException, ResourceNotFoundException
 from app.models.user import User
 from app.schemas.user import (
     UserCreate, UserLogin, UserResponse, TokenResponse, TokenRefresh
 )
+from app.schemas.response import success_response, error_response
 from app.middleware.auth import get_current_user
 
 router = APIRouter(tags=["Authentication"])
@@ -21,19 +21,17 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     # 检查邮箱是否已存在
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
-        raise ValidationException(
-            message="Email already registered",
-            field="email",
-            details={"email": user_data.email}
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered"
         )
 
     # 检查用户名是否已存在
     existing_username = db.query(User).filter(User.username == user_data.username).first()
     if existing_username:
-        raise ValidationException(
-            message="Username already taken",
-            field="username",
-            details={"username": user_data.username}
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already taken"
         )
 
     # 创建新用户
@@ -55,7 +53,7 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     return TokenResponse(
         access_token=tokens["access_token"],
         refresh_token=tokens["refresh_token"],
-        user=UserResponse.from_orm(new_user)
+        user=UserResponse.model_validate(new_user)
     )
 
 
@@ -67,23 +65,23 @@ async def login(login_data: UserLogin, db: Session = Depends(get_db)):
         (User.email == login_data.username) | (User.username == login_data.username)
     ).first()
     if not user:
-        raise ValidationException(
-            message="Incorrect username or password",
-            field="credentials"
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password"
         )
 
     # 验证密码
     if not verify_password(login_data.password, user.hashed_password):
-        raise ValidationException(
-            message="Incorrect email or password",
-            field="credentials"
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password"
         )
 
     # 检查用户是否激活
     if not user.is_active:
-        raise ValidationException(
-            message="Account is inactive",
-            field="account_status"
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Account is inactive"
         )
 
     # 更新最后登录时间
@@ -96,7 +94,7 @@ async def login(login_data: UserLogin, db: Session = Depends(get_db)):
     return TokenResponse(
         access_token=tokens["access_token"],
         refresh_token=tokens["refresh_token"],
-        user=UserResponse.from_orm(user)
+        user=UserResponse.model_validate(user)
     )
 
 
@@ -121,32 +119,31 @@ async def refresh_token(refresh_data: TokenRefresh, db: Session = Depends(get_db
     payload = decode_token(refresh_data.refresh_token)
 
     if payload is None:
-        raise ValidationException(
-            message="Invalid refresh token",
-            field="refresh_token"
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid refresh token"
         )
 
     # 检查token类型
     if payload.get("type") != "refresh":
-        raise ValidationException(
-            message="Invalid token type",
-            field="token_type"
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token type"
         )
 
     user_id = payload.get("sub")
     if not user_id:
-        raise ValidationException(
-            message="Invalid token payload",
-            field="token_payload"
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token payload"
         )
 
     # 验证用户仍然存在且激活
     user = db.query(User).filter(User.id == user_id).first()
     if not user or not user.is_active:
-        raise ResourceNotFoundException(
-            resource_type="User",
-            resource_id=user_id,
-            details={"reason": "User not found or inactive"}
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="User not found or inactive"
         )
 
     # 生成新的访问令牌

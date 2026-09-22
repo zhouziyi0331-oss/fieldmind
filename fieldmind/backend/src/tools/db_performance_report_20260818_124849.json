@@ -1,0 +1,948 @@
+{
+  "timestamp": "2026-08-18T12:48:49.288431",
+  "table_info": [
+    {
+      "table": "alembic_version",
+      "size": "~1024 bytes",
+      "row_count": 1,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_alembic_version_1",
+          "definition": ""
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "analysis_reports",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_analysis_reports_1",
+          "definition": ""
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "analysis_results",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_analysis_results_created_at",
+          "definition": "CREATE INDEX ix_analysis_results_created_at ON analysis_results (created_at)"
+        },
+        {
+          "name": "ix_analysis_results_analysis_type",
+          "definition": "CREATE INDEX ix_analysis_results_analysis_type ON analysis_results (analysis_type)"
+        },
+        {
+          "name": "ix_analysis_results_project_id",
+          "definition": "CREATE INDEX ix_analysis_results_project_id ON analysis_results (project_id)"
+        }
+      ],
+      "index_count": 3
+    },
+    {
+      "table": "analysis_statements",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_analysis_statements_analysis_id",
+          "definition": "CREATE INDEX ix_analysis_statements_analysis_id ON analysis_statements (analysis_id)"
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "batch_operations",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_batch_operations_batch_id",
+          "definition": "CREATE UNIQUE INDEX ix_batch_operations_batch_id ON batch_operations (batch_id)"
+        },
+        {
+          "name": "ix_batch_operations_id",
+          "definition": "CREATE INDEX ix_batch_operations_id ON batch_operations (id)"
+        }
+      ],
+      "index_count": 2
+    },
+    {
+      "table": "chat_messages",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_chat_messages_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_chat_messages_session_id",
+          "definition": "CREATE INDEX ix_chat_messages_session_id ON chat_messages (session_id)"
+        }
+      ],
+      "index_count": 2
+    },
+    {
+      "table": "chat_sessions",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_chat_sessions_1",
+          "definition": ""
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "chunk_entities",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "idx_chunk_entity",
+          "definition": "CREATE INDEX idx_chunk_entity ON chunk_entities (chunk_id, entity_id)"
+        },
+        {
+          "name": "idx_entity_chunks",
+          "definition": "CREATE INDEX idx_entity_chunks ON chunk_entities (entity_id)"
+        },
+        {
+          "name": "ix_chunk_entities_chunk_id",
+          "definition": "CREATE INDEX ix_chunk_entities_chunk_id ON chunk_entities (chunk_id)"
+        },
+        {
+          "name": "ix_chunk_entities_entity_id",
+          "definition": "CREATE INDEX ix_chunk_entities_entity_id ON chunk_entities (entity_id)"
+        },
+        {
+          "name": "ix_chunk_entities_id",
+          "definition": "CREATE INDEX ix_chunk_entities_id ON chunk_entities (id)"
+        }
+      ],
+      "index_count": 5
+    },
+    {
+      "table": "citations",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_citations_title",
+          "definition": "CREATE INDEX ix_citations_title ON citations (title)"
+        },
+        {
+          "name": "ix_citations_doi",
+          "definition": "CREATE UNIQUE INDEX ix_citations_doi ON citations (doi)"
+        },
+        {
+          "name": "ix_citations_id",
+          "definition": "CREATE INDEX ix_citations_id ON citations (id)"
+        },
+        {
+          "name": "ix_citations_citation_type",
+          "definition": "CREATE INDEX ix_citations_citation_type ON citations (citation_type)"
+        },
+        {
+          "name": "ix_citations_project_id",
+          "definition": "CREATE INDEX ix_citations_project_id ON citations (project_id)"
+        }
+      ],
+      "index_count": 5
+    },
+    {
+      "table": "contexts",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_contexts_1",
+          "definition": ""
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "document_chunks",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_document_chunks_chunk_id",
+          "definition": "CREATE UNIQUE INDEX ix_document_chunks_chunk_id ON document_chunks (chunk_id)"
+        },
+        {
+          "name": "ix_document_chunks_document_id",
+          "definition": "CREATE INDEX ix_document_chunks_document_id ON document_chunks (document_id)"
+        },
+        {
+          "name": "ix_document_chunks_project_id",
+          "definition": "CREATE INDEX ix_document_chunks_project_id ON document_chunks (project_id)"
+        }
+      ],
+      "index_count": 3
+    },
+    {
+      "table": "document_citations",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_document_citations_document_id",
+          "definition": "CREATE INDEX ix_document_citations_document_id ON document_citations (document_id)"
+        },
+        {
+          "name": "ix_document_citations_id",
+          "definition": "CREATE INDEX ix_document_citations_id ON document_citations (id)"
+        },
+        {
+          "name": "ix_document_citations_citation_id",
+          "definition": "CREATE INDEX ix_document_citations_citation_id ON document_citations (citation_id)"
+        }
+      ],
+      "index_count": 3
+    },
+    {
+      "table": "document_relations",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_document_relations_project_id",
+          "definition": "CREATE INDEX ix_document_relations_project_id ON document_relations (project_id)"
+        },
+        {
+          "name": "ix_document_relations_source_document_id",
+          "definition": "CREATE INDEX ix_document_relations_source_document_id ON document_relations (source_document_id)"
+        },
+        {
+          "name": "ix_document_relations_target_document_id",
+          "definition": "CREATE INDEX ix_document_relations_target_document_id ON document_relations (target_document_id)"
+        },
+        {
+          "name": "ix_document_relations_relation_type",
+          "definition": "CREATE INDEX ix_document_relations_relation_type ON document_relations (relation_type)"
+        }
+      ],
+      "index_count": 4
+    },
+    {
+      "table": "documents",
+      "size": "~27648 bytes",
+      "row_count": 27,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_documents_1",
+          "definition": ""
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "entities",
+      "size": "~392192 bytes",
+      "row_count": 383,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_entities_1",
+          "definition": ""
+        },
+        {
+          "name": "idx_entity_name",
+          "definition": "CREATE INDEX idx_entity_name ON entities (name)"
+        },
+        {
+          "name": "ix_entities_name",
+          "definition": "CREATE INDEX ix_entities_name ON entities (name)"
+        },
+        {
+          "name": "idx_entity_type",
+          "definition": "CREATE INDEX idx_entity_type ON entities (entity_type)"
+        }
+      ],
+      "index_count": 4
+    },
+    {
+      "table": "entity_alignments",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_entity_alignments_project_id",
+          "definition": "CREATE INDEX ix_entity_alignments_project_id ON entity_alignments (project_id)"
+        },
+        {
+          "name": "ix_entity_alignments_canonical_name",
+          "definition": "CREATE INDEX ix_entity_alignments_canonical_name ON entity_alignments (canonical_name)"
+        },
+        {
+          "name": "ix_entity_alignments_entity_type",
+          "definition": "CREATE INDEX ix_entity_alignments_entity_type ON entity_alignments (entity_type)"
+        }
+      ],
+      "index_count": 3
+    },
+    {
+      "table": "entity_evidences",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_entity_evidences_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_entity_evidences_document_id",
+          "definition": "CREATE INDEX ix_entity_evidences_document_id ON entity_evidences (document_id)"
+        },
+        {
+          "name": "idx_entity_evidence_entity",
+          "definition": "CREATE INDEX idx_entity_evidence_entity ON entity_evidences (entity_id)"
+        },
+        {
+          "name": "ix_entity_evidences_entity_id",
+          "definition": "CREATE INDEX ix_entity_evidences_entity_id ON entity_evidences (entity_id)"
+        },
+        {
+          "name": "idx_entity_evidence_category",
+          "definition": "CREATE INDEX idx_entity_evidence_category ON entity_evidences (category)"
+        },
+        {
+          "name": "ix_entity_evidences_chunk_id",
+          "definition": "CREATE INDEX ix_entity_evidences_chunk_id ON entity_evidences (chunk_id)"
+        },
+        {
+          "name": "idx_entity_evidence_document",
+          "definition": "CREATE INDEX idx_entity_evidence_document ON entity_evidences (document_id)"
+        },
+        {
+          "name": "idx_entity_evidence_chunk",
+          "definition": "CREATE INDEX idx_entity_evidence_chunk ON entity_evidences (chunk_id)"
+        }
+      ],
+      "index_count": 8
+    },
+    {
+      "table": "entity_statistics",
+      "size": "~173056 bytes",
+      "row_count": 169,
+      "indexes": [
+        {
+          "name": "ix_entity_statistics_entity_type",
+          "definition": "CREATE INDEX ix_entity_statistics_entity_type ON entity_statistics (entity_type)"
+        },
+        {
+          "name": "ix_entity_statistics_id",
+          "definition": "CREATE INDEX ix_entity_statistics_id ON entity_statistics (id)"
+        },
+        {
+          "name": "ix_entity_statistics_entity_name",
+          "definition": "CREATE INDEX ix_entity_statistics_entity_name ON entity_statistics (entity_name)"
+        },
+        {
+          "name": "ix_entity_statistics_project_id",
+          "definition": "CREATE INDEX ix_entity_statistics_project_id ON entity_statistics (project_id)"
+        }
+      ],
+      "index_count": 4
+    },
+    {
+      "table": "fact_statements",
+      "size": "~6144 bytes",
+      "row_count": 6,
+      "indexes": [
+        {
+          "name": "ix_fact_statements_source_fid",
+          "definition": "CREATE INDEX ix_fact_statements_source_fid ON fact_statements (source_fid)"
+        },
+        {
+          "name": "ix_fact_statements_fid",
+          "definition": "CREATE UNIQUE INDEX ix_fact_statements_fid ON fact_statements (fid)"
+        },
+        {
+          "name": "ix_fact_statements_start_sec",
+          "definition": "CREATE INDEX ix_fact_statements_start_sec ON fact_statements (start_sec)"
+        },
+        {
+          "name": "ix_fact_statements_event_fid",
+          "definition": "CREATE INDEX ix_fact_statements_event_fid ON fact_statements (event_fid)"
+        },
+        {
+          "name": "ix_fact_statements_document_id",
+          "definition": "CREATE INDEX ix_fact_statements_document_id ON fact_statements (document_id)"
+        },
+        {
+          "name": "ix_fact_statements_project_id",
+          "definition": "CREATE INDEX ix_fact_statements_project_id ON fact_statements (project_id)"
+        },
+        {
+          "name": "idx_document_time",
+          "definition": "CREATE INDEX idx_document_time ON fact_statements (document_id, start_sec)"
+        },
+        {
+          "name": "idx_project_time",
+          "definition": "CREATE INDEX idx_project_time ON fact_statements (project_id, start_sec)"
+        }
+      ],
+      "index_count": 8
+    },
+    {
+      "table": "fieldmind_objects",
+      "size": "~19456 bytes",
+      "row_count": 19,
+      "indexes": [
+        {
+          "name": "ix_fieldmind_objects_created_at",
+          "definition": "CREATE INDEX ix_fieldmind_objects_created_at ON fieldmind_objects (created_at)"
+        },
+        {
+          "name": "ix_fieldmind_objects_object_type",
+          "definition": "CREATE INDEX ix_fieldmind_objects_object_type ON fieldmind_objects (object_type)"
+        },
+        {
+          "name": "ix_fieldmind_objects_fid",
+          "definition": "CREATE UNIQUE INDEX ix_fieldmind_objects_fid ON fieldmind_objects (fid)"
+        },
+        {
+          "name": "ix_fieldmind_objects_source_fid",
+          "definition": "CREATE INDEX ix_fieldmind_objects_source_fid ON fieldmind_objects (source_fid)"
+        },
+        {
+          "name": "idx_project_type",
+          "definition": "CREATE INDEX idx_project_type ON fieldmind_objects (project_id, object_type)"
+        },
+        {
+          "name": "idx_fid_project",
+          "definition": "CREATE INDEX idx_fid_project ON fieldmind_objects (fid, project_id)"
+        },
+        {
+          "name": "ix_fieldmind_objects_project_id",
+          "definition": "CREATE INDEX ix_fieldmind_objects_project_id ON fieldmind_objects (project_id)"
+        }
+      ],
+      "index_count": 7
+    },
+    {
+      "table": "industry_categories",
+      "size": "~7168 bytes",
+      "row_count": 7,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_industry_categories_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_industry_categories_category_id",
+          "definition": "CREATE UNIQUE INDEX ix_industry_categories_category_id ON industry_categories (category_id)"
+        }
+      ],
+      "index_count": 2
+    },
+    {
+      "table": "object_relations",
+      "size": "~15360 bytes",
+      "row_count": 15,
+      "indexes": [
+        {
+          "name": "idx_project_relation",
+          "definition": "CREATE INDEX idx_project_relation ON object_relations (project_id, relation_type)"
+        },
+        {
+          "name": "ix_object_relations_project_id",
+          "definition": "CREATE INDEX ix_object_relations_project_id ON object_relations (project_id)"
+        },
+        {
+          "name": "idx_from_type",
+          "definition": "CREATE INDEX idx_from_type ON object_relations (from_fid, relation_type)"
+        },
+        {
+          "name": "idx_from_to",
+          "definition": "CREATE INDEX idx_from_to ON object_relations (from_fid, to_fid)"
+        },
+        {
+          "name": "ix_object_relations_relation_type",
+          "definition": "CREATE INDEX ix_object_relations_relation_type ON object_relations (relation_type)"
+        },
+        {
+          "name": "ix_object_relations_from_fid",
+          "definition": "CREATE INDEX ix_object_relations_from_fid ON object_relations (from_fid)"
+        },
+        {
+          "name": "ix_object_relations_to_fid",
+          "definition": "CREATE INDEX ix_object_relations_to_fid ON object_relations (to_fid)"
+        }
+      ],
+      "index_count": 7
+    },
+    {
+      "table": "pipeline_executions",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "idx_pipeline_created",
+          "definition": "CREATE INDEX idx_pipeline_created ON pipeline_executions (created_at)"
+        },
+        {
+          "name": "idx_pipeline_project_status",
+          "definition": "CREATE INDEX idx_pipeline_project_status ON pipeline_executions (project_id, status)"
+        },
+        {
+          "name": "ix_pipeline_executions_execution_id",
+          "definition": "CREATE UNIQUE INDEX ix_pipeline_executions_execution_id ON pipeline_executions (execution_id)"
+        },
+        {
+          "name": "ix_pipeline_executions_id",
+          "definition": "CREATE INDEX ix_pipeline_executions_id ON pipeline_executions (id)"
+        },
+        {
+          "name": "ix_pipeline_executions_project_id",
+          "definition": "CREATE INDEX ix_pipeline_executions_project_id ON pipeline_executions (project_id)"
+        }
+      ],
+      "index_count": 5
+    },
+    {
+      "table": "pipeline_stage_results",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "idx_stage_execution_name",
+          "definition": "CREATE INDEX idx_stage_execution_name ON pipeline_stage_results (execution_id, stage_name)"
+        },
+        {
+          "name": "idx_stage_status",
+          "definition": "CREATE INDEX idx_stage_status ON pipeline_stage_results (status)"
+        },
+        {
+          "name": "ix_pipeline_stage_results_execution_id",
+          "definition": "CREATE INDEX ix_pipeline_stage_results_execution_id ON pipeline_stage_results (execution_id)"
+        },
+        {
+          "name": "ix_pipeline_stage_results_id",
+          "definition": "CREATE INDEX ix_pipeline_stage_results_id ON pipeline_stage_results (id)"
+        },
+        {
+          "name": "ix_pipeline_stage_results_stage_name",
+          "definition": "CREATE INDEX ix_pipeline_stage_results_stage_name ON pipeline_stage_results (stage_name)"
+        }
+      ],
+      "index_count": 5
+    },
+    {
+      "table": "project_chat_messages",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_project_chat_messages_session_id",
+          "definition": "CREATE INDEX ix_project_chat_messages_session_id ON project_chat_messages (session_id)"
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "project_chat_sessions",
+      "size": "~1024 bytes",
+      "row_count": 1,
+      "indexes": [
+        {
+          "name": "ix_project_chat_sessions_project_id",
+          "definition": "CREATE INDEX ix_project_chat_sessions_project_id ON project_chat_sessions (project_id)"
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "project_contexts",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_project_contexts_project_id",
+          "definition": "CREATE INDEX ix_project_contexts_project_id ON project_contexts (project_id)"
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "project_documents",
+      "size": "~70656 bytes",
+      "row_count": 69,
+      "indexes": [
+        {
+          "name": "ix_project_documents_project_id",
+          "definition": "CREATE INDEX ix_project_documents_project_id ON project_documents (project_id)"
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "project_memories",
+      "size": "~2048 bytes",
+      "row_count": 2,
+      "indexes": [
+        {
+          "name": "ix_project_memories_project_id",
+          "definition": "CREATE INDEX ix_project_memories_project_id ON project_memories (project_id)"
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "projects",
+      "size": "~17408 bytes",
+      "row_count": 17,
+      "indexes": [
+        {
+          "name": "ix_projects_created_at",
+          "definition": "CREATE INDEX ix_projects_created_at ON projects (created_at)"
+        },
+        {
+          "name": "ix_projects_name",
+          "definition": "CREATE INDEX ix_projects_name ON projects (name)"
+        }
+      ],
+      "index_count": 2
+    },
+    {
+      "table": "report_analysis_cache",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_report_analysis_cache_analysis_type",
+          "definition": "CREATE INDEX ix_report_analysis_cache_analysis_type ON report_analysis_cache (analysis_type)"
+        },
+        {
+          "name": "ix_report_analysis_cache_project_id",
+          "definition": "CREATE INDEX ix_report_analysis_cache_project_id ON report_analysis_cache (project_id)"
+        },
+        {
+          "name": "ix_report_analysis_cache_is_valid",
+          "definition": "CREATE INDEX ix_report_analysis_cache_is_valid ON report_analysis_cache (is_valid)"
+        },
+        {
+          "name": "ix_report_analysis_cache_id",
+          "definition": "CREATE INDEX ix_report_analysis_cache_id ON report_analysis_cache (id)"
+        }
+      ],
+      "index_count": 4
+    },
+    {
+      "table": "report_layers",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_report_layers_synthesis_result_id",
+          "definition": "CREATE INDEX ix_report_layers_synthesis_result_id ON report_layers (synthesis_result_id)"
+        },
+        {
+          "name": "ix_report_layers_id",
+          "definition": "CREATE INDEX ix_report_layers_id ON report_layers (id)"
+        },
+        {
+          "name": "ix_report_layers_project_id",
+          "definition": "CREATE INDEX ix_report_layers_project_id ON report_layers (project_id)"
+        }
+      ],
+      "index_count": 3
+    },
+    {
+      "table": "reports",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_reports_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_reports_task_id",
+          "definition": "CREATE INDEX ix_reports_task_id ON reports (task_id)"
+        }
+      ],
+      "index_count": 2
+    },
+    {
+      "table": "scheduled_task_executions",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_scheduled_task_executions_id",
+          "definition": "CREATE INDEX ix_scheduled_task_executions_id ON scheduled_task_executions (id)"
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "scheduled_tasks",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_scheduled_tasks_task_id",
+          "definition": "CREATE UNIQUE INDEX ix_scheduled_tasks_task_id ON scheduled_tasks (task_id)"
+        },
+        {
+          "name": "ix_scheduled_tasks_id",
+          "definition": "CREATE INDEX ix_scheduled_tasks_id ON scheduled_tasks (id)"
+        }
+      ],
+      "index_count": 2
+    },
+    {
+      "table": "skill_validations",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_skill_validations_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_skill_validations_skill_id",
+          "definition": "CREATE INDEX ix_skill_validations_skill_id ON skill_validations (skill_id)"
+        }
+      ],
+      "index_count": 2
+    },
+    {
+      "table": "skills",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_skills_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_skills_name",
+          "definition": "CREATE UNIQUE INDEX ix_skills_name ON skills (name)"
+        }
+      ],
+      "index_count": 2
+    },
+    {
+      "table": "source_verifications",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_source_verifications_statement_source_id",
+          "definition": "CREATE INDEX ix_source_verifications_statement_source_id ON source_verifications (statement_source_id)"
+        }
+      ],
+      "index_count": 1
+    },
+    {
+      "table": "statement_sources",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_statement_sources_statement_id",
+          "definition": "CREATE INDEX ix_statement_sources_statement_id ON statement_sources (statement_id)"
+        },
+        {
+          "name": "ix_statement_sources_source_chunk_id",
+          "definition": "CREATE INDEX ix_statement_sources_source_chunk_id ON statement_sources (source_chunk_id)"
+        },
+        {
+          "name": "ix_statement_sources_source_document_id",
+          "definition": "CREATE INDEX ix_statement_sources_source_document_id ON statement_sources (source_document_id)"
+        }
+      ],
+      "index_count": 3
+    },
+    {
+      "table": "structured_insights",
+      "size": "~342016 bytes",
+      "row_count": 334,
+      "indexes": [
+        {
+          "name": "ix_structured_insights_auto_topic_name",
+          "definition": "CREATE INDEX ix_structured_insights_auto_topic_name ON structured_insights (auto_topic_name)"
+        },
+        {
+          "name": "ix_structured_insights_auto_cluster_id",
+          "definition": "CREATE INDEX ix_structured_insights_auto_cluster_id ON structured_insights (auto_cluster_id)"
+        },
+        {
+          "name": "ix_structured_insights_document_id",
+          "definition": "CREATE INDEX ix_structured_insights_document_id ON structured_insights (document_id)"
+        },
+        {
+          "name": "ix_structured_insights_id",
+          "definition": "CREATE INDEX ix_structured_insights_id ON structured_insights (id)"
+        },
+        {
+          "name": "ix_structured_insights_project_id",
+          "definition": "CREATE INDEX ix_structured_insights_project_id ON structured_insights (project_id)"
+        },
+        {
+          "name": "ix_structured_insights_topics",
+          "definition": "CREATE INDEX ix_structured_insights_topics ON structured_insights (topics)"
+        }
+      ],
+      "index_count": 6
+    },
+    {
+      "table": "synthesis_results",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "ix_synthesis_results_id",
+          "definition": "CREATE INDEX ix_synthesis_results_id ON synthesis_results (id)"
+        },
+        {
+          "name": "ix_synthesis_results_created_at",
+          "definition": "CREATE INDEX ix_synthesis_results_created_at ON synthesis_results (created_at)"
+        },
+        {
+          "name": "ix_synthesis_results_confidence_score",
+          "definition": "CREATE INDEX ix_synthesis_results_confidence_score ON synthesis_results (confidence_score)"
+        },
+        {
+          "name": "ix_synthesis_results_project_id",
+          "definition": "CREATE INDEX ix_synthesis_results_project_id ON synthesis_results (project_id)"
+        }
+      ],
+      "index_count": 4
+    },
+    {
+      "table": "timeline_events",
+      "size": "~24576 bytes",
+      "row_count": 24,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_timeline_events_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_timeline_events_category",
+          "definition": "CREATE INDEX ix_timeline_events_category ON timeline_events (category)"
+        },
+        {
+          "name": "ix_timeline_events_date",
+          "definition": "CREATE INDEX ix_timeline_events_date ON timeline_events (date)"
+        }
+      ],
+      "index_count": 3
+    },
+    {
+      "table": "topic_statistics",
+      "size": "~11264 bytes",
+      "row_count": 11,
+      "indexes": [
+        {
+          "name": "ix_topic_statistics_project_id",
+          "definition": "CREATE INDEX ix_topic_statistics_project_id ON topic_statistics (project_id)"
+        },
+        {
+          "name": "ix_topic_statistics_id",
+          "definition": "CREATE INDEX ix_topic_statistics_id ON topic_statistics (id)"
+        },
+        {
+          "name": "ix_topic_statistics_topic",
+          "definition": "CREATE INDEX ix_topic_statistics_topic ON topic_statistics (topic)"
+        }
+      ],
+      "index_count": 3
+    },
+    {
+      "table": "users",
+      "size": "~2048 bytes",
+      "row_count": 2,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_users_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_users_email",
+          "definition": "CREATE UNIQUE INDEX ix_users_email ON users (email)"
+        },
+        {
+          "name": "ix_users_username",
+          "definition": "CREATE UNIQUE INDEX ix_users_username ON users (username)"
+        }
+      ],
+      "index_count": 3
+    },
+    {
+      "table": "workflow_executions",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_workflow_executions_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_workflow_executions_task_id",
+          "definition": "CREATE INDEX ix_workflow_executions_task_id ON workflow_executions (task_id)"
+        },
+        {
+          "name": "ix_workflow_executions_project_id",
+          "definition": "CREATE INDEX ix_workflow_executions_project_id ON workflow_executions (project_id)"
+        },
+        {
+          "name": "ix_workflow_executions_created_at",
+          "definition": "CREATE INDEX ix_workflow_executions_created_at ON workflow_executions (created_at)"
+        },
+        {
+          "name": "ix_workflow_executions_workflow_id",
+          "definition": "CREATE INDEX ix_workflow_executions_workflow_id ON workflow_executions (workflow_id)"
+        }
+      ],
+      "index_count": 5
+    },
+    {
+      "table": "workflows",
+      "size": "~0 bytes",
+      "row_count": 0,
+      "indexes": [
+        {
+          "name": "sqlite_autoindex_workflows_1",
+          "definition": ""
+        },
+        {
+          "name": "ix_workflows_name",
+          "definition": "CREATE INDEX ix_workflows_name ON workflows (name)"
+        }
+      ],
+      "index_count": 2
+    }
+  ],
+  "query_performance": {
+    "get_all_projects": 0.0002541542053222656,
+    "get_project_documents": "Error: (sqlite3.OperationalError) no such column: project_id\n[SQL: \n                    SELECT * FROM documents\n                    WHERE project_id = 1\n                    ORDER BY created_at DESC\n                ]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+    "get_document_chunks": "Error: (sqlite3.OperationalError) no such table: chunks\n[SQL: \n                    SELECT * FROM chunks\n                    WHERE document_id IN (\n                        SELECT id FROM documents WHERE project_id = 1\n                    )\n                    LIMIT 100\n                ]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+    "search_entities": "Error: (sqlite3.OperationalError) near \"ILIKE\": syntax error\n[SQL: \n                    SELECT * FROM entities\n                    WHERE name ILIKE '%test%'\n                    LIMIT 20\n                ]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)",
+    "get_user_projects": "Error: (sqlite3.OperationalError) no such column: p.user_id\n[SQL: \n                    SELECT p.*\n                    FROM projects p\n                    WHERE p.user_id = 1\n                    ORDER BY p.created_at DESC\n                ]\n(Background on this error at: https://sqlalche.me/e/20/e3q8)"
+  },
+  "slow_queries": [],
+  "recommendations": [
+    {
+      "table": "entities",
+      "columns": [
+        "type",
+        "project_id"
+      ],
+      "reason": "按类型和项目筛选",
+      "recommendation": "CREATE INDEX idx_entities_type_project_id ON entities(type, project_id)"
+    }
+  ]
+}

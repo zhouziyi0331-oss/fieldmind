@@ -1,0 +1,78 @@
+{
+  "view_id": "cultural_asset_detail",
+  "name": "文化资产详情视图",
+  "description": "查询特定文化资产的完整信息，包括相关人物、地点、传承人等",
+  "version": "1.0",
+  "input_parameters": {
+    "asset_name": {
+      "type": "string",
+      "required": true,
+      "description": "文化资产名称"
+    }
+  },
+  "data_bindings": [
+    {
+      "binding_id": "graph_asset_info",
+      "channel_type": "graph",
+      "query_template": "MATCH (asset:CulturalAsset {name: $asset_name})\nOPTIONAL MATCH (asset)-[:located_in]->(loc:Location)\nOPTIONAL MATCH (person:Person)-[:inherits]->(asset)\nRETURN asset, collect(DISTINCT loc) as locations, collect(DISTINCT person) as inheritors",
+      "output_mapping": {
+        "asset_info": "asset",
+        "locations": "locations",
+        "inheritors": "inheritors"
+      }
+    },
+    {
+      "binding_id": "sql_asset_mentions",
+      "channel_type": "sql",
+      "query_template": "SELECT dc.id, dc.text, dc.document_id\nFROM document_chunks dc\nJOIN chunk_entities ce ON dc.id = ce.chunk_id\nJOIN entities e ON ce.entity_id = e.id\nWHERE e.name = :asset_name AND e.entity_type = 'CulturalAsset'\nLIMIT 10",
+      "output_mapping": {
+        "mentions": "rows"
+      }
+    }
+  ],
+  "output": {
+    "asset_name": {
+      "type": "string",
+      "source": "graph_query",
+      "description": "文化资产名称"
+    },
+    "asset_properties": {
+      "type": "object",
+      "source": "graph_query",
+      "description": "资产属性"
+    },
+    "locations": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "相关地点列表"
+    },
+    "inheritors": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "传承人列表"
+    },
+    "mention_count": {
+      "type": "integer",
+      "source": "inference",
+      "description": "在文档中被提及的次数"
+    },
+    "context_snippets": {
+      "type": "array",
+      "source": "sql_query",
+      "description": "相关文本片段"
+    }
+  },
+  "inference_logic": {
+    "count_mentions": {
+      "type": "aggregation",
+      "operation": "count",
+      "source_field": "context_snippets",
+      "depends_on": ["context_snippets"],
+      "target_field": "mention_count"
+    }
+  },
+  "execution_strategy": {
+    "parallel_bindings": true,
+    "timeout_ms": 5000
+  }
+}

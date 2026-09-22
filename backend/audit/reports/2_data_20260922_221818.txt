@@ -1,0 +1,64 @@
+📊 数据库: ./fieldmind.db
+   大小: 0.20 MB
+
+共 16 张表
+
+============================================================
+
+⚠️ agent_traces (0 条)
+   ⚠️ 完全空表
+
+⚠️ chunks (0 条)
+   ⚠️ 完全空表
+
+⚠️ entities (0 条)
+   ⚠️ 完全空表
+
+⚠️ entity_relations (0 条)
+   ⚠️ 完全空表
+
+⚠️ evaluation_batches (0 条)
+   ⚠️ 完全空表
+
+⚠️ evaluation_runs (0 条)
+   ⚠️ 完全空表
+
+⚠️ evaluation_test_cases (0 条)
+   ⚠️ 完全空表
+
+⚠️ events (0 条)
+   ⚠️ 完全空表
+
+⚠️ keywords (0 条)
+   ⚠️ 完全空表
+
+⚠️ knowledge_access_logs (0 条)
+   ⚠️ 完全空表
+
+⚠️ knowledge_quality_checks (0 条)
+   ⚠️ 完全空表
+
+✅ knowledge_sources (6 条)
+
+⚠️ project_documents (0 条)
+   ⚠️ 完全空表
+
+⚠️ projects (0 条)
+   ⚠️ 完全空表
+
+⚠️ timeline_events (0 条)
+   ⚠️ 完全空表
+
+⚠️ version_comparisons (0 条)
+   ⚠️ 完全空表
+
+============================================================
+
+📋 表关联检查：
+   ✅ 无断连
+
+============================================================
+
+📊 总结：
+   空表: 15 张 → agent_traces, chunks, entities, entity_relations, evaluation_batches, evaluation_runs, evaluation_test_cases, events, keywords, knowledge_access_logs, knowledge_quality_checks, project_documents, projects, timeline_events, version_comparisons
+   脏表: 0 张 → 无

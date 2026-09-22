@@ -1,0 +1,3370 @@
+{
+  "endpoint_details": [
+    {
+      "file": "app/api/chat_rag.py",
+      "method": "POST",
+      "path": "/query",
+      "function": "rag_query",
+      "return_type": "unknown",
+      "line": 36
+    },
+    {
+      "file": "app/api/chat_rag.py",
+      "method": "GET",
+      "path": "/available-documents/{project_id}/",
+      "function": "get_available_documents",
+      "return_type": "unknown",
+      "line": 190
+    },
+    {
+      "file": "app/api/chat_rag.py",
+      "method": "GET",
+      "path": "/status",
+      "function": "rag_status",
+      "return_type": "dict",
+      "line": 227
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_api.py",
+      "method": "GET",
+      "path": "/stats",
+      "function": "get_graph_stats",
+      "return_type": "unknown",
+      "line": 39
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_api.py",
+      "method": "GET",
+      "path": "/data",
+      "function": "get_graph_data",
+      "return_type": "unknown",
+      "line": 64
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_api.py",
+      "method": "POST",
+      "path": "/query/related",
+      "function": "query_related_entities",
+      "return_type": "dict",
+      "line": 84
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_api.py",
+      "method": "POST",
+      "path": "/build/{document_id}/",
+      "function": "build_graph_for_document",
+      "return_type": "dict",
+      "line": 113
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_api.py",
+      "method": "POST",
+      "path": "/rebuild",
+      "function": "rebuild_entire_graph",
+      "return_type": "dict",
+      "line": 166
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_api.py",
+      "method": "GET",
+      "path": "/export/html",
+      "function": "export_visualization",
+      "return_type": "dict",
+      "line": 216
+    },
+    {
+      "file": "app/api/v1/documents.py",
+      "method": "POST",
+      "path": "/upload",
+      "function": "upload_document",
+      "return_type": "unknown",
+      "line": 90
+    },
+    {
+      "file": "app/api/v1/documents.py",
+      "method": "GET",
+      "path": "/{document_id}",
+      "function": "get_document",
+      "return_type": "unknown",
+      "line": 151
+    },
+    {
+      "file": "app/api/v1/documents.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/documents/simple",
+      "function": "list_documents_simple",
+      "return_type": "unknown",
+      "line": 261
+    },
+    {
+      "file": "app/api/v1/documents.py",
+      "method": "PATCH",
+      "path": "/{document_id}",
+      "function": "update_document",
+      "return_type": "unknown",
+      "line": 307
+    },
+    {
+      "file": "app/api/v1/documents.py",
+      "method": "DELETE",
+      "path": "/{document_id}",
+      "function": "delete_document",
+      "return_type": "unknown",
+      "line": 359
+    },
+    {
+      "file": "app/api/v1/documents.py",
+      "method": "GET",
+      "path": "/{document_id}/download",
+      "function": "get_download_url",
+      "return_type": "unknown",
+      "line": 399
+    },
+    {
+      "file": "app/api/v1/documents.py",
+      "method": "GET",
+      "path": "/{document_id}/content/",
+      "function": "get_document_content",
+      "return_type": "unknown",
+      "line": 441
+    },
+    {
+      "file": "app/api/v1/documents.py",
+      "method": "POST",
+      "path": "/classify",
+      "function": "classify_file",
+      "return_type": "unknown",
+      "line": 461
+    },
+    {
+      "file": "app/api/v1/tasks.py",
+      "method": "POST",
+      "path": "/documents/{document_id}/process",
+      "function": "trigger_document_processing",
+      "return_type": "unknown",
+      "line": 21
+    },
+    {
+      "file": "app/api/v1/tasks.py",
+      "method": "GET",
+      "path": "/{task_id}/status",
+      "function": "get_task_status",
+      "return_type": "unknown",
+      "line": 56
+    },
+    {
+      "file": "app/api/v1/tasks.py",
+      "method": "POST",
+      "path": "/{task_id}/cancel",
+      "function": "cancel_task",
+      "return_type": "unknown",
+      "line": 84
+    },
+    {
+      "file": "app/api/v1/tasks.py",
+      "method": "GET",
+      "path": "/active",
+      "function": "list_active_tasks",
+      "return_type": "unknown",
+      "line": 116
+    },
+    {
+      "file": "app/api/v1/tasks.py",
+      "method": "GET",
+      "path": "/scheduled",
+      "function": "list_scheduled_tasks",
+      "return_type": "unknown",
+      "line": 136
+    },
+    {
+      "file": "app/api/v1/tasks.py",
+      "method": "GET",
+      "path": "/workers",
+      "function": "get_worker_stats",
+      "return_type": "unknown",
+      "line": 156
+    },
+    {
+      "file": "app/api/v1/tasks.py",
+      "method": "GET",
+      "path": "/metrics",
+      "function": "get_task_metrics",
+      "return_type": "unknown",
+      "line": 173
+    },
+    {
+      "file": "app/api/v1/tasks.py",
+      "method": "GET",
+      "path": "/queues/{queue_name}/length",
+      "function": "get_queue_length",
+      "return_type": "unknown",
+      "line": 196
+    },
+    {
+      "file": "app/api/v1/tasks.py",
+      "method": "DELETE",
+      "path": "/queues/{queue_name}",
+      "function": "purge_queue",
+      "return_type": "unknown",
+      "line": 225
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_enhanced.py",
+      "method": "POST",
+      "path": "/construct",
+      "function": "construct_graph",
+      "return_type": "model",
+      "line": 122
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_enhanced.py",
+      "method": "POST",
+      "path": "/query/node",
+      "function": "query_node_neighborhood",
+      "return_type": "model",
+      "line": 205
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_enhanced.py",
+      "method": "POST",
+      "path": "/reasoning",
+      "function": "perform_reasoning",
+      "return_type": "model",
+      "line": 236
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_enhanced.py",
+      "method": "POST",
+      "path": "/skills/link",
+      "function": "link_skill",
+      "return_type": "dict",
+      "line": 287
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_enhanced.py",
+      "method": "POST",
+      "path": "/skills/query",
+      "function": "query_triple_interaction",
+      "return_type": "model",
+      "line": 363
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_enhanced.py",
+      "method": "POST",
+      "path": "/timeline",
+      "function": "get_timeline",
+      "return_type": "model",
+      "line": 412
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_enhanced.py",
+      "method": "POST",
+      "path": "/export",
+      "function": "export_graph",
+      "return_type": "dict",
+      "line": 459
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_enhanced.py",
+      "method": "POST",
+      "path": "/cypher/query",
+      "function": "cypher_query",
+      "return_type": "dict",
+      "line": 538
+    },
+    {
+      "file": "app/api/v1/knowledge_graph_enhanced.py",
+      "method": "GET",
+      "path": "/stats",
+      "function": "get_graph_statistics",
+      "return_type": "dict",
+      "line": 575
+    },
+    {
+      "file": "app/api/v1/skills.py",
+      "method": "POST",
+      "path": "/upload",
+      "function": "upload_skill",
+      "return_type": "unknown",
+      "line": 216
+    },
+    {
+      "file": "app/api/v1/skills.py",
+      "method": "PUT",
+      "path": "/{skill_id}/activate",
+      "function": "activate_skill",
+      "return_type": "unknown",
+      "line": 350
+    },
+    {
+      "file": "app/api/v1/skills.py",
+      "method": "PUT",
+      "path": "/{skill_id}/deactivate",
+      "function": "deactivate_skill",
+      "return_type": "unknown",
+      "line": 378
+    },
+    {
+      "file": "app/api/v1/skills.py",
+      "method": "DELETE",
+      "path": "/{skill_id}",
+      "function": "delete_skill",
+      "return_type": "unknown",
+      "line": 398
+    },
+    {
+      "file": "app/api/v1/skills.py",
+      "method": "POST",
+      "path": "/{skill_id}/test",
+      "function": "test_skill",
+      "return_type": "unknown",
+      "line": 430
+    },
+    {
+      "file": "app/api/v1/skills.py",
+      "method": "GET",
+      "path": "/available-for-task",
+      "function": "get_available_skills_for_task",
+      "return_type": "unknown",
+      "line": 464
+    },
+    {
+      "file": "app/api/v1/learning.py",
+      "method": "POST",
+      "path": "/experience",
+      "function": "record_experience",
+      "return_type": "unknown",
+      "line": 92
+    },
+    {
+      "file": "app/api/v1/learning.py",
+      "method": "POST",
+      "path": "/suggest",
+      "function": "suggest_action",
+      "return_type": "unknown",
+      "line": 150
+    },
+    {
+      "file": "app/api/v1/learning.py",
+      "method": "GET",
+      "path": "/stats",
+      "function": "get_learning_stats",
+      "return_type": "unknown",
+      "line": 209
+    },
+    {
+      "file": "app/api/v1/learning.py",
+      "method": "POST",
+      "path": "/skill",
+      "function": "register_skill",
+      "return_type": "unknown",
+      "line": 233
+    },
+    {
+      "file": "app/api/v1/learning.py",
+      "method": "GET",
+      "path": "/skills",
+      "function": "get_skills",
+      "return_type": "unknown",
+      "line": 278
+    },
+    {
+      "file": "app/api/v1/learning.py",
+      "method": "GET",
+      "path": "/health",
+      "function": "learning_health_check",
+      "return_type": "dict",
+      "line": 321
+    },
+    {
+      "file": "app/api/analytics.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/topic-distribution/",
+      "function": "get_topic_distribution",
+      "return_type": "unknown",
+      "line": 24
+    },
+    {
+      "file": "app/api/analytics.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/top-entities/",
+      "function": "get_top_entities",
+      "return_type": "unknown",
+      "line": 83
+    },
+    {
+      "file": "app/api/analytics.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/word-count-stats/",
+      "function": "get_word_count_stats",
+      "return_type": "unknown",
+      "line": 136
+    },
+    {
+      "file": "app/api/analytics.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/timeline-distribution/",
+      "function": "get_timeline_distribution",
+      "return_type": "unknown",
+      "line": 171
+    },
+    {
+      "file": "app/api/analytics.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/generate-report/",
+      "function": "generate_report",
+      "return_type": "unknown",
+      "line": 227
+    },
+    {
+      "file": "app/api/chat.py",
+      "method": "POST",
+      "path": "/sessions",
+      "function": "create_chat_session",
+      "return_type": "unknown",
+      "line": 25
+    },
+    {
+      "file": "app/api/chat.py",
+      "method": "GET",
+      "path": "/sessions/{session_id}",
+      "function": "get_chat_session",
+      "return_type": "unknown",
+      "line": 64
+    },
+    {
+      "file": "app/api/chat.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/sessions/",
+      "function": "list_project_sessions",
+      "return_type": "unknown",
+      "line": 85
+    },
+    {
+      "file": "app/api/chat.py",
+      "method": "POST",
+      "path": "/sessions/{session_id}/messages",
+      "function": "send_message",
+      "return_type": "unknown",
+      "line": 117
+    },
+    {
+      "file": "app/api/chat.py",
+      "method": "GET",
+      "path": "/sessions/{session_id}/messages/",
+      "function": "get_session_messages",
+      "return_type": "unknown",
+      "line": 275
+    },
+    {
+      "file": "app/api/chat.py",
+      "method": "DELETE",
+      "path": "/sessions/{session_id}/",
+      "function": "delete_session",
+      "return_type": "unknown",
+      "line": 305
+    },
+    {
+      "file": "app/api/chat.py",
+      "method": "POST",
+      "path": "/sessions/{session_id}/evolve-skill/",
+      "function": "evolve_session_skill",
+      "return_type": "unknown",
+      "line": 331
+    },
+    {
+      "file": "app/api/knowledge_graph_v3.py",
+      "method": "POST",
+      "path": "/extract-evidences",
+      "function": "extract_evidences",
+      "return_type": "unknown",
+      "line": 68
+    },
+    {
+      "file": "app/api/knowledge_graph_v3.py",
+      "method": "GET",
+      "path": "/entities/{entity_id}/evidences/",
+      "function": "get_entity_evidences",
+      "return_type": "unknown",
+      "line": 161
+    },
+    {
+      "file": "app/api/knowledge_graph_v3.py",
+      "method": "GET",
+      "path": "/categories/{category}/evidences/",
+      "function": "get_category_evidences",
+      "return_type": "unknown",
+      "line": 221
+    },
+    {
+      "file": "app/api/knowledge_graph_v3.py",
+      "method": "GET",
+      "path": "/categories/stats",
+      "function": "get_category_stats",
+      "return_type": "unknown",
+      "line": 269
+    },
+    {
+      "file": "app/api/knowledge_graph_v3.py",
+      "method": "GET",
+      "path": "/search",
+      "function": "search_entities_with_evidences",
+      "return_type": "unknown",
+      "line": 307
+    },
+    {
+      "file": "app/api/knowledge_graph_v3.py",
+      "method": "DELETE",
+      "path": "/evidences/{evidence_id}/",
+      "function": "delete_evidence",
+      "return_type": "unknown",
+      "line": 358
+    },
+    {
+      "file": "app/api/v1/topic_analysis.py",
+      "method": "POST",
+      "path": "/extract-keywords",
+      "function": "extract_keywords",
+      "return_type": "dict",
+      "line": 39
+    },
+    {
+      "file": "app/api/v1/topic_analysis.py",
+      "method": "GET",
+      "path": "/keywords/chunk/{chunk_id}/",
+      "function": "get_chunk_keywords",
+      "return_type": "dict",
+      "line": 88
+    },
+    {
+      "file": "app/api/v1/topic_analysis.py",
+      "method": "GET",
+      "path": "/keywords/project/{project_id}/",
+      "function": "get_project_top_keywords",
+      "return_type": "dict",
+      "line": 111
+    },
+    {
+      "file": "app/api/v1/topic_analysis.py",
+      "method": "POST",
+      "path": "/cluster",
+      "function": "cluster_project",
+      "return_type": "dict",
+      "line": 135
+    },
+    {
+      "file": "app/api/v1/topic_analysis.py",
+      "method": "GET",
+      "path": "/clusters/{project_id}/",
+      "function": "get_project_clusters",
+      "return_type": "dict",
+      "line": 162
+    },
+    {
+      "file": "app/api/v1/topic_analysis.py",
+      "method": "GET",
+      "path": "/clusters/{project_id}/{cluster_id}/chunks/",
+      "function": "get_cluster_chunks",
+      "return_type": "dict",
+      "line": 186
+    },
+    {
+      "file": "app/api/v1/topic_analysis.py",
+      "method": "POST",
+      "path": "/auto-analyze/{project_id}/",
+      "function": "auto_analyze_project",
+      "return_type": "dict",
+      "line": 211
+    },
+    {
+      "file": "app/api/v1/search.py",
+      "method": "GET",
+      "path": "/entity/{entity_name}/graph",
+      "function": "get_entity_relations",
+      "return_type": "unknown",
+      "line": 55
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "POST",
+      "path": "/create",
+      "function": "create_memory",
+      "return_type": "unknown",
+      "line": 67
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "GET",
+      "path": "/project/{project_id}",
+      "function": "get_project_memories",
+      "return_type": "unknown",
+      "line": 121
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "GET",
+      "path": "/{memory_id}",
+      "function": "get_memory_detail",
+      "return_type": "unknown",
+      "line": 162
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "POST",
+      "path": "/build-prompt",
+      "function": "build_system_prompt",
+      "return_type": "unknown",
+      "line": 192
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "POST",
+      "path": "/promote",
+      "function": "promote_memory",
+      "return_type": "unknown",
+      "line": 247
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "POST",
+      "path": "/auto-promote/{project_id}/",
+      "function": "auto_promote_memories",
+      "return_type": "unknown",
+      "line": 287
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "DELETE",
+      "path": "/{memory_id}/",
+      "function": "delete_memory",
+      "return_type": "unknown",
+      "line": 315
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "POST",
+      "path": "/cleanup/{project_id}/",
+      "function": "cleanup_old_memories",
+      "return_type": "unknown",
+      "line": 332
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "GET",
+      "path": "/stats/{project_id}/",
+      "function": "get_memory_stats",
+      "return_type": "unknown",
+      "line": 357
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "POST",
+      "path": "/quick/from-chat",
+      "function": "quick_create_from_chat",
+      "return_type": "unknown",
+      "line": 413
+    },
+    {
+      "file": "app/api/memory.py",
+      "method": "POST",
+      "path": "/quick/from-document",
+      "function": "quick_create_from_document",
+      "return_type": "unknown",
+      "line": 447
+    },
+    {
+      "file": "app/api/v1/project_workflow.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/analyze/",
+      "function": "analyze_project",
+      "return_type": "unknown",
+      "line": 219
+    },
+    {
+      "file": "app/api/v1/project_workflow.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/workflow-status/",
+      "function": "get_workflow_status",
+      "return_type": "unknown",
+      "line": 244
+    },
+    {
+      "file": "app/api/document_processing_v2.py",
+      "method": "POST",
+      "path": "/process",
+      "function": "process_document_v2",
+      "return_type": "unknown",
+      "line": 63
+    },
+    {
+      "file": "app/api/document_processing_v2.py",
+      "method": "POST",
+      "path": "/search-with-citation",
+      "function": "search_with_citation",
+      "return_type": "unknown",
+      "line": 129
+    },
+    {
+      "file": "app/api/document_processing_v2.py",
+      "method": "GET",
+      "path": "/chunk/{chunk_id}/",
+      "function": "get_chunk_with_citation",
+      "return_type": "unknown",
+      "line": 211
+    },
+    {
+      "file": "app/api/document_processing_v2.py",
+      "method": "POST",
+      "path": "/reprocess/{document_id}/",
+      "function": "reprocess_document",
+      "return_type": "unknown",
+      "line": 243
+    },
+    {
+      "file": "app/api/document_processing_v2.py",
+      "method": "GET",
+      "path": "/metadata-stats/{project_id}/",
+      "function": "get_metadata_stats",
+      "return_type": "unknown",
+      "line": 302
+    },
+    {
+      "file": "app/api/document_processing_v2.py",
+      "method": "POST",
+      "path": "/process-audio",
+      "function": "process_audio_with_timestamps",
+      "return_type": "unknown",
+      "line": 358
+    },
+    {
+      "file": "app/api/document_processing_v2.py",
+      "method": "GET",
+      "path": "/audio-segment/{chunk_id}/",
+      "function": "get_audio_segment",
+      "return_type": "unknown",
+      "line": 408
+    },
+    {
+      "file": "app/api/file_manager.py",
+      "method": "GET",
+      "path": "/file-tree/{project_id}",
+      "function": "get_file_tree",
+      "return_type": "unknown",
+      "line": 225
+    },
+    {
+      "file": "app/api/file_manager.py",
+      "method": "POST",
+      "path": "/folders",
+      "function": "create_folder",
+      "return_type": "unknown",
+      "line": 268
+    },
+    {
+      "file": "app/api/file_manager.py",
+      "method": "PUT",
+      "path": "/files/{file_id}/move/",
+      "function": "move_file",
+      "return_type": "unknown",
+      "line": 306
+    },
+    {
+      "file": "app/api/file_manager.py",
+      "method": "DELETE",
+      "path": "/files/{file_id}",
+      "function": "delete_file",
+      "return_type": "unknown",
+      "line": 366
+    },
+    {
+      "file": "app/api/file_manager.py",
+      "method": "DELETE",
+      "path": "/folders",
+      "function": "delete_folder",
+      "return_type": "unknown",
+      "line": 403
+    },
+    {
+      "file": "app/api/file_manager.py",
+      "method": "GET",
+      "path": "/folder-contents",
+      "function": "get_folder_contents",
+      "return_type": "unknown",
+      "line": 465
+    },
+    {
+      "file": "app/api/monitoring.py",
+      "method": "GET",
+      "path": "/health",
+      "function": "health_check",
+      "return_type": "dict",
+      "line": 89
+    },
+    {
+      "file": "app/api/monitoring.py",
+      "method": "GET",
+      "path": "/metrics",
+      "function": "get_metrics",
+      "return_type": "dict",
+      "line": 119
+    },
+    {
+      "file": "app/api/monitoring.py",
+      "method": "GET",
+      "path": "/logs/recent",
+      "function": "get_recent_logs",
+      "return_type": "dict",
+      "line": 160
+    },
+    {
+      "file": "app/api/monitoring.py",
+      "method": "GET",
+      "path": "/stats/api",
+      "function": "get_api_stats",
+      "return_type": "dict",
+      "line": 202
+    },
+    {
+      "file": "app/api/skill_config.py",
+      "method": "GET",
+      "path": "/available",
+      "function": "get_available_skills",
+      "return_type": "dict",
+      "line": 112
+    },
+    {
+      "file": "app/api/skill_config.py",
+      "method": "GET",
+      "path": "/config/{project_id}",
+      "function": "get_skill_config",
+      "return_type": "unknown",
+      "line": 123
+    },
+    {
+      "file": "app/api/skill_config.py",
+      "method": "POST",
+      "path": "/config",
+      "function": "update_skill_config",
+      "return_type": "unknown",
+      "line": 162
+    },
+    {
+      "file": "app/api/skill_config.py",
+      "method": "POST",
+      "path": "/toggle/{project_id}/{skill_id}/",
+      "function": "toggle_skill",
+      "return_type": "unknown",
+      "line": 214
+    },
+    {
+      "file": "app/api/timeline.py",
+      "method": "POST",
+      "path": "/build",
+      "function": "build_timeline",
+      "return_type": "unknown",
+      "line": 122
+    },
+    {
+      "file": "app/api/timeline.py",
+      "method": "GET",
+      "path": "/events",
+      "function": "get_timeline_events",
+      "return_type": "unknown",
+      "line": 218
+    },
+    {
+      "file": "app/api/timeline.py",
+      "method": "GET",
+      "path": "/stats",
+      "function": "get_timeline_stats",
+      "return_type": "unknown",
+      "line": 304
+    },
+    {
+      "file": "app/api/timeline.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/events/",
+      "function": "get_project_timeline",
+      "return_type": "unknown",
+      "line": 370
+    },
+    {
+      "file": "app/api/timeline.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/events/grouped/",
+      "function": "get_grouped_timeline",
+      "return_type": "unknown",
+      "line": 433
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "POST",
+      "path": "/upload",
+      "function": "upload_document",
+      "return_type": "unknown",
+      "line": 27
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/documents/",
+      "function": "list_project_documents",
+      "return_type": "unknown",
+      "line": 84
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/{document_id}",
+      "function": "get_document",
+      "return_type": "unknown",
+      "line": 112
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "DELETE",
+      "path": "/{document_id}/",
+      "function": "delete_document",
+      "return_type": "unknown",
+      "line": 136
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/knowledge-base/status",
+      "function": "get_knowledge_base_status",
+      "return_type": "dict",
+      "line": 168
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/list/status",
+      "function": "get_documents_status",
+      "return_type": "unknown",
+      "line": 230
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/aggregate/keywords",
+      "function": "get_aggregated_keywords",
+      "return_type": "unknown",
+      "line": 285
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/skill/analysis/{document_id}/",
+      "function": "get_skill_analysis",
+      "return_type": "unknown",
+      "line": 358
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/aggregate/skills",
+      "function": "get_aggregated_skills",
+      "return_type": "unknown",
+      "line": 391
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/{document_id}/fact-statements/",
+      "function": "get_document_fact_statements",
+      "return_type": "unknown",
+      "line": 444
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/{document_id}/audio/",
+      "function": "get_document_audio",
+      "return_type": "unknown",
+      "line": 511
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "POST",
+      "path": "/upload/batch",
+      "function": "upload_documents_batch",
+      "return_type": "unknown",
+      "line": 553
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/batch/{batch_id}/status",
+      "function": "get_batch_status",
+      "return_type": "unknown",
+      "line": 661
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "DELETE",
+      "path": "/batch",
+      "function": "delete_documents_batch",
+      "return_type": "unknown",
+      "line": 702
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "POST",
+      "path": "/batch/reprocess",
+      "function": "reprocess_documents_batch",
+      "return_type": "unknown",
+      "line": 752
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "POST",
+      "path": "/batch/quality-check",
+      "function": "quality_check_batch",
+      "return_type": "unknown",
+      "line": 840
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "GET",
+      "path": "/batch",
+      "function": "list_batch_operations",
+      "return_type": "unknown",
+      "line": 941
+    },
+    {
+      "file": "app/api/documents.py",
+      "method": "DELETE",
+      "path": "/batch/{batch_id}/cancel/",
+      "function": "cancel_batch_operation",
+      "return_type": "unknown",
+      "line": 1008
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "GET",
+      "path": "/health",
+      "function": "health_check",
+      "return_type": "dict",
+      "line": 57
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "POST",
+      "path": "/chat",
+      "function": "deep_chat",
+      "return_type": "dict",
+      "line": 80
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "POST",
+      "path": "/retrieve",
+      "function": "multi_source_retrieve",
+      "return_type": "dict",
+      "line": 123
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "POST",
+      "path": "/rank-fuse",
+      "function": "rank_and_fuse",
+      "return_type": "dict",
+      "line": 161
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "GET",
+      "path": "/conversation/{session_id}/",
+      "function": "get_conversation_history",
+      "return_type": "dict",
+      "line": 195
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "DELETE",
+      "path": "/conversation/{session_id}/",
+      "function": "clear_conversation",
+      "return_type": "dict",
+      "line": 225
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "GET",
+      "path": "/sources",
+      "function": "list_available_sources",
+      "return_type": "dict",
+      "line": 251
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "POST",
+      "path": "/chat/batch",
+      "function": "batch_chat",
+      "return_type": "unknown",
+      "line": 285
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "POST",
+      "path": "/chat/stream",
+      "function": "stream_chat",
+      "return_type": "unknown",
+      "line": 336
+    },
+    {
+      "file": "app/api/deep_rag.py",
+      "method": "GET",
+      "path": "/statistics",
+      "function": "get_statistics",
+      "return_type": "dict",
+      "line": 349
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/tables",
+      "function": "list_tables",
+      "return_type": "unknown",
+      "line": 88
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/tables/",
+      "function": "list_tables",
+      "return_type": "dict",
+      "line": 89
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/tables/statistics",
+      "function": "table_statistics",
+      "return_type": "unknown",
+      "line": 100
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/tables/statistics/",
+      "function": "table_statistics",
+      "return_type": "dict",
+      "line": 101
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/tables/{table_id}",
+      "function": "get_table",
+      "return_type": "unknown",
+      "line": 117
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/tables/{table_id}/",
+      "function": "get_table",
+      "return_type": "unknown",
+      "line": 118
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/tables/upload",
+      "function": "upload_table",
+      "return_type": "unknown",
+      "line": 123
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/tables/upload/",
+      "function": "upload_table",
+      "return_type": "unknown",
+      "line": 124
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "DELETE",
+      "path": "/projects/{project_id}/tables/{table_id}",
+      "function": "delete_table",
+      "return_type": "unknown",
+      "line": 186
+    },
+    {
+      "file": "app/api/tables.py",
+      "method": "DELETE",
+      "path": "/projects/{project_id}/tables/{table_id}/",
+      "function": "delete_table",
+      "return_type": "dict",
+      "line": 187
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "GET",
+      "path": "/health",
+      "function": "health_check",
+      "return_type": "dict",
+      "line": 78
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "POST",
+      "path": "/plotly/bar",
+      "function": "create_plotly_bar",
+      "return_type": "dict",
+      "line": 96
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "POST",
+      "path": "/plotly/line",
+      "function": "create_plotly_line",
+      "return_type": "dict",
+      "line": 127
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "POST",
+      "path": "/plotly/scatter3d",
+      "function": "create_plotly_scatter3d",
+      "return_type": "dict",
+      "line": 158
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "POST",
+      "path": "/pyecharts/pie",
+      "function": "create_pyecharts_pie",
+      "return_type": "dict",
+      "line": 193
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "POST",
+      "path": "/pyecharts/graph",
+      "function": "create_pyecharts_graph",
+      "return_type": "dict",
+      "line": 224
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "POST",
+      "path": "/networkx/knowledge-graph",
+      "function": "create_networkx_kg",
+      "return_type": "dict",
+      "line": 258
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "POST",
+      "path": "/wordcloud",
+      "function": "create_wordcloud",
+      "return_type": "dict",
+      "line": 292
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "POST",
+      "path": "/document-stats",
+      "function": "create_document_stats_viz",
+      "return_type": "dict",
+      "line": 332
+    },
+    {
+      "file": "app/api/visualize.py",
+      "method": "POST",
+      "path": "/knowledge-graph",
+      "function": "create_knowledge_graph_viz",
+      "return_type": "dict",
+      "line": 372
+    },
+    {
+      "file": "app/api/source_traceback.py",
+      "method": "POST",
+      "path": "/analyses",
+      "function": "save_analysis",
+      "return_type": "unknown",
+      "line": 31
+    },
+    {
+      "file": "app/api/source_traceback.py",
+      "method": "GET",
+      "path": "/analyses/{analysis_id}/",
+      "function": "get_analysis_with_sources",
+      "return_type": "unknown",
+      "line": 62
+    },
+    {
+      "file": "app/api/source_traceback.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/analyses/",
+      "function": "list_project_analyses",
+      "return_type": "unknown",
+      "line": 86
+    },
+    {
+      "file": "app/api/source_traceback.py",
+      "method": "GET",
+      "path": "/statements/{statement_id}/sources/",
+      "function": "get_statement_sources",
+      "return_type": "unknown",
+      "line": 130
+    },
+    {
+      "file": "app/api/source_traceback.py",
+      "method": "POST",
+      "path": "/sources/{source_id}/verify/",
+      "function": "verify_source",
+      "return_type": "unknown",
+      "line": 150
+    },
+    {
+      "file": "app/api/source_traceback.py",
+      "method": "GET",
+      "path": "/chunks/{chunk_id}/detail/",
+      "function": "get_chunk_detail",
+      "return_type": "unknown",
+      "line": 187
+    },
+    {
+      "file": "app/api/source_traceback.py",
+      "method": "DELETE",
+      "path": "/analyses/{analysis_id}/",
+      "function": "delete_analysis",
+      "return_type": "unknown",
+      "line": 267
+    },
+    {
+      "file": "app/api/source_traceback.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/statistics/",
+      "function": "get_project_source_statistics",
+      "return_type": "unknown",
+      "line": 290
+    },
+    {
+      "file": "app/api/scheduler.py",
+      "method": "POST",
+      "path": "/tasks",
+      "function": "create_scheduled_task",
+      "return_type": "unknown",
+      "line": 25
+    },
+    {
+      "file": "app/api/scheduler.py",
+      "method": "GET",
+      "path": "/tasks/{task_id}",
+      "function": "get_scheduled_task",
+      "return_type": "unknown",
+      "line": 78
+    },
+    {
+      "file": "app/api/scheduler.py",
+      "method": "GET",
+      "path": "/tasks",
+      "function": "list_scheduled_tasks",
+      "return_type": "unknown",
+      "line": 93
+    },
+    {
+      "file": "app/api/scheduler.py",
+      "method": "PUT",
+      "path": "/tasks/{task_id}",
+      "function": "update_scheduled_task",
+      "return_type": "unknown",
+      "line": 139
+    },
+    {
+      "file": "app/api/scheduler.py",
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "function": "delete_scheduled_task",
+      "return_type": "unknown",
+      "line": 179
+    },
+    {
+      "file": "app/api/scheduler.py",
+      "method": "POST",
+      "path": "/tasks/{task_id}/run",
+      "function": "run_task_manually",
+      "return_type": "unknown",
+      "line": 193
+    },
+    {
+      "file": "app/api/scheduler.py",
+      "method": "GET",
+      "path": "/executions",
+      "function": "list_task_executions",
+      "return_type": "unknown",
+      "line": 226
+    },
+    {
+      "file": "app/api/scheduler.py",
+      "method": "GET",
+      "path": "/executions/{execution_id}",
+      "function": "get_task_execution",
+      "return_type": "unknown",
+      "line": 268
+    },
+    {
+      "file": "app/api/reports_real.py",
+      "method": "POST",
+      "path": "/generate",
+      "function": "generate_report",
+      "return_type": "unknown",
+      "line": 38
+    },
+    {
+      "file": "app/api/reports_real.py",
+      "method": "GET",
+      "path": "/preview/{report_level}/",
+      "function": "preview_report",
+      "return_type": "unknown",
+      "line": 712
+    },
+    {
+      "file": "app/api/v1/industry.py",
+      "method": "GET",
+      "path": "/categories",
+      "function": "get_industry_categories",
+      "return_type": "unknown",
+      "line": 21
+    },
+    {
+      "file": "app/api/v1/industry.py",
+      "method": "GET",
+      "path": "/{category}/details",
+      "function": "get_industry_details",
+      "return_type": "unknown",
+      "line": 52
+    },
+    {
+      "file": "app/api/v1/industry.py",
+      "method": "GET",
+      "path": "/{category}/statistics",
+      "function": "get_industry_statistics",
+      "return_type": "unknown",
+      "line": 276
+    },
+    {
+      "file": "app/api/v1/industry.py",
+      "method": "GET",
+      "path": "/{category}/trends",
+      "function": "get_industry_trends",
+      "return_type": "unknown",
+      "line": 369
+    },
+    {
+      "file": "app/api/batch_processing.py",
+      "method": "POST",
+      "path": "/process",
+      "function": "batch_process_documents",
+      "return_type": "unknown",
+      "line": 155
+    },
+    {
+      "file": "app/api/batch_processing.py",
+      "method": "GET",
+      "path": "/status",
+      "function": "get_batch_status",
+      "return_type": "unknown",
+      "line": 208
+    },
+    {
+      "file": "app/api/batch_processing.py",
+      "method": "POST",
+      "path": "/reprocess-failed",
+      "function": "reprocess_failed_documents",
+      "return_type": "unknown",
+      "line": 257
+    },
+    {
+      "file": "app/api/batch_processing.py",
+      "method": "POST",
+      "path": "/process-project",
+      "function": "process_entire_project",
+      "return_type": "unknown",
+      "line": 300
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "POST",
+      "path": "/",
+      "function": "create_project",
+      "return_type": "unknown",
+      "line": 28
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/",
+      "function": "list_projects",
+      "return_type": "unknown",
+      "line": 51
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/",
+      "function": "get_project",
+      "return_type": "unknown",
+      "line": 106
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "PUT",
+      "path": "/{project_id}",
+      "function": "update_project",
+      "return_type": "unknown",
+      "line": 119
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "DELETE",
+      "path": "/{project_id}",
+      "function": "delete_project",
+      "return_type": "unknown",
+      "line": 144
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "POST",
+      "path": "/{project_id}/archive",
+      "function": "archive_project",
+      "return_type": "unknown",
+      "line": 160
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "POST",
+      "path": "/{project_id}/restore",
+      "function": "restore_project",
+      "return_type": "unknown",
+      "line": 178
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/documents",
+      "function": "list_project_documents",
+      "return_type": "unknown",
+      "line": 198
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/documents/{document_id}",
+      "function": "get_project_document",
+      "return_type": "unknown",
+      "line": 221
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "POST",
+      "path": "/{project_id}/contexts",
+      "function": "create_project_context",
+      "return_type": "unknown",
+      "line": 241
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/contexts",
+      "function": "list_project_contexts",
+      "return_type": "unknown",
+      "line": 286
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/contexts/{context_id}",
+      "function": "get_project_context",
+      "return_type": "unknown",
+      "line": 311
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "POST",
+      "path": "/{project_id}/chat-sessions",
+      "function": "create_chat_session",
+      "return_type": "unknown",
+      "line": 331
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/chat-sessions",
+      "function": "list_chat_sessions",
+      "return_type": "unknown",
+      "line": 369
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/chat-sessions/{session_id}",
+      "function": "get_chat_session",
+      "return_type": "unknown",
+      "line": 389
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/dashboard",
+      "function": "get_project_dashboard",
+      "return_type": "unknown",
+      "line": 415
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/memories",
+      "function": "list_project_memories",
+      "return_type": "unknown",
+      "line": 471
+    },
+    {
+      "file": "app/api/v1/projects.py",
+      "method": "GET",
+      "path": "/{project_id}/sessions/",
+      "function": "list_project_sessions",
+      "return_type": "unknown",
+      "line": 500
+    },
+    {
+      "file": "app/api/v1/governance_validation.py",
+      "method": "GET",
+      "path": "/validation/dimension-distribution",
+      "function": "get_dimension_distribution",
+      "return_type": "unknown",
+      "line": 23
+    },
+    {
+      "file": "app/api/v1/governance_validation.py",
+      "method": "GET",
+      "path": "/validation/chunk-continuity",
+      "function": "check_chunk_continuity",
+      "return_type": "unknown",
+      "line": 87
+    },
+    {
+      "file": "app/api/v1/governance_validation.py",
+      "method": "GET",
+      "path": "/validation/missing-analysis",
+      "function": "analyze_missing_data",
+      "return_type": "unknown",
+      "line": 180
+    },
+    {
+      "file": "app/api/v1/governance_validation.py",
+      "method": "GET",
+      "path": "/validation/document-coverage/{document_id}/",
+      "function": "get_document_coverage",
+      "return_type": "unknown",
+      "line": 299
+    },
+    {
+      "file": "app/api/v1/governance_validation.py",
+      "method": "GET",
+      "path": "/validation/full-report",
+      "function": "get_full_validation_report",
+      "return_type": "unknown",
+      "line": 352
+    },
+    {
+      "file": "app/api/dashboard.py",
+      "method": "GET",
+      "path": "/stats/{project_id}",
+      "function": "get_dashboard_stats",
+      "return_type": "unknown",
+      "line": 63
+    },
+    {
+      "file": "app/api/dashboard.py",
+      "method": "GET",
+      "path": "/timeline/{project_id}",
+      "function": "get_project_timeline",
+      "return_type": "unknown",
+      "line": 254
+    },
+    {
+      "file": "app/api/dashboard.py",
+      "method": "GET",
+      "path": "/progress/{project_id}",
+      "function": "get_project_progress",
+      "return_type": "unknown",
+      "line": 319
+    },
+    {
+      "file": "app/api/creative_analysis.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/analyze",
+      "function": "analyze_creative_possibilities",
+      "return_type": "unknown",
+      "line": 49
+    },
+    {
+      "file": "app/api/creative_analysis.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/cultural-elements/",
+      "function": "get_cultural_elements",
+      "return_type": "unknown",
+      "line": 94
+    },
+    {
+      "file": "app/api/v1/workflows.py",
+      "method": "GET",
+      "path": "/{workflow_id}",
+      "function": "get_workflow",
+      "return_type": "unknown",
+      "line": 108
+    },
+    {
+      "file": "app/api/v1/workflows.py",
+      "method": "POST",
+      "path": "/{workflow_id}/execute",
+      "function": "execute_workflow",
+      "return_type": "unknown",
+      "line": 158
+    },
+    {
+      "file": "app/api/v1/workflows.py",
+      "method": "DELETE",
+      "path": "/{workflow_id}",
+      "function": "delete_workflow",
+      "return_type": "unknown",
+      "line": 221
+    },
+    {
+      "file": "app/api/v1/workflows.py",
+      "method": "GET",
+      "path": "/{workflow_id}/executions",
+      "function": "get_workflow_executions",
+      "return_type": "unknown",
+      "line": 248
+    },
+    {
+      "file": "app/api/v1/auth.py",
+      "method": "POST",
+      "path": "/register",
+      "function": "register",
+      "return_type": "model",
+      "line": 17
+    },
+    {
+      "file": "app/api/v1/auth.py",
+      "method": "POST",
+      "path": "/login",
+      "function": "login",
+      "return_type": "model",
+      "line": 59
+    },
+    {
+      "file": "app/api/v1/auth.py",
+      "method": "POST",
+      "path": "/logout",
+      "function": "logout",
+      "return_type": "dict",
+      "line": 100
+    },
+    {
+      "file": "app/api/v1/auth.py",
+      "method": "GET",
+      "path": "/me",
+      "function": "get_current_user_info",
+      "return_type": "unknown",
+      "line": 108
+    },
+    {
+      "file": "app/api/v1/auth.py",
+      "method": "POST",
+      "path": "/refresh",
+      "function": "refresh_token",
+      "return_type": "dict",
+      "line": 114
+    },
+    {
+      "file": "app/api/conversation_memory.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/ask/",
+      "function": "ask_with_context",
+      "return_type": "unknown",
+      "line": 24
+    },
+    {
+      "file": "app/api/conversation_memory.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/context/",
+      "function": "get_project_context",
+      "return_type": "unknown",
+      "line": 83
+    },
+    {
+      "file": "app/api/conversation_memory.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/conversations/",
+      "function": "get_conversation_history",
+      "return_type": "unknown",
+      "line": 108
+    },
+    {
+      "file": "app/api/v1/query_api.py",
+      "method": "POST",
+      "path": "/",
+      "function": "execute_query",
+      "return_type": "model",
+      "line": 53
+    },
+    {
+      "file": "app/api/v1/query_api.py",
+      "method": "GET",
+      "path": "/views",
+      "function": "list_views",
+      "return_type": "unknown",
+      "line": 145
+    },
+    {
+      "file": "app/api/v1/query_api.py",
+      "method": "GET",
+      "path": "/view/{view_id}",
+      "function": "get_view_definition",
+      "return_type": "unknown",
+      "line": 159
+    },
+    {
+      "file": "app/api/v1/query_api.py",
+      "method": "GET",
+      "path": "/metrics",
+      "function": "get_metrics",
+      "return_type": "unknown",
+      "line": 178
+    },
+    {
+      "file": "app/api/v1/query_api.py",
+      "method": "POST",
+      "path": "/cache/clear",
+      "function": "clear_cache",
+      "return_type": "dict",
+      "line": 193
+    },
+    {
+      "file": "app/api/v1/query_api.py",
+      "method": "POST",
+      "path": "/metrics/reset",
+      "function": "reset_metrics",
+      "return_type": "dict",
+      "line": 204
+    },
+    {
+      "file": "app/api/v1/audio.py",
+      "method": "POST",
+      "path": "/upload",
+      "function": "upload_audio",
+      "return_type": "unknown",
+      "line": 19
+    },
+    {
+      "file": "app/api/v1/audio.py",
+      "method": "GET",
+      "path": "/status/{task_id}/",
+      "function": "get_audio_processing_status",
+      "return_type": "unknown",
+      "line": 97
+    },
+    {
+      "file": "app/api/v1/audio.py",
+      "method": "GET",
+      "path": "/list",
+      "function": "list_audio_files",
+      "return_type": "unknown",
+      "line": 126
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/objects/{fid}/lineage",
+      "function": "get_object_lineage",
+      "return_type": "unknown",
+      "line": 75
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/objects/{fid}",
+      "function": "get_object_full_data",
+      "return_type": "unknown",
+      "line": 90
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/objects/",
+      "function": "list_project_objects",
+      "return_type": "unknown",
+      "line": 105
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "POST",
+      "path": "/relations/discover",
+      "function": "discover_relations",
+      "return_type": "unknown",
+      "line": 139
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/relations/discover-all/",
+      "function": "discover_project_relations",
+      "return_type": "unknown",
+      "line": 155
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/objects/{fid}/relations/",
+      "function": "get_object_relations",
+      "return_type": "unknown",
+      "line": 172
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "POST",
+      "path": "/documents/{document_id}/align-timestamps/",
+      "function": "align_timestamps",
+      "return_type": "unknown",
+      "line": 203
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/documents/{document_id}/content-at-time",
+      "function": "get_content_at_time",
+      "return_type": "unknown",
+      "line": 220
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/entities/{entity_name}/timeline/",
+      "function": "get_entity_timeline",
+      "return_type": "unknown",
+      "line": 235
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/entities/{entity_name}/profile/",
+      "function": "get_entity_profile",
+      "return_type": "unknown",
+      "line": 253
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/events/{event_summary}/profile/",
+      "function": "get_event_profile",
+      "return_type": "unknown",
+      "line": 266
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/documents/{document_id}/timestamp-validation/",
+      "function": "validate_timestamps",
+      "return_type": "unknown",
+      "line": 279
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/objects/{fid}/recommend",
+      "function": "get_recommendations",
+      "return_type": "unknown",
+      "line": 294
+    },
+    {
+      "file": "app/api/federation_api.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/hot-connections/",
+      "function": "get_hot_connections",
+      "return_type": "unknown",
+      "line": 308
+    },
+    {
+      "file": "app/api/routes/agent_pipeline.py",
+      "method": "POST",
+      "path": "/process-document",
+      "function": "process_document",
+      "return_type": "unknown",
+      "line": 60
+    },
+    {
+      "file": "app/api/routes/agent_pipeline.py",
+      "method": "POST",
+      "path": "/approve/{packet_id}",
+      "function": "approve_packet",
+      "return_type": "unknown",
+      "line": 99
+    },
+    {
+      "file": "app/api/routes/agent_pipeline.py",
+      "method": "POST",
+      "path": "/reject/{packet_id}",
+      "function": "reject_packet",
+      "return_type": "unknown",
+      "line": 126
+    },
+    {
+      "file": "app/api/routes/agent_pipeline.py",
+      "method": "GET",
+      "path": "/status/{packet_id}",
+      "function": "get_packet_status",
+      "return_type": "model",
+      "line": 154
+    },
+    {
+      "file": "app/api/routes/agent_pipeline.py",
+      "method": "GET",
+      "path": "/project/{project_id}/status/",
+      "function": "get_project_status",
+      "return_type": "unknown",
+      "line": 173
+    },
+    {
+      "file": "app/api/routes/agent_pipeline.py",
+      "method": "GET",
+      "path": "/stages",
+      "function": "get_all_stages",
+      "return_type": "dict",
+      "line": 187
+    },
+    {
+      "file": "app/api/photos.py",
+      "method": "POST",
+      "path": "/photos/upload",
+      "function": "upload_photo",
+      "return_type": "unknown",
+      "line": 185
+    },
+    {
+      "file": "app/api/photos.py",
+      "method": "GET",
+      "path": "/photos",
+      "function": "list_photos",
+      "return_type": "unknown",
+      "line": 294
+    },
+    {
+      "file": "app/api/photos.py",
+      "method": "GET",
+      "path": "/photos/stats/{project_id}",
+      "function": "get_photo_stats",
+      "return_type": "unknown",
+      "line": 415
+    },
+    {
+      "file": "app/api/photos.py",
+      "method": "GET",
+      "path": "/photos/stats/{project_id}/",
+      "function": "get_photo_stats",
+      "return_type": "unknown",
+      "line": 416
+    },
+    {
+      "file": "app/api/photos.py",
+      "method": "DELETE",
+      "path": "/photos/{photo_id}/",
+      "function": "delete_photo",
+      "return_type": "unknown",
+      "line": 507
+    },
+    {
+      "file": "app/api/business_analysis.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/analyze",
+      "function": "analyze_business_formats",
+      "return_type": "unknown",
+      "line": 45
+    },
+    {
+      "file": "app/api/business_analysis.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/formats/existing/",
+      "function": "get_existing_formats",
+      "return_type": "unknown",
+      "line": 94
+    },
+    {
+      "file": "app/api/business_analysis.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/synergy/",
+      "function": "analyze_synergy",
+      "return_type": "unknown",
+      "line": 107
+    },
+    {
+      "file": "app/api/v1/chunks_quantification.py",
+      "method": "GET",
+      "path": "/{chunk_id}/metrics/",
+      "function": "get_chunk_metrics",
+      "return_type": "unknown",
+      "line": 20
+    },
+    {
+      "file": "app/api/v1/chunks_quantification.py",
+      "method": "GET",
+      "path": "/document/{document_id}/metrics/",
+      "function": "get_document_chunks_metrics",
+      "return_type": "unknown",
+      "line": 79
+    },
+    {
+      "file": "app/api/v1/chunks_quantification.py",
+      "method": "GET",
+      "path": "/document/{document_id}/metrics/summary/",
+      "function": "get_document_metrics_summary",
+      "return_type": "unknown",
+      "line": 140
+    },
+    {
+      "file": "app/api/v1/chunks_quantification.py",
+      "method": "GET",
+      "path": "/document/{document_id}/emotion-distribution/",
+      "function": "get_emotion_distribution",
+      "return_type": "unknown",
+      "line": 198
+    },
+    {
+      "file": "app/api/v1/chunks_quantification.py",
+      "method": "GET",
+      "path": "/search",
+      "function": "search_chunks_by_metrics",
+      "return_type": "unknown",
+      "line": 255
+    },
+    {
+      "file": "app/api/routes/file_management.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/files",
+      "function": "list_project_files",
+      "return_type": "unknown",
+      "line": 72
+    },
+    {
+      "file": "app/api/routes/file_management.py",
+      "method": "GET",
+      "path": "/files/{file_id}/transcript",
+      "function": "get_file_transcript",
+      "return_type": "unknown",
+      "line": 124
+    },
+    {
+      "file": "app/api/routes/file_management.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/merged",
+      "function": "get_project_merged",
+      "return_type": "unknown",
+      "line": 179
+    },
+    {
+      "file": "app/api/routes/file_management.py",
+      "method": "GET",
+      "path": "/sources/{sentence_index}",
+      "function": "query_source",
+      "return_type": "unknown",
+      "line": 257
+    },
+    {
+      "file": "app/api/routes/file_management.py",
+      "method": "DELETE",
+      "path": "/files/{file_id}/",
+      "function": "delete_file",
+      "return_type": "unknown",
+      "line": 325
+    },
+    {
+      "file": "app/api/routes/file_management.py",
+      "method": "GET",
+      "path": "/files/{file_id}/download/",
+      "function": "download_original_file",
+      "return_type": "unknown",
+      "line": 349
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "POST",
+      "path": "/validate/document",
+      "function": "validate_document",
+      "return_type": "model",
+      "line": 98
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "POST",
+      "path": "/validate/ocr",
+      "function": "validate_ocr",
+      "return_type": "model",
+      "line": 128
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "POST",
+      "path": "/validate/entities",
+      "function": "validate_entities",
+      "return_type": "model",
+      "line": 158
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "POST",
+      "path": "/validate/embedding",
+      "function": "validate_embedding",
+      "return_type": "model",
+      "line": 185
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "POST",
+      "path": "/validate/graph",
+      "function": "validate_graph",
+      "return_type": "model",
+      "line": 212
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "POST",
+      "path": "/validate/batch",
+      "function": "validate_batch",
+      "return_type": "model",
+      "line": 240
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "GET",
+      "path": "/statistics",
+      "function": "get_statistics",
+      "return_type": "model",
+      "line": 287
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "POST",
+      "path": "/statistics/reset",
+      "function": "reset_statistics",
+      "return_type": "dict",
+      "line": 303
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "GET",
+      "path": "/issue-types",
+      "function": "get_issue_types",
+      "return_type": "dict",
+      "line": 319
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "GET",
+      "path": "/quality-levels",
+      "function": "get_quality_levels",
+      "return_type": "dict",
+      "line": 336
+    },
+    {
+      "file": "app/api/quality.py",
+      "method": "GET",
+      "path": "/health",
+      "function": "health_check",
+      "return_type": "dict",
+      "line": 352
+    },
+    {
+      "file": "app/api/ocr.py",
+      "method": "POST",
+      "path": "/recognize",
+      "function": "recognize_image",
+      "return_type": "unknown",
+      "line": 80
+    },
+    {
+      "file": "app/api/ocr.py",
+      "method": "POST",
+      "path": "/recognize-pdf",
+      "function": "recognize_pdf",
+      "return_type": "unknown",
+      "line": 158
+    },
+    {
+      "file": "app/api/ocr.py",
+      "method": "POST",
+      "path": "/recognize-batch",
+      "function": "recognize_batch",
+      "return_type": "unknown",
+      "line": 254
+    },
+    {
+      "file": "app/api/ocr.py",
+      "method": "GET",
+      "path": "/statistics",
+      "function": "get_ocr_statistics",
+      "return_type": "dict",
+      "line": 366
+    },
+    {
+      "file": "app/api/ocr.py",
+      "method": "GET",
+      "path": "/supported-languages",
+      "function": "get_supported_languages",
+      "return_type": "dict",
+      "line": 387
+    },
+    {
+      "file": "app/api/ocr.py",
+      "method": "POST",
+      "path": "/quality-check",
+      "function": "check_ocr_quality_endpoint",
+      "return_type": "unknown",
+      "line": 415
+    },
+    {
+      "file": "app/api/ocr.py",
+      "method": "GET",
+      "path": "/health",
+      "function": "ocr_health_check",
+      "return_type": "dict",
+      "line": 463
+    },
+    {
+      "file": "app/api/workflows.py",
+      "method": "POST",
+      "path": "/execute",
+      "function": "execute_workflow",
+      "return_type": "unknown",
+      "line": 55
+    },
+    {
+      "file": "app/api/workflows.py",
+      "method": "GET",
+      "path": "/{workflow_id}",
+      "function": "get_workflow_status",
+      "return_type": "unknown",
+      "line": 117
+    },
+    {
+      "file": "app/api/workflows.py",
+      "method": "GET",
+      "path": "/",
+      "function": "list_workflows",
+      "return_type": "unknown",
+      "line": 151
+    },
+    {
+      "file": "app/api/workflows.py",
+      "method": "POST",
+      "path": "/{workflow_id}/cancel/",
+      "function": "cancel_workflow",
+      "return_type": "unknown",
+      "line": 198
+    },
+    {
+      "file": "app/api/workflows.py",
+      "method": "GET",
+      "path": "/templates/list",
+      "function": "list_workflow_templates",
+      "return_type": "dict",
+      "line": 216
+    },
+    {
+      "file": "app/api/workflows.py",
+      "method": "GET",
+      "path": "/stats",
+      "function": "get_workflow_stats",
+      "return_type": "dict",
+      "line": 267
+    },
+    {
+      "file": "app/api/workflows.py",
+      "method": "POST",
+      "path": "/quick/document/{document_id}/",
+      "function": "quick_process_document",
+      "return_type": "unknown",
+      "line": 316
+    },
+    {
+      "file": "app/api/workflows.py",
+      "method": "POST",
+      "path": "/quick/knowledge-graph",
+      "function": "quick_build_knowledge_graph",
+      "return_type": "unknown",
+      "line": 339
+    },
+    {
+      "file": "app/api/workflows.py",
+      "method": "POST",
+      "path": "/quick/full-analysis",
+      "function": "quick_full_analysis",
+      "return_type": "unknown",
+      "line": 362
+    },
+    {
+      "file": "app/api/proposal.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/generate/",
+      "function": "generate_proposal",
+      "return_type": "unknown",
+      "line": 22
+    },
+    {
+      "file": "app/api/proposal.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/templates/",
+      "function": "get_proposal_templates",
+      "return_type": "unknown",
+      "line": 59
+    },
+    {
+      "file": "app/api/proposal.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/export/",
+      "function": "export_proposal",
+      "return_type": "unknown",
+      "line": 97
+    },
+    {
+      "file": "app/api/document_processing.py",
+      "method": "GET",
+      "path": "/documents/{document_id}/status/",
+      "function": "get_processing_status",
+      "return_type": "unknown",
+      "line": 20
+    },
+    {
+      "file": "app/api/document_processing.py",
+      "method": "POST",
+      "path": "/documents/{document_id}/reprocess/",
+      "function": "reprocess_document",
+      "return_type": "unknown",
+      "line": 44
+    },
+    {
+      "file": "app/api/document_processing.py",
+      "method": "GET",
+      "path": "/documents/{document_id}/chunks/preview/",
+      "function": "get_chunks_preview",
+      "return_type": "unknown",
+      "line": 80
+    },
+    {
+      "file": "app/api/document_processing.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/chunks/statistics/",
+      "function": "get_project_chunks_statistics",
+      "return_type": "unknown",
+      "line": 127
+    },
+    {
+      "file": "app/api/document_processing.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/semantic-search/",
+      "function": "semantic_search",
+      "return_type": "unknown",
+      "line": 141
+    },
+    {
+      "file": "app/api/knowledge_graph.py",
+      "method": "POST",
+      "path": "/build",
+      "function": "build_knowledge_graph",
+      "return_type": "unknown",
+      "line": 47
+    },
+    {
+      "file": "app/api/knowledge_graph.py",
+      "method": "GET",
+      "path": "/entities",
+      "function": "get_entities",
+      "return_type": "unknown",
+      "line": 107
+    },
+    {
+      "file": "app/api/knowledge_graph.py",
+      "method": "GET",
+      "path": "/entities/{entity_id}",
+      "function": "get_entity_detail",
+      "return_type": "unknown",
+      "line": 156
+    },
+    {
+      "file": "app/api/knowledge_graph.py",
+      "method": "GET",
+      "path": "/visualize",
+      "function": "get_graph_visualization",
+      "return_type": "unknown",
+      "line": 170
+    },
+    {
+      "file": "app/api/knowledge_graph.py",
+      "method": "GET",
+      "path": "/stats",
+      "function": "get_knowledge_graph_stats",
+      "return_type": "unknown",
+      "line": 232
+    },
+    {
+      "file": "app/api/knowledge_graph.py",
+      "method": "DELETE",
+      "path": "/entities/{entity_id}/",
+      "function": "delete_entity",
+      "return_type": "unknown",
+      "line": 291
+    },
+    {
+      "file": "app/api/knowledge_graph.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/graph/",
+      "function": "get_project_knowledge_graph",
+      "return_type": "unknown",
+      "line": 310
+    },
+    {
+      "file": "app/api/knowledge_graph.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/keywords/",
+      "function": "get_project_keywords",
+      "return_type": "unknown",
+      "line": 379
+    },
+    {
+      "file": "app/api/knowledge_graph.py",
+      "method": "GET",
+      "path": "/documents/{document_id}/entities/",
+      "function": "get_document_entities",
+      "return_type": "unknown",
+      "line": 433
+    },
+    {
+      "file": "app/api/v1/super_agents.py",
+      "method": "POST",
+      "path": "/knowledge/analyze",
+      "function": "knowledge_analyze",
+      "return_type": "unknown",
+      "line": 119
+    },
+    {
+      "file": "app/api/v1/super_agents.py",
+      "method": "POST",
+      "path": "/search/query",
+      "function": "search_query",
+      "return_type": "unknown",
+      "line": 307
+    },
+    {
+      "file": "app/api/v1/super_agents.py",
+      "method": "POST",
+      "path": "/summary/generate",
+      "function": "summary_generate",
+      "return_type": "unknown",
+      "line": 416
+    },
+    {
+      "file": "app/api/v1/super_agents.py",
+      "method": "POST",
+      "path": "/transcript/process",
+      "function": "transcript_process",
+      "return_type": "unknown",
+      "line": 539
+    },
+    {
+      "file": "app/api/v1/super_agents.py",
+      "method": "POST",
+      "path": "/orchestrate",
+      "function": "orchestrate_agents",
+      "return_type": "unknown",
+      "line": 661
+    },
+    {
+      "file": "app/api/v1/super_agents.py",
+      "method": "GET",
+      "path": "/status/{execution_id}",
+      "function": "get_execution_status",
+      "return_type": "model",
+      "line": 802
+    },
+    {
+      "file": "app/api/v1/super_agents.py",
+      "method": "GET",
+      "path": "/health",
+      "function": "agents_health_check",
+      "return_type": "unknown",
+      "line": 842
+    },
+    {
+      "file": "app/api/v1/project_chat.py",
+      "method": "POST",
+      "path": "/{project_id}/chat-sessions/{session_id}/messages",
+      "function": "send_chat_message",
+      "return_type": "unknown",
+      "line": 18
+    },
+    {
+      "file": "app/api/v1/project_chat.py",
+      "method": "GET",
+      "path": "/{project_id}/chat-sessions/{session_id}/messages",
+      "function": "get_chat_messages",
+      "return_type": "unknown",
+      "line": 128
+    },
+    {
+      "file": "app/api/v1/enhanced_chat.py",
+      "method": "POST",
+      "path": "/chat/enhanced",
+      "function": "enhanced_chat",
+      "return_type": "unknown",
+      "line": 73
+    },
+    {
+      "file": "app/api/v1/enhanced_chat.py",
+      "method": "POST",
+      "path": "/chat/enhanced/stream",
+      "function": "enhanced_chat_stream",
+      "return_type": "unknown",
+      "line": 170
+    },
+    {
+      "file": "app/api/v1/enhanced_chat.py",
+      "method": "POST",
+      "path": "/chat/sessions",
+      "function": "create_chat_session",
+      "return_type": "unknown",
+      "line": 246
+    },
+    {
+      "file": "app/api/v1/enhanced_chat.py",
+      "method": "GET",
+      "path": "/chat/sessions/{project_id}/",
+      "function": "list_chat_sessions",
+      "return_type": "unknown",
+      "line": 281
+    },
+    {
+      "file": "app/api/v1/enhanced_chat.py",
+      "method": "GET",
+      "path": "/chat/sessions/{session_id}/messages/",
+      "function": "get_session_messages",
+      "return_type": "unknown",
+      "line": 310
+    },
+    {
+      "file": "app/api/v1/enhanced_chat.py",
+      "method": "POST",
+      "path": "/memory/search",
+      "function": "search_memory",
+      "return_type": "dict",
+      "line": 344
+    },
+    {
+      "file": "app/api/v1/enhanced_chat.py",
+      "method": "GET",
+      "path": "/memory/statistics",
+      "function": "get_memory_statistics",
+      "return_type": "dict",
+      "line": 366
+    },
+    {
+      "file": "app/api/v1/enhanced_chat.py",
+      "method": "DELETE",
+      "path": "/chat/sessions/{session_id}/",
+      "function": "delete_chat_session",
+      "return_type": "unknown",
+      "line": 381
+    },
+    {
+      "file": "app/api/aggregate.py",
+      "method": "GET",
+      "path": "/dashboard/{project_id}/",
+      "function": "get_dashboard_aggregate",
+      "return_type": "unknown",
+      "line": 21
+    },
+    {
+      "file": "app/api/aggregate.py",
+      "method": "GET",
+      "path": "/quick-stats/{project_id}/",
+      "function": "get_quick_stats",
+      "return_type": "unknown",
+      "line": 329
+    },
+    {
+      "file": "app/api/permissions.py",
+      "method": "GET",
+      "path": "/all",
+      "function": "get_all_permissions",
+      "return_type": "unknown",
+      "line": 65
+    },
+    {
+      "file": "app/api/permissions.py",
+      "method": "GET",
+      "path": "/roles",
+      "function": "get_role_permissions",
+      "return_type": "unknown",
+      "line": 85
+    },
+    {
+      "file": "app/api/permissions.py",
+      "method": "GET",
+      "path": "/roles/{role}",
+      "function": "get_role_permission_detail",
+      "return_type": "unknown",
+      "line": 106
+    },
+    {
+      "file": "app/api/permissions.py",
+      "method": "GET",
+      "path": "/me",
+      "function": "get_my_permissions",
+      "return_type": "unknown",
+      "line": 132
+    },
+    {
+      "file": "app/api/permissions.py",
+      "method": "GET",
+      "path": "/check/{permission}/",
+      "function": "check_permission",
+      "return_type": "unknown",
+      "line": 151
+    },
+    {
+      "file": "app/api/permissions.py",
+      "method": "GET",
+      "path": "/matrix",
+      "function": "get_permission_matrix",
+      "return_type": "unknown",
+      "line": 179
+    },
+    {
+      "file": "app/api/v1/reports.py",
+      "method": "POST",
+      "path": "/generate",
+      "function": "create_report",
+      "return_type": "unknown",
+      "line": 25
+    },
+    {
+      "file": "app/api/v1/reports.py",
+      "method": "GET",
+      "path": "/{report_id}",
+      "function": "get_report",
+      "return_type": "unknown",
+      "line": 95
+    },
+    {
+      "file": "app/api/v1/reports.py",
+      "method": "GET",
+      "path": "/{report_id}/download/",
+      "function": "download_report",
+      "return_type": "unknown",
+      "line": 112
+    },
+    {
+      "file": "app/api/v1/reports.py",
+      "method": "DELETE",
+      "path": "/{report_id}",
+      "function": "delete_report",
+      "return_type": "unknown",
+      "line": 156
+    },
+    {
+      "file": "app/api/v1/reports.py",
+      "method": "POST",
+      "path": "/summary-document",
+      "function": "generate_summary_document",
+      "return_type": "unknown",
+      "line": 183
+    },
+    {
+      "file": "app/api/v1/project_documents.py",
+      "method": "POST",
+      "path": "/{project_id}/documents/upload",
+      "function": "upload_document",
+      "return_type": "unknown",
+      "line": 70
+    },
+    {
+      "file": "app/api/v1/project_documents.py",
+      "method": "GET",
+      "path": "/{project_id}/documents/{document_id}",
+      "function": "get_document_detail",
+      "return_type": "unknown",
+      "line": 125
+    },
+    {
+      "file": "app/api/v1/project_documents.py",
+      "method": "GET",
+      "path": "/{project_id}/documents/{document_id}/tags/",
+      "function": "list_document_tags",
+      "return_type": "unknown",
+      "line": 142
+    },
+    {
+      "file": "app/api/v1/project_documents.py",
+      "method": "POST",
+      "path": "/{project_id}/documents/{document_id}/tags/",
+      "function": "add_document_tag",
+      "return_type": "unknown",
+      "line": 158
+    },
+    {
+      "file": "app/api/v1/project_documents.py",
+      "method": "DELETE",
+      "path": "/{project_id}/documents/{document_id}/tags/{tag_id}",
+      "function": "delete_document_tag",
+      "return_type": "unknown",
+      "line": 192
+    },
+    {
+      "file": "app/api/v1/project_documents.py",
+      "method": "POST",
+      "path": "/{project_id}/documents/{document_id}/process/",
+      "function": "process_document",
+      "return_type": "unknown",
+      "line": 218
+    },
+    {
+      "file": "app/api/v1/project_documents.py",
+      "method": "DELETE",
+      "path": "/{project_id}/documents/{document_id}",
+      "function": "delete_document",
+      "return_type": "unknown",
+      "line": 262
+    },
+    {
+      "file": "app/api/v1/project_documents.py",
+      "method": "GET",
+      "path": "/{project_id}/documents/{document_id}/content/",
+      "function": "get_document_content",
+      "return_type": "unknown",
+      "line": 300
+    },
+    {
+      "file": "app/api/v1/rag.py",
+      "method": "POST",
+      "path": "/retrieve",
+      "function": "rag_retrieve",
+      "return_type": "model",
+      "line": 43
+    },
+    {
+      "file": "app/api/v1/rag.py",
+      "method": "GET",
+      "path": "/stats",
+      "function": "rag_stats",
+      "return_type": "dict",
+      "line": 137
+    },
+    {
+      "file": "app/api/v1/rag.py",
+      "method": "POST",
+      "path": "/test",
+      "function": "test_rag",
+      "return_type": "dict",
+      "line": 155
+    },
+    {
+      "file": "app/api/citations.py",
+      "method": "POST",
+      "path": "/citations",
+      "function": "create_citation",
+      "return_type": "unknown",
+      "line": 109
+    },
+    {
+      "file": "app/api/citations.py",
+      "method": "GET",
+      "path": "/citations",
+      "function": "list_citations",
+      "return_type": "unknown",
+      "line": 161
+    },
+    {
+      "file": "app/api/citations.py",
+      "method": "GET",
+      "path": "/citations/{citation_id}",
+      "function": "get_citation",
+      "return_type": "unknown",
+      "line": 234
+    },
+    {
+      "file": "app/api/citations.py",
+      "method": "PUT",
+      "path": "/citations/{citation_id}",
+      "function": "update_citation",
+      "return_type": "unknown",
+      "line": 246
+    },
+    {
+      "file": "app/api/citations.py",
+      "method": "DELETE",
+      "path": "/citations/{citation_id}/",
+      "function": "delete_citation",
+      "return_type": "unknown",
+      "line": 281
+    },
+    {
+      "file": "app/api/citations.py",
+      "method": "GET",
+      "path": "/citations/stats/{project_id}",
+      "function": "get_citation_stats",
+      "return_type": "unknown",
+      "line": 309
+    },
+    {
+      "file": "app/api/citations.py",
+      "method": "POST",
+      "path": "/citations/batch",
+      "function": "batch_create_citations",
+      "return_type": "unknown",
+      "line": 371
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "POST",
+      "path": "/broadcast",
+      "function": "broadcast_message",
+      "return_type": "dict",
+      "line": 170
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "POST",
+      "path": "/rooms/{room_id}/broadcast/",
+      "function": "broadcast_to_room",
+      "return_type": "dict",
+      "line": 197
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "POST",
+      "path": "/rooms/{room_id}/join/",
+      "function": "join_room_http",
+      "return_type": "dict",
+      "line": 224
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "POST",
+      "path": "/rooms/{room_id}/leave/",
+      "function": "leave_room_http",
+      "return_type": "dict",
+      "line": 245
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "GET",
+      "path": "/stats",
+      "function": "get_stats",
+      "return_type": "dict",
+      "line": 260
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "GET",
+      "path": "/clients/{client_id}/",
+      "function": "get_client_info",
+      "return_type": "dict",
+      "line": 280
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "GET",
+      "path": "/rooms/{room_id}/",
+      "function": "get_room_info_endpoint",
+      "return_type": "dict",
+      "line": 297
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "POST",
+      "path": "/events/emit",
+      "function": "emit_event",
+      "return_type": "dict",
+      "line": 313
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "GET",
+      "path": "/events/history",
+      "function": "get_event_history",
+      "return_type": "unknown",
+      "line": 337
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "GET",
+      "path": "/events/stats",
+      "function": "get_event_stats",
+      "return_type": "dict",
+      "line": 359
+    },
+    {
+      "file": "app/api/websocket.py",
+      "method": "GET",
+      "path": "/health",
+      "function": "health_check",
+      "return_type": "dict",
+      "line": 375
+    },
+    {
+      "file": "app/api/dynamic_discovery_api.py",
+      "method": "GET",
+      "path": "/documents/{document_id}",
+      "function": "get_document_discovery",
+      "return_type": "unknown",
+      "line": 94
+    },
+    {
+      "file": "app/api/dynamic_discovery_api.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/summary",
+      "function": "get_project_discovery_summary",
+      "return_type": "unknown",
+      "line": 155
+    },
+    {
+      "file": "app/api/dynamic_discovery_api.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/topics/",
+      "function": "get_all_discovered_topics",
+      "return_type": "unknown",
+      "line": 230
+    },
+    {
+      "file": "app/api/dynamic_discovery_api.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/entities/",
+      "function": "get_all_discovered_entities",
+      "return_type": "unknown",
+      "line": 275
+    },
+    {
+      "file": "app/api/dynamic_discovery_api.py",
+      "method": "GET",
+      "path": "/health",
+      "function": "health_check",
+      "return_type": "dict",
+      "line": 350
+    },
+    {
+      "file": "app/api/quantification.py",
+      "method": "GET",
+      "path": "/stats/{project_id}",
+      "function": "get_quantification_stats",
+      "return_type": "unknown",
+      "line": 54
+    },
+    {
+      "file": "app/api/quantification.py",
+      "method": "GET",
+      "path": "/clusters/{project_id}/",
+      "function": "get_cluster_results",
+      "return_type": "dict",
+      "line": 115
+    },
+    {
+      "file": "app/api/quantification.py",
+      "method": "GET",
+      "path": "/comparisons/{project_id}/",
+      "function": "get_comparison_results",
+      "return_type": "unknown",
+      "line": 170
+    },
+    {
+      "file": "app/api/quantification.py",
+      "method": "GET",
+      "path": "/wordcloud/{project_id}/",
+      "function": "get_wordcloud_data",
+      "return_type": "unknown",
+      "line": 229
+    },
+    {
+      "file": "app/api/quantification.py",
+      "method": "GET",
+      "path": "/chunk/{chunk_id}/",
+      "function": "get_chunk_quantification",
+      "return_type": "dict",
+      "line": 281
+    },
+    {
+      "file": "app/api/hierarchical_retrieval.py",
+      "method": "POST",
+      "path": "/search",
+      "function": "hierarchical_search",
+      "return_type": "unknown",
+      "line": 58
+    },
+    {
+      "file": "app/api/hierarchical_retrieval.py",
+      "method": "GET",
+      "path": "/stats",
+      "function": "get_hierarchy_stats",
+      "return_type": "unknown",
+      "line": 149
+    },
+    {
+      "file": "app/api/hierarchical_retrieval.py",
+      "method": "POST",
+      "path": "/compare-strategies",
+      "function": "compare_strategies",
+      "return_type": "unknown",
+      "line": 246
+    },
+    {
+      "file": "app/api/keyword_search.py",
+      "method": "POST",
+      "path": "/projects/{project_id}/search",
+      "function": "search_by_keyword",
+      "return_type": "unknown",
+      "line": 59
+    },
+    {
+      "file": "app/api/keyword_search.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/keywords/top/",
+      "function": "get_top_keywords",
+      "return_type": "unknown",
+      "line": 99
+    },
+    {
+      "file": "app/api/keyword_search.py",
+      "method": "GET",
+      "path": "/projects/{project_id}/keywords/timeline/",
+      "function": "get_keyword_timeline",
+      "return_type": "unknown",
+      "line": 113
+    },
+    {
+      "file": "app/api/routes/skills.py",
+      "method": "GET",
+      "path": "/list",
+      "function": "list_available_skills",
+      "return_type": "dict",
+      "line": 19
+    },
+    {
+      "file": "app/api/routes/skills.py",
+      "method": "GET",
+      "path": "/document/{document_id}/results/",
+      "function": "get_document_skill_results",
+      "return_type": "unknown",
+      "line": 109
+    },
+    {
+      "file": "app/api/routes/skills.py",
+      "method": "GET",
+      "path": "/document/{document_id}/skill/{skill_id}/",
+      "function": "get_document_single_skill_result",
+      "return_type": "unknown",
+      "line": 152
+    },
+    {
+      "file": "app/api/routes/skills.py",
+      "method": "GET",
+      "path": "/project/{project_id}/settings/",
+      "function": "get_project_skill_settings",
+      "return_type": "unknown",
+      "line": 202
+    },
+    {
+      "file": "app/api/routes/skills.py",
+      "method": "PUT",
+      "path": "/project/{project_id}/settings/",
+      "function": "update_project_skill_settings",
+      "return_type": "unknown",
+      "line": 246
+    },
+    {
+      "file": "app/api/routes/skills.py",
+      "method": "GET",
+      "path": "/project/{project_id}/statistics/",
+      "function": "get_project_skills_statistics",
+      "return_type": "unknown",
+      "line": 313
+    },
+    {
+      "file": "app/api/v1/crawler.py",
+      "method": "POST",
+      "path": "/crawl",
+      "function": "crawl_url",
+      "return_type": "dict",
+      "line": 32
+    },
+    {
+      "file": "app/api/v1/crawler.py",
+      "method": "POST",
+      "path": "/batch-crawl",
+      "function": "batch_crawl_urls",
+      "return_type": "dict",
+      "line": 73
+    },
+    {
+      "file": "app/api/v1/crawler.py",
+      "method": "POST",
+      "path": "/news",
+      "function": "crawl_news_article",
+      "return_type": "dict",
+      "line": 108
+    },
+    {
+      "file": "app/api/v1/crawler.py",
+      "method": "POST",
+      "path": "/government",
+      "function": "crawl_government_document",
+      "return_type": "dict",
+      "line": 135
+    },
+    {
+      "file": "app/api/v1/crawler.py",
+      "method": "GET",
+      "path": "/status/{task_id}/",
+      "function": "get_crawl_status",
+      "return_type": "unknown",
+      "line": 162
+    },
+    {
+      "file": "app/api/v1/crawler.py",
+      "method": "GET",
+      "path": "/supported-crawlers",
+      "function": "get_supported_crawlers",
+      "return_type": "dict",
+      "line": 188
+    }
+  ],
+  "summary": {
+    "total_endpoints": 405,
+    "dict_returns": 81,
+    "model_returns": 18,
+    "mixed_returns": 0
+  },
+  "response_schemas": {
+    "app/api/chat_rag.py": [
+      "ChatResponse"
+    ],
+    "app/api/v1/knowledge_graph_api.py": [
+      "GraphStatsResponse",
+      "GraphDataResponse"
+    ],
+    "app/api/v1/knowledge_graph_enhanced.py": [
+      "GraphConstructionResponse",
+      "NodeNeighborhoodResponse",
+      "ReasoningResponse",
+      "TripleInteractionResponse",
+      "TimelineResponse"
+    ],
+    "app/api/v1/learning.py": [
+      "RecordExperienceResponse",
+      "SuggestActionResponse",
+      "LearningStatsResponse",
+      "RegisterSkillResponse",
+      "GetSkillsResponse"
+    ],
+    "app/api/knowledge_graph_v3.py": [
+      "EntityWithEvidencesResponse",
+      "EvidenceResponse"
+    ],
+    "app/api/memory.py": [
+      "MemoryResponse"
+    ],
+    "app/api/file_manager.py": [
+      "FileNodeResponse",
+      "FileTreeResponse"
+    ],
+    "app/api/skill_config.py": [
+      "SkillConfigResponse"
+    ],
+    "app/api/reports_real.py": [
+      "ReportResponse"
+    ],
+    "app/api/batch_processing.py": [
+      "BatchProcessResponse"
+    ],
+    "app/api/creative_analysis.py": [
+      "CreativeAnalysisResponse"
+    ],
+    "app/api/v1/query_api.py": [
+      "QueryResponse"
+    ],
+    "app/api/v1/api_docs_enhanced.py": [
+      "ProjectResponse",
+      "DocumentUploadResponse",
+      "ErrorResponse"
+    ],
+    "app/api/federation_api.py": [
+      "ObjectLineageResponse",
+      "ObjectFullDataResponse",
+      "TimelineContentResponse",
+      "RecommendationResponse"
+    ],
+    "app/api/routes/agent_pipeline.py": [
+      "ProcessDocumentResponse",
+      "ApprovePacketResponse",
+      "StageStatusResponse"
+    ],
+    "app/api/photos.py": [
+      "PhotoResponse",
+      "PhotoListResponse",
+      "PhotoStatsResponse"
+    ],
+    "app/api/business_analysis.py": [
+      "BusinessAnalysisResponse"
+    ],
+    "app/api/routes/file_management.py": [
+      "TranscriptResponse",
+      "MergedResponse",
+      "SourceQueryResponse"
+    ],
+    "app/api/quality.py": [
+      "QualityReportResponse",
+      "StatisticsResponse",
+      "BatchValidationResponse"
+    ],
+    "app/api/ocr.py": [
+      "OCRResponse",
+      "BatchOCRResponse",
+      "PDFOCRResponse"
+    ],
+    "app/api/workflows.py": [
+      "WorkflowExecutionResponse",
+      "WorkflowStatusResponse"
+    ],
+    "app/api/knowledge_graph.py": [
+      "EntityResponse"
+    ],
+    "app/api/permissions.py": [
+      "RolePermissionsResponse",
+      "UserPermissionsResponse"
+    ],
+    "app/api/v1/rag.py": [
+      "RAGRetrievalResponse"
+    ],
+    "app/api/citations.py": [
+      "CitationResponse",
+      "CitationListResponse",
+      "CitationStatsResponse"
+    ],
+    "app/api/dynamic_discovery_api.py": [
+      "DynamicTopicResponse",
+      "DynamicEntityResponse",
+      "DataDimensionResponse",
+      "DocumentDiscoveryResponse",
+      "ProjectDiscoverySummaryResponse"
+    ],
+    "app/api/hierarchical_retrieval.py": [
+      "HierarchicalSearchResponse"
+    ],
+    "app/api/keyword_search.py": [
+      "KeywordSearchResponse"
+    ]
+  }
+}

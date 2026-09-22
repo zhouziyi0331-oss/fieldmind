@@ -1,0 +1,104 @@
+/* FieldMind Design System - Global Styles */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Primary Colors */
+    --primary: 199 54% 35%;
+    --primary-light: 187 29% 50%;
+    --primary-lighter: 187 29% 70%;
+
+    /* Secondary Colors */
+    --secondary: 79 35% 41%;
+    --secondary-light: 79 30% 49%;
+
+    /* Accent */
+    --accent: 75 63% 91%;
+
+    /* Semantic Colors */
+    --success: 79 30% 49%;
+    --warning: 35 94% 62%;
+    --error: 7 78% 62%;
+    --info: 187 29% 50%;
+
+    /* Neutral Colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 199 54% 35%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 187 29% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* Card Component */
+  .card {
+    @apply bg-card text-card-foreground rounded-lg border shadow-sm;
+  }
+
+  /* Button Variants */
+  .btn-primary {
+    @apply bg-[#27768A] text-white hover:bg-[#1F5E6E] transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-[#748D44] text-white hover:bg-[#5C7136] transition-colors duration-200;
+  }
+
+  /* Stat Card */
+  .stat-card {
+    @apply bg-card border rounded-lg p-6 hover:shadow-md transition-all duration-200;
+  }
+
+  /* Page Header */
+  .page-header {
+    @apply mb-8;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold text-foreground mb-2;
+  }
+
+  .page-subtitle {
+    @apply text-muted-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

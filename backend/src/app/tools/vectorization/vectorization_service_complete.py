@@ -6,19 +6,12 @@
 3. 支持时间戳和说话人metadata
 """
 
-import os
 import logging
 from typing import List, Dict, Any, Optional
 import numpy as np
 import chromadb
 from chromadb.config import Settings
-
-try:
-    from FlagEmbedding import FlagModel
-    FLAGEMBEDDING_AVAILABLE = True
-except ImportError:
-    FLAGEMBEDDING_AVAILABLE = False
-    FlagModel = None
+import os
 
 from sqlalchemy.orm import Session
 from sqlalchemy import Column, Integer, String, Text, JSON, DateTime, ForeignKey, Float
@@ -27,6 +20,7 @@ from datetime import datetime
 
 from app.core.database import Base
 from app.models.pipeline_state import DocumentChunk  # 使用pipeline_state中的模型
+from app.services.semantic_embedding import load_embedding_backend
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +55,7 @@ class VectorizationService:
         初始化向量化服务（单例模式）
 
         Args:
-            model_name: FlagEmbedding模型名称
+            model_name: 语义嵌入模型名称
             chroma_path: ChromaDB存储路径
             collection_name: ChromaDB集合名称
         """
@@ -71,9 +65,9 @@ class VectorizationService:
 
         self.model_name = model_name
         self.model = None
-        self.embedding_dim = 1024  # bge-large-zh-v1.5 默认维度
+        self.embedding_dim = 512  # 本机默认本地模型维度
 
-        # 初始化FlagEmbedding
+        # 初始化本地语义嵌入后端
         self._load_embedding_model()
 
         # 初始化ChromaDB
@@ -84,30 +78,20 @@ class VectorizationService:
         self._init_chromadb()
 
     def _load_embedding_model(self):
-        """加载FlagEmbedding模型"""
-        if not FLAGEMBEDDING_AVAILABLE:
-            logger.error("❌ FlagEmbedding未安装，请运行: pip install FlagEmbedding")
-            raise ImportError("FlagEmbedding is required")
-
+        """加载本地语义嵌入模型"""
         try:
-            # 优先使用本地模型
-            local_model_path = "/Users/alwan/FieldMind-Rebuild/fieldmind-backend/models/bge-large-zh-v1.5"
+            self.embedding_backend = load_embedding_backend()
+            if self.embedding_backend is None:
+                raise RuntimeError("本地语义嵌入模型不可用")
 
-            if os.path.exists(local_model_path):
-                logger.info(f"✅ 使用本地模型: {local_model_path}")
-                self.model = FlagModel(local_model_path, use_fp16=False)
-            else:
-                logger.info(f"正在加载在线模型: {self.model_name}")
-                self.model = FlagModel(self.model_name, use_fp16=False)
+            self.model = self.embedding_backend
+            self.model_name = self.embedding_backend.model_name
+            self.embedding_dim = self.embedding_backend.get_sentence_embedding_dimension()
 
-            # 测试模型
-            test_embedding = self.model.encode(["测试"])
-            self.embedding_dim = len(test_embedding[0])
-
-            logger.info(f"✅ FlagEmbedding加载成功，维度: {self.embedding_dim}")
+            logger.info(f"✅ 本地语义模型加载成功，维度: {self.embedding_dim}")
 
         except Exception as e:
-            logger.error(f"❌ FlagEmbedding加载失败: {e}")
+            logger.error(f"❌ 本地语义模型加载失败: {e}")
             raise
 
     def _init_chromadb(self):
@@ -120,14 +104,16 @@ class VectorizationService:
 
             # 初始化客户端 - 使用get_or_create模式
             try:
-                self.chroma_client = chromadb.PersistentClient(path=self.chroma_path)
+                self.chroma_client = chromadb.PersistentClient(
+                    path=self.chroma_path,
+                    settings=Settings(anonymized_telemetry=False)
+                )
             except Exception as e:
                 # 如果已存在实例，尝试使用默认设置
                 logger.warning(f"ChromaDB实例已存在，尝试重用: {e}")
-                import chromadb.config
                 self.chroma_client = chromadb.PersistentClient(
                     path=self.chroma_path,
-                    settings=chromadb.config.Settings(
+                    settings=Settings(
                         anonymized_telemetry=False,
                         allow_reset=True
                     )

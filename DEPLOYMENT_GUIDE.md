@@ -1,651 +1,570 @@
-# FieldMind 部署指南
+# FieldMind MVP 部署指南
 
-本文档提供FieldMind系统的完整部署指南，包括开发、测试和生产环境。
+## 📋 部署前检查清单
 
-## 目录
+### 1. 环境要求
 
-- [系统要求](#系统要求)
-- [快速开始](#快速开始)
-- [开发环境部署](#开发环境部署)
-- [生产环境部署](#生产环境部署)
-- [Kubernetes部署](#kubernetes部署)
-- [配置说明](#配置说明)
-- [监控和日志](#监控和日志)
-- [故障排查](#故障排查)
+**后端环境：**
+- Python 3.11+
+- PostgreSQL 14+ 或 SQLite 3.35+
+- Redis 6.0+ (可选，用于缓存)
+- Neo4j 4.4+ (可选，用于知识图谱)
 
----
+**前端环境：**
+- Node.js 18+
+- npm 9+ 或 yarn 1.22+
 
-## 系统要求
+**系统资源：**
+- CPU: 4核心以上
+- 内存: 8GB 以上
+- 磁盘: 20GB 可用空间
 
-### 硬件要求
+### 2. 依赖服务
 
-**最低配置（开发环境）：**
-- CPU: 2核
-- 内存: 4GB
-- 磁盘: 20GB
-
-**推荐配置（生产环境）：**
-- CPU: 4核+
-- 内存: 8GB+
-- 磁盘: 100GB+ (SSD推荐)
-
-### 软件要求
-
-- Docker 20.10+
-- Docker Compose 2.0+
-- Python 3.11+ (本地开发)
-- Kubernetes 1.25+ (K8s部署)
+- OpenAI API Key (GPT-4 推荐)
+- 文件存储 (本地或 S3)
+- SMTP 邮件服务 (可选)
 
 ---
 
-## 快速开始
+## 🚀 快速部署 (本地测试环境)
 
-### 1. 克隆项目
-
-```bash
-git clone https://github.com/your-org/FieldMind-Rebuild.git
-cd FieldMind-Rebuild
-```
-
-### 2. 配置环境变量
+### 步骤 1: 克隆代码并安装依赖
 
 ```bash
-cp fieldmind-backend/.env.example fieldmind-backend/.env
-```
+# 克隆代码 (如果还没有)
+cd /path/to/FieldMind
 
-编辑 `.env` 文件，修改必要的配置。
-
-### 3. 启动服务
-
-```bash
-# 使用部署脚本（推荐）
-./deploy.sh development
-
-# 或手动启动
-docker-compose -f docker-compose.full.yml up -d
-```
-
-### 4. 访问服务
-
-- **API文档**: http://localhost:8000/docs
-- **API端点**: http://localhost:8000/api
-- **Neo4j浏览器**: http://localhost:7474
-
----
-
-## 开发环境部署
-
-### 方式1: 本地开发（无Docker）
-
-#### 安装依赖
-
-```bash
-cd fieldmind-backend
+# 安装后端依赖
+cd backend
+python3 -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
+
+# 安装前端依赖
+cd ../frontend/web
+npm install
 ```
 
-#### 启动数据库服务
+### 步骤 2: 配置环境变量
+
+创建后端环境配置文件：
 
 ```bash
-# 只启动数据库服务
-docker-compose up -d postgres redis neo4j
+cd ../../backend
+cp .env.example .env
 ```
 
-#### 运行数据库迁移
+编辑 `.env` 文件，配置以下关键参数：
 
 ```bash
-alembic upgrade head
+# 数据库配置
+DATABASE_URL=sqlite:///./fieldmind_dev.db  # 或使用 PostgreSQL
+
+# AI 服务
+OPENAI_API_KEY=your-openai-api-key
+OPENAI_MODEL=gpt-4
+
+# JWT 密钥
+SECRET_KEY=your-secure-random-secret-key-here
+
+# 应用配置
+ENVIRONMENT=development
+DEBUG=true
+HOST=0.0.0.0
+PORT=8000
 ```
 
-#### 启动Backend
+创建前端环境配置：
 
 ```bash
-# 开发模式（热重载）
+cd ../frontend/web
+cp .env.example .env
+```
+
+编辑 `frontend/web/.env`：
+
+```bash
+VITE_API_BASE_URL=http://localhost:8000
+```
+
+### 步骤 3: 初始化数据库
+
+```bash
+cd ../../backend
+
+# 运行数据库迁移
+python3 migrations/add_collaboration_tables_v2.py upgrade
+
+# (可选) 使用 Alembic 运行其他迁移
+# cd src && alembic upgrade head
+```
+
+### 步骤 4: 启动服务
+
+**终端 1 - 启动后端：**
+
+```bash
+cd backend
+source venv/bin/activate
+cd src
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
-
-# 或使用启动脚本
-./start.sh
 ```
 
-### 方式2: Docker开发环境
+**终端 2 - 启动前端：**
 
 ```bash
-# 构建并启动所有服务
-docker-compose -f docker-compose.full.yml up --build
-
-# 后台运行
-docker-compose -f docker-compose.full.yml up -d
-
-# 查看日志
-docker-compose -f docker-compose.full.yml logs -f backend
+cd frontend/web
+npm run dev
 ```
 
-### 开发工具
+### 步骤 5: 验证部署
 
-#### 运行测试
-
-```bash
-cd fieldmind-backend
-pytest tests/ -v
-
-# 带覆盖率
-pytest tests/ --cov=app --cov-report=html
-```
-
-#### 代码格式化
-
-```bash
-# 格式化代码
-black app/
-
-# 检查类型
-mypy app/
-```
+1. 访问前端：http://localhost:5173
+2. 访问 API 文档：http://localhost:8000/docs
+3. 检查健康状态：http://localhost:8000/health
 
 ---
 
-## 生产环境部署
+## 🏭 生产环境部署
 
-### 前置准备
+### 方案 1: Docker Compose 部署 (推荐)
 
-1. **准备服务器**
-   - Ubuntu 20.04+ / CentOS 8+ 或其他Linux发行版
-   - 安装Docker和Docker Compose
-   - 配置防火墙规则
-
-2. **域名和SSL证书**
-   - 准备域名（如：api.fieldmind.example.com）
-   - 获取SSL证书（Let's Encrypt推荐）
-
-3. **配置生产环境变量**
-
-```bash
-cp fieldmind-backend/.env.example fieldmind-backend/.env.production
-```
-
-编辑 `.env.production`，**必须修改**以下配置：
-
-```bash
-# 安全密钥（生成随机32字符以上）
-SECRET_KEY=your-super-secret-key-change-in-production
-
-# JWT密钥
-JWT_SECRET_KEY=your-jwt-secret-key-change-in-production
-
-# 数据库密码
-NEO4J_PASSWORD=strong-password-here
-
-# 生产环境设置
-ENVIRONMENT=production
-DEBUG=false
-
-# CORS设置（改为实际域名）
-CORS_ORIGINS=["https://fieldmind.example.com"]
-```
-
-### 部署步骤
-
-#### 1. 使用自动化部署脚本（推荐）
-
-```bash
-# 部署到生产环境
-./deploy.sh production
-
-# 脚本会自动：
-# - 检查环境
-# - 备份数据库
-# - 构建镜像
-# - 启动服务
-# - 运行迁移
-# - 健康检查
-```
-
-#### 2. 手动部署
-
-```bash
-# 1. 备份现有数据（如果有）
-cp fieldmind-backend/data/fieldmind.db backups/fieldmind_$(date +%Y%m%d).db
-
-# 2. 构建生产镜像
-docker build -t fieldmind/backend:latest \
-    -f fieldmind-backend/Dockerfile.prod \
-    fieldmind-backend/
-
-# 3. 启动服务
-docker-compose -f docker-compose.full.yml up -d
-
-# 4. 运行数据库迁移
-docker-compose -f docker-compose.full.yml exec backend \
-    alembic upgrade head
-
-# 5. 检查服务状态
-docker-compose -f docker-compose.full.yml ps
-curl http://localhost:8000/health
-```
-
-### 配置Nginx反向代理
-
-#### 安装SSL证书
-
-```bash
-# 将SSL证书放到nginx目录
-mkdir -p nginx/ssl
-cp /path/to/fullchain.pem nginx/ssl/
-cp /path/to/privkey.pem nginx/ssl/
-```
-
-#### 启动Nginx
-
-```bash
-docker-compose -f docker-compose.full.yml up -d nginx
-```
-
-### 生产环境优化
-
-#### 1. 数据库优化
-
-**切换到PostgreSQL**（推荐用于生产）：
-
-修改 `.env.production`：
-
-```bash
-DATABASE_URL=postgresql://fieldmind:password@postgres:5432/fieldmind
-```
-
-#### 2. 启用Redis缓存
-
-```bash
-CACHE_BACKEND=redis
-REDIS_HOST=redis
-REDIS_PORT=6379
-```
-
-#### 3. 配置日志收集
-
-```bash
-LOG_LEVEL=INFO
-LOG_FORMAT=json
-SENTRY_DSN=your-sentry-dsn  # 错误追踪
-```
-
----
-
-## Kubernetes部署
-
-### 前置条件
-
-- Kubernetes集群（1.25+）
-- kubectl已配置
-- Helm 3.x（可选）
-- 容器镜像仓库（如Docker Hub, Harbor）
-
-### 部署步骤
-
-#### 1. 构建并推送镜像
-
-```bash
-# 构建镜像
-docker build -t your-registry/fieldmind-backend:v1.0.0 \
-    -f fieldmind-backend/Dockerfile.prod \
-    fieldmind-backend/
-
-# 推送到镜像仓库
-docker push your-registry/fieldmind-backend:v1.0.0
-```
-
-#### 2. 修改K8s配置
-
-编辑 `k8s/configmap.yaml`，更新配置：
+创建 `docker-compose.yml`：
 
 ```yaml
-data:
-  CORS_ORIGINS: '["https://your-domain.com"]'
+version: '3.8'
+
+services:
+  # PostgreSQL 数据库
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: fieldmind
+      POSTGRES_USER: fieldmind
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  # Redis 缓存
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  # FieldMind 后端
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql://fieldmind:${DB_PASSWORD}@postgres:5432/fieldmind
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      SECRET_KEY: ${SECRET_KEY}
+      ENVIRONMENT: production
+      DEBUG: false
+    volumes:
+      - ./data/uploads:/app/uploads
+      - ./data/logs:/app/logs
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
+
+  # FieldMind 前端
+  frontend:
+    build:
+      context: ./frontend/web
+      dockerfile: Dockerfile
+    environment:
+      VITE_API_BASE_URL: http://backend:8000
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
 ```
 
-编辑 `k8s/backend-deployment.yaml`，更新镜像：
+**后端 Dockerfile：**
 
-```yaml
-image: your-registry/fieldmind-backend:v1.0.0
+```dockerfile
+# backend/Dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# 安装系统依赖
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装 Python 依赖
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 复制应用代码
+COPY . .
+
+# 运行迁移和启动
+CMD ["sh", "-c", "cd src && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
 ```
 
-#### 3. 使用自动化脚本部署
+**前端 Dockerfile：**
 
-```bash
-./deploy-k8s.sh v1.0.0
+```dockerfile
+# frontend/web/Dockerfile
+FROM node:18-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
 ```
 
-#### 4. 手动部署
+**Nginx 配置 (frontend/web/nginx.conf)：**
 
-```bash
-# 创建命名空间
-kubectl apply -f k8s/namespace.yaml
+```nginx
+server {
+    listen 80;
+    server_name _;
+    root /usr/share/nginx/html;
+    index index.html;
 
-# 创建配置
-kubectl apply -f k8s/configmap.yaml
+    # SPA 路由支持
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
 
-# 创建持久卷
-kubectl apply -f k8s/pvc.yaml
+    # API 代理
+    location /api {
+        proxy_pass http://backend:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
 
-# 部署数据库服务
-kubectl apply -f k8s/redis-statefulset.yaml
-kubectl apply -f k8s/neo4j-statefulset.yaml
-
-# 部署Backend
-kubectl apply -f k8s/backend-deployment.yaml
-
-# 配置自动扩缩容
-kubectl apply -f k8s/hpa.yaml
-
-# 配置Ingress
-kubectl apply -f k8s/ingress.yaml
-```
-
-#### 5. 验证部署
-
-```bash
-# 查看所有资源
-kubectl get all -n fieldmind
-
-# 查看Pod状态
-kubectl get pods -n fieldmind
-
-# 查看日志
-kubectl logs -f deployment/fieldmind-backend -n fieldmind
-
-# 端口转发测试
-kubectl port-forward svc/fieldmind-backend-service 8000:8000 -n fieldmind
-```
-
-### K8s生产优化
-
-#### 1. 资源限制
-
-根据实际负载调整 `k8s/backend-deployment.yaml`：
-
-```yaml
-resources:
-  requests:
-    memory: "1Gi"
-    cpu: "500m"
-  limits:
-    memory: "4Gi"
-    cpu: "2000m"
-```
-
-#### 2. 持久化存储
-
-使用云存储（AWS EBS, GCP PD, Azure Disk）：
-
-```yaml
-storageClassName: gp3  # AWS
-# storageClassName: pd-ssd  # GCP
-# storageClassName: managed-premium  # Azure
-```
-
-#### 3. 配置Ingress Controller
-
-```bash
-# 安装Nginx Ingress Controller
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx --create-namespace
-
-# 安装Cert Manager（自动SSL）
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.0/cert-manager.yaml
-```
-
----
-
-## 配置说明
-
-### 核心配置项
-
-| 配置项 | 说明 | 默认值 | 必填 |
-|--------|------|--------|------|
-| `SECRET_KEY` | 应用密钥 | - | ✅ |
-| `DATABASE_URL` | 数据库连接 | sqlite:///... | ✅ |
-| `REDIS_HOST` | Redis地址 | redis | ❌ |
-| `NEO4J_URI` | Neo4j连接 | bolt://neo4j:7687 | ❌ |
-| `CORS_ORIGINS` | 允许的跨域源 | [] | ✅ |
-
-### 环境变量优先级
-
-1. 系统环境变量
-2. `.env` 文件
-3. 代码默认值
-
----
-
-## 监控和日志
-
-### 健康检查
-
-```bash
-# 基础健康检查
-curl http://localhost:8000/health
-
-# 响应示例
-{
-  "status": "healthy",
-  "timestamp": 1234567890.123,
-  "response_time_ms": 15.2,
-  "services": {
-    "api": "ok",
-    "database": "ok",
-    "redis": "ok",
-    "neo4j": "not_configured"
-  }
+    # 静态资源缓存
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
 }
 ```
 
-### 查看日志
+**启动部署：**
 
 ```bash
-# Docker环境
-docker-compose -f docker-compose.full.yml logs -f backend
+# 创建 .env 文件
+cat > .env << EOF
+DB_PASSWORD=your-secure-db-password
+OPENAI_API_KEY=your-openai-api-key
+SECRET_KEY=your-secure-secret-key
+EOF
 
-# Kubernetes环境
-kubectl logs -f deployment/fieldmind-backend -n fieldmind
+# 启动所有服务
+docker-compose up -d
 
-# 查看特定时间范围
-kubectl logs --since=1h deployment/fieldmind-backend -n fieldmind
-```
+# 查看日志
+docker-compose logs -f
 
-### Prometheus监控（可选）
-
-集成Prometheus指标：
-
-```python
-# app/main.py
-from prometheus_client import make_asgi_app
-
-# 添加metrics端点
-metrics_app = make_asgi_app()
-app.mount("/metrics", metrics_app)
+# 停止服务
+docker-compose down
 ```
 
 ---
 
-## 故障排查
+### 方案 2: 传统部署 (Systemd)
 
-### 常见问题
+**1. 后端部署为系统服务：**
 
-#### 1. 服务无法启动
+创建 `/etc/systemd/system/fieldmind-backend.service`：
 
-```bash
-# 查看详细日志
-docker-compose -f docker-compose.full.yml logs backend
+```ini
+[Unit]
+Description=FieldMind Backend API
+After=network.target postgresql.service
 
-# 检查端口占用
-lsof -i :8000
+[Service]
+Type=simple
+User=fieldmind
+WorkingDirectory=/opt/fieldmind/backend/src
+Environment="PATH=/opt/fieldmind/backend/venv/bin"
+ExecStart=/opt/fieldmind/backend/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+Restart=on-failure
+RestartSec=10
 
-# 检查配置文件
-docker-compose -f docker-compose.full.yml config
+[Install]
+WantedBy=multi-user.target
 ```
 
-#### 2. 数据库连接失败
+启动服务：
 
 ```bash
-# 检查数据库服务状态
-docker-compose -f docker-compose.full.yml ps postgres
-
-# 测试数据库连接
-docker-compose -f docker-compose.full.yml exec postgres \
-    psql -U fieldmind -d fieldmind -c "SELECT 1"
+sudo systemctl daemon-reload
+sudo systemctl enable fieldmind-backend
+sudo systemctl start fieldmind-backend
+sudo systemctl status fieldmind-backend
 ```
 
-#### 3. Redis连接失败
+**2. 前端部署到 Nginx：**
 
 ```bash
-# 检查Redis状态
-docker-compose -f docker-compose.full.yml exec redis redis-cli ping
+# 构建前端
+cd frontend/web
+npm run build
 
-# 应该返回: PONG
+# 复制到 Nginx 目录
+sudo cp -r dist/* /var/www/fieldmind/
+
+# 配置 Nginx
+sudo nano /etc/nginx/sites-available/fieldmind
 ```
 
-#### 4. Neo4j连接失败
+Nginx 配置：
 
-```bash
-# 检查Neo4j状态
-docker-compose -f docker-compose.full.yml exec neo4j \
-    cypher-shell -u neo4j -p fieldmind_password "RETURN 1"
+```nginx
+server {
+    listen 80;
+    server_name fieldmind.yourdomain.com;
+
+    root /var/www/fieldmind;
+    index index.html;
+
+    # 启用 gzip
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
 ```
 
-#### 5. 健康检查失败
+启用站点：
 
 ```bash
-# 详细健康检查
-curl -v http://localhost:8000/health
-
-# 检查所有容器状态
-docker-compose -f docker-compose.full.yml ps
-```
-
-### 性能问题
-
-#### 数据库慢查询
-
-```bash
-# 启用PostgreSQL慢查询日志
-# 在postgresql.conf中添加：
-log_min_duration_statement = 1000  # 记录超过1秒的查询
-```
-
-#### 内存不足
-
-```bash
-# 查看容器内存使用
-docker stats
-
-# 调整容器内存限制（docker-compose.yml）
-deploy:
-  resources:
-    limits:
-      memory: 2G
-```
-
-### 回滚部署
-
-```bash
-# Docker环境
-docker-compose -f docker-compose.full.yml down
-docker-compose -f docker-compose.full.yml up -d
-
-# Kubernetes环境
-kubectl rollout undo deployment/fieldmind-backend -n fieldmind
-
-# 回滚到特定版本
-kubectl rollout undo deployment/fieldmind-backend --to-revision=2 -n fieldmind
+sudo ln -s /etc/nginx/sites-available/fieldmind /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
 ```
 
 ---
 
-## 备份和恢复
+## 🔒 SSL/HTTPS 配置
+
+使用 Let's Encrypt 免费证书：
+
+```bash
+# 安装 Certbot
+sudo apt-get install certbot python3-certbot-nginx
+
+# 获取证书并自动配置 Nginx
+sudo certbot --nginx -d fieldmind.yourdomain.com
+
+# 自动续期测试
+sudo certbot renew --dry-run
+```
+
+---
+
+## 📊 监控与日志
+
+### 1. 应用日志
+
+后端日志位置：`/opt/fieldmind/backend/logs/app.log`
+
+查看实时日志：
+
+```bash
+# Systemd 服务日志
+sudo journalctl -u fieldmind-backend -f
+
+# Docker 日志
+docker-compose logs -f backend
+```
+
+### 2. 性能监控
+
+推荐工具：
+- Prometheus + Grafana (指标监控)
+- Sentry (错误追踪)
+- ELK Stack (日志聚合)
+
+---
+
+## 🔧 常见问题排查
+
+### 问题 1: 数据库连接失败
+
+```bash
+# 检查数据库是否运行
+sudo systemctl status postgresql
+
+# 检查连接字符串
+echo $DATABASE_URL
+
+# 测试连接
+psql $DATABASE_URL -c "SELECT 1;"
+```
+
+### 问题 2: API 响应慢
+
+```bash
+# 检查数据库查询性能
+# 启用慢查询日志
+
+# 检查 Redis 缓存
+redis-cli ping
+
+# 增加 workers 数量
+# 修改 uvicorn --workers 参数
+```
+
+### 问题 3: 前端无法连接后端
+
+```bash
+# 检查 CORS 配置
+# backend/src/app/main.py 中的 CORS 设置
+
+# 检查 API 基础 URL
+# frontend/web/.env 中的 VITE_API_BASE_URL
+
+# 检查防火墙
+sudo ufw status
+```
+
+---
+
+## 🧪 运行测试
+
+### MVP 功能测试
+
+```bash
+cd backend
+
+# 运行 API 测试 (需要后端服务运行中)
+python3 test_mvp_api.py
+
+# 运行单元测试
+pytest tests/
+```
+
+### 前端测试
+
+```bash
+cd frontend/web
+
+# 运行单元测试
+npm run test
+
+# 运行 E2E 测试
+npm run test:e2e
+```
+
+---
+
+## 📈 性能优化建议
+
+1. **数据库优化**
+   - 添加适当的索引
+   - 启用查询缓存
+   - 使用连接池
+
+2. **Redis 缓存**
+   - 缓存频繁查询的数据
+   - 设置合理的过期时间
+
+3. **CDN 加速**
+   - 静态资源使用 CDN
+   - 启用浏览器缓存
+
+4. **负载均衡**
+   - 使用 Nginx 或 HAProxy
+   - 多实例部署后端
+
+---
+
+## 🔄 备份与恢复
 
 ### 数据库备份
 
 ```bash
-# SQLite备份
-cp fieldmind-backend/data/fieldmind.db backups/fieldmind_$(date +%Y%m%d).db
+# PostgreSQL 备份
+pg_dump -U fieldmind fieldmind > backup_$(date +%Y%m%d_%H%M%S).sql
 
-# PostgreSQL备份
-docker-compose -f docker-compose.full.yml exec postgres \
-    pg_dump -U fieldmind fieldmind > backups/fieldmind_$(date +%Y%m%d).sql
+# 恢复
+psql -U fieldmind fieldmind < backup_20260909_120000.sql
 ```
 
-### 数据恢复
+### 文件备份
 
 ```bash
-# SQLite恢复
-cp backups/fieldmind_20261201.db fieldmind-backend/data/fieldmind.db
+# 备份上传文件
+tar -czf uploads_backup_$(date +%Y%m%d).tar.gz /opt/fieldmind/data/uploads
 
-# PostgreSQL恢复
-docker-compose -f docker-compose.full.yml exec -T postgres \
-    psql -U fieldmind fieldmind < backups/fieldmind_20261201.sql
+# 备份配置
+tar -czf config_backup_$(date +%Y%m%d).tar.gz /opt/fieldmind/backend/.env
 ```
 
 ---
 
-## 安全建议
+## 📞 技术支持
 
-### 生产环境安全清单
-
-- [ ] 修改所有默认密码
-- [ ] 使用HTTPS/TLS加密
-- [ ] 配置防火墙规则
-- [ ] 启用API限流
-- [ ] 定期更新依赖
-- [ ] 配置日志审计
-- [ ] 实施数据库定期备份
-- [ ] 使用非root用户运行服务
-- [ ] 配置Secret管理（如Vault）
-- [ ] 启用网络隔离
-
-### 最佳实践
-
-1. **使用环境变量管理敏感信息**，不要硬编码
-2. **定期更新依赖**，修复安全漏洞
-3. **实施最小权限原则**
-4. **启用审计日志**
-5. **配置自动化备份**
+- 文档：查看项目 README.md
+- 问题追踪：GitHub Issues
+- 社区讨论：GitHub Discussions
 
 ---
 
-## 更新和维护
+## ✅ 部署验证清单
 
-### 滚动更新
+部署完成后，请验证以下项目：
 
-```bash
-# Docker环境
-./deploy.sh production
-
-# Kubernetes环境
-kubectl set image deployment/fieldmind-backend \
-    backend=your-registry/fieldmind-backend:v1.1.0 \
-    -n fieldmind
-```
-
-### 数据库迁移
-
-```bash
-# 生成新迁移
-alembic revision --autogenerate -m "add new table"
-
-# 应用迁移
-alembic upgrade head
-
-# 回滚迁移
-alembic downgrade -1
-```
+- [ ] 前端页面可以正常访问
+- [ ] 后端 API 文档可以访问 (/docs)
+- [ ] 用户可以注册和登录
+- [ ] 可以创建项目
+- [ ] 可以上传文档
+- [ ] 文档自动处理和分块
+- [ ] 知识图谱正常显示
+- [ ] 数据质量监控面板正常
+- [ ] 溯源回溯功能正常
+- [ ] 协作权限管理正常
+- [ ] 日志正常记录
+- [ ] 备份脚本正常运行
 
 ---
 
-## 联系支持
+**恭喜！FieldMind MVP 部署完成！** 🎉
 
-如有问题，请联系：
-- Email: support@fieldmind.example.com
-- GitHub Issues: https://github.com/your-org/FieldMind-Rebuild/issues
-
----
-
-**最后更新**: 2026-08-02
-**文档版本**: 1.0.0
+现在您可以开始使用田野调查的核心功能，并根据实际需求进行扩展。

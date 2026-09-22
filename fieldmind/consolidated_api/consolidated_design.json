@@ -1,0 +1,997 @@
+{
+  "consolidated": {
+    "version": "v1",
+    "base_path": "/api/v1",
+    "resources": {
+      "documents": {
+        "resource": "documents",
+        "original_count": 63,
+        "consolidated_count": 6,
+        "reduction": 57,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/documents",
+            "operation": "list",
+            "description": "获取 documents 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/documents",
+            "operation": "create",
+            "description": "创建 documents"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/documents/{id}",
+            "operation": "get",
+            "description": "获取单个 documents"
+          },
+          {
+            "method": "PUT",
+            "path": "/api/v1/documents/{id}",
+            "operation": "update",
+            "description": "更新 documents"
+          },
+          {
+            "method": "DELETE",
+            "path": "/api/v1/documents/{id}",
+            "operation": "delete",
+            "description": "删除 documents"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/documents/batch",
+            "operation": "batch",
+            "description": "批量操作 documents"
+          }
+        ],
+        "original_paths": [
+          "/validation/document-coverage/{document_id}/",
+          "/documents/{document_id}/align-timestamps/",
+          "/document_chunks_lineage",
+          "/document",
+          "/document/formats",
+          "/{project_id}/documents/{document_id}/content/",
+          "/documents_batch",
+          "/document_metrics_summary",
+          "/document/process",
+          "/document_summary"
+        ]
+      },
+      "health": {
+        "resource": "health",
+        "original_count": 20,
+        "consolidated_count": 2,
+        "reduction": 18,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/health",
+            "operation": "list",
+            "description": "获取 health 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/health/{id}",
+            "operation": "get",
+            "description": "获取单个 health"
+          }
+        ],
+        "original_paths": [
+          "/health",
+          "/health/ready",
+          "/api/v1/health",
+          "/health/live",
+          "/health_checker",
+          "/health/detailed"
+        ]
+      },
+      "metrics": {
+        "resource": "metrics",
+        "original_count": 90,
+        "consolidated_count": 3,
+        "reduction": 87,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/metrics",
+            "operation": "list",
+            "description": "获取 metrics 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/metrics",
+            "operation": "create",
+            "description": "创建 metrics"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/metrics/{id}",
+            "operation": "get",
+            "description": "获取单个 metrics"
+          }
+        ],
+        "original_paths": [
+          "/stats",
+          "/stats/{project_id}",
+          "/api/v1/dashboard/stats/{project_id}",
+          "/metrics_app",
+          "/api/graph/statistics",
+          "/photos/stats/{project_id}",
+          "/photos/stats/{project_id}/",
+          "/metrics/reset",
+          "/categories/stats",
+          "/events/stats"
+        ]
+      },
+      "embeddings": {
+        "resource": "embeddings",
+        "original_count": 12,
+        "consolidated_count": 5,
+        "reduction": 7,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/embeddings",
+            "operation": "list",
+            "description": "获取 embeddings 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/embeddings",
+            "operation": "create",
+            "description": "创建 embeddings"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/embeddings/{id}",
+            "operation": "get",
+            "description": "获取单个 embeddings"
+          },
+          {
+            "method": "DELETE",
+            "path": "/api/v1/embeddings/{id}",
+            "operation": "delete",
+            "description": "删除 embeddings"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/embeddings/search",
+            "operation": "search",
+            "description": "高级搜索 embeddings"
+          }
+        ],
+        "original_paths": [
+          "/api/v1/search/vector",
+          "/vector_store",
+          "/vector_generator",
+          "/vectorization_service",
+          "/vector_count",
+          "/embedding_model",
+          "/vector",
+          "/embedding_dimension"
+        ]
+      },
+      "queries": {
+        "resource": "queries",
+        "original_count": 12,
+        "consolidated_count": 4,
+        "reduction": 8,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/queries",
+            "operation": "list",
+            "description": "获取 queries 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/queries",
+            "operation": "create",
+            "description": "创建 queries"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/queries/{id}",
+            "operation": "get",
+            "description": "获取单个 queries"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/queries/search",
+            "operation": "search",
+            "description": "高级搜索 queries"
+          }
+        ],
+        "original_paths": [
+          "/query/related",
+          "/memory/search",
+          "/kg/query",
+          "/cypher/query",
+          "/query_types",
+          "/search-with-citation",
+          "/api/v1/search/hybrid",
+          "/rag/query",
+          "/api/v1/search/fulltext",
+          "/search"
+        ]
+      },
+      "entities": {
+        "resource": "entities",
+        "original_count": 30,
+        "consolidated_count": 4,
+        "reduction": 26,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/entities",
+            "operation": "list",
+            "description": "获取 entities 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/entities",
+            "operation": "create",
+            "description": "创建 entities"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/entities/{id}",
+            "operation": "get",
+            "description": "获取单个 entities"
+          },
+          {
+            "method": "DELETE",
+            "path": "/api/v1/entities/{id}",
+            "operation": "delete",
+            "description": "删除 entities"
+          }
+        ],
+        "original_paths": [
+          "/entity_relations",
+          "/kg/entity/{entity_id}/neighbors",
+          "/entity_graph",
+          "/entity_detail",
+          "/entity",
+          "/entity_profile",
+          "/entities",
+          "/entity_timeline",
+          "/entity_categorizer",
+          "/entity_full_profile"
+        ]
+      },
+      "relations": {
+        "resource": "relations",
+        "original_count": 4,
+        "consolidated_count": 3,
+        "reduction": 1,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/relations",
+            "operation": "list",
+            "description": "获取 relations 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/relations",
+            "operation": "create",
+            "description": "创建 relations"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/relations/{id}",
+            "operation": "get",
+            "description": "获取单个 relations"
+          }
+        ],
+        "original_paths": [
+          "/api/v1/relations/query",
+          "/relations/discover",
+          "/relations",
+          "/objects/{fid}/relations/"
+        ]
+      },
+      "projects": {
+        "resource": "projects",
+        "original_count": 110,
+        "consolidated_count": 7,
+        "reduction": 103,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/projects",
+            "operation": "list",
+            "description": "获取 projects 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/projects",
+            "operation": "create",
+            "description": "创建 projects"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/projects/{id}",
+            "operation": "get",
+            "description": "获取单个 projects"
+          },
+          {
+            "method": "PUT",
+            "path": "/api/v1/projects/{id}",
+            "operation": "update",
+            "description": "更新 projects"
+          },
+          {
+            "method": "DELETE",
+            "path": "/api/v1/projects/{id}",
+            "operation": "delete",
+            "description": "删除 projects"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/projects/search",
+            "operation": "search",
+            "description": "高级搜索 projects"
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/projects/export",
+            "operation": "export",
+            "description": "导出 projects"
+          }
+        ],
+        "original_paths": [
+          "/project_document",
+          "/project_knowledge_graph",
+          "/projects/{project_id}/chunks/statistics/",
+          "/projects/{project_id}/quality",
+          "/project_dashboard",
+          "/projects/{project_id}/tables/{table_id}",
+          "/project_context",
+          "/projects/{project_id}/entities/",
+          "/project_packets",
+          "/projects/{project_id}/invite"
+        ]
+      },
+      "chunks": {
+        "resource": "chunks",
+        "original_count": 22,
+        "consolidated_count": 2,
+        "reduction": 20,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/chunks",
+            "operation": "list",
+            "description": "获取 chunks 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/chunks/{id}",
+            "operation": "get",
+            "description": "获取单个 chunks"
+          }
+        ],
+        "original_paths": [
+          "/chunk_statistics",
+          "/chunk_metrics_summary",
+          "/keywords/chunk/{chunk_id}/",
+          "/clusters/{project_id}/{cluster_id}/chunks/",
+          "/chunk/{chunk_id}/",
+          "/chunks_preview",
+          "/validation/chunk-continuity",
+          "/chunk_with_citation",
+          "/chunk_quantification",
+          "/chunk_detail"
+        ]
+      },
+      "logs": {
+        "resource": "logs",
+        "original_count": 6,
+        "consolidated_count": 3,
+        "reduction": 3,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/logs",
+            "operation": "list",
+            "description": "获取 logs 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/logs",
+            "operation": "create",
+            "description": "创建 logs"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/logs/{id}",
+            "operation": "get",
+            "description": "获取单个 logs"
+          }
+        ],
+        "original_paths": [
+          "/logout",
+          "/audit_statistics",
+          "/logs/recent",
+          "/audit_logs",
+          "/logger"
+        ]
+      },
+      "roles": {
+        "resource": "roles",
+        "original_count": 10,
+        "consolidated_count": 3,
+        "reduction": 7,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/roles",
+            "operation": "list",
+            "description": "获取 roles 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/roles/{id}",
+            "operation": "get",
+            "description": "获取单个 roles"
+          },
+          {
+            "method": "DELETE",
+            "path": "/api/v1/roles/{id}",
+            "operation": "delete",
+            "description": "删除 roles"
+          }
+        ],
+        "original_paths": [
+          "/permission_matrix",
+          "/permission_service",
+          "/role_permission_detail",
+          "/role_permissions",
+          "/role"
+        ]
+      },
+      "tasks": {
+        "resource": "tasks",
+        "original_count": 18,
+        "consolidated_count": 3,
+        "reduction": 15,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/tasks",
+            "operation": "list",
+            "description": "获取 tasks 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/tasks/{id}",
+            "operation": "get",
+            "description": "获取单个 tasks"
+          },
+          {
+            "method": "DELETE",
+            "path": "/api/v1/tasks/{id}",
+            "operation": "delete",
+            "description": "删除 tasks"
+          }
+        ],
+        "original_paths": [
+          "/task_history",
+          "/task_result",
+          "/task_by_id",
+          "/task_metrics",
+          "/task_info",
+          "/tasks",
+          "/task_status",
+          "/task",
+          "/task_execution",
+          "/task_progress"
+        ]
+      },
+      "users": {
+        "resource": "users",
+        "original_count": 20,
+        "consolidated_count": 2,
+        "reduction": 18,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/users",
+            "operation": "list",
+            "description": "获取 users 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/users/{id}",
+            "operation": "get",
+            "description": "获取单个 users"
+          }
+        ],
+        "original_paths": [
+          "/user_dimensions",
+          "/user_preferences",
+          "/events/{event_summary}/profile/",
+          "/user_permissions",
+          "/user_activity",
+          "/user_annotation_summary",
+          "/user_tag_summary",
+          "/registered_handlers",
+          "/entities/{entity_name}/profile/",
+          "/user_summary"
+        ]
+      },
+      "insights": {
+        "resource": "insights",
+        "original_count": 10,
+        "consolidated_count": 4,
+        "reduction": 6,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/insights",
+            "operation": "list",
+            "description": "获取 insights 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/insights",
+            "operation": "create",
+            "description": "创建 insights"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/insights/{id}",
+            "operation": "get",
+            "description": "获取单个 insights"
+          },
+          {
+            "method": "DELETE",
+            "path": "/api/v1/insights/{id}",
+            "operation": "delete",
+            "description": "删除 insights"
+          }
+        ],
+        "original_paths": [
+          "/insights",
+          "/analyses",
+          "/analysis",
+          "/analyses/{analysis_id}/",
+          "/skill/analysis/{document_id}/",
+          "/analysis_with_sources",
+          "/analysis_service"
+        ]
+      },
+      "workflows": {
+        "resource": "workflows",
+        "original_count": 17,
+        "consolidated_count": 3,
+        "reduction": 14,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/workflows",
+            "operation": "list",
+            "description": "获取 workflows 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/workflows/{id}",
+            "operation": "get",
+            "description": "获取单个 workflows"
+          },
+          {
+            "method": "DELETE",
+            "path": "/api/v1/workflows/{id}",
+            "operation": "delete",
+            "description": "删除 workflows"
+          }
+        ],
+        "original_paths": [
+          "/workflow_stats",
+          "/workflow_status",
+          "/workflow_steps",
+          "/workflow_execution",
+          "/workflow_progress",
+          "/workflow_executions",
+          "/workflow",
+          "/workflow_service",
+          "/workflows",
+          "/workflow_manager"
+        ]
+      },
+      "events": {
+        "resource": "events",
+        "original_count": 11,
+        "consolidated_count": 3,
+        "reduction": 8,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/events",
+            "operation": "list",
+            "description": "获取 events 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "POST",
+            "path": "/api/v1/events",
+            "operation": "create",
+            "description": "创建 events"
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/events/{id}",
+            "operation": "get",
+            "description": "获取单个 events"
+          }
+        ],
+        "original_paths": [
+          "/events/history",
+          "/event_history",
+          "/events",
+          "/event_stats",
+          "/event_statistics",
+          "/events/emit",
+          "/event_full_profile",
+          "/event_profile",
+          "/event_emitter"
+        ]
+      },
+      "teams": {
+        "resource": "teams",
+        "original_count": 2,
+        "consolidated_count": 2,
+        "reduction": 0,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/teams",
+            "operation": "list",
+            "description": "获取 teams 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/teams/{id}",
+            "operation": "get",
+            "description": "获取单个 teams"
+          }
+        ],
+        "original_paths": [
+          "/grouped_timeline",
+          "/projects/{project_id}/events/grouped/"
+        ]
+      },
+      "topics": {
+        "resource": "topics",
+        "original_count": 1,
+        "consolidated_count": 2,
+        "reduction": -1,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/topics",
+            "operation": "list",
+            "description": "获取 topics 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/topics/{id}",
+            "operation": "get",
+            "description": "获取单个 topics"
+          }
+        ],
+        "original_paths": [
+          "/topic_distribution"
+        ]
+      },
+      "jobs": {
+        "resource": "jobs",
+        "original_count": 1,
+        "consolidated_count": 2,
+        "reduction": -1,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/jobs",
+            "operation": "list",
+            "description": "获取 jobs 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/jobs/{id}",
+            "operation": "get",
+            "description": "获取单个 jobs"
+          }
+        ],
+        "original_paths": [
+          "/background_learner"
+        ]
+      },
+      "tags": {
+        "resource": "tags",
+        "original_count": 11,
+        "consolidated_count": 3,
+        "reduction": 8,
+        "endpoints": [
+          {
+            "method": "GET",
+            "path": "/api/v1/tags",
+            "operation": "list",
+            "description": "获取 tags 列表",
+            "query_params": [
+              "page",
+              "page_size",
+              "sort",
+              "filter"
+            ]
+          },
+          {
+            "method": "GET",
+            "path": "/api/v1/tags/{id}",
+            "operation": "get",
+            "description": "获取单个 tags"
+          },
+          {
+            "method": "DELETE",
+            "path": "/api/v1/tags/{id}",
+            "operation": "delete",
+            "description": "删除 tags"
+          }
+        ],
+        "original_paths": [
+          "/tags_for_target",
+          "/tag_trend",
+          "/tags",
+          "/tag_statistics",
+          "/tag",
+          "/tag_by_id",
+          "/tagging_service"
+        ]
+      }
+    },
+    "total_original": 470,
+    "total_consolidated": 66,
+    "statistics": {
+      "total_resources": 20,
+      "original_endpoints": 470,
+      "consolidated_endpoints": 66,
+      "reduction": 404,
+      "reduction_rate": 86.0
+    }
+  },
+  "hierarchy": {
+    "hierarchy": {
+      "核心业务": {
+        "用户与权限": [
+          "users",
+          "roles",
+          "teams"
+        ],
+        "项目与协作": [
+          "projects",
+          "tasks",
+          "comments"
+        ],
+        "文档与内容": [
+          "documents",
+          "chunks",
+          "tags"
+        ]
+      },
+      "知识系统": {
+        "知识图谱": [
+          "entities",
+          "relations",
+          "topics"
+        ],
+        "AI 能力": [
+          "embeddings",
+          "queries",
+          "insights"
+        ]
+      },
+      "系统支持": {
+        "监控与日志": [
+          "metrics",
+          "logs",
+          "health"
+        ],
+        "工作流": [
+          "workflows",
+          "jobs",
+          "events"
+        ]
+      }
+    },
+    "statistics": {
+      "核心业务": {
+        "subcategories": {
+          "用户与权限": {
+            "resources": [
+              "users",
+              "roles",
+              "teams"
+            ],
+            "endpoints": 7
+          },
+          "项目与协作": {
+            "resources": [
+              "projects",
+              "tasks",
+              "comments"
+            ],
+            "endpoints": 10
+          },
+          "文档与内容": {
+            "resources": [
+              "documents",
+              "chunks",
+              "tags"
+            ],
+            "endpoints": 11
+          }
+        },
+        "total_endpoints": 28
+      },
+      "知识系统": {
+        "subcategories": {
+          "知识图谱": {
+            "resources": [
+              "entities",
+              "relations",
+              "topics"
+            ],
+            "endpoints": 9
+          },
+          "AI 能力": {
+            "resources": [
+              "embeddings",
+              "queries",
+              "insights"
+            ],
+            "endpoints": 13
+          }
+        },
+        "total_endpoints": 22
+      },
+      "系统支持": {
+        "subcategories": {
+          "监控与日志": {
+            "resources": [
+              "metrics",
+              "logs",
+              "health"
+            ],
+            "endpoints": 8
+          },
+          "工作流": {
+            "resources": [
+              "workflows",
+              "jobs",
+              "events"
+            ],
+            "endpoints": 8
+          }
+        },
+        "total_endpoints": 16
+      }
+    }
+  },
+  "generated_at": "2026-09-13T15:51:15.472882"
+}

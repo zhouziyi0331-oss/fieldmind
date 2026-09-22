@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据治理看板 - FieldMind</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 2px solid #e8e8e8;
+            padding-bottom: 10px;
+        }
+
+        .validation-status {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .status-pass {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .dimension-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .dimension-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .dimension-item.衣食住行 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .dimension-item.民俗 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .dimension-item.非物质文化遗产 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .dimension-item.物质文化遗产 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .dimension-item.政策 {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .dimension-item.历史 {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .dimension-name {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .dimension-count {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .dimension-percentage {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .issues-list {
+            margin-top: 15px;
+        }
+
+        .issue-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .issue-item.high {
+            border-left-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .issue-item.medium {
+            border-left-color: #ffc107;
+        }
+
+        .issue-item.low {
+            border-left-color: #28a745;
+            background: #f0f9f0;
+        }
+
+        .issue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .severity-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .severity-high {
+            background: #dc3545;
+            color: white;
+        }
+
+        .severity-medium {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .severity-low {
+            background: #28a745;
+            color: white;
+        }
+
+        .continuity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .continuity-table th,
+        .continuity-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .continuity-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .continuity-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-icon {
+            font-size: 20px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .coverage-bar {
+            height: 30px;
+            background: #e8e8e8;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .coverage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 数据治理看板</h1>
+        <p class="subtitle">真正的数据治理：多维度、可追溯、系统性</p>
+
+        <div style="margin-bottom: 20px;">
+            <button onclick="loadGovernanceReport()">🔍 运行完整验证</button>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            加载中，正在验证数据治理...
+        </div>
+
+        <!-- 总览统计 -->
+        <div id="overview" class="card" style="display: none;">
+            <h2>📈 总览
+                <span id="overallVerdict" class="validation-status"></span>
+            </h2>
+            <div class="stats-grid" id="statsGrid"></div>
+        </div>
+
+        <!-- 验证1：维度分布 -->
+        <div id="dimensionSection" class="card" style="display: none;">
+            <h2>✅ 验证1：维度分布统计
+                <span id="dimensionVerdict" class="validation-status"></span>
+            </h2>
+            <div>
+                <p><strong>覆盖率：</strong></p>
+                <div class="coverage-bar">
+                    <div id="coverageFill" class="coverage-fill"></div>
+                </div>
+            </div>
+            <div class="dimension-grid" id="dimensionGrid"></div>
+        </div>
+
+        <!-- 验证2：chunk连续性 -->
+        <div id="continuitySection" class="card" style="display: none;">
+            <h2>✅ 验证2：Chunk连续性检查
+                <span id="continuityVerdict" class="validation-status"></span>
+            </h2>
+            <div id="continuityContent"></div>
+        </div>
+
+        <!-- 验证3：缺失分析 -->
+        <div id="missingSection" class="card" style="display: none;">
+            <h2>✅ 验证3：缺失分析
+                <span id="missingVerdict" class="validation-status"></span>
+            </h2>
+            <div class="issues-list" id="issuesList"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000/api';
+
+        async function loadGovernanceReport() {
+            showLoading();
+
+            try {
+                const response = await fetch(`${API_BASE}/governance/validation/full-report`);
+                if (!response.ok) throw new Error('无法加载治理报告');
+
+                const data = await response.json();
+
+                renderReport(data);
+                hideLoading();
+                showSections();
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('加载失败：' + error.message);
+                hideLoading();
+            }
+        }
+
+        function renderReport(data) {
+            const { validations } = data;
+
+            // 渲染总览
+            renderOverview(data);
+
+            // 渲染维度分布
+            renderDimensionDistribution(validations.dimension_distribution);
+
+            // 渲染连续性
+            renderContinuity(validations.chunk_continuity);
+
+            // 渲染缺失分析
+            renderMissingAnalysis(validations.missing_analysis);
+        }
+
+        function renderOverview(data) {
+            const verdict = document.getElementById('overallVerdict');
+            verdict.textContent = data.overall_verdict;
+            verdict.className = 'validation-status ' +
+                (data.overall_verdict.includes('通过') ? 'status-pass' : 'status-warning');
+
+            const grid = document.getElementById('statsGrid');
+            const dist = data.validations.dimension_distribution;
+            const cont = data.validations.chunk_continuity;
+
+            grid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">总Chunks数</div>
+                    <div class="stat-value">${dist.total_chunks}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">已分类Chunks</div>
+                    <div class="stat-value">${dist.classified_chunks}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">总文档数</div>
+                    <div class="stat-value">${cont.total_documents}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">问题文档数</div>
+                    <div class="stat-value">${cont.problem_documents}</div>
+                </div>
+            `;
+        }
+
+        function renderDimensionDistribution(data) {
+            const verdict = document.getElementById('dimensionVerdict');
+            verdict.textContent = data.verdict;
+            verdict.className = 'validation-status ' +
+                (data.coverage_rate >= 80 ? 'status-pass' : 'status-warning');
+
+            // 覆盖率条
+            const fill = document.getElementById('coverageFill');
+            fill.style.width = data.coverage_rate + '%';
+            fill.textContent = data.coverage_rate + '%';
+
+            // 维度卡片
+            const grid = document.getElementById('dimensionGrid');
+            grid.innerHTML = data.distribution.map(dim => `
+                <div class="dimension-item ${dim.dimension}">
+                    <div class="dimension-name">${dim.dimension}</div>
+                    <div class="dimension-count">${dim.count}</div>
+                    <div class="dimension-percentage">${dim.percentage}%</div>
+                </div>
+            `).join('');
+        }
+
+        function renderContinuity(data) {
+            const verdict = document.getElementById('continuityVerdict');
+            verdict.textContent = data.verdict;
+            verdict.className = 'validation-status ' +
+                (data.problem_documents === 0 ? 'status-pass' : 'status-warning');
+
+            const content = document.getElementById('continuityContent');
+
+            if (data.problem_documents === 0) {
+                content.innerHTML = '<p style="color: #28a745; font-weight: bold;">✅ 所有文档的chunks都是连续的！</p>';
+            } else {
+                let html = `<p><strong>发现 ${data.problem_documents} 个文档存在不连续问题：</strong></p>`;
+                html += '<table class="continuity-table">';
+                html += '<thead><tr><th>文档ID</th><th>实际Chunks</th><th>预期Chunks</th><th>状态</th></tr></thead>';
+                html += '<tbody>';
+
+                data.documents.forEach(doc => {
+                    if (!doc.is_continuous) {
+                        html += `
+                            <tr>
+                                <td>${doc.document_id}</td>
+                                <td>${doc.chunk_count}</td>
+                                <td>${doc.expected_count}</td>
+                                <td><span class="status-icon">⚠️</span> 不连续</td>
+                            </tr>
+                        `;
+                    }
+                });
+
+                html += '</tbody></table>';
+                content.innerHTML = html;
+            }
+        }
+
+        function renderMissingAnalysis(data) {
+            const verdict = document.getElementById('missingVerdict');
+            verdict.textContent = data.verdict;
+
+            let statusClass = 'status-pass';
+            if (data.status === 'medium') statusClass = 'status-warning';
+            if (data.status === 'poor') statusClass = 'status-fail';
+            verdict.className = 'validation-status ' + statusClass;
+
+            const list = document.getElementById('issuesList');
+
+            if (data.total_issues === 0) {
+                list.innerHTML = '<p style="color: #28a745; font-weight: bold;">✅ 未发现数据缺失问题！</p>';
+            } else {
+                list.innerHTML = data.issues.map(issue => `
+                    <div class="issue-item ${issue.severity}">
+                        <div class="issue-header">
+                            <strong>${issue.description}</strong>
+                            <span class="severity-badge severity-${issue.severity}">
+                                ${issue.severity === 'high' ? '严重' : issue.severity === 'medium' ? '中等' : '轻微'}
+                            </span>
+                        </div>
+                        ${issue.percentage ? `<div style="color: #666; font-size: 12px;">占比：${issue.percentage}%</div>` : ''}
+                    </div>
+                `).join('');
+            }
+        }
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        function showSections() {
+            document.getElementById('overview').style.display = 'block';
+            document.getElementById('dimensionSection').style.display = 'block';
+            document.getElementById('continuitySection').style.display = 'block';
+            document.getElementById('missingSection').style.display = 'block';
+        }
+
+        // 页面加载时自动运行验证
+        window.onload = () => {
+            loadGovernanceReport();
+        };
+    </script>
+</body>
+</html>

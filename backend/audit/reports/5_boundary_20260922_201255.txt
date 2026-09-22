@@ -1,0 +1,7 @@
+🔍 检查边界合规性...
+
+============================================================
+
+📌 Chunk 边界检查：
+   检查chunk长度失败: no such table: chunks
+   检查文件状态失败: no such table: project_documents

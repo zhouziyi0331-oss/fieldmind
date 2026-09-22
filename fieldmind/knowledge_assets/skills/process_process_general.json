@@ -1,0 +1,28 @@
+{
+  "skill_id": "skill_fc4ae5077599",
+  "skill_name": "process_process_general",
+  "skill_title": "流程：general",
+  "skill_type": "process",
+  "topic": "process_general",
+  "pattern_count": 440,
+  "quality_avg": 0.6227272727272701,
+  "description": "基于 440 个实际案例的流程模板",
+  "parameters": {
+    "context": {
+      "type": "string",
+      "description": "应用场景"
+    },
+    "goal": {
+      "type": "string",
+      "description": "目标结果"
+    }
+  },
+  "template": "# {{skill_title}}\n\n## 适用场景\n{{context}}\n\n## 目标\n{{goal}}\n\n## 流程步骤\n\n### 步骤 1\nAI Revolution in Higher Education48Appendix 5.Country Level of Advance-ment in AlgorithmicTransparencyConsiderations on Algorithmic TransparencyPerú Initial Level: At thisstage, there is a rec-ognitio...\n\n### 步骤 2\nprovides for the protection of personal data.There is no personal data protection law.Ecuador Situation diagnosis on AI: An initialdiagnosis has been carried out toassess the status of AI in the coun-...\n\n### 步骤 3\ntection of personal data of 2024 harmonizesthe standard with the European Union.Perú National Artificial Intelligence Stra-tegy: In development to boost AIadoption in the country.Personal Data Protect...\n\n\n## 关键要点\n- 要点1: [从案例中总结]\n- 要点2: [从案例中总结]\n- 要点3: [从案例中总结]\n\n## 参考案例\n- 案例 1: chk_25fda0949f36\n- 案例 2: chk_b85cb5b58a43\n- 案例 3: chk_651535aa6d69\n- 案例 4: chk_9b4f176e3624\n- 案例 5: chk_74131aa9511e\n",
+  "examples": [
+    "chk_25fda0949f36",
+    "chk_b85cb5b58a43",
+    "chk_651535aa6d69",
+    "chk_9b4f176e3624",
+    "chk_74131aa9511e"
+  ]
+}

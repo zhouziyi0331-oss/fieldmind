@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react'
-import { knowledgeNetworkAPI } from '@/services/fieldmind-api'
+import { knowledgeNetworkAPI, knowledgeGraphAPI } from '@/services/fieldmind-api'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Spinner } from '@/components/ui/spinner'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
-import { Network, Plus, Search, Edit, Trash2, Filter, RefreshCw } from 'lucide-react'
+import { Network, Plus, Search, Edit, Trash2, Filter, RefreshCw, GitBranch } from 'lucide-react'
 import { useToast } from '@/components/ui/use-toast'
+import { UnifiedKnowledgeGraph } from '@/components/ui/unified-knowledge-graph'
+import { useNavigate } from 'react-router-dom'
 
 export default function KnowledgeNetwork() {
   const { toast } = useToast()
+  const navigate = useNavigate()
   const [data, setData] = useState<any[]>([])
   const [stats, setStats] = useState<any>({})
   const [loading, setLoading] = useState(true)
@@ -19,6 +22,9 @@ export default function KnowledgeNetwork() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>(null)
   const [formData, setFormData] = useState<any>({})
+  const [showUnifiedGraph, setShowUnifiedGraph] = useState(false)
+  const [unifiedGraphData, setUnifiedGraphData] = useState<any>(null)
+  const [loadingGraph, setLoadingGraph] = useState(false)
 
   useEffect(() => {
     loadData()
@@ -88,6 +94,34 @@ export default function KnowledgeNetwork() {
     setSelectedItem(item)
     setFormData(item)
     setIsEditDialogOpen(true)
+  }
+
+  // 🆕 加载统一知识图谱
+  const loadUnifiedGraph = async (dirtyDocId: number) => {
+    try {
+      setLoadingGraph(true)
+      const response = await knowledgeGraphAPI.getDocumentGraph(dirtyDocId)
+      setUnifiedGraphData(response.data)
+      setShowUnifiedGraph(true)
+    } catch (error: any) {
+      toast({
+        title: '加载图谱失败',
+        description: error.message,
+        variant: 'destructive'
+      })
+    } finally {
+      setLoadingGraph(false)
+    }
+  }
+
+  // 🆕 查看项目的统一知识图谱
+  const handleViewUnifiedGraph = (item: any) => {
+    if (item.dirty_doc_id) {
+      loadUnifiedGraph(item.dirty_doc_id)
+    } else if (item.id) {
+      // 如果没有dirty_doc_id，跳转到新页面
+      navigate(`/unified-knowledge-graph/${item.id}`)
+    }
   }
 
   const filteredData = data.filter((item: any) =>
@@ -198,6 +232,13 @@ export default function KnowledgeNetwork() {
                       </td>
                       <td className="py-3 px-4">
                         <div className="flex justify-end gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleViewUnifiedGraph(item)}
+                          >
+                            <GitBranch className="w-4 h-4" />
+                          </Button>
                         </div>
                       </td>
                     </tr>
@@ -257,6 +298,36 @@ export default function KnowledgeNetwork() {
             <Button onClick={handleCreate}>
               创建
             </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* 🆕 统一知识图谱弹窗 */}
+      <Dialog open={showUnifiedGraph} onOpenChange={setShowUnifiedGraph}>
+        <DialogContent className="max-w-[95vw] max-h-[95vh] overflow-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Network className="w-5 h-5" />
+              统一知识图谱 (9步骤管道)
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            {loadingGraph ? (
+              <div className="flex justify-center items-center py-12">
+                <Spinner className="w-8 h-8" />
+              </div>
+            ) : unifiedGraphData ? (
+              <UnifiedKnowledgeGraph
+                data={unifiedGraphData}
+                width={1100}
+                height={600}
+                onNodeClick={(node) => console.log('Node clicked:', node)}
+              />
+            ) : (
+              <div className="text-center py-12 text-gray-500">
+                暂无知识图谱数据
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>

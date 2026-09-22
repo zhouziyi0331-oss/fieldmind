@@ -1,0 +1,99 @@
+{
+  "generated_at": "2026-09-13T15:26:27.760117",
+  "total_skills": 8,
+  "by_type": {
+    "lesson_learned": 2,
+    "decision": 2,
+    "process": 3,
+    "solution": 1
+  },
+  "skills": [
+    {
+      "skill_id": "skill_d0d467296340",
+      "skill_name": "lesson_lesson_learned_0_提升内容",
+      "skill_title": "经验：lesson_learned_0_提升内容",
+      "skill_type": "lesson_learned",
+      "pattern_count": 9,
+      "quality_avg": 0.7565,
+      "description": "基于 9 个实际案例的经验：lesson_learned_0_提升内容",
+      "common_features": []
+    },
+    {
+      "skill_id": "skill_75c126eeed54",
+      "skill_name": "lesson_lesson_learned_1_分钟",
+      "skill_title": "经验：分钟",
+      "skill_type": "lesson_learned",
+      "pattern_count": 3,
+      "quality_avg": 0.7395,
+      "description": "基于 3 个实际案例的经验：分钟",
+      "common_features": [
+        "分钟"
+      ]
+    },
+    {
+      "skill_id": "skill_7b21d514b8f1",
+      "skill_name": "decision_decision_2_内容",
+      "skill_title": "决策：为什么做",
+      "skill_type": "decision",
+      "pattern_count": 3,
+      "quality_avg": 0.7000000000000001,
+      "description": "基于 3 个实际案例的决策：为什么做",
+      "common_features": [
+        "为什么做",
+        "举例"
+      ]
+    },
+    {
+      "skill_id": "skill_97013cc47ae2",
+      "skill_name": "decision_decision_3_真实价值",
+      "skill_title": "决策：decision_3_真实价值",
+      "skill_type": "decision",
+      "pattern_count": 6,
+      "quality_avg": 0.7000000000000001,
+      "description": "基于 6 个实际案例的决策：decision_3_真实价值",
+      "common_features": []
+    },
+    {
+      "skill_id": "skill_f5850264d937",
+      "skill_name": "process_process_4_中台",
+      "skill_title": "流程：process_4_中台",
+      "skill_type": "process",
+      "pattern_count": 5,
+      "quality_avg": 0.7520000000000001,
+      "description": "基于 5 个实际案例的流程：process_4_中台",
+      "common_features": []
+    },
+    {
+      "skill_id": "skill_c73fac0b4a9f",
+      "skill_name": "process_process_5_答错伤信",
+      "skill_title": "流程：process_5_答错伤信",
+      "skill_type": "process",
+      "pattern_count": 5,
+      "quality_avg": 0.64,
+      "description": "基于 5 个实际案例的流程：process_5_答错伤信",
+      "common_features": []
+    },
+    {
+      "skill_id": "skill_04a3717b2f81",
+      "skill_name": "process_process_6_新增物资",
+      "skill_title": "流程：新增物资",
+      "skill_type": "process",
+      "pattern_count": 3,
+      "quality_avg": 0.8000000000000002,
+      "description": "基于 3 个实际案例的流程：新增物资",
+      "common_features": [
+        "新增物资"
+      ]
+    },
+    {
+      "skill_id": "skill_f9414457045d",
+      "skill_name": "solution_solution_7_通过社群",
+      "skill_title": "解决方案：solution_7_通过社群",
+      "skill_type": "solution",
+      "pattern_count": 4,
+      "quality_avg": 0.81,
+      "description": "基于 4 个实际案例的解决方案：solution_7_通过社群",
+      "common_features": []
+    }
+  ]
+}

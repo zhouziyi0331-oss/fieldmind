@@ -1,0 +1,205 @@
+import Foundation
+import Combine
+
+// MARK: - 数据模型
+
+struct KnowledgeNetworkStatistics: Codable {
+    let dimensionCount: Int
+    let subDimensionCount: Int
+    let materialCount: Int
+    let keywordCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case dimensionCount = "dimension_count"
+        case subDimensionCount = "sub_dimension_count"
+        case materialCount = "material_count"
+        case keywordCount = "keyword_count"
+    }
+}
+
+struct NetworkNode: Codable, Identifiable {
+    let id: Int
+    let name: String
+    let type: String
+    let category: String
+    let materialCount: Int
+    let chunkCount: Int
+    let keywordCount: Int
+    let subDimensionCount: Int
+    let color: String
+    let size: Double
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, type, category, color, size
+        case materialCount = "material_count"
+        case chunkCount = "chunk_count"
+        case keywordCount = "keyword_count"
+        case subDimensionCount = "sub_dimension_count"
+    }
+}
+
+struct NetworkEdge: Codable, Identifiable {
+    var id: String { "\(source)-\(target)" }
+    let source: Int
+    let target: Int
+    let weight: Int
+    let label: String
+}
+
+struct KnowledgeNetworkData: Codable {
+    let statistics: KnowledgeNetworkStatistics
+    let nodes: [NetworkNode]
+    let edges: [NetworkEdge]
+}
+
+struct KeywordItem: Codable {
+    let keyword: String
+    let frequency: Int
+}
+
+struct SubDimensionItem: Codable {
+    let name: String
+    let materialCount: Int
+    let keywordCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case materialCount = "material_count"
+        case keywordCount = "keyword_count"
+    }
+}
+
+struct RelatedDimension: Codable {
+    let name: String
+    let crossMaterialCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case crossMaterialCount = "cross_material_count"
+    }
+}
+
+struct MaterialItem: Codable, Identifiable {
+    let id: Int
+    let title: String
+    let filename: String
+    let createdAt: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, title, filename
+        case createdAt = "created_at"
+    }
+}
+
+struct NodeDetail: Codable {
+    let dimensionName: String
+    let category: String
+    let materialCount: Int
+    let chunkCount: Int
+    let keywordCount: Int
+    let keywords: [KeywordItem]
+    let subDimensions: [SubDimensionItem]
+    let relatedDimensions: [RelatedDimension]
+    let materials: [MaterialItem]
+    let coreIssues: [String]
+
+    enum CodingKeys: String, CodingKey {
+        case category, keywords, materials
+        case dimensionName = "dimension_name"
+        case materialCount = "material_count"
+        case chunkCount = "chunk_count"
+        case keywordCount = "keyword_count"
+        case subDimensions = "sub_dimensions"
+        case relatedDimensions = "related_dimensions"
+        case coreIssues = "core_issues"
+    }
+}
+
+// MARK: - ViewModel
+
+@MainActor
+class KnowledgeNetworkViewModel: ObservableObject {
+    @Published var networkData: KnowledgeNetworkData?
+    @Published var selectedNodeDetail: NodeDetail?
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+
+    private var cancellables = Set<AnyCancellable>()
+
+    // 加载知识网络
+    func loadKnowledgeNetwork(projectId: Int) {
+        isLoading = true
+        errorMessage = nil
+
+        guard let url = URL(string: "\(APIConfig.baseURL)/api/v1/projects/\(projectId)/knowledge-network") else {
+            errorMessage = "无效的URL"
+            isLoading = false
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        URLSession.shared.dataTaskPublisher(for: request)
+            .map(\.data)
+            .decode(type: APIResponse<KnowledgeNetworkData>.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                self?.isLoading = false
+                if case .failure(let error) = completion {
+                    self?.errorMessage = "加载失败: \(error.localizedDescription)"
+                }
+            } receiveValue: { [weak self] response in
+                if response.success {
+                    self?.networkData = response.data
+                } else {
+                    self?.errorMessage = response.message ?? "加载失败"
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    // 加载节点详情
+    func loadNodeDetail(projectId: Int, nodeId: Int) {
+        guard let url = URL(string: "\(APIConfig.baseURL)/api/v1/projects/\(projectId)/knowledge-network/nodes/\(nodeId)") else {
+            errorMessage = "无效的URL"
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        URLSession.shared.dataTaskPublisher(for: request)
+            .map(\.data)
+            .decode(type: APIResponse<NodeDetail>.self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    self?.errorMessage = "加载节点详情失败: \(error.localizedDescription)"
+                }
+            } receiveValue: { [weak self] response in
+                if response.success {
+                    self?.selectedNodeDetail = response.data
+                } else {
+                    self?.errorMessage = response.message ?? "加载节点详情失败"
+                }
+            }
+            .store(in: &cancellables)
+    }
+}
+
+// MARK: - API Response
+
+struct APIResponse<T: Codable>: Codable {
+    let success: Bool
+    let message: String?
+    let data: T?
+}
+
+// MARK: - API Config
+
+struct APIConfig {
+    static let baseURL = "http://localhost:8000"
+}

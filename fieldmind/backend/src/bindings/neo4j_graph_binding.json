@@ -1,0 +1,108 @@
+{
+  "binding_id": "neo4j_graph_binding",
+  "binding_name": "Neo4j 图数据库绑定",
+  "version": "1.0",
+  "description": "连接到 Neo4j 图数据库，用于查询实体和关系",
+
+  "channel_type": "graph",
+  "protocol": "bolt",
+  "engine": "neo4j",
+
+  "connection": {
+    "host": "localhost",
+    "port": 7687,
+    "database": "fieldmind",
+    "auth": {
+      "username": "${NEO4J_USERNAME}",
+      "password": "${NEO4J_PASSWORD}",
+      "auth_method": "basic"
+    },
+    "encryption": false,
+    "trust": "TRUST_ALL_CERTIFICATES"
+  },
+
+  "connection_pool": {
+    "max_connections": 50,
+    "min_connections": 5,
+    "idle_timeout_seconds": 300,
+    "connection_timeout_seconds": 10,
+    "max_connection_lifetime_seconds": 3600
+  },
+
+  "query_settings": {
+    "default_timeout_ms": 5000,
+    "max_retry_attempts": 3,
+    "retry_delay_ms": 1000,
+    "enable_query_logging": true,
+    "log_slow_queries": true,
+    "slow_query_threshold_ms": 2000
+  },
+
+  "cache": {
+    "enabled": true,
+    "backend": "redis",
+    "ttl_seconds": 600,
+    "cache_key_prefix": "graph:",
+    "invalidate_on_write": true
+  },
+
+  "fallback": {
+    "enabled": true,
+    "fallback_to": "sql_binding",
+    "fallback_conditions": [
+      "connection_error",
+      "timeout",
+      "service_unavailable"
+    ]
+  },
+
+  "health_check": {
+    "enabled": true,
+    "interval_seconds": 60,
+    "query": "MATCH (n) RETURN count(n) LIMIT 1",
+    "timeout_ms": 5000
+  },
+
+  "metrics": {
+    "enabled": true,
+    "metrics_to_collect": [
+      "query_count",
+      "query_duration",
+      "error_count",
+      "cache_hit_rate",
+      "connection_pool_usage"
+    ]
+  },
+
+  "query_templates": {
+    "get_entity_by_id": {
+      "cypher": "MATCH (n:{entity_type} {{$id_field}: $id_value}}) RETURN n",
+      "parameters": ["entity_type", "id_field", "id_value"]
+    },
+    "get_relations": {
+      "cypher": "MATCH (a)-[r:{relation_type}]-(b) WHERE a.{id_field} = $id_value RETURN a, r, b",
+      "parameters": ["relation_type", "id_field", "id_value"]
+    },
+    "get_neighbors": {
+      "cypher": "MATCH (n:{entity_type} {{$id_field}: $id_value}})-[r]-(neighbor) RETURN neighbor, r, type(r) as relation_type",
+      "parameters": ["entity_type", "id_field", "id_value"]
+    },
+    "shortest_path": {
+      "cypher": "MATCH path = shortestPath((a:{entity_type_a} {{$id_field_a}: $id_value_a}})-[*..{max_depth}]-(b:{entity_type_b} {{$id_field_b}: $id_value_b}})) RETURN path",
+      "parameters": ["entity_type_a", "id_field_a", "id_value_a", "entity_type_b", "id_field_b", "id_value_b", "max_depth"]
+    }
+  },
+
+  "schema_validation": {
+    "enabled": true,
+    "validate_entity_types": true,
+    "validate_relation_types": true,
+    "ontology_reference": "ontology/schema.json"
+  },
+
+  "notes": [
+    "此绑定用于所有需要图查询的视图",
+    "确保 Neo4j 服务已启动",
+    "环境变量 NEO4J_USERNAME 和 NEO4J_PASSWORD 必须设置"
+  ]
+}

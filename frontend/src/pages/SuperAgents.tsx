@@ -35,8 +35,8 @@ export default function SuperAgents() {
       const newStats = {
         total: items.length,
         active: items.filter((item: any) => item.status === 'active' || item.is_active).length,
-        idle: Math.floor(items.length * 0.5),
-        executing: Math.floor(items.length * 0.6000000000000001),
+        idle: items.filter((item: any) => item.status === 'idle').length,
+        executing: items.filter((item: any) => item.status === 'executing' || item.status === 'running').length,
       }
       setStats(newStats)
     } catch (error: any) {

@@ -1,0 +1,58 @@
+# ============================================
+# 生产级AI系统 - 增强依赖
+# ============================================
+
+# -------- 核心必装 (5个) --------
+
+# LangChain - LLM应用框架
+langchain==0.1.0
+langchain-community==0.0.10
+langchain-openai==0.0.5
+
+# Unstructured - 文档处理增强
+unstructured==0.11.6
+unstructured[pdf]==0.11.6
+python-magic==0.4.27
+
+# RAGAS - RAG评估
+ragas==0.1.1
+datasets==2.15.0
+
+# LM Evaluation Harness - LLM评估
+lm-eval==0.4.1
+
+# N8N SDK - 工作流自动化 (使用API而非完整安装)
+# n8n太重，使用requests直接调用API即可
+
+# -------- 可选增强 (结合现有功能) --------
+
+# KAG - 知识图谱增强 (与Neo4j结合)
+# 先不装，评估后决定
+
+# AutoRAG - RAG自动优化
+# autorag==0.1.0  # 可以优化你的semantic_analyzer
+
+# Kotaemon - RAG框架组件
+# 只提取有用的部分，不全装
+
+# RAGFlow - 工作流增强
+# 与analysis_workflow重叠，暂不装
+
+# -------- 多模态支持 (Phase后期) --------
+
+# ImageBind - 多模态绑定
+# torch已有，ImageBind建议Phase 3之后再装
+# imagebind==0.1.0  # 暂时注释
+
+# -------- Agent约束 (Harness思想) --------
+
+# 不安装完整harness平台，借鉴其约束思想
+# 在Phase 2.3中实现轻量级agent资源限制器
+
+# ============================================
+# 安装说明
+# ============================================
+# 1. 必装: pip install -r requirements_enhanced.txt
+# 2. ImageBind: Phase 3完成后再装
+# 3. N8N: 使用Docker运行或API调用
+# 4. Harness思想: 自己实现轻量级版本

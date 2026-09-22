@@ -1,0 +1,91 @@
+{
+  "architecture_version": "1.0",
+  "generated_at": "2026-09-13T16:10:12.703939",
+  "layers": {
+    "sovereignty": {
+      "name": "\u6570\u636e\u4e3b\u6743\u5c42",
+      "database": "PostgreSQL",
+      "role": "\u6240\u6709\u7ed3\u6784\u5316\u6570\u636e\u7684\u552f\u4e00\u5199\u5165\u53e3",
+      "responsibilities": [
+        "\u6240\u6709\u6570\u636e\u7684 CREATE\u3001UPDATE\u3001DELETE",
+        "\u7ef4\u62a4\u6570\u636e\u5b8c\u6574\u6027\u548c\u4e00\u81f4\u6027",
+        "\u751f\u6210\u5168\u5c40\u552f\u4e00 ID",
+        "\u53d1\u5e03\u6570\u636e\u53d8\u66f4\u4e8b\u4ef6"
+      ],
+      "tables": [
+        "projects",
+        "users",
+        "documents",
+        "chunks",
+        "entities",
+        "relations",
+        "skills",
+        "patterns"
+      ]
+    },
+    "graph_index": {
+      "name": "\u56fe\u7d22\u5f15\u5c42",
+      "database": "Neo4j",
+      "role": "\u5b9e\u4f53\u5173\u7cfb\u56fe\u67e5\u8be2",
+      "responsibilities": [
+        "\u4ece PostgreSQL \u540c\u6b65\u5b9e\u4f53\u548c\u5173\u7cfb",
+        "\u63d0\u4f9b\u56fe\u904d\u5386\u548c\u8def\u5f84\u67e5\u8be2",
+        "\u8ba1\u7b97\u4e2d\u5fc3\u6027\u548c\u793e\u533a\u53d1\u73b0",
+        "\u53ea\u8bfb\uff0c\u4e0d\u521b\u5efa\u6570\u636e"
+      ],
+      "sync_from": "PostgreSQL.entities + PostgreSQL.relations",
+      "sync_strategy": "\u4e8b\u4ef6\u9a71\u52a8 + \u5b9a\u65f6\u5168\u91cf\u6821\u9a8c"
+    },
+    "vector_index": {
+      "name": "\u5411\u91cf\u7d22\u5f15\u5c42",
+      "database": "ChromaDB",
+      "role": "\u8bed\u4e49\u76f8\u4f3c\u5ea6\u68c0\u7d22",
+      "responsibilities": [
+        "\u4ece PostgreSQL \u540c\u6b65 chunk \u6587\u672c\u548c embedding",
+        "\u63d0\u4f9b\u5411\u91cf\u76f8\u4f3c\u5ea6\u641c\u7d22",
+        "\u652f\u6301\u8bed\u4e49\u68c0\u7d22",
+        "\u53ea\u8bfb\uff0c\u4e0d\u521b\u5efa\u6570\u636e"
+      ],
+      "sync_from": "PostgreSQL.chunks",
+      "sync_strategy": "\u4e8b\u4ef6\u9a71\u52a8 + \u589e\u91cf\u66f4\u65b0"
+    },
+    "cache": {
+      "name": "\u7f13\u5b58\u5c42",
+      "database": "Redis",
+      "role": "\u70ed\u70b9\u6570\u636e\u7f13\u5b58",
+      "responsibilities": [
+        "\u7f13\u5b58\u9ad8\u9891\u67e5\u8be2\u7ed3\u679c",
+        "\u7f13\u5b58\u7528\u6237\u4f1a\u8bdd",
+        "\u7f13\u5b58\u8ba1\u7b97\u7ed3\u679c",
+        "\u6709\u660e\u786e\u8fc7\u671f\u65f6\u95f4"
+      ],
+      "sync_from": "\u6240\u6709\u67e5\u8be2\u7ed3\u679c",
+      "sync_strategy": "\u6309\u9700\u7f13\u5b58 + TTL \u8fc7\u671f"
+    }
+  },
+  "principles": [
+    "\u5355\u4e00\u4e3b\u6743\uff1a\u6240\u6709\u5199\u64cd\u4f5c\u53ea\u5728 PostgreSQL",
+    "\u7edf\u4e00 ID\uff1a\u56db\u5e93\u4f7f\u7528\u76f8\u540c\u7684 ID \u4f53\u7cfb",
+    "\u4e8b\u4ef6\u9a71\u52a8\uff1aPostgreSQL \u53d8\u66f4\u901a\u8fc7\u4e8b\u4ef6\u540c\u6b65",
+    "\u53ef\u91cd\u5efa\uff1a\u7d22\u5f15\u5c42\u53ef\u968f\u65f6\u4ece\u4e3b\u6743\u5c42\u91cd\u5efa",
+    "\u6700\u7ec8\u4e00\u81f4\u6027\uff1a\u5141\u8bb8\u77ed\u6682\u5ef6\u8fdf\uff0c\u4fdd\u8bc1\u6700\u7ec8\u4e00\u81f4"
+  ],
+  "data_flow": {
+    "write": [
+      "Client \u2192 API",
+      "API \u2192 PostgreSQL (\u552f\u4e00\u5199\u5165)",
+      "PostgreSQL \u2192 Event Bus",
+      "Event Bus \u2192 Neo4j/ChromaDB/Redis (\u5f02\u6b65\u540c\u6b65)"
+    ],
+    "read": [
+      "Client \u2192 API",
+      "API \u2192 Redis (\u68c0\u67e5\u7f13\u5b58)",
+      "Redis Miss \u2192 Query Orchestrator",
+      "Orchestrator \u2192 PostgreSQL (\u4e3b\u6570\u636e)",
+      "Orchestrator \u2192 Neo4j (\u56fe\u5173\u7cfb)",
+      "Orchestrator \u2192 ChromaDB (\u76f8\u4f3c\u5ea6)",
+      "Orchestrator \u2192 \u5408\u5e76\u7ed3\u679c \u2192 Redis (\u5199\u7f13\u5b58)",
+      "Result \u2192 Client"
+    ]
+  }
+}

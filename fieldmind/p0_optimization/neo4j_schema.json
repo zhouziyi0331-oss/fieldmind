@@ -1,0 +1,45 @@
+{
+  "nodes": {
+    "Entity": {
+      "properties": {
+        "id": "\u4ece PostgreSQL \u540c\u6b65\u7684 entity_id",
+        "name": "\u5b9e\u4f53\u540d\u79f0",
+        "type": "\u5b9e\u4f53\u7c7b\u578b",
+        "mention_count": "\u63d0\u53ca\u6b21\u6570",
+        "sentiment_avg": "\u5e73\u5747\u60c5\u611f",
+        "importance_score": "\u91cd\u8981\u6027\u8bc4\u5206"
+      },
+      "sync_from": "PostgreSQL.entities"
+    },
+    "Chunk": {
+      "properties": {
+        "id": "\u4ece PostgreSQL \u540c\u6b65\u7684 chunk_id",
+        "text": "\u6587\u672c\u5185\u5bb9",
+        "dimension_category": "\u7ef4\u5ea6\u5206\u7c7b"
+      },
+      "sync_from": "PostgreSQL.chunks"
+    }
+  },
+  "relationships": {
+    "RELATES_TO": {
+      "properties": {
+        "id": "\u4ece PostgreSQL \u540c\u6b65\u7684 relation_id",
+        "relation_type": "\u5173\u7cfb\u7c7b\u578b",
+        "confidence": "\u7f6e\u4fe1\u5ea6"
+      },
+      "sync_from": "PostgreSQL.relations"
+    },
+    "MENTIONED_IN": {
+      "properties": {
+        "chunk_id": "chunk ID",
+        "position": "\u4f4d\u7f6e"
+      },
+      "description": "\u5b9e\u4f53\u5728 chunk \u4e2d\u88ab\u63d0\u53ca"
+    }
+  },
+  "notes": [
+    "Neo4j \u53ea\u505a\u540c\u6b65\u548c\u67e5\u8be2\uff0c\u4e0d\u521b\u5efa\u6570\u636e",
+    "\u6240\u6709\u8282\u70b9\u548c\u5173\u7cfb\u7684 ID \u4e0e PostgreSQL \u4e00\u81f4",
+    "\u63d0\u4f9b\u56fe\u904d\u5386\u3001\u8def\u5f84\u67e5\u8be2\u3001\u793e\u533a\u53d1\u73b0\u7b49\u529f\u80fd"
+  ]
+}

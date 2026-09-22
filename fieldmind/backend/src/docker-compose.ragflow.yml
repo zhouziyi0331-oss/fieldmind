@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  ragflow:
+    image: infiniflow/ragflow:latest
+    container_name: ragflow
+    ports:
+      - "9380:9380"  # RAGFlow API
+      - "5601:5601"  # Kibana (optional)
+    environment:
+      - MYSQL_PASSWORD=infiniflow
+      - MINIO_PASSWORD=infiniflow
+      - ES_PASSWORD=infiniflow
+    volumes:
+      - ragflow-data:/ragflow
+      - ragflow-mysql:/var/lib/mysql
+      - ragflow-minio:/minio_data
+      - ragflow-es:/usr/share/elasticsearch/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9380/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - fieldmind-network
+
+volumes:
+  ragflow-data:
+    driver: local
+  ragflow-mysql:
+    driver: local
+  ragflow-minio:
+    driver: local
+  ragflow-es:
+    driver: local
+
+networks:
+  fieldmind-network:
+    external: true
+    name: fieldmind_default

@@ -1,0 +1,286 @@
+{
+  "view_id": "timeline_view",
+  "name": "时间轴视图",
+  "version": "1.0",
+  "description": "查看某个时间区间内的所有事件、文化变迁、政策变化，构建历史时间线",
+
+  "intent": "查看历史时间线和事件变迁",
+  "keywords": ["时间", "历史", "事件", "变迁", "时间轴"],
+
+  "input": {
+    "required": [
+      {
+        "name": "start_date",
+        "type": "string",
+        "description": "开始时间（可以是模糊时间，如'1949以前'、'改革开放'）",
+        "example": "1950-01-01"
+      }
+    ],
+    "optional": [
+      {
+        "name": "end_date",
+        "type": "string",
+        "description": "结束时间（默认为当前）",
+        "example": "2026-12-31"
+      },
+      {
+        "name": "entity_type",
+        "type": "string",
+        "description": "实体类型过滤",
+        "enum": ["all", "Event", "CulturalAsset", "Policy", "Person"],
+        "default": "all"
+      },
+      {
+        "name": "location_filter",
+        "type": "string",
+        "description": "地点过滤"
+      }
+    ]
+  },
+
+  "output": {
+    "timeline_summary": {
+      "type": "object",
+      "source": "computed",
+      "fields": {
+        "start_date": "string",
+        "end_date": "string",
+        "total_events": "integer",
+        "total_changes": "integer",
+        "key_periods": "array"
+      }
+    },
+    "events": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "时间范围内的事件",
+      "fields": {
+        "event_id": "string",
+        "event_name": "string",
+        "event_type": "string",
+        "date": "string",
+        "location": "string",
+        "participants": "array",
+        "significance": "string",
+        "description": "string"
+      }
+    },
+    "cultural_changes": {
+      "type": "array",
+      "source": "computed",
+      "description": "文化资产的状态变化",
+      "fields": {
+        "asset_id": "string",
+        "asset_name": "string",
+        "change_date": "string",
+        "change_type": "string",
+        "from_status": "string",
+        "to_status": "string",
+        "reason": "string"
+      }
+    },
+    "policy_changes": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "政策变化",
+      "fields": {
+        "policy_id": "string",
+        "policy_name": "string",
+        "change_date": "string",
+        "change_type": "string",
+        "description": "string"
+      }
+    },
+    "person_milestones": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "人物里程碑事件",
+      "fields": {
+        "person_id": "string",
+        "person_name": "string",
+        "milestone_date": "string",
+        "milestone_type": "string",
+        "description": "string"
+      }
+    },
+    "period_analysis": {
+      "type": "array",
+      "source": "inference",
+      "description": "时期分析",
+      "fields": {
+        "period_name": "string",
+        "start_date": "string",
+        "end_date": "string",
+        "key_characteristics": "array",
+        "major_events": "array",
+        "cultural_trend": "string"
+      }
+    },
+    "chunks_by_period": {
+      "type": "object",
+      "source": "sql_query",
+      "description": "按时期分组的文本块",
+      "fields": {
+        "period": "string",
+        "chunk_count": "integer",
+        "sample_chunks": "array"
+      }
+    }
+  },
+
+  "data_bindings": [
+    {
+      "binding_id": "graph_events",
+      "description": "查询时间范围内的事件",
+      "channel_type": "graph",
+      "query_template": "MATCH (e:Event) WHERE e.date >= $start_date AND e.date <= $end_date RETURN e ORDER BY e.date",
+      "output_mapping": {
+        "events": "e"
+      }
+    },
+    {
+      "binding_id": "graph_policy_changes",
+      "description": "查询政策变化",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Policy) WHERE (p.effective_date >= $start_date AND p.effective_date <= $end_date) OR (p.expiry_date >= $start_date AND p.expiry_date <= $end_date) RETURN p, CASE WHEN p.effective_date >= $start_date THEN 'effective' ELSE 'expired' END AS change_type ORDER BY coalesce(p.effective_date, p.expiry_date)",
+      "output_mapping": {
+        "policy_changes": "result"
+      }
+    },
+    {
+      "binding_id": "sql_chunks_by_period",
+      "description": "从chunks表查询按时期分组的文本",
+      "channel_type": "sql",
+      "query_template": "SELECT time_period, COUNT(*) as chunk_count, GROUP_CONCAT(chunk_id) as chunk_ids FROM document_chunks WHERE time_period IS NOT NULL GROUP BY time_period ORDER BY time_period",
+      "output_mapping": {
+        "chunks_by_period": "result"
+      }
+    }
+  ],
+
+  "inference_logic": {
+    "extract_cultural_changes": {
+      "description": "从事件和文本中推断文化资产的状态变化",
+      "depends_on": ["events", "chunks_by_period"],
+      "logic": {
+        "scan_events": {
+          "event_types": ["heritage_listing", "protection_status_change"],
+          "extract": "cultural_asset_status_changes"
+        },
+        "scan_chunks": {
+          "keywords": ["列入", "保护", "失传", "恢复", "传承"],
+          "context_window": 100,
+          "extract": "status_change_descriptions"
+        }
+      }
+    },
+    "identify_person_milestones": {
+      "description": "识别人物重要里程碑",
+      "depends_on": ["events", "chunks_by_period"],
+      "logic": {
+        "milestone_types": [
+          {
+            "type": "birth",
+            "keywords": ["出生", "生于"]
+          },
+          {
+            "type": "inheritance_start",
+            "keywords": ["开始学", "拜师", "传承"]
+          },
+          {
+            "type": "recognition",
+            "keywords": ["认定", "授予", "传承人"]
+          },
+          {
+            "type": "death",
+            "keywords": ["去世", "离世", "逝世"]
+          }
+        ]
+      }
+    },
+    "analyze_periods": {
+      "description": "分析不同历史时期的特征",
+      "depends_on": ["events", "cultural_changes", "policy_changes", "chunks_by_period"],
+      "logic": {
+        "periods": [
+          {
+            "name": "1949以前",
+            "characteristics": ["传统延续", "自然传承"],
+            "identify_from": "chunks with time_period='1949以前'"
+          },
+          {
+            "name": "1950-1978",
+            "characteristics": ["集体化", "文化变革"],
+            "major_events_filter": "event_type in ['policy_implementation', 'social_change']"
+          },
+          {
+            "name": "1979-2000",
+            "characteristics": ["改革开放", "传统复兴"],
+            "major_events_filter": "keywords=['改革', '恢复', '重视']"
+          },
+          {
+            "name": "2001-2010",
+            "characteristics": ["非遗保护", "政策支持"],
+            "major_events_filter": "event_type='heritage_listing'"
+          },
+          {
+            "name": "2011-2020",
+            "characteristics": ["乡村振兴", "文化旅游"],
+            "major_events_filter": "keywords=['振兴', '旅游', '开发']"
+          },
+          {
+            "name": "2021至今",
+            "characteristics": ["数字化", "创新传承"],
+            "major_events_filter": "keywords=['数字', '创新', '网络']"
+          }
+        ]
+      }
+    },
+    "compute_timeline_summary": {
+      "description": "计算时间线摘要",
+      "depends_on": ["events", "cultural_changes", "policy_changes"],
+      "logic": {
+        "total_events": "len(events)",
+        "total_changes": "len(cultural_changes) + len(policy_changes)",
+        "key_periods": "extract_periods_with_high_activity(events, threshold=5)"
+      }
+    }
+  },
+
+  "execution_strategy": {
+    "parallel_bindings": true,
+    "timeout_ms": 10000,
+    "cache_ttl_seconds": 3600,
+    "fallback_on_error": true
+  },
+
+  "visualization_hints": {
+    "timeline": {
+      "type": "horizontal_timeline",
+      "group_by": "period",
+      "item_height": "auto",
+      "zoom_enabled": true,
+      "item_colors": {
+        "Event": "#007bff",
+        "CulturalAsset": "#28a745",
+        "Policy": "#ffc107",
+        "Person": "#dc3545"
+      }
+    }
+  },
+
+  "test_cases": [
+    {
+      "name": "查询改革开放以来的事件",
+      "input": {
+        "start_date": "1979-01-01",
+        "end_date": "2026-12-31",
+        "entity_type": "all"
+      },
+      "expected_output": {
+        "timeline_summary.total_events": ">= 0",
+        "events.length": ">= 0"
+      }
+    }
+  ]
+}

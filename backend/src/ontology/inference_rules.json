@@ -1,0 +1,544 @@
+{
+  "inference_rules": [
+    {
+      "rule_id": "R001",
+      "name": "识别文化传承关系",
+      "description": "从文本中识别人物与文化资产之间的传承关系",
+      "priority": "high",
+      "enabled": true,
+      "trigger": "on_chunk_annotated",
+      "conditions": {
+        "type": "ALL",
+        "rules": [
+          {
+            "field": "chunk.text",
+            "operator": "contains_entity",
+            "value": ["Person", "CulturalAsset"],
+            "description": "同一Chunk中提到Person和CulturalAsset"
+          },
+          {
+            "field": "chunk.text",
+            "operator": "contains_keywords",
+            "value": ["传承", "教", "学", "手艺", "祖传", "师傅", "徒弟", "继承", "掌握", "会做"],
+            "description": "包含传承相关关键词"
+          }
+        ]
+      },
+      "inference": {
+        "action": "create_relation",
+        "relation_type": "inherits",
+        "source_type": "Person",
+        "target_type": "CulturalAsset",
+        "confidence": 0.8,
+        "attributes": {
+          "proficiency": {
+            "value": "skilled",
+            "condition": "contains_keywords(['精通', '擅长', '很会'])"
+          },
+          "evidence_chunk_id": "{{chunk.chunk_id}}"
+        }
+      },
+      "examples": [
+        {
+          "text": "王大爷从小跟着父亲学蜡染，现在是村里最好的蜡染师傅。",
+          "expected_inference": {
+            "source": "王大爷",
+            "relation": "inherits",
+            "target": "蜡染",
+            "confidence": 0.9
+          }
+        }
+      ]
+    },
+
+    {
+      "rule_id": "R002",
+      "name": "识别濒危文化资产",
+      "description": "基于传承人数量和年龄判断文化资产是否濒危",
+      "priority": "high",
+      "enabled": true,
+      "trigger": "on_entity_updated",
+      "conditions": {
+        "type": "OR",
+        "rules": [
+          {
+            "field": "CulturalAsset.inheritor_count",
+            "operator": "<",
+            "value": 3,
+            "description": "传承人少于3人"
+          },
+          {
+            "field": "CulturalAsset.inheritor_avg_age",
+            "operator": ">",
+            "value": 60,
+            "description": "传承人平均年龄超过60岁"
+          },
+          {
+            "field": "related_chunks",
+            "operator": "contains_keywords",
+            "value": ["失传", "不愿意学", "没人学", "濒临失传", "即将消失", "后继无人"],
+            "description": "相关文本提到失传风险"
+          }
+        ]
+      },
+      "inference": {
+        "action": "update_entity_status",
+        "entity_type": "CulturalAsset",
+        "new_status": "endangered",
+        "additional_updates": {
+          "risk_level": 7
+        },
+        "side_effects": [
+          {
+            "action": "generate_alert",
+            "alert_type": "endangered_asset",
+            "severity": "high",
+            "message": "文化资产{{entity.name}}面临失传风险"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "text": "布依族山歌现在只有两位老人会唱了，年轻人都不愿意学。",
+          "expected_inference": {
+            "entity": "布依族山歌",
+            "status": "endangered",
+            "risk_level": 7
+          }
+        }
+      ]
+    },
+
+    {
+      "rule_id": "R003",
+      "name": "识别政策关联",
+      "description": "从文本中识别文化资产与政策之间的关联",
+      "priority": "medium",
+      "enabled": true,
+      "trigger": "on_chunk_annotated",
+      "conditions": {
+        "type": "OR",
+        "rules": [
+          {
+            "field": "chunk.text",
+            "operator": "contains_entity",
+            "value": ["Policy", "CulturalAsset"],
+            "description": "同一Chunk中提到Policy和CulturalAsset"
+          },
+          {
+            "field": "CulturalAsset.type",
+            "operator": "in",
+            "value": ["folk_song", "handicraft", "ritual"],
+            "and": {
+              "field": "Policy.type",
+              "operator": "=",
+              "value": "protection_policy"
+            },
+            "description": "非遗类资产与保护政策"
+          }
+        ]
+      },
+      "inference": {
+        "action": "create_relation",
+        "relation_type": "related_to",
+        "source_type": "CulturalAsset",
+        "target_type": "Policy",
+        "confidence": 0.9,
+        "attributes": {
+          "relation_strength": {
+            "value": "strong",
+            "condition": "contains_keywords(['列入', '保护', '扶持', '资助'])"
+          }
+        }
+      },
+      "examples": [
+        {
+          "text": "布依族山歌被列入省级非物质文化遗产保护名录。",
+          "expected_inference": {
+            "source": "布依族山歌",
+            "relation": "related_to",
+            "target": "省级非遗保护政策",
+            "strength": "strong"
+          }
+        }
+      ]
+    },
+
+    {
+      "rule_id": "R004",
+      "name": "识别人物社会关系",
+      "description": "从文本中识别人物之间的社会关系",
+      "priority": "medium",
+      "enabled": true,
+      "trigger": "on_chunk_annotated",
+      "conditions": {
+        "type": "ALL",
+        "rules": [
+          {
+            "field": "chunk.text",
+            "operator": "contains_multiple_entities",
+            "value": "Person",
+            "min_count": 2,
+            "description": "同一Chunk中提到至少2个人物"
+          },
+          {
+            "field": "chunk.text",
+            "operator": "contains_keywords",
+            "value": ["认识", "朋友", "亲戚", "邻居", "夫妻", "父子", "母女", "兄弟", "姐妹", "同事"],
+            "description": "包含关系关键词"
+          }
+        ]
+      },
+      "inference": {
+        "action": "create_relation",
+        "relation_type": "knows",
+        "source_type": "Person",
+        "target_type": "Person",
+        "confidence": 0.7,
+        "attributes": {
+          "relationship": {
+            "value": "family",
+            "condition": "contains_keywords(['父', '母', '子', '女', '兄', '姐', '夫妻', '亲戚'])"
+          },
+          "relationship": {
+            "value": "friend",
+            "condition": "contains_keywords(['朋友', '好友'])"
+          },
+          "relationship": {
+            "value": "neighbor",
+            "condition": "contains_keywords(['邻居', '隔壁'])"
+          }
+        }
+      },
+      "examples": [
+        {
+          "text": "张三和李四是邻居，两家关系很好。",
+          "expected_inference": {
+            "source": "张三",
+            "relation": "knows",
+            "target": "李四",
+            "relationship": "neighbor"
+          }
+        }
+      ]
+    },
+
+    {
+      "rule_id": "R005",
+      "name": "时间区间推理",
+      "description": "从文本中提取和推理时间区间",
+      "priority": "high",
+      "enabled": true,
+      "trigger": "on_chunk_annotated",
+      "conditions": {
+        "type": "ANY",
+        "rules": [
+          {
+            "field": "chunk.text",
+            "operator": "contains_keywords",
+            "value": ["解放前", "旧社会", "民国", "清朝", "古时", "很早以前"],
+            "description": "包含历史时期关键词"
+          },
+          {
+            "field": "chunk.text",
+            "operator": "matches_pattern",
+            "value": "\\d{4}年",
+            "description": "包含年份表达"
+          }
+        ]
+      },
+      "inference": {
+        "action": "extract_and_update",
+        "target_field": "time_period",
+        "extraction_rules": [
+          {
+            "keywords": ["解放前", "旧社会"],
+            "inferred_period": "1949以前"
+          },
+          {
+            "keywords": ["解放后", "土改", "大集体", "人民公社"],
+            "inferred_period": "1950-1978"
+          },
+          {
+            "keywords": ["改革开放", "分田到户", "包产到户"],
+            "inferred_period": "1979-2000"
+          },
+          {
+            "pattern": "(19|20)\\d{2}年?",
+            "inferred_period": "calculate_from_year"
+          }
+        ],
+        "confidence": 0.85
+      },
+      "examples": [
+        {
+          "text": "土改的时候，每家每户都分了田。",
+          "expected_inference": {
+            "time_period": "1950-1978",
+            "confidence": 0.9
+          }
+        },
+        {
+          "text": "2015年，村里通了公路。",
+          "expected_inference": {
+            "time_period": "2011-2020",
+            "confidence": 1.0
+          }
+        }
+      ]
+    },
+
+    {
+      "rule_id": "R006",
+      "name": "地点提取",
+      "description": "从文本中提取地点实体",
+      "priority": "high",
+      "enabled": true,
+      "trigger": "on_chunk_annotated",
+      "conditions": {
+        "type": "ANY",
+        "rules": [
+          {
+            "field": "chunk.text",
+            "operator": "matches_pattern",
+            "value": "\\w{2,6}(村|寨|镇|乡|县)",
+            "description": "匹配地点名称模式"
+          }
+        ]
+      },
+      "inference": {
+        "action": "extract_entity",
+        "entity_type": "Location",
+        "extraction_patterns": [
+          "(\\w{2,6}村)",
+          "(\\w{2,6}寨)",
+          "(\\w{2,6}镇)",
+          "(\\w{2,6}乡)",
+          "(\\w{2,6}县)"
+        ],
+        "confidence": 0.9,
+        "deduplicate": true
+      },
+      "examples": [
+        {
+          "text": "大坪村的蜡染工艺远近闻名。",
+          "expected_inference": {
+            "entity_type": "Location",
+            "name": "大坪村",
+            "type": "village"
+          }
+        }
+      ]
+    },
+
+    {
+      "rule_id": "R007",
+      "name": "事件参与推理",
+      "description": "推理人物参与事件的关系",
+      "priority": "medium",
+      "enabled": true,
+      "trigger": "on_chunk_annotated",
+      "conditions": {
+        "type": "ALL",
+        "rules": [
+          {
+            "field": "chunk.text",
+            "operator": "contains_entity",
+            "value": ["Person", "Event"],
+            "description": "同时提到人物和事件"
+          },
+          {
+            "field": "chunk.text",
+            "operator": "contains_keywords",
+            "value": ["参加", "参与", "举办", "组织", "主持", "出席"],
+            "description": "包含参与相关动词"
+          }
+        ]
+      },
+      "inference": {
+        "action": "create_relation",
+        "relation_type": "participates_in",
+        "source_type": "Person",
+        "target_type": "Event",
+        "confidence": 0.75,
+        "attributes": {
+          "role_in_event": {
+            "value": "organizer",
+            "condition": "contains_keywords(['组织', '主办', '举办'])"
+          },
+          "role_in_event": {
+            "value": "participant",
+            "condition": "contains_keywords(['参加', '参与', '出席'])"
+          }
+        }
+      },
+      "examples": [
+        {
+          "text": "村长组织了六月六节的庆祝活动。",
+          "expected_inference": {
+            "source": "村长",
+            "relation": "participates_in",
+            "target": "六月六节",
+            "role": "organizer"
+          }
+        }
+      ]
+    },
+
+    {
+      "rule_id": "R008",
+      "name": "文化资产位置推理",
+      "description": "推理文化资产所在的位置",
+      "priority": "medium",
+      "enabled": true,
+      "trigger": "on_chunk_annotated",
+      "conditions": {
+        "type": "ALL",
+        "rules": [
+          {
+            "field": "chunk.text",
+            "operator": "contains_entity",
+            "value": ["CulturalAsset", "Location"],
+            "description": "同时提到文化资产和地点"
+          },
+          {
+            "field": "chunk.text",
+            "operator": "contains_keywords",
+            "value": ["位于", "在", "坐落", "建在", "分布在"],
+            "description": "包含位置关系词"
+          }
+        ]
+      },
+      "inference": {
+        "action": "create_relation",
+        "relation_type": "located_in",
+        "source_type": "CulturalAsset",
+        "target_type": "Location",
+        "confidence": 0.8
+      },
+      "examples": [
+        {
+          "text": "古寨门位于村口，已有三百多年历史。",
+          "expected_inference": {
+            "source": "古寨门",
+            "relation": "located_in",
+            "target": "村口"
+          }
+        }
+      ]
+    },
+
+    {
+      "rule_id": "R009",
+      "name": "政策实施推理",
+      "description": "推理组织实施政策的关系",
+      "priority": "low",
+      "enabled": true,
+      "trigger": "on_chunk_annotated",
+      "conditions": {
+        "type": "ALL",
+        "rules": [
+          {
+            "field": "chunk.text",
+            "operator": "contains_entity",
+            "value": ["Organization", "Policy"],
+            "description": "同时提到组织和政策"
+          },
+          {
+            "field": "chunk.text",
+            "operator": "contains_keywords",
+            "value": ["实施", "执行", "落实", "推行", "开展"],
+            "description": "包含实施相关动词"
+          }
+        ]
+      },
+      "inference": {
+        "action": "create_relation",
+        "relation_type": "implements",
+        "source_type": "Organization",
+        "target_type": "Policy",
+        "confidence": 0.7,
+        "attributes": {
+          "implementation_status": "ongoing"
+        }
+      },
+      "examples": [
+        {
+          "text": "村委会正在落实乡村振兴政策。",
+          "expected_inference": {
+            "source": "村委会",
+            "relation": "implements",
+            "target": "乡村振兴政策",
+            "status": "ongoing"
+          }
+        }
+      ]
+    },
+
+    {
+      "rule_id": "R010",
+      "name": "人物管理组织推理",
+      "description": "推理人物管理组织的关系",
+      "priority": "medium",
+      "enabled": true,
+      "trigger": "on_chunk_annotated",
+      "conditions": {
+        "type": "ALL",
+        "rules": [
+          {
+            "field": "chunk.text",
+            "operator": "contains_entity",
+            "value": ["Person", "Organization"],
+            "description": "同时提到人物和组织"
+          },
+          {
+            "field": "chunk.text",
+            "operator": "contains_keywords",
+            "value": ["村长", "主任", "书记", "负责", "管理", "领导", "主管"],
+            "description": "包含职位或管理关键词"
+          }
+        ]
+      },
+      "inference": {
+        "action": "create_relation",
+        "relation_type": "manages",
+        "source_type": "Person",
+        "target_type": "Organization",
+        "confidence": 0.8,
+        "attributes": {
+          "position": {
+            "extract_from_keywords": ["村长", "主任", "书记", "负责人"]
+          }
+        }
+      },
+      "examples": [
+        {
+          "text": "张三是村委会主任，负责全村的日常工作。",
+          "expected_inference": {
+            "source": "张三",
+            "relation": "manages",
+            "target": "村委会",
+            "position": "主任"
+          }
+        }
+      ]
+    }
+  ],
+
+  "rule_execution_config": {
+    "execution_order": "priority_desc",
+    "max_concurrent_rules": 5,
+    "confidence_threshold": 0.5,
+    "conflict_resolution": "highest_confidence",
+    "logging": {
+      "enabled": true,
+      "log_level": "info",
+      "log_path": "logs/inference_rules.log"
+    },
+    "performance": {
+      "cache_enabled": true,
+      "cache_ttl_seconds": 3600,
+      "batch_size": 100
+    }
+  }
+}

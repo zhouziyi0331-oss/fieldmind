@@ -1,0 +1,101 @@
+{
+  "采集层": {
+    "layer": "采集层",
+    "files_found": [
+      "app/api/v1/documents.py"
+    ],
+    "files_missing": [
+      "app/services/file_upload_service.py"
+    ],
+    "functions_found": [
+      "app/api/v1/documents.py::upload_document"
+    ],
+    "functions_missing": [
+      "app/api/v1/documents.py::upload_documents_batch"
+    ],
+    "completion": 50
+  },
+  "处理层": {
+    "layer": "处理层",
+    "files_found": [
+      "app/services/background_tasks.py",
+      "app/services/document_converter.py"
+    ],
+    "files_missing": [
+      "app/services/chunking_service.py",
+      "app/services/text_quantification.py"
+    ],
+    "functions_found": [
+      "app/services/background_tasks.py::process_document_async"
+    ],
+    "functions_missing": [],
+    "completion": 33
+  },
+  "理解层": {
+    "layer": "理解层",
+    "files_found": [
+      "app/services/knowledge_graph_service.py",
+      "app/services/entity_extraction.py"
+    ],
+    "files_missing": [
+      "app/services/keyword_extraction.py"
+    ],
+    "functions_found": [
+      "app/services/knowledge_graph_service.py::extract_entities"
+    ],
+    "functions_missing": [
+      "app/services/knowledge_graph_service.py::build_knowledge_graph",
+      "app/services/knowledge_graph_service.py::extract_relations"
+    ],
+    "completion": 42
+  },
+  "分析层": {
+    "layer": "分析层",
+    "files_found": [
+      "app/api/reports_real.py",
+      "app/services/business_analysis_service.py",
+      "app/api/v1/business_analysis.py"
+    ],
+    "files_missing": [],
+    "functions_found": [
+      "app/api/reports_real.py::generate_level2_report"
+    ],
+    "functions_missing": [
+      "app/api/reports_real.py::generate_level1_report",
+      "app/api/reports_real.py::generate_level3_report"
+    ],
+    "completion": 66
+  },
+  "协同层": {
+    "layer": "协同层",
+    "files_found": [
+      "app/api/chat.py"
+    ],
+    "files_missing": [
+      "app/services/rag_engine.py",
+      "app/models/conversation.py"
+    ],
+    "functions_found": [],
+    "functions_missing": [
+      "app/api/chat.py::chat",
+      "app/api/chat.py::chat_stream"
+    ],
+    "completion": 14
+  },
+  "复用层": {
+    "layer": "复用层",
+    "files_found": [
+      "app/services/skill_service.py",
+      "app/models/skill.py",
+      "app/api/v1/skills.py"
+    ],
+    "files_missing": [],
+    "functions_found": [
+      "app/services/skill_service.py::execute_skill"
+    ],
+    "functions_missing": [
+      "app/services/skill_service.py::get_skill_by_name"
+    ],
+    "completion": 80
+  }
+}

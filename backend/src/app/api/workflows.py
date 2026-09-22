@@ -1,16 +1,12 @@
 """
 工作流API - 链路十二：工作流编排与执行
 提供工作流创建、执行、监控等功能
-
-重要更新：
-- 现在支持两种workflow系统：
-  1. legacy系统：使用workflow_engine + WorkflowTemplates
-  2. v2系统：使用WorkflowV2Adapter + 6-Agent架构
 """
-from fastapi import APIRouter, Depends, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import Optional, List, Dict, Any
 from pydantic import BaseModel
+from app.schemas.response import success_response, error_response
 import logging
 
 from app.core.database import get_db
@@ -19,13 +15,8 @@ from app.services.workflow_templates import (
     WorkflowTemplates,
     run_document_workflow,
     run_knowledge_graph_workflow,
-    run_full_analysis_workflow
-)
-from app.services.workflows.v2_adapter import get_v2_adapter
-from app.core.exceptions import (
-    ResourceNotFoundException,
-    ValidationException,
-    DatabaseException
+    run_full_analysis_workflow,
+    run_report_generation_workflow
 )
 
 router = APIRouter(tags=["workflows"])
@@ -36,11 +27,11 @@ logger = logging.getLogger(__name__)
 
 class WorkflowExecuteRequest(BaseModel):
     """执行工作流请求"""
-    workflow_type: str  # document_processing, knowledge_graph, full_analysis, document_processing_v2
+    workflow_type: str  # document_processing, knowledge_graph, full_analysis, report_generation
     project_id: int
     document_ids: Optional[List[int]] = None
+    report_level: Optional[int] = None  # 报告层级：1/2/3
     params: Optional[Dict[str, Any]] = None
-    use_v2_architecture: bool = False  # 是否使用v2架构（默认False保持向后兼容）
 
 
 class WorkflowExecutionResponse(BaseModel):
@@ -74,117 +65,18 @@ async def execute_workflow(
     执行工作流
 
     支持的工作流类型：
-    - document_processing: 文档处理（向量化+实体提取+关键词）[legacy]
-    - knowledge_graph: 知识图谱构建（实体+关系+时间线）[legacy]
-    - full_analysis: 完整分析（文档处理+知识图谱+报告）[legacy]
-    - document_processing_v2: 文档处理（6-Agent v2架构）[新增]
-
-    使用v2架构的优势：
-    - 自动Skills分析集成
-    - 真实数据流通，无防御性检查
-    - 完整的6-Agent编排：Ingestion → Chunking → Vectorization → Knowledge → Synthesis → Report
+    - document_processing: 文档处理（向量化+实体提取+关键词）
+    - knowledge_graph: 知识图谱构建（实体+关系+时间线）
+    - full_analysis: 完整分析（文档处理+知识图谱+报告）
+    - report_generation: 报告生成（素材提取+大纲生成+内容填充+组装）
     """
     try:
-        logger.info(f"🚀 执行工作流: {request.workflow_type}, project_id={request.project_id}, use_v2={request.use_v2_architecture}")
-
-        # ==================== V2架构模式 ====================
-        if request.use_v2_architecture or request.workflow_type == "document_processing_v2":
-            logger.info("📦 使用v2架构执行workflow")
-
-            adapter = get_v2_adapter()
-            import time
-            workflow_id = f"v2_workflow_{request.project_id}_{int(time.time())}"
-
-            # 执行v2 pipeline
-            steps_executed = []
-            start_time = time.time()
-
-            try:
-                # 步骤1: Ingestion
-                ingestion_result = adapter.execute_v2_agent(
-                    agent_type='ingestion',
-                    input_data={'project_id': request.project_id},
-                    db_session=db
-                )
-
-                if not ingestion_result.success:
-                    raise RuntimeError(f"IngestionAgent失败: {ingestion_result.errors}")
-
-                documents = ingestion_result.output_data.get('documents', [])
-                steps_executed.append('ingestion')
-
-                # 步骤2: Chunking
-                chunking_result = adapter.execute_v2_agent(
-                    agent_type='chunking',
-                    input_data={
-                        'project_id': request.project_id,
-                        'documents': documents
-                    },
-                    db_session=db
-                )
-
-                if not chunking_result.success:
-                    raise RuntimeError(f"ChunkingAgent失败: {chunking_result.errors}")
-
-                chunk_ids = chunking_result.output_data.get('chunk_ids', [])
-                steps_executed.append('chunking')
-
-                # 步骤3: Vectorization
-                vectorization_result = adapter.execute_v2_agent(
-                    agent_type='vectorization',
-                    input_data={
-                        'project_id': request.project_id,
-                        'chunk_ids': chunk_ids
-                    },
-                    db_session=db
-                )
-
-                if not vectorization_result.success:
-                    raise RuntimeError(f"VectorizationAgent失败: {vectorization_result.errors}")
-
-                steps_executed.append('vectorization')
-
-                # 步骤4: Knowledge Graph (自动包含Skills)
-                knowledge_result = adapter.execute_v2_agent(
-                    agent_type='knowledge',
-                    input_data={
-                        'project_id': request.project_id,
-                        'documents': documents,
-                        'enable_skills_analysis': True
-                    },
-                    db_session=db
-                )
-
-                if knowledge_result.success:
-                    steps_executed.append('knowledge')
-
-                elapsed_time = time.time() - start_time
-
-                return WorkflowExecutionResponse(
-                    workflow_id=workflow_id,
-                    workflow_name=f"v2_{request.workflow_type}",
-                    status="completed",
-                    message=f"v2 workflow执行成功，完成 {len(steps_executed)} 个步骤，耗时 {elapsed_time:.2f}秒"
-                )
-
-            except Exception as e:
-                elapsed_time = time.time() - start_time
-                logger.error(f"❌ v2 workflow执行失败: {e}", exc_info=True)
-
-                return WorkflowExecutionResponse(
-                    workflow_id=workflow_id,
-                    workflow_name=f"v2_{request.workflow_type}",
-                    status="failed",
-                    message=f"v2 workflow执行失败: {str(e)}，已完成步骤: {', '.join(steps_executed)}"
-                )
-
-        # ==================== Legacy模式 ====================
-        logger.info("📦 使用legacy架构执行workflow")
+        logger.info(f"🚀 执行工作流: {request.workflow_type}, project_id={request.project_id}")
 
         if request.workflow_type == "document_processing":
             # 文档处理工作流
             if not request.document_ids or len(request.document_ids) == 0:
-                raise ValidationException(message="document_ids不能为空", field="document_ids")
+                raise HTTPException(status_code=400, detail="document_ids不能为空")
 
             document_id = request.document_ids[0]
             workflow = WorkflowTemplates.create_document_processing_workflow(
@@ -208,8 +100,21 @@ async def execute_workflow(
                 request.project_id
             )
 
+        elif request.workflow_type == "report_generation":
+            # 报告生成工作流
+            report_level = request.report_level or 1
+            if report_level not in [1, 2, 3]:
+                raise HTTPException(status_code=400, detail="report_level必须为1、2或3")
+
+            workflow = WorkflowTemplates.create_report_generation_workflow(
+                workflow_engine,
+                request.project_id,
+                report_level,
+                request.params
+            )
+
         else:
-            raise ValidationException(message=f"不支持的工作流类型: {request.workflow_type}", field="workflow_type")
+            raise HTTPException(status_code=400, detail=f"不支持的工作流类型: {request.workflow_type}")
 
         # 执行工作流
         execution = workflow_engine.execute_workflow(workflow)
@@ -223,7 +128,7 @@ async def execute_workflow(
 
     except Exception as e:
         logger.error(f"执行工作流失败: {e}", exc_info=True)
-        raise DatabaseException(message="工作流执行失败", operation="execute_workflow", details={"error": str(e)})
+        raise HTTPException(status_code=500, detail=f"执行失败: {str(e)}")
 
 
 @router.get("/{workflow_id}", response_model=WorkflowStatusResponse)
@@ -239,7 +144,7 @@ async def get_workflow_status(
     execution = workflow_engine.get_execution(workflow_id)
 
     if not execution:
-        raise ResourceNotFoundException("Workflow", workflow_id)
+        raise HTTPException(status_code=404, detail="工作流不存在")
 
     return WorkflowStatusResponse(
         workflow_id=execution.workflow_id,
@@ -280,7 +185,7 @@ async def list_workflows(
             status_enum = WorkflowStatus(status)
             executions = [e for e in executions if e.status == status_enum]
         except ValueError:
-            raise ValidationException(message=f"无效的状态值: {status}", field="status")
+            raise HTTPException(status_code=400, detail=f"无效的状态值: {status}")
 
     # 排序：最新的在前
     executions.sort(key=lambda x: x.created_at, reverse=True)
@@ -288,26 +193,28 @@ async def list_workflows(
     # 限制数量
     executions = executions[:limit]
 
-    return {
-        "total": len(executions),
-        "workflows": [
-            {
-                "workflow_id": e.workflow_id,
-                "workflow_name": e.workflow_name,
-                "status": e.status.value,
-                "start_time": e.start_time.isoformat() if e.start_time else None,
-                "end_time": e.end_time.isoformat() if e.end_time else None,
-                "created_at": e.created_at.isoformat(),
-                "task_count": len(e.task_results),
-                "completed_tasks": sum(1 for t in e.task_results.values() if t.status == TaskStatus.COMPLETED),
-                "failed_tasks": sum(1 for t in e.task_results.values() if t.status == TaskStatus.FAILED)
-            }
-            for e in executions
-        ]
-    }
+    return success_response(
+        data={
+            "total": len(executions),
+            "workflows": [
+                {
+                    "workflow_id": e.workflow_id,
+                    "workflow_name": e.workflow_name,
+                    "status": e.status.value,
+                    "start_time": e.start_time.isoformat() if e.start_time else None,
+                    "end_time": e.end_time.isoformat() if e.end_time else None,
+                    "created_at": e.created_at.isoformat(),
+                    "task_count": len(e.task_results),
+                    "completed_tasks": sum(1 for t in e.task_results.values() if t.status == TaskStatus.COMPLETED),
+                    "failed_tasks": sum(1 for t in e.task_results.values() if t.status == TaskStatus.FAILED)
+                }
+                for e in executions
+            ]
+        }
+    )
 
 
-@router.post("/{workflow_id}/cancel")
+@router.post("/{workflow_id}/cancel/")
 async def cancel_workflow(
     workflow_id: str,
     db: Session = Depends(get_db)
@@ -320,9 +227,12 @@ async def cancel_workflow(
     success = workflow_engine.cancel_workflow(workflow_id)
 
     if not success:
-        raise ValidationException(message="无法取消工作流（不存在或已完成）", field="workflow_id")
+        return error_response(
+            code="WORKFLOW_CANCEL_FAILED",
+            message="无法取消工作流（不存在或已完成）"
+        )
 
-    return {"message": f"工作流 {workflow_id} 已取消"}
+    return success_response(data={}, message=f"工作流 {workflow_id} 已取消")
 
 
 @router.get("/templates/list")
@@ -332,48 +242,50 @@ async def list_workflow_templates():
 
     返回预定义的工作流模板列表及其描述
     """
-    return {
-        "templates": [
-            {
-                "type": "document_processing",
-                "name": "文档处理工作流",
-                "description": "对单个文档进行完整处理：提取文本 → 向量化 → 实体提取 → 关键词提取 → 更新状态",
-                "required_params": ["project_id", "document_ids"],
-                "steps": [
-                    "提取文本内容",
-                    "向量化存储",
-                    "实体识别",
-                    "关键词提取",
-                    "更新文档状态"
-                ]
-            },
-            {
-                "type": "knowledge_graph",
-                "name": "知识图谱构建工作流",
-                "description": "从文档构建知识图谱：获取文档 → 提取实体 → 提取关系 → 构建时间线",
-                "required_params": ["project_id"],
-                "optional_params": ["document_ids"],
-                "steps": [
-                    "获取文档列表",
-                    "批量提取实体",
-                    "提取实体关系",
-                    "构建时间线"
-                ]
-            },
-            {
-                "type": "full_analysis",
-                "name": "完整分析工作流",
-                "description": "项目完整分析：文档处理 → 知识图谱构建 → 生成分析报告",
-                "required_params": ["project_id"],
-                "steps": [
-                    "获取项目文档",
-                    "批量处理文档",
-                    "构建知识图谱",
-                    "生成分析报告"
-                ]
-            }
-        ]
-    }
+    return success_response(
+        data={
+            "templates": [
+                {
+                    "type": "document_processing",
+                    "name": "文档处理工作流",
+                    "description": "对单个文档进行完整处理：提取文本 → 向量化 → 实体提取 → 关键词提取 → 更新状态",
+                    "required_params": ["project_id", "document_ids"],
+                    "steps": [
+                        "提取文本内容",
+                        "向量化存储",
+                        "实体识别",
+                        "关键词提取",
+                        "更新文档状态"
+                    ]
+                },
+                {
+                    "type": "knowledge_graph",
+                    "name": "知识图谱构建工作流",
+                    "description": "从文档构建知识图谱：获取文档 → 提取实体 → 提取关系 → 构建时间线",
+                    "required_params": ["project_id"],
+                    "optional_params": ["document_ids"],
+                    "steps": [
+                        "获取文档列表",
+                        "批量提取实体",
+                        "提取实体关系",
+                        "构建时间线"
+                    ]
+                },
+                {
+                    "type": "full_analysis",
+                    "name": "完整分析工作流",
+                    "description": "项目完整分析：文档处理 → 知识图谱构建 → 生成分析报告",
+                    "required_params": ["project_id"],
+                    "steps": [
+                        "获取项目文档",
+                        "批量处理文档",
+                        "构建知识图谱",
+                        "生成分析报告"
+                    ]
+                }
+            ]
+        }
+    )
 
 
 @router.get("/stats")
@@ -387,14 +299,16 @@ async def get_workflow_stats(db: Session = Depends(get_db)):
 
     total = len(executions)
     if total == 0:
-        return {
-            "total_executions": 0,
-            "running": 0,
-            "completed": 0,
-            "failed": 0,
-            "cancelled": 0,
-            "success_rate": 0.0
-        }
+        return success_response(
+            data={
+                "total_executions": 0,
+                "running": 0,
+                "completed": 0,
+                "failed": 0,
+                "cancelled": 0,
+                "success_rate": 0.0
+            }
+        )
 
     running = sum(1 for e in executions if e.status == WorkflowStatus.RUNNING)
     completed = sum(1 for e in executions if e.status == WorkflowStatus.COMPLETED)
@@ -412,20 +326,22 @@ async def get_workflow_stats(db: Session = Depends(get_db)):
 
     avg_duration = sum(durations) / len(durations) if durations else 0.0
 
-    return {
-        "total_executions": total,
-        "running": running,
-        "completed": completed,
-        "failed": failed,
-        "cancelled": cancelled,
-        "success_rate": round(success_rate, 2),
-        "average_duration_seconds": round(avg_duration, 2)
-    }
+    return success_response(
+        data={
+            "total_executions": total,
+            "running": running,
+            "completed": completed,
+            "failed": failed,
+            "cancelled": cancelled,
+            "success_rate": round(success_rate, 2),
+            "average_duration_seconds": round(avg_duration, 2)
+        }
+    )
 
 
 # ==================== 快捷接口（简化调用） ====================
 
-@router.post("/quick/document/{document_id}")
+@router.post("/quick/document/{document_id}/")
 async def quick_process_document(
     document_id: int,
     project_id: int,
@@ -438,14 +354,19 @@ async def quick_process_document(
     """
     try:
         result = run_document_workflow(document_id, project_id)
-        return {
-            "message": "文档处理工作流已完成",
-            "workflow_id": result["workflow_id"],
-            "status": result["status"]
-        }
+        return success_response(
+            data={
+                "workflow_id": result["workflow_id"],
+                "status": result["status"]
+            },
+            message="文档处理工作流已完成"
+        )
     except Exception as e:
         logger.error(f"快捷文档处理失败: {e}")
-        raise DatabaseException(message="操作失败", operation="workflow_operation", details={"error": str(e)})
+        return error_response(
+            code="QUICK_DOCUMENT_WORKFLOW_FAILED",
+            message=str(e)
+        )
 
 
 @router.post("/quick/knowledge-graph")
@@ -461,14 +382,19 @@ async def quick_build_knowledge_graph(
     """
     try:
         result = run_knowledge_graph_workflow(project_id, document_ids)
-        return {
-            "message": "知识图谱构建工作流已完成",
-            "workflow_id": result["workflow_id"],
-            "status": result["status"]
-        }
+        return success_response(
+            data={
+                "workflow_id": result["workflow_id"],
+                "status": result["status"]
+            },
+            message="知识图谱构建工作流已完成"
+        )
     except Exception as e:
         logger.error(f"快捷知识图谱构建失败: {e}")
-        raise DatabaseException(message="操作失败", operation="workflow_operation", details={"error": str(e)})
+        return error_response(
+            code="QUICK_KG_WORKFLOW_FAILED",
+            message=str(e)
+        )
 
 
 @router.post("/quick/full-analysis")
@@ -483,12 +409,17 @@ async def quick_full_analysis(
     """
     try:
         result = run_full_analysis_workflow(project_id)
-        return {
-            "message": "完整分析工作流已完成",
-            "workflow_id": result["workflow_id"],
-            "status": result["status"],
-            "summary": result.get("task_results", {}).get("generate_report", {})
-        }
+        return success_response(
+            data={
+                "workflow_id": result["workflow_id"],
+                "status": result["status"],
+                "summary": result.get("task_results", {}).get("generate_report", {})
+            },
+            message="完整分析工作流已完成"
+        )
     except Exception as e:
         logger.error(f"快捷完整分析失败: {e}")
-        raise DatabaseException(message="操作失败", operation="workflow_operation", details={"error": str(e)})
+        return error_response(
+            code="QUICK_FULL_ANALYSIS_FAILED",
+            message=str(e)
+        )

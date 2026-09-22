@@ -67,11 +67,12 @@ class PluginLoader:
     4. 处理加载错误和重试
     """
 
-    def __init__(
-        self,
+    def __init__(self,
         registry: Optional[PluginRegistry] = None,
-        strategy: LoadStrategy = LoadStrategy.LAZY
-    ):
+        strategy: LoadStrategy = LoadStrategy.LAZY,
+
+
+        use_workflow_engine: bool = True):
         """
         初始化加载器
 
@@ -567,6 +568,24 @@ class PluginLoader:
         if to_unload:
             logger.info(f"Cleaned up {len(to_unload)} idle plugins")
 
+
+
+
+
+
+        # WorkflowEngine 集成
+
+
+        self.use_workflow_engine = use_workflow_engine
+
+
+        if use_workflow_engine:
+
+
+            from app.services.workflow_engine import WorkflowEngine
+
+
+            self.workflow_engine = WorkflowEngine(max_workers=4)
 
 # ==================== 工厂函数 ====================
 

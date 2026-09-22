@@ -1,0 +1,635 @@
+import SwiftUI
+
+struct BusinessAnalysisView: View {
+    @EnvironmentObject var appState: AppState
+    @StateObject private var viewModel = BusinessAnalysisViewModel()
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // 顶部标题栏
+            headerView
+
+            // Tab 切换
+            tabBar
+
+            // 内容区
+            TabView(selection: $viewModel.selectedTab) {
+                // Tab 1: 现有业态
+                existingBusinessTab
+                    .tag(0)
+
+                // Tab 2: 可能业态
+                potentialBusinessTab
+                    .tag(1)
+
+                // Tab 3: AI综合评估
+                aiEvaluationTab
+                    .tag(2)
+            }
+            .tabViewStyle(.automatic)
+        }
+        .onAppear {
+            loadData()
+        }
+    }
+
+    // MARK: - 头部视图
+    private var headerView: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("📊 在地业态分析")
+                    .font(.system(size: 24, weight: .bold))
+                Text("基于真实材料的业态推演，不是套话")
+                    .font(.system(size: 13))
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+
+            Button(action: { loadData() }) {
+                Image(systemName: "arrow.clockwise")
+                    .font(.system(size: 14))
+            }
+            .buttonStyle(.bordered)
+        }
+        .padding()
+        .background(Color(NSColor.controlBackgroundColor))
+    }
+
+    // MARK: - Tab 栏
+    private var tabBar: some View {
+        HStack(spacing: 0) {
+            TabButton(title: "现有业态", icon: "building.2.fill", isSelected: viewModel.selectedTab == 0) {
+                viewModel.selectedTab = 0
+            }
+            TabButton(title: "可能业态", icon: "lightbulb.fill", isSelected: viewModel.selectedTab == 1) {
+                viewModel.selectedTab = 1
+            }
+            TabButton(title: "AI综合评估", icon: "brain.head.profile", isSelected: viewModel.selectedTab == 2) {
+                viewModel.selectedTab = 2
+            }
+        }
+        .padding(.horizontal)
+        .padding(.top, 8)
+    }
+
+    // MARK: - Tab 1: 现有业态
+    private var existingBusinessTab: some View {
+        Group {
+            if viewModel.isLoading {
+                Spacer()
+                ProgressView("加载现有业态中...")
+                Spacer()
+            } else if viewModel.existingBusinesses.isEmpty {
+                Spacer()
+                VStack(spacing: 12) {
+                    Image(systemName: "tray")
+                        .font(.system(size: 40))
+                        .foregroundColor(.secondary)
+                    Text("暂无业态数据")
+                        .foregroundColor(.secondary)
+                }
+                Spacer()
+            } else {
+                ScrollView {
+                    LazyVGrid(columns: [
+                        GridItem(.flexible()),
+                        GridItem(.flexible()),
+                        GridItem(.flexible())
+                    ], spacing: 16) {
+                        ForEach(viewModel.existingBusinesses) { business in
+                            ExistingBusinessCard(business: business) {
+                                // 点击查看AI评估
+                                viewModel.selectedTab = 2
+                                if let projectId = appState.currentProject?.id {
+                                    viewModel.getAIEvaluation(
+                                        projectId: projectId,
+                                        businessType: "existing",
+                                        businessName: business.name
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    .padding()
+                }
+            }
+        }
+    }
+
+    // MARK: - Tab 2: 可能业态
+    private var potentialBusinessTab: some View {
+        Group {
+            if viewModel.isLoading {
+                Spacer()
+                ProgressView("加载可能业态中...")
+                Spacer()
+            } else if viewModel.potentialBusinesses.isEmpty {
+                Spacer()
+                VStack(spacing: 12) {
+                    Image(systemName: "tray")
+                        .font(.system(size: 40))
+                        .foregroundColor(.secondary)
+                    Text("暂无推演业态")
+                        .foregroundColor(.secondary)
+                }
+                Spacer()
+            } else {
+                ScrollView {
+                    LazyVGrid(columns: [
+                        GridItem(.flexible()),
+                        GridItem(.flexible()),
+                        GridItem(.flexible())
+                    ], spacing: 16) {
+                        ForEach(viewModel.potentialBusinesses) { business in
+                            PotentialBusinessCard(business: business) {
+                                // 点击查看AI评估
+                                viewModel.selectedTab = 2
+                                if let projectId = appState.currentProject?.id {
+                                    viewModel.getAIEvaluation(
+                                        projectId: projectId,
+                                        businessType: "potential",
+                                        businessName: business.name
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    .padding()
+                }
+            }
+        }
+    }
+
+    // MARK: - Tab 3: AI综合评估
+    private var aiEvaluationTab: some View {
+        Group {
+            if viewModel.isLoadingAI {
+                Spacer()
+                ProgressView("AI 分析中...")
+                Spacer()
+            } else if let evaluation = viewModel.aiEvaluation {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        // 评估文本
+                        VStack(alignment: .leading, spacing: 12) {
+                            HStack {
+                                Image(systemName: "brain.head.profile")
+                                    .foregroundColor(.blue)
+                                Text("AI 分析")
+                                    .font(.system(size: 16, weight: .semibold))
+                            }
+
+                            Text(evaluation.evaluation)
+                                .font(.system(size: 14))
+                                .lineSpacing(4)
+                                .padding()
+                                .background(Color.blue.opacity(0.05))
+                                .cornerRadius(8)
+                        }
+
+                        // 建议
+                        if !evaluation.suggestions.isEmpty {
+                            VStack(alignment: .leading, spacing: 8) {
+                                HStack {
+                                    Image(systemName: "lightbulb.fill")
+                                        .foregroundColor(.green)
+                                    Text("建议")
+                                        .font(.system(size: 16, weight: .semibold))
+                                }
+
+                                ForEach(evaluation.suggestions, id: \.self) { suggestion in
+                                    HStack(alignment: .top, spacing: 8) {
+                                        Text("•")
+                                        Text(suggestion)
+                                            .font(.system(size: 13))
+                                    }
+                                    .padding(12)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(Color.green.opacity(0.05))
+                                    .cornerRadius(6)
+                                }
+                            }
+                        }
+
+                        // 风险提示
+                        if !evaluation.risks.isEmpty {
+                            VStack(alignment: .leading, spacing: 8) {
+                                HStack {
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                        .foregroundColor(.orange)
+                                    Text("风险提示")
+                                        .font(.system(size: 16, weight: .semibold))
+                                }
+
+                                ForEach(evaluation.risks, id: \.self) { risk in
+                                    HStack(alignment: .top, spacing: 8) {
+                                        Text("⚠️")
+                                        Text(risk)
+                                            .font(.system(size: 13))
+                                    }
+                                    .padding(12)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(Color.orange.opacity(0.05))
+                                    .cornerRadius(6)
+                                }
+                            }
+                        }
+
+                        // 数据依据
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Image(systemName: "doc.text.fill")
+                                    .foregroundColor(.purple)
+                                Text("数据依据")
+                                    .font(.system(size: 16, weight: .semibold))
+                            }
+
+                            HStack(spacing: 16) {
+                                DataEvidenceLabel(
+                                    title: "支撑材料",
+                                    value: "\(evaluation.dataEvidence.materialCount)",
+                                    icon: "doc.fill"
+                                )
+                                DataEvidenceLabel(
+                                    title: "综合得分",
+                                    value: String(format: "%.1f", evaluation.dataEvidence.score),
+                                    icon: "star.fill"
+                                )
+                            }
+                            .padding()
+                            .background(Color.purple.opacity(0.05))
+                            .cornerRadius(8)
+                        }
+
+                        // 导出按钮
+                        Button(action: {
+                            // TODO: 导出分析报告
+                        }) {
+                            Label("导出分析报告", systemImage: "square.and.arrow.up")
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding()
+                }
+            } else {
+                Spacer()
+                VStack(spacing: 12) {
+                    Image(systemName: "brain.head.profile")
+                        .font(.system(size: 40))
+                        .foregroundColor(.secondary)
+                    Text("请先选择一个业态查看AI评估")
+                        .foregroundColor(.secondary)
+                }
+                Spacer()
+            }
+        }
+    }
+
+    // MARK: - 辅助方法
+    private func loadData() {
+        if let projectId = appState.currentProject?.id {
+            viewModel.loadAll(projectId: projectId)
+        }
+    }
+}
+
+// MARK: - Tab 按钮
+struct TabButton: View {
+    let title: String
+    let icon: String
+    let isSelected: Bool
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .font(.system(size: 13))
+                Text(title)
+                    .font(.system(size: 13, weight: isSelected ? .semibold : .regular))
+            }
+            .foregroundColor(isSelected ? .blue : .secondary)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(isSelected ? Color.blue.opacity(0.1) : Color.clear)
+            .cornerRadius(6)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+// MARK: - 现有业态卡片
+struct ExistingBusinessCard: View {
+    let business: ExistingBusiness
+    let onTap: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            // 标题和得分
+            HStack {
+                Text(business.name)
+                    .font(.system(size: 16, weight: .bold))
+                Spacer()
+                ZStack {
+                    Circle()
+                        .stroke(scoreColor, lineWidth: 3)
+                        .frame(width: 50, height: 50)
+                    VStack(spacing: 0) {
+                        Text(String(format: "%.0f", business.score))
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(scoreColor)
+                        Text("/100")
+                            .font(.system(size: 8))
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+
+            // 描述
+            Text(business.description)
+                .font(.system(size: 12))
+                .foregroundColor(.secondary)
+                .lineLimit(2)
+
+            // 标签
+            FlowLayout(spacing: 6) {
+                ForEach(business.tags, id: \.self) { tag in
+                    Text(tag)
+                        .font(.system(size: 10))
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.blue.opacity(0.1))
+                        .cornerRadius(4)
+                }
+            }
+
+            Divider()
+
+            // 指标
+            VStack(spacing: 8) {
+                ProgressBar(title: "可持续性", value: business.sustainability, color: scoreColor)
+                HStack(spacing: 16) {
+                    SmallMetric(title: "覆盖度", value: business.coverage)
+                    SmallMetric(title: "情感", value: business.emotion)
+                    SmallMetric(title: "趋势", value: business.trend)
+                }
+                .font(.system(size: 11))
+            }
+
+            // 材料数
+            HStack {
+                Image(systemName: "doc.fill")
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
+                Text("\(business.materialCount) 份支撑材料")
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
+            }
+
+            Button(action: onTap) {
+                Text("查看AI评估")
+                    .font(.system(size: 12, weight: .medium))
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+        }
+        .padding()
+        .background(Color(NSColor.controlBackgroundColor))
+        .cornerRadius(10)
+        .shadow(color: .black.opacity(0.05), radius: 5)
+    }
+
+    private var scoreColor: Color {
+        if business.score >= 70 { return .green }
+        if business.score >= 50 { return .orange }
+        return .red
+    }
+}
+
+// MARK: - 可能业态卡片
+struct PotentialBusinessCard: View {
+    let business: PotentialBusiness
+    let onTap: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            // 标题和得分
+            HStack {
+                Text(business.name)
+                    .font(.system(size: 16, weight: .bold))
+                Spacer()
+                ZStack {
+                    Circle()
+                        .stroke(scoreColor, lineWidth: 3)
+                        .frame(width: 50, height: 50)
+                    VStack(spacing: 0) {
+                        Text(String(format: "%.0f", business.feasibilityScore))
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(scoreColor)
+                        Text("/100")
+                            .font(.system(size: 8))
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+
+            // 描述
+            Text(business.description)
+                .font(.system(size: 12))
+                .foregroundColor(.secondary)
+                .lineLimit(2)
+
+            // 推演逻辑
+            VStack(alignment: .leading, spacing: 4) {
+                Text("推演逻辑")
+                    .font(.system(size: 11, weight: .semibold))
+                Text(business.reasoning)
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
+                    .lineLimit(3)
+            }
+            .padding(8)
+            .background(Color.yellow.opacity(0.05))
+            .cornerRadius(6)
+
+            Divider()
+
+            // 可行性指标
+            VStack(spacing: 8) {
+                ProgressBar(title: "可行性", value: business.feasibilityScore, color: scoreColor)
+                VStack(spacing: 4) {
+                    MiniProgressBar(title: "情感", value: business.emotionScore)
+                    MiniProgressBar(title: "政策", value: business.policySupport)
+                    MiniProgressBar(title: "资源", value: business.resourceAvailability)
+                }
+            }
+
+            // 材料数
+            HStack {
+                Image(systemName: "doc.fill")
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
+                Text("\(business.materialCount) 份依据材料")
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
+            }
+
+            Button(action: onTap) {
+                Text("查看AI评估")
+                    .font(.system(size: 12, weight: .medium))
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+        }
+        .padding()
+        .background(Color(NSColor.controlBackgroundColor))
+        .cornerRadius(10)
+        .shadow(color: .black.opacity(0.05), radius: 5)
+    }
+
+    private var scoreColor: Color {
+        if business.feasibilityScore >= 70 { return .green }
+        if business.feasibilityScore >= 50 { return .orange }
+        return .red
+    }
+}
+
+// MARK: - 辅助组件
+
+struct ProgressBar: View {
+    let title: String
+    let value: Double
+    let color: Color
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(title)
+                    .font(.system(size: 11))
+                Spacer()
+                Text(String(format: "%.0f%%", value))
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundColor(color)
+            }
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.2))
+                    Rectangle()
+                        .fill(color)
+                        .frame(width: geometry.size.width * (value / 100))
+                }
+            }
+            .frame(height: 6)
+            .cornerRadius(3)
+        }
+    }
+}
+
+struct MiniProgressBar: View {
+    let title: String
+    let value: Double
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Text(title)
+                .font(.system(size: 10))
+                .foregroundColor(.secondary)
+                .frame(width: 40, alignment: .leading)
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.2))
+                    Rectangle()
+                        .fill(Color.blue)
+                        .frame(width: geometry.size.width * (value / 100))
+                }
+            }
+            .frame(height: 4)
+            .cornerRadius(2)
+            Text(String(format: "%.0f%%", value))
+                .font(.system(size: 10))
+                .foregroundColor(.secondary)
+                .frame(width: 35, alignment: .trailing)
+        }
+    }
+}
+
+struct SmallMetric: View {
+    let title: String
+    let value: Double
+
+    var body: some View {
+        VStack(spacing: 2) {
+            Text(String(format: "%.0f%%", value))
+                .font(.system(size: 13, weight: .semibold))
+            Text(title)
+                .font(.system(size: 10))
+                .foregroundColor(.secondary)
+        }
+    }
+}
+
+struct DataEvidenceLabel: View {
+    let title: String
+    let value: String
+    let icon: String
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: icon)
+                .foregroundColor(.purple)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(value)
+                    .font(.system(size: 16, weight: .bold))
+                Text(title)
+                    .font(.system(size: 11))
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+}
+
+// MARK: - FlowLayout (简单实现)
+struct FlowLayout: Layout {
+    var spacing: CGFloat = 8
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let result = FlowResult(in: proposal.replacingUnspecifiedDimensions().width, subviews: subviews, spacing: spacing)
+        return result.size
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let result = FlowResult(in: bounds.width, subviews: subviews, spacing: spacing)
+        for (index, subview) in subviews.enumerated() {
+            subview.place(at: CGPoint(x: bounds.minX + result.positions[index].x, y: bounds.minY + result.positions[index].y), proposal: .unspecified)
+        }
+    }
+
+    struct FlowResult {
+        var size: CGSize = .zero
+        var positions: [CGPoint] = []
+
+        init(in maxWidth: CGFloat, subviews: Subviews, spacing: CGFloat) {
+            var x: CGFloat = 0
+            var y: CGFloat = 0
+            var lineHeight: CGFloat = 0
+
+            for subview in subviews {
+                let size = subview.sizeThatFits(.unspecified)
+                if x + size.width > maxWidth && x > 0 {
+                    x = 0
+                    y += lineHeight + spacing
+                    lineHeight = 0
+                }
+                positions.append(CGPoint(x: x, y: y))
+                lineHeight = max(lineHeight, size.height)
+                x += size.width + spacing
+            }
+
+            self.size = CGSize(width: maxWidth, height: y + lineHeight)
+        }
+    }
+}

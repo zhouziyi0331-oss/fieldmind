@@ -16,6 +16,29 @@ logger = logging.getLogger(__name__)
 
 class PipelineArchitecture(str, Enum):
     """Pipeline架构类型"""
+
+
+
+    def __init__(self, use_workflow_engine: bool = True):
+
+
+        """初始化服务"""
+
+
+        self.use_workflow_engine = use_workflow_engine
+
+
+        
+
+
+        if use_workflow_engine:
+
+
+            from app.services.workflow_engine import WorkflowEngine
+
+
+            self.workflow_engine = WorkflowEngine(max_workers=4)
+
     LEGACY = "legacy"  # 旧版UnifiedDocumentPipeline
     V2 = "v2"          # 新版WorkflowV2Adapter + 6-Agent
 

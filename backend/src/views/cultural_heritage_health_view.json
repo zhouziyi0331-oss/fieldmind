@@ -1,0 +1,268 @@
+{
+  "view_id": "cultural_heritage_health_view",
+  "name": "文化传承健康视图",
+  "version": "1.0",
+  "description": "查看某个文化资产的传承状况，包括传承人信息、活动记录、风险因素等",
+
+  "intent": "查看文化资产的传承健康状态",
+  "keywords": ["传承", "文化资产", "非遗", "传承人", "濒危", "保护"],
+
+  "input": {
+    "required": [
+      {
+        "name": "cultural_asset_id",
+        "type": "string",
+        "description": "文化资产ID或名称",
+        "example": "布依族山歌"
+      }
+    ],
+    "optional": [
+      {
+        "name": "include_history",
+        "type": "boolean",
+        "default": false,
+        "description": "是否包含历史变化记录"
+      }
+    ]
+  },
+
+  "output": {
+    "asset_info": {
+      "type": "object",
+      "source": "graph_query",
+      "fields": {
+        "asset_id": "string",
+        "name": "string",
+        "type": "string",
+        "category": "string",
+        "status": "string",
+        "protection_level": "string",
+        "risk_level": "integer",
+        "description": "string"
+      }
+    },
+    "inheritors": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "传承人列表",
+      "fields": {
+        "person_id": "string",
+        "name": "string",
+        "age": "integer",
+        "proficiency": "string",
+        "since": "date",
+        "inheritance_method": "string"
+      }
+    },
+    "inheritor_stats": {
+      "type": "object",
+      "source": "computed",
+      "fields": {
+        "total_count": "integer",
+        "avg_age": "float",
+        "proficiency_distribution": "object",
+        "youngest_age": "integer",
+        "oldest_age": "integer"
+      }
+    },
+    "recent_activities": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "近期活动记录",
+      "fields": {
+        "event_id": "string",
+        "event_name": "string",
+        "event_type": "string",
+        "date": "string",
+        "participants_count": "integer"
+      }
+    },
+    "related_locations": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "相关地点",
+      "fields": {
+        "location_id": "string",
+        "name": "string",
+        "type": "string"
+      }
+    },
+    "related_policies": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "相关政策",
+      "fields": {
+        "policy_id": "string",
+        "name": "string",
+        "type": "string",
+        "level": "string",
+        "status": "string"
+      }
+    },
+    "risk_factors": {
+      "type": "array",
+      "source": "inference",
+      "description": "风险因素列表",
+      "item_type": "string"
+    },
+    "recommendations": {
+      "type": "array",
+      "source": "inference",
+      "description": "保护建议",
+      "item_type": "string"
+    },
+    "evidence_chunks": {
+      "type": "array",
+      "source": "fulltext_search",
+      "description": "相关文本证据",
+      "fields": {
+        "chunk_id": "string",
+        "text": "string",
+        "document_id": "string",
+        "dimension_category": "string",
+        "confidence_score": "float"
+      }
+    }
+  },
+
+  "data_bindings": [
+    {
+      "binding_id": "graph_asset_info",
+      "description": "从图数据库查询文化资产基本信息",
+      "channel_type": "graph",
+      "query_template": "MATCH (a:CulturalAsset {asset_id: $asset_id}) RETURN a",
+      "output_mapping": {
+        "asset_info": "a"
+      }
+    },
+    {
+      "binding_id": "graph_inheritors",
+      "description": "从图数据库查询传承人",
+      "channel_type": "graph",
+      "query_template": "MATCH (a:CulturalAsset {asset_id: $asset_id})<-[r:inherits]-(p:Person) RETURN p, r ORDER BY p.age DESC",
+      "output_mapping": {
+        "inheritors": "p",
+        "inheritor_relations": "r"
+      }
+    },
+    {
+      "binding_id": "graph_recent_activities",
+      "description": "查询近期相关活动",
+      "channel_type": "graph",
+      "query_template": "MATCH (a:CulturalAsset {asset_id: $asset_id})-[:related_to]-(e:Event) WHERE e.date >= date() - duration({months: 6}) RETURN e ORDER BY e.date DESC LIMIT 10",
+      "output_mapping": {
+        "recent_activities": "e"
+      }
+    },
+    {
+      "binding_id": "graph_locations",
+      "description": "查询相关地点",
+      "channel_type": "graph",
+      "query_template": "MATCH (a:CulturalAsset {asset_id: $asset_id})-[:located_in]->(l:Location) RETURN l",
+      "output_mapping": {
+        "related_locations": "l"
+      }
+    },
+    {
+      "binding_id": "graph_policies",
+      "description": "查询相关政策",
+      "channel_type": "graph",
+      "query_template": "MATCH (a:CulturalAsset {asset_id: $asset_id})-[:related_to]->(p:Policy) RETURN p",
+      "output_mapping": {
+        "related_policies": "p"
+      }
+    },
+    {
+      "binding_id": "fulltext_evidence",
+      "description": "从chunks表全文检索相关证据",
+      "channel_type": "sql",
+      "query_template": "SELECT chunk_id, text, document_id, dimension_category, confidence_score FROM document_chunks WHERE text LIKE '%' || :asset_name || '%' ORDER BY confidence_score DESC LIMIT 20",
+      "output_mapping": {
+        "evidence_chunks": "result"
+      }
+    }
+  ],
+
+  "inference_logic": {
+    "compute_inheritor_stats": {
+      "description": "计算传承人统计信息",
+      "depends_on": ["inheritors"],
+      "logic": {
+        "total_count": "len(inheritors)",
+        "avg_age": "mean([p.age for p in inheritors])",
+        "youngest_age": "min([p.age for p in inheritors])",
+        "oldest_age": "max([p.age for p in inheritors])",
+        "proficiency_distribution": "count_by(inheritors, 'proficiency')"
+      }
+    },
+    "assess_risk_factors": {
+      "description": "评估风险因素",
+      "depends_on": ["inheritor_stats", "recent_activities"],
+      "logic": {
+        "rules": [
+          {
+            "condition": "inheritor_stats.total_count < 3",
+            "risk": "传承人数量少于3人，面临失传风险"
+          },
+          {
+            "condition": "inheritor_stats.avg_age > 60",
+            "risk": "传承人平均年龄超过60岁，后继乏人"
+          },
+          {
+            "condition": "len(recent_activities) == 0",
+            "risk": "近6个月无相关活动，传承活跃度低"
+          },
+          {
+            "condition": "asset_info.protection_level == null",
+            "risk": "未列入保护名录，缺乏政策支持"
+          }
+        ]
+      }
+    },
+    "generate_recommendations": {
+      "description": "生成保护建议",
+      "depends_on": ["risk_factors", "asset_info"],
+      "logic": {
+        "rules": [
+          {
+            "condition": "'传承人数量' in risk_factors",
+            "recommendation": "建议开展传承人培训计划，吸纳年轻学员"
+          },
+          {
+            "condition": "'平均年龄' in risk_factors",
+            "recommendation": "建议在学校开设相关课程，培养年轻传承人"
+          },
+          {
+            "condition": "'活跃度低' in risk_factors",
+            "recommendation": "建议组织展演活动，提高文化资产的社会关注度"
+          },
+          {
+            "condition": "'未列入保护' in risk_factors",
+            "recommendation": "建议申报非遗保护名录，争取政策支持"
+          }
+        ]
+      }
+    }
+  },
+
+  "execution_strategy": {
+    "parallel_bindings": true,
+    "timeout_ms": 5000,
+    "cache_ttl_seconds": 300,
+    "fallback_on_error": true
+  },
+
+  "test_cases": [
+    {
+      "name": "查询布依族山歌",
+      "input": {
+        "cultural_asset_id": "布依族山歌"
+      },
+      "expected_output": {
+        "asset_info.name": "布依族山歌",
+        "inheritors.length": ">= 0",
+        "risk_factors": "array"
+      }
+    }
+  ]
+}

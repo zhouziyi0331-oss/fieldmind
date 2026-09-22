@@ -1,0 +1,382 @@
+import SwiftUI
+
+struct KnowledgeNetworkView: View {
+    @EnvironmentObject var appState: AppState
+    @StateObject private var viewModel = KnowledgeNetworkViewModel()
+    @State private var selectedNode: NetworkNode?
+    @State private var showNodeDetail = false
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // 顶部标题栏
+            headerView
+
+            if viewModel.isLoading {
+                Spacer()
+                ProgressView("加载知识脉络中...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                Spacer()
+            } else if let error = viewModel.errorMessage {
+                Spacer()
+                VStack(spacing: 12) {
+                    Image(systemName: "exclamationmark.triangle")
+                        .font(.system(size: 40))
+                        .foregroundColor(.orange)
+                    Text(error)
+                        .foregroundColor(.secondary)
+                    Button("重试") {
+                        loadData()
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                Spacer()
+            } else if let networkData = viewModel.networkData {
+                HStack(spacing: 0) {
+                    // 主内容区
+                    VStack(spacing: 0) {
+                        // 统计概览
+                        statisticsView(networkData.statistics)
+                            .padding()
+
+                        Divider()
+
+                        // 网络可视化
+                        ScrollView {
+                            networkVisualization(nodes: networkData.nodes, edges: networkData.edges)
+                                .padding()
+                        }
+                    }
+
+                    // 侧边详情面板
+                    if showNodeDetail, let detail = viewModel.selectedNodeDetail {
+                        Divider()
+                        nodeDetailPanel(detail)
+                            .frame(width: 350)
+                            .transition(.move(edge: .trailing))
+                    }
+                }
+            } else {
+                Spacer()
+                Text("暂无数据")
+                    .foregroundColor(.secondary)
+                Spacer()
+            }
+        }
+        .onAppear {
+            loadData()
+        }
+    }
+
+    // MARK: - 头部视图
+    private var headerView: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("🕸️ 知识脉络")
+                    .font(.system(size: 24, weight: .bold))
+                Text("从材料中提炼的结构化知识网络 · 点击节点查看详情")
+                    .font(.system(size: 13))
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+
+            Button(action: { loadData() }) {
+                Image(systemName: "arrow.clockwise")
+                    .font(.system(size: 14))
+            }
+            .buttonStyle(.bordered)
+        }
+        .padding()
+        .background(Color(NSColor.controlBackgroundColor))
+    }
+
+    // MARK: - 统计概览
+    private func statisticsView(_ stats: KnowledgeNetworkStatistics) -> some View {
+        HStack(spacing: 20) {
+            StatCard(title: "大脉络", value: "\(stats.dimensionCount)", icon: "circle.grid.3x3.fill", color: .blue)
+            StatCard(title: "子脉络", value: "\(stats.subDimensionCount)", icon: "square.stack.3d.up.fill", color: .green)
+            StatCard(title: "支撑材料", value: "\(stats.materialCount)", icon: "doc.fill", color: .orange)
+            StatCard(title: "关键词", value: "\(stats.keywordCount)", icon: "tag.fill", color: .purple)
+        }
+    }
+
+    // MARK: - 网络可视化（简化版）
+    private func networkVisualization(nodes: [NetworkNode], edges: [NetworkEdge]) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("知识脉络节点")
+                .font(.system(size: 16, weight: .semibold))
+
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 16) {
+                ForEach(nodes) { node in
+                    nodeCard(node)
+                        .onTapGesture {
+                            selectedNode = node
+                            showNodeDetail = true
+                            if let projectId = appState.currentProject?.id {
+                                viewModel.loadNodeDetail(projectId: projectId, nodeId: node.id)
+                            }
+                        }
+                }
+            }
+
+            if !edges.isEmpty {
+                Divider().padding(.vertical)
+
+                Text("脉络关联")
+                    .font(.system(size: 16, weight: .semibold))
+
+                VStack(alignment: .leading, spacing: 8) {
+                    ForEach(edges.prefix(10)) { edge in
+                        edgeRow(edge, nodes: nodes)
+                    }
+                }
+            }
+        }
+    }
+
+    // MARK: - 节点卡片
+    private func nodeCard(_ node: NetworkNode) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Circle()
+                    .fill(Color(hex: node.color) ?? .blue)
+                    .frame(width: 12, height: 12)
+                Text(node.name)
+                    .font(.system(size: 14, weight: .semibold))
+                Spacer()
+            }
+
+            HStack(spacing: 12) {
+                Label("\(node.materialCount)", systemImage: "doc.fill")
+                    .font(.system(size: 12))
+                    .foregroundColor(.secondary)
+                Label("\(node.keywordCount)", systemImage: "tag.fill")
+                    .font(.system(size: 12))
+                    .foregroundColor(.secondary)
+            }
+
+            Text("\(node.subDimensionCount) 个子脉络")
+                .font(.system(size: 11))
+                .foregroundColor(.secondary)
+        }
+        .padding()
+        .background(Color(NSColor.controlBackgroundColor))
+        .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(selectedNode?.id == node.id ? Color.blue : Color.clear, lineWidth: 2)
+        )
+    }
+
+    // MARK: - 边关系行
+    private func edgeRow(_ edge: NetworkEdge, nodes: [NetworkNode]) -> some View {
+        let sourceNode = nodes.first { $0.id == edge.source }
+        let targetNode = nodes.first { $0.id == edge.target }
+
+        return HStack(spacing: 8) {
+            Text(sourceNode?.name ?? "未知")
+                .font(.system(size: 13))
+            Image(systemName: "arrow.right")
+                .font(.system(size: 11))
+                .foregroundColor(.secondary)
+            Text(targetNode?.name ?? "未知")
+                .font(.system(size: 13))
+            Spacer()
+            Text(edge.label)
+                .font(.system(size: 12))
+                .foregroundColor(.secondary)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(Color(NSColor.controlBackgroundColor).opacity(0.5))
+        .cornerRadius(6)
+    }
+
+    // MARK: - 节点详情面板
+    private func nodeDetailPanel(_ detail: NodeDetail) -> some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                // 关闭按钮
+                HStack {
+                    Text("脉络详情")
+                        .font(.system(size: 16, weight: .bold))
+                    Spacer()
+                    Button(action: { showNodeDetail = false }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.secondary)
+                    }
+                    .buttonStyle(.plain)
+                }
+
+                // 基本信息
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(detail.dimensionName)
+                        .font(.system(size: 18, weight: .bold))
+                    Text(detail.category)
+                        .font(.system(size: 13))
+                        .foregroundColor(.secondary)
+
+                    HStack(spacing: 16) {
+                        InfoLabel(title: "材料", value: "\(detail.materialCount)")
+                        InfoLabel(title: "关键词", value: "\(detail.keywordCount)")
+                    }
+                }
+
+                Divider()
+
+                // 关键词列表
+                if !detail.keywords.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("关键词 Top 10")
+                            .font(.system(size: 14, weight: .semibold))
+
+                        ForEach(detail.keywords.prefix(10), id: \.keyword) { keyword in
+                            HStack {
+                                Text(keyword.keyword)
+                                    .font(.system(size: 13))
+                                Spacer()
+                                Text("\(keyword.frequency)")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color(NSColor.controlBackgroundColor))
+                            .cornerRadius(4)
+                        }
+                    }
+
+                    Divider()
+                }
+
+                // 子脉络
+                if !detail.subDimensions.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("子脉络")
+                            .font(.system(size: 14, weight: .semibold))
+
+                        ForEach(detail.subDimensions, id: \.name) { sub in
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(sub.name)
+                                    .font(.system(size: 13, weight: .medium))
+                                HStack {
+                                    Text("\(sub.materialCount) 份材料")
+                                    Text("·")
+                                    Text("\(sub.keywordCount) 个关键词")
+                                }
+                                .font(.system(size: 11))
+                                .foregroundColor(.secondary)
+                            }
+                            .padding(8)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color(NSColor.controlBackgroundColor))
+                            .cornerRadius(4)
+                        }
+                    }
+
+                    Divider()
+                }
+
+                // 核心议题
+                if !detail.coreIssues.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("核心议题")
+                            .font(.system(size: 14, weight: .semibold))
+
+                        ForEach(detail.coreIssues, id: \.self) { issue in
+                            Text("• \(issue)")
+                                .font(.system(size: 13))
+                                .padding(8)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color.yellow.opacity(0.1))
+                                .cornerRadius(4)
+                        }
+                    }
+                }
+            }
+            .padding()
+        }
+        .background(Color(NSColor.windowBackgroundColor))
+    }
+
+    // MARK: - 辅助方法
+    private func loadData() {
+        if let projectId = appState.currentProject?.id {
+            viewModel.loadKnowledgeNetwork(projectId: projectId)
+        }
+    }
+}
+
+// MARK: - 辅助组件
+
+struct StatCard: View {
+    let title: String
+    let value: String
+    let icon: String
+    let color: Color
+
+    var body: some View {
+        VStack(spacing: 8) {
+            HStack {
+                Image(systemName: icon)
+                    .foregroundColor(color)
+                Text(value)
+                    .font(.system(size: 24, weight: .bold))
+            }
+            Text(title)
+                .font(.system(size: 13))
+                .foregroundColor(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(Color(NSColor.controlBackgroundColor))
+        .cornerRadius(8)
+    }
+}
+
+struct InfoLabel: View {
+    let title: String
+    let value: String
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Text(value)
+                .font(.system(size: 16, weight: .semibold))
+            Text(title)
+                .font(.system(size: 11))
+                .foregroundColor(.secondary)
+        }
+    }
+}
+
+// MARK: - Color Extension
+
+extension Color {
+    init?(hex: String) {
+        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int: UInt64 = 0
+        Scanner(string: hex).scanHexInt64(&int)
+        let a, r, g, b: UInt64
+        switch hex.count {
+        case 3: // RGB (12-bit)
+            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+        case 6: // RGB (24-bit)
+            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+        case 8: // ARGB (32-bit)
+            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+        default:
+            return nil
+        }
+        self.init(
+            .sRGB,
+            red: Double(r) / 255,
+            green: Double(g) / 255,
+            blue: Double(b) / 255,
+            opacity: Double(a) / 255
+        )
+    }
+}

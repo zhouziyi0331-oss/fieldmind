@@ -1,0 +1,22 @@
+{
+  "binding_id": "sqlite_main",
+  "name": "SQLite主数据库绑定",
+  "description": "连接到SQLite关系数据库，执行SQL查询",
+  "channel_type": "sql",
+  "connection": {
+    "db_path": "data/fieldmind.db",
+    "read_only": true,
+    "check_same_thread": false
+  },
+  "capabilities": [
+    "relational_query",
+    "join_query",
+    "aggregation",
+    "full_text_search"
+  ],
+  "performance": {
+    "max_concurrent_queries": 20,
+    "query_timeout_ms": 10000,
+    "enable_wal": true
+  }
+}

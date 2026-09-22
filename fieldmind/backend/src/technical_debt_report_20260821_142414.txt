@@ -1,0 +1,307 @@
+
+======================================================================
+类别1：空表检查
+======================================================================
+
+❌ [空表] users
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] industry_categories
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] contexts
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] chat_sessions
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] timeline_events
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] analysis_results
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] analysis_statements
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] statement_sources
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] source_verifications
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] analysis_reports
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] reports
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] skills
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] skill_validations
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] fieldmind_objects
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] object_relations
+   记录数: 0
+   位置: data/fieldmind.db
+
+⚠️ [数据稀少] projects
+   记录数: 2
+   状态: 可能是测试数据
+
+❌ [空表] entity_evidences
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] chat_messages
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] workflows
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] project_contexts
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] project_chat_sessions
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] project_memories
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] entity_alignments
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] batch_operations
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] scheduled_tasks
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] report_analysis_cache
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] synthesis_results
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] citations
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] workflow_executions
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] project_chat_messages
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] scheduled_task_executions
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] document_relations
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] report_layers
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] document_citations
+   记录数: 0
+   位置: data/fieldmind.db
+
+⚠️ [数据稀少] alembic_version
+   记录数: 1
+   状态: 可能是测试数据
+
+❌ [空表] skill_versions
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] thinking_patterns
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] skill_knowledge_base
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] domain_knowledge
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] quality_check_results
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] change_events
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] metric_calculation_history
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] topic_clusters
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] document_metadata
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] document_entities
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] tags
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] embeddings
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] processing_tasks
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] quality_reports
+   记录数: 0
+   位置: data/fieldmind.db
+
+❌ [空表] document_tags
+   记录数: 0
+   位置: data/fieldmind.db
+
+⚠️ [数据稀少] document_chunks_fts_config
+   记录数: 1
+   状态: 可能是测试数据
+
+⚠️ [数据稀少] chunks_fts_simple_data
+   记录数: 4
+   状态: 可能是测试数据
+
+⚠️ [数据稀少] chunks_fts_simple_idx
+   记录数: 2
+   状态: 可能是测试数据
+
+⚠️ [数据稀少] chunks_fts_simple_config
+   记录数: 1
+   状态: 可能是测试数据
+
+======================================================================
+类别2：关键字段空值检查
+======================================================================
+
+======================================================================
+类别3：API路由检查
+======================================================================
+
+✅ [已定义路由] 共17个
+   文件: app/api/quantification.py, api_server.py
+   示例: [('get', '/stats/{project_id}'), ('get', '/clusters/{project_id}'), ('get', '/comparisons/{project_id}')]
+
+======================================================================
+类别4：未被调用的函数
+======================================================================
+
+✅ [函数调用检查] extract_structural_features
+   位置: app/services/quantification/structural_features.py
+   导入次数: 2
+   调用次数: 1
+   状态: 已使用
+
+✅ [函数调用检查] extract_emotional_features
+   位置: app/services/quantification/emotional_features.py
+   导入次数: 2
+   调用次数: 1
+   状态: 已使用
+
+✅ [函数调用检查] extract_style_features
+   位置: app/services/quantification/style_features.py
+   导入次数: 2
+   调用次数: 1
+   状态: 已使用
+
+✅ [函数调用检查] cluster_chunks
+   位置: app/services/analysis/cluster_analyzer.py
+   导入次数: 0
+   调用次数: 3
+   状态: 已使用
+
+======================================================================
+类别5：数据模型一致性
+======================================================================
+
+======================================================================
+类别6：处理链路检查
+======================================================================
+
+✅ [处理脚本] 批量量化
+   位置: scripts/batch_quantify_all_chunks.py
+   大小: 3267 bytes
+
+✅ [处理脚本] 完整数据填充
+   位置: scripts/complete_data_fill.py
+   大小: 12433 bytes
+
+✅ [处理脚本] 同步统计
+   位置: scripts/sync_document_stats.py
+   大小: 2993 bytes
+
+======================================================================
+技术债总结
+======================================================================
+
+总计发现问题: 0
+  严重问题(❌): 0
+  警告(⚠️): 0
+
+======================================================================
+修复优先级建议
+======================================================================
+
+P0（立即修复）：
+  1. 填充所有空表（tfidf_global等）
+  2. 同步documents统计字段
+  3. 完成所有chunks的聚类
+
+P1（本周修复）：
+  1. 统一API路由
+  2. 验证所有函数被正确调用
+  3. 修复数据模型关联
+
+P2（后续优化）：
+  1. 清理测试数据
+  2. 优化处理链路
+  3. 完善文档

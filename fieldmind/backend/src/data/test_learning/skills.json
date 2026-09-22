@@ -1,0 +1,39 @@
+{
+  "skill_pdf_analysis_v1": {
+    "skill_id": "skill_pdf_analysis_v1",
+    "skill_name": "PDF深度分析",
+    "skill_type": "tool_chain",
+    "description": "针对学术PDF的深度分析工作流",
+    "trigger_conditions": [
+      {
+        "condition": "document_type == 'pdf'"
+      },
+      {
+        "condition": "analysis_depth == 'deep'"
+      }
+    ],
+    "action_sequence": [
+      {
+        "step": 1,
+        "action": "extract_text",
+        "tool": "pymupdf"
+      },
+      {
+        "step": 2,
+        "action": "extract_entities",
+        "tool": "ner_model"
+      },
+      {
+        "step": 3,
+        "action": "generate_summary",
+        "tool": "llm_summarizer"
+      }
+    ],
+    "success_rate": 0.95,
+    "avg_execution_time": 3.2,
+    "usage_count": 10,
+    "learned_from": [],
+    "confidence_score": 0.9,
+    "last_updated": "2026-08-18T04:30:41.896150"
+  }
+}

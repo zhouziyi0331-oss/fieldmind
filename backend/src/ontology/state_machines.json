@@ -1,0 +1,467 @@
+{
+  "state_machines": [
+    {
+      "entity_type": "CulturalAsset",
+      "description": "文化资产状态机 - 管理文化遗产的保护状态转换",
+      "states": [
+        {
+          "name": "active",
+          "description": "活跃状态 - 正在被传承和使用",
+          "is_initial": true,
+          "color": "#28a745"
+        },
+        {
+          "name": "endangered",
+          "description": "濒危状态 - 传承面临困难",
+          "is_initial": false,
+          "color": "#ffc107"
+        },
+        {
+          "name": "lost",
+          "description": "失传状态 - 已无人掌握",
+          "is_initial": false,
+          "color": "#dc3545"
+        },
+        {
+          "name": "protected",
+          "description": "受保护状态 - 列入非遗名录",
+          "is_initial": false,
+          "color": "#007bff"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "active",
+          "to": "endangered",
+          "trigger": "check_inheritor_status",
+          "conditions": [
+            {
+              "type": "inheritor_count",
+              "operator": "<",
+              "value": 3,
+              "description": "传承人数量少于3人"
+            },
+            {
+              "type": "inheritor_avg_age",
+              "operator": ">",
+              "value": 60,
+              "description": "传承人平均年龄超过60岁"
+            }
+          ],
+          "condition_logic": "OR",
+          "actions": [
+            "generate_alert",
+            "update_risk_level"
+          ]
+        },
+        {
+          "from": "endangered",
+          "to": "protected",
+          "trigger": "heritage_listing",
+          "conditions": [
+            {
+              "type": "protection_level",
+              "operator": "not_null",
+              "description": "获得保护级别认定"
+            }
+          ],
+          "actions": [
+            "update_protection_level",
+            "notify_stakeholders"
+          ]
+        },
+        {
+          "from": "endangered",
+          "to": "lost",
+          "trigger": "check_inheritor_status",
+          "conditions": [
+            {
+              "type": "inheritor_count",
+              "operator": "=",
+              "value": 0,
+              "description": "传承人数量为0"
+            },
+            {
+              "type": "inactive_period",
+              "operator": ">",
+              "value": 730,
+              "unit": "days",
+              "description": "超过2年无活动记录"
+            }
+          ],
+          "condition_logic": "AND",
+          "actions": [
+            "generate_alert",
+            "archive_records"
+          ]
+        },
+        {
+          "from": "protected",
+          "to": "active",
+          "trigger": "revitalization_success",
+          "conditions": [
+            {
+              "type": "inheritor_count",
+              "operator": ">",
+              "value": 5,
+              "description": "传承人数量超过5人"
+            },
+            {
+              "type": "inheritor_avg_age",
+              "operator": "<",
+              "value": 40,
+              "description": "传承人平均年龄低于40岁"
+            },
+            {
+              "type": "recent_activity_count",
+              "operator": ">",
+              "value": 3,
+              "time_window": "6_months",
+              "description": "近6个月有3次以上活动"
+            }
+          ],
+          "condition_logic": "AND",
+          "actions": [
+            "update_status",
+            "reduce_risk_level"
+          ]
+        },
+        {
+          "from": "active",
+          "to": "protected",
+          "trigger": "heritage_listing",
+          "conditions": [
+            {
+              "type": "protection_level",
+              "operator": "not_null",
+              "description": "直接获得保护认定"
+            }
+          ],
+          "actions": [
+            "update_protection_level"
+          ]
+        }
+      ],
+      "auto_check_interval": "quarterly",
+      "auto_check_triggers": [
+        "check_inheritor_status"
+      ]
+    },
+
+    {
+      "entity_type": "Document",
+      "description": "文档状态机 - 管理文档的处理流程",
+      "states": [
+        {
+          "name": "uploaded",
+          "description": "已上传 - 文件刚上传",
+          "is_initial": true,
+          "color": "#6c757d"
+        },
+        {
+          "name": "processing",
+          "description": "处理中 - 正在转写/OCR/切分",
+          "is_initial": false,
+          "color": "#17a2b8"
+        },
+        {
+          "name": "annotated",
+          "description": "已标注 - 完成自动标注",
+          "is_initial": false,
+          "color": "#ffc107"
+        },
+        {
+          "name": "validated",
+          "description": "已验证 - 通过人工验证",
+          "is_initial": false,
+          "color": "#28a745"
+        },
+        {
+          "name": "archived",
+          "description": "已归档 - 超过保留期限",
+          "is_initial": false,
+          "color": "#6c757d"
+        },
+        {
+          "name": "error",
+          "description": "错误状态 - 处理失败",
+          "is_initial": false,
+          "color": "#dc3545"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "uploaded",
+          "to": "processing",
+          "trigger": "auto",
+          "conditions": [],
+          "actions": [
+            "extract_content",
+            "split_chunks",
+            "generate_embeddings"
+          ]
+        },
+        {
+          "from": "processing",
+          "to": "annotated",
+          "trigger": "processing_complete",
+          "conditions": [
+            {
+              "type": "all_chunks_annotated",
+              "operator": "=",
+              "value": true,
+              "description": "所有chunks都已标注维度"
+            },
+            {
+              "type": "annotation_coverage",
+              "operator": ">=",
+              "value": 0.8,
+              "description": "标注覆盖率达到80%"
+            }
+          ],
+          "condition_logic": "AND",
+          "actions": [
+            "update_status",
+            "calculate_quality_score"
+          ]
+        },
+        {
+          "from": "processing",
+          "to": "error",
+          "trigger": "processing_failed",
+          "conditions": [
+            {
+              "type": "error_count",
+              "operator": ">",
+              "value": 3,
+              "description": "错误次数超过3次"
+            }
+          ],
+          "actions": [
+            "log_error",
+            "notify_admin"
+          ]
+        },
+        {
+          "from": "annotated",
+          "to": "validated",
+          "trigger": "manual_validation",
+          "conditions": [
+            {
+              "type": "validation_passed",
+              "operator": "=",
+              "value": true,
+              "description": "人工验证通过"
+            }
+          ],
+          "actions": [
+            "mark_validated",
+            "update_confidence_scores"
+          ]
+        },
+        {
+          "from": "validated",
+          "to": "archived",
+          "trigger": "retention_period_expired",
+          "conditions": [
+            {
+              "type": "days_since_validation",
+              "operator": ">",
+              "value": 730,
+              "description": "验证后超过2年"
+            },
+            {
+              "type": "access_count",
+              "operator": "=",
+              "value": 0,
+              "time_window": "6_months",
+              "description": "近6个月无访问"
+            }
+          ],
+          "condition_logic": "AND",
+          "actions": [
+            "move_to_cold_storage",
+            "update_status"
+          ]
+        },
+        {
+          "from": "error",
+          "to": "processing",
+          "trigger": "manual_retry",
+          "conditions": [],
+          "actions": [
+            "reset_error_count",
+            "restart_processing"
+          ]
+        }
+      ],
+      "auto_check_interval": "daily",
+      "auto_check_triggers": [
+        "processing_complete",
+        "retention_period_expired"
+      ]
+    },
+
+    {
+      "entity_type": "Chunk",
+      "description": "文本块状态机 - 管理文本块的标注流程",
+      "states": [
+        {
+          "name": "raw",
+          "description": "原始状态 - 刚切分出来",
+          "is_initial": true,
+          "color": "#6c757d"
+        },
+        {
+          "name": "processed",
+          "description": "已处理 - 完成基础处理",
+          "is_initial": false,
+          "color": "#17a2b8"
+        },
+        {
+          "name": "annotated",
+          "description": "已标注 - 完成维度标注",
+          "is_initial": false,
+          "color": "#ffc107"
+        },
+        {
+          "name": "validated",
+          "description": "已验证 - 通过人工验证",
+          "is_initial": false,
+          "color": "#28a745"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "raw",
+          "to": "processed",
+          "trigger": "auto",
+          "conditions": [],
+          "actions": [
+            "calculate_quantification_metrics",
+            "generate_embedding"
+          ]
+        },
+        {
+          "from": "processed",
+          "to": "annotated",
+          "trigger": "annotation_complete",
+          "conditions": [
+            {
+              "type": "dimension_category",
+              "operator": "not_null",
+              "description": "已分配业务维度"
+            },
+            {
+              "type": "confidence_score",
+              "operator": ">=",
+              "value": 0.5,
+              "description": "置信度达到0.5"
+            }
+          ],
+          "condition_logic": "AND",
+          "actions": [
+            "update_status",
+            "index_for_search"
+          ]
+        },
+        {
+          "from": "annotated",
+          "to": "validated",
+          "trigger": "manual_validation",
+          "conditions": [
+            {
+              "type": "validation_passed",
+              "operator": "=",
+              "value": true,
+              "description": "人工确认标注正确"
+            }
+          ],
+          "actions": [
+            "mark_validated",
+            "increase_confidence_score"
+          ]
+        }
+      ],
+      "auto_check_interval": "immediate",
+      "auto_check_triggers": [
+        "auto",
+        "annotation_complete"
+      ]
+    },
+
+    {
+      "entity_type": "Event",
+      "description": "事件状态机 - 管理事件的生命周期",
+      "states": [
+        {
+          "name": "planned",
+          "description": "计划中 - 事件尚未开始",
+          "is_initial": true,
+          "color": "#17a2b8"
+        },
+        {
+          "name": "ongoing",
+          "description": "进行中 - 事件正在发生",
+          "is_initial": false,
+          "color": "#ffc107"
+        },
+        {
+          "name": "completed",
+          "description": "已完成 - 事件已结束",
+          "is_initial": false,
+          "color": "#28a745"
+        },
+        {
+          "name": "cancelled",
+          "description": "已取消 - 事件被取消",
+          "is_initial": false,
+          "color": "#dc3545"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "planned",
+          "to": "ongoing",
+          "trigger": "event_start",
+          "conditions": [
+            {
+              "type": "current_date",
+              "operator": ">=",
+              "value": "event_date",
+              "description": "到达事件日期"
+            }
+          ],
+          "actions": [
+            "update_status",
+            "notify_participants"
+          ]
+        },
+        {
+          "from": "ongoing",
+          "to": "completed",
+          "trigger": "event_end",
+          "conditions": [],
+          "actions": [
+            "update_status",
+            "generate_summary"
+          ]
+        },
+        {
+          "from": "planned",
+          "to": "cancelled",
+          "trigger": "manual_cancellation",
+          "conditions": [],
+          "actions": [
+            "update_status",
+            "notify_participants"
+          ]
+        }
+      ],
+      "auto_check_interval": "daily",
+      "auto_check_triggers": [
+        "event_start"
+      ]
+    }
+  ]
+}

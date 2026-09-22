@@ -1,0 +1,71 @@
+# AI知识分析系统 - 核心依赖
+
+# Web框架
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# 异步支持
+asyncio
+aiofiles==23.2.1
+httpx==0.26.0
+
+# AI/ML核心
+sentence-transformers==2.3.1
+scikit-learn==1.4.0
+numpy==1.26.3
+scipy==1.12.0
+
+# 聚类算法
+hdbscan==0.8.33
+umap-learn==0.5.5
+
+# 主题建模
+bertopic==0.16.0
+
+# LLM集成
+anthropic==0.18.0
+openai==1.12.0
+
+# NLP
+jieba==0.42.1
+hanlp==2.1.0b55
+
+# 向量数据库
+chromadb==0.4.22
+faiss-cpu==1.7.4
+
+# 知识图谱
+neo4j==5.16.0
+py2neo==2021.2.3
+
+# 数据处理
+pandas==2.2.0
+openpyxl==3.1.2
+
+# 文档处理
+PyPDF2==3.0.1
+python-docx==1.1.0
+python-pptx==0.6.23
+markdown==3.5.2
+
+# 可视化
+matplotlib==3.8.2
+seaborn==0.13.2
+plotly==5.18.0
+
+# 工作流
+celery==5.3.6
+redis==5.0.1
+
+# 数据库
+sqlalchemy==2.0.25
+alembic==1.13.1
+psycopg2-binary==2.9.9
+
+# 工具库
+python-multipart==0.0.6
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-dotenv==1.0.1

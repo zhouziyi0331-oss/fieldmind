@@ -1,0 +1,328 @@
+{
+  "view_id": "location_assets_view",
+  "name": "地点文化资产视图",
+  "version": "1.0",
+  "description": "查看某个地点的所有文化资产、历史事件、相关政策、人文特征等",
+
+  "intent": "查看地点的文化资产分布",
+  "keywords": ["地点", "村寨", "文化资产", "分布", "特色"],
+
+  "input": {
+    "required": [
+      {
+        "name": "location_id",
+        "type": "string",
+        "description": "地点ID或名称",
+        "example": "大坪村"
+      }
+    ],
+    "optional": [
+      {
+        "name": "asset_type_filter",
+        "type": "array",
+        "default": ["all"],
+        "description": "文化资产类型过滤",
+        "enum": ["folk_song", "handicraft", "festival", "architecture", "food_culture", "all"]
+      },
+      {
+        "name": "include_nearby",
+        "type": "boolean",
+        "default": false,
+        "description": "是否包含附近地点"
+      }
+    ]
+  },
+
+  "output": {
+    "location_info": {
+      "type": "object",
+      "source": "graph_query",
+      "fields": {
+        "location_id": "string",
+        "name": "string",
+        "type": "string",
+        "coordinates": "object",
+        "status": "string",
+        "population": "integer",
+        "established_date": "string"
+      }
+    },
+    "cultural_assets": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "该地点的文化资产",
+      "fields": {
+        "asset_id": "string",
+        "name": "string",
+        "type": "string",
+        "category": "string",
+        "status": "string",
+        "protection_level": "string",
+        "risk_level": "integer"
+      }
+    },
+    "asset_statistics": {
+      "type": "object",
+      "source": "computed",
+      "fields": {
+        "total_count": "integer",
+        "by_type": "object",
+        "by_status": "object",
+        "protected_count": "integer",
+        "endangered_count": "integer"
+      }
+    },
+    "historical_events": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "发生在该地点的历史事件",
+      "fields": {
+        "event_id": "string",
+        "event_name": "string",
+        "event_type": "string",
+        "date": "string",
+        "significance": "string",
+        "participants_count": "integer"
+      }
+    },
+    "residents": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "居民列表（关键人物）",
+      "fields": {
+        "person_id": "string",
+        "name": "string",
+        "age": "integer",
+        "role": "string",
+        "inherited_assets": "array"
+      }
+    },
+    "resident_statistics": {
+      "type": "object",
+      "source": "computed",
+      "fields": {
+        "total_population": "integer",
+        "key_persons_count": "integer",
+        "inheritors_count": "integer",
+        "avg_age": "float"
+      }
+    },
+    "related_policies": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "影响该地点的政策",
+      "fields": {
+        "policy_id": "string",
+        "name": "string",
+        "type": "string",
+        "level": "string",
+        "status": "string",
+        "effective_date": "date"
+      }
+    },
+    "cultural_characteristics": {
+      "type": "object",
+      "source": "computed",
+      "description": "文化特征分析",
+      "fields": {
+        "dominant_culture_type": "string",
+        "diversity_score": "float",
+        "heritage_density": "float",
+        "key_features": "array"
+      }
+    },
+    "development_potential": {
+      "type": "object",
+      "source": "inference",
+      "description": "发展潜力评估",
+      "fields": {
+        "tourism_potential": "float",
+        "cultural_tourism_score": "float",
+        "infrastructure_score": "float",
+        "recommendations": "array"
+      }
+    },
+    "nearby_locations": {
+      "type": "array",
+      "source": "graph_query",
+      "description": "附近的地点（如果include_nearby=true）",
+      "fields": {
+        "location_id": "string",
+        "name": "string",
+        "distance_km": "float",
+        "common_assets": "array"
+      }
+    }
+  },
+
+  "data_bindings": [
+    {
+      "binding_id": "graph_location_info",
+      "description": "查询地点基本信息",
+      "channel_type": "graph",
+      "query_template": "MATCH (l:Location {location_id: $location_id}) RETURN l",
+      "output_mapping": {
+        "location_info": "l"
+      }
+    },
+    {
+      "binding_id": "graph_cultural_assets",
+      "description": "查询该地点的文化资产",
+      "channel_type": "graph",
+      "query_template": "MATCH (a:CulturalAsset)-[:located_in]->(l:Location {location_id: $location_id}) RETURN a",
+      "output_mapping": {
+        "cultural_assets": "a"
+      }
+    },
+    {
+      "binding_id": "graph_historical_events",
+      "description": "查询发生在该地点的事件",
+      "channel_type": "graph",
+      "query_template": "MATCH (e:Event)-[:occurs_at]->(l:Location {location_id: $location_id}) RETURN e ORDER BY e.date DESC",
+      "output_mapping": {
+        "historical_events": "e"
+      }
+    },
+    {
+      "binding_id": "graph_residents",
+      "description": "查询居民和关键人物",
+      "channel_type": "graph",
+      "query_template": "MATCH (p:Person)-[:belongs_to|lives_in]->(l:Location {location_id: $location_id}) OPTIONAL MATCH (p)-[:inherits]->(a:CulturalAsset) RETURN p, collect(a.name) AS inherited_assets",
+      "output_mapping": {
+        "residents": "result"
+      }
+    },
+    {
+      "binding_id": "graph_related_policies",
+      "description": "查询相关政策",
+      "channel_type": "graph",
+      "query_template": "MATCH (l:Location {location_id: $location_id})<-[:located_in]-(a:CulturalAsset)-[:related_to]->(p:Policy) RETURN DISTINCT p",
+      "output_mapping": {
+        "related_policies": "p"
+      }
+    },
+    {
+      "binding_id": "graph_nearby_locations",
+      "description": "查询附近地点（如果启用）",
+      "channel_type": "graph",
+      "query_template": "MATCH (l1:Location {location_id: $location_id}), (l2:Location) WHERE l1 <> l2 AND point.distance(point(l1.coordinates), point(l2.coordinates)) < 10000 RETURN l2, point.distance(point(l1.coordinates), point(l2.coordinates)) / 1000 AS distance_km ORDER BY distance_km LIMIT 10",
+      "output_mapping": {
+        "nearby_locations": "result"
+      },
+      "conditional": "include_nearby == true"
+    }
+  ],
+
+  "inference_logic": {
+    "calculate_asset_statistics": {
+      "description": "计算文化资产统计",
+      "depends_on": ["cultural_assets"],
+      "logic": {
+        "total_count": "len(cultural_assets)",
+        "by_type": "count_by(cultural_assets, 'type')",
+        "by_status": "count_by(cultural_assets, 'status')",
+        "protected_count": "len([a for a in cultural_assets if a.protection_level])",
+        "endangered_count": "len([a for a in cultural_assets if a.status == 'endangered'])"
+      }
+    },
+    "calculate_resident_statistics": {
+      "description": "计算居民统计",
+      "depends_on": ["residents", "location_info"],
+      "logic": {
+        "total_population": "location_info.population or len(residents)",
+        "key_persons_count": "len([p for p in residents if p.role in ['inheritor', 'village_official']])",
+        "inheritors_count": "len([p for p in residents if len(p.inherited_assets) > 0])",
+        "avg_age": "mean([p.age for p in residents if p.age])"
+      }
+    },
+    "analyze_cultural_characteristics": {
+      "description": "分析文化特征",
+      "depends_on": ["cultural_assets", "asset_statistics"],
+      "logic": {
+        "dominant_culture_type": "max(asset_statistics.by_type, key=lambda x: x[1])[0]",
+        "diversity_score": "len(asset_statistics.by_type) / 9.0",
+        "heritage_density": "asset_statistics.total_count / (location_info.population or 1000) * 1000",
+        "key_features": "extract_top_features(cultural_assets, top_n=5)"
+      }
+    },
+    "assess_development_potential": {
+      "description": "评估发展潜力",
+      "depends_on": ["cultural_assets", "asset_statistics", "related_policies"],
+      "logic": {
+        "tourism_potential": {
+          "formula": "(protected_count * 20 + total_count * 10) / 100",
+          "max": 1.0
+        },
+        "cultural_tourism_score": {
+          "factors": [
+            "asset_statistics.protected_count * 0.4",
+            "len(historical_events) * 0.3",
+            "diversity_score * 0.3"
+          ]
+        },
+        "infrastructure_score": {
+          "check": ["有公路", "有水电", "有住宿"],
+          "from": "chunks_evidence"
+        },
+        "recommendations": [
+          {
+            "condition": "tourism_potential > 0.7",
+            "text": "具备较高旅游开发潜力，建议发展文化旅游产业"
+          },
+          {
+            "condition": "diversity_score > 0.6",
+            "text": "文化多样性丰富，建议打造特色文化村落"
+          },
+          {
+            "condition": "endangered_count > 0",
+            "text": "存在濒危文化资产，建议优先实施抢救性保护"
+          }
+        ]
+      }
+    }
+  },
+
+  "execution_strategy": {
+    "parallel_bindings": true,
+    "timeout_ms": 6000,
+    "cache_ttl_seconds": 600,
+    "fallback_on_error": true
+  },
+
+  "visualization_hints": {
+    "map_view": {
+      "enabled": true,
+      "center_on": "location_info.coordinates",
+      "show_assets_as_markers": true,
+      "marker_color_by": "asset.status",
+      "show_nearby_locations": "include_nearby"
+    },
+    "charts": [
+      {
+        "type": "pie",
+        "data": "asset_statistics.by_type",
+        "title": "文化资产类型分布"
+      },
+      {
+        "type": "bar",
+        "data": "asset_statistics.by_status",
+        "title": "文化资产保护状态"
+      }
+    ]
+  },
+
+  "test_cases": [
+    {
+      "name": "查询大坪村的文化资产",
+      "input": {
+        "location_id": "大坪村",
+        "include_nearby": false
+      },
+      "expected_output": {
+        "location_info.name": "大坪村",
+        "cultural_assets.length": ">= 0",
+        "asset_statistics.total_count": ">= 0"
+      }
+    }
+  ]
+}

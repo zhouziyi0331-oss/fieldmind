@@ -1,0 +1,93 @@
+🔍 检查功能缺口...
+
+============================================================
+
+📌 数据采集
+   ✅ upload
+   ✅ drag_drop
+   ✅ batch_upload
+
+📌 内容提取
+   ✅ transcript
+   ✅ ocr
+   ✅ pdf_extract
+   ✅ video_extract
+
+📌 文本处理
+   ✅ chunking
+   ✅ cleaning
+   ✅ normalization
+
+📌 量化分析
+   ✅ word_count
+   ✅ emotion
+   ✅ subjectivity
+   ✅ tfidf
+
+📌 语义处理
+   ✅ embedding
+   ✅ vector_search
+   ✅ semantic_similarity
+
+📌 知识构建
+   ✅ entity_extraction
+   ✅ relation_extraction
+   ✅ event_extraction
+
+📌 知识图谱
+   ✅ graph_build
+   ✅ graph_query
+   ✅ graph_visualization
+
+📌 工作流
+   ✅ orchestrator
+   ✅ task_queue
+   ✅ retry
+
+📌 报告
+   ✅ layer1_report
+   ✅ layer2_report
+   ✅ layer3_report
+
+📌 对话
+   ✅ chat
+   ✅ qa
+   ✅ context_memory
+
+📌 权限
+   ✅ auth
+   ✅ permission
+   ✅ audit
+
+📌 溯源
+   ✅ citation
+   ✅ traceback
+   ✅ lineage
+
+📌 资产
+   ✅ skill
+   ✅ template
+   ✅ asset_deposit
+
+📌 评测
+   ✅ test_cases
+   ✅ metrics
+   ✅ evaluation
+
+============================================================
+
+📊 缺口总结：0 个功能未实现
+
+📊 缺失的数据库表：
+   ❌ knowledge_sources
+   ❌ project_documents
+   ❌ events
+   ❌ entities
+   ❌ agent_traces
+   ❌ evaluation_test_cases
+   ❌ evaluation_runs
+   ❌ projects
+   ❌ keywords
+   ❌ timeline_events
+   ❌ chunks
+   ❌ entity_relations

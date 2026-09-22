@@ -170,8 +170,13 @@ class EnhancedCoordinatorAgent(AgentBase):
        - SuperSearchAgent: Fact-checking via web search
        - Final: High-confidence summary with verification
     """
+    def __init__(self, agent_id: Optional[str] = None, use_workflow_engine: bool = True):
 
-    def __init__(self, agent_id: Optional[str] = None):
+        self.use_workflow_engine = use_workflow_engine
+
+        if use_workflow_engine:
+            from app.services.workflow_engine import WorkflowEngine
+            self.workflow_engine = WorkflowEngine(max_workers=4)
         """Initialize coordinator with all SuperAgents"""
         super().__init__(agent_id=agent_id)
 

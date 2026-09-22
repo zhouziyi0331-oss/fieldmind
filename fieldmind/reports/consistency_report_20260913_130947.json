@@ -1,0 +1,73 @@
+{
+  "timestamp": "2026-09-13T13:09:47.429323",
+  "mode": "MOCK",
+  "checks": {
+    "entity_counts": {
+      "postgresql": 1132,
+      "neo4j": 1132,
+      "match": true,
+      "difference": 0
+    },
+    "chunk_counts": {
+      "postgresql_total": 1036,
+      "chromadb_total": 933,
+      "marked_synced": 933,
+      "pending_sync": 103,
+      "match": true,
+      "sync_rate": "90.1%"
+    },
+    "id_formats": {
+      "entities_checked": 100,
+      "entities_errors": 0,
+      "chunks_checked": 100,
+      "chunks_errors": 0,
+      "total_errors": 0,
+      "error_details": {
+        "entities": [],
+        "chunks": []
+      }
+    },
+    "foreign_key_integrity": {
+      "chunks_checked": 100,
+      "total_entities": 1132,
+      "orphan_references": 1,
+      "orphan_details": [
+        {
+          "chunk_id": "chk_000000000064",
+          "speaker_id": "ent_000000000000"
+        }
+      ]
+    },
+    "new_fields": {
+      "sample_size": 100,
+      "field_statistics": {
+        "emotion_polarity": {
+          "filled": 100,
+          "null": 0,
+          "out_of_range": 0
+        },
+        "quality_score": {
+          "filled": 100,
+          "null": 0,
+          "out_of_range": 0
+        },
+        "speaker_id": {
+          "filled": 100,
+          "null": 0
+        },
+        "synced_to_chromadb": {
+          "synced": 90,
+          "pending": 10
+        }
+      }
+    }
+  },
+  "summary": {
+    "total_checks": 5,
+    "total_issues": 1,
+    "status": "FAIL"
+  },
+  "issues": [
+    "发现 1 个孤立的外键引用"
+  ]
+}

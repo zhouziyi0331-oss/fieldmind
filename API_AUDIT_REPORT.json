@@ -1,0 +1,841 @@
+{
+  "summary": {
+    "total_endpoints": 36,
+    "total_routers": 90,
+    "methods": {
+      "POST": 10,
+      "GET": 24,
+      "DELETE": 2
+    },
+    "tags": [
+      "reports",
+      "documents",
+      "skills",
+      "dashboard",
+      "chat-rag",
+      "chat",
+      "batch",
+      "数据分析"
+    ],
+    "missing_docs": 0
+  },
+  "endpoints_by_method": {
+    "POST": [
+      {
+        "method": "POST",
+        "path": "/generate",
+        "function": "generate_report",
+        "file": "api/reports_real.py",
+        "tags": [
+          "reports"
+        ],
+        "has_docs": true,
+        "docstring": "生成三层报告\n\n一度报告：基于材料的直接分析（文本摘要 + 关键词）\n二度报告：费孝通框架分析（社会结构与变迁）\n三度报告：综合多维度分析（SOP + 费孝通 + 关键词趋势）"
+      },
+      {
+        "method": "POST",
+        "path": "/skills/config",
+        "function": "update_skill_config",
+        "file": "api/skill_config.py",
+        "tags": [
+          "skills"
+        ],
+        "has_docs": true,
+        "docstring": "更新项目的Skill配置\n\n启用/禁用Skill后，需要重新处理文档才能生效"
+      },
+      {
+        "method": "POST",
+        "path": "/skills/toggle/{project_id}/{skill_id}/",
+        "function": "toggle_skill",
+        "file": "api/skill_config.py",
+        "tags": [
+          "skills"
+        ],
+        "has_docs": true,
+        "docstring": "快速开关单个Skill"
+      },
+      {
+        "method": "POST",
+        "path": "/query",
+        "function": "rag_query",
+        "file": "api/chat_rag.py",
+        "tags": [
+          "chat-rag"
+        ],
+        "has_docs": true,
+        "docstring": "基于RAG的对话查询\n\n流程：\n1. 检查是否有已处理的文档\n2. 使用RAG引擎从ChromaDB检索相关文本块\n3. 如果没有相关数据，直接返回提示\n4. 如果有相关数据，拼接成上下文返回（LLM..."
+      },
+      {
+        "method": "POST",
+        "path": "/sessions",
+        "function": "create_chat_session",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "创建对话会话"
+      },
+      {
+        "method": "POST",
+        "path": "/sessions/{session_id}/messages",
+        "function": "send_message",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "发送消息并获取AI响应\n\n这是核心对话功能：\n1. 检索项目的长记忆\n2. 加载项目专属的skill框架\n3. 结合文档内容和对话历史\n4. 使用深度思考生成响应\n5. 自动学习并更新记忆"
+      },
+      {
+        "method": "POST",
+        "path": "/sessions/{session_id}/evolve-skill/",
+        "function": "evolve_session_skill",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "进化会话的技能框架\n\n基于最新的对话历史，自动优化项目的skill框架\n这实现了自我学习和进化功能"
+      },
+      {
+        "method": "POST",
+        "path": "/reprocess-failed",
+        "function": "reprocess_failed_documents",
+        "file": "api/batch_processing.py",
+        "tags": [
+          "batch"
+        ],
+        "has_docs": true,
+        "docstring": "重新处理所有失败的文档"
+      },
+      {
+        "method": "POST",
+        "path": "/process-project",
+        "function": "process_entire_project",
+        "file": "api/batch_processing.py",
+        "tags": [
+          "batch"
+        ],
+        "has_docs": true,
+        "docstring": "处理项目的所有文档\n\n性能优化版本，适合大批量文档"
+      },
+      {
+        "method": "POST",
+        "path": "/projects/{project_id}/generate-report/",
+        "function": "generate_report",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "生成分析报告 - 反幻觉版本\n\n核心流程：\n1. 生成facts.json（纯数据，无修饰）\n2. 基于模板直接生成报告（不调用LLM）\n3. 幻觉检测（如果调用了LLM）\n4. 验证通过才返回"
+      }
+    ],
+    "GET": [
+      {
+        "method": "GET",
+        "path": "/preview/{report_level}/",
+        "function": "preview_report",
+        "file": "api/reports_real.py",
+        "tags": [
+          "reports"
+        ],
+        "has_docs": true,
+        "docstring": "预览报告（快速查看可用数据）"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/projects/{project_id}/documents/",
+        "function": "list_project_documents",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的所有文档"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/{document_id}",
+        "function": "get_document",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取文档详情"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/knowledge-base/status",
+        "function": "get_knowledge_base_status",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取知识库状态\n\n返回：\n- 总文档数\n- 各状态文档数（pending, processing, completed, failed）\n- 总分块数（从metadata中统计）\n- 向量化完成的文档..."
+      },
+      {
+        "method": "GET",
+        "path": "/documents/list/status",
+        "function": "get_documents_status",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取文档处理状态列表（用于前端轮询）\n\n**项目隔离：强制要求project_id参数**\n\n返回每个文档的：id, filename, status, chunk_count, created_at"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/aggregate/keywords",
+        "function": "get_aggregated_keywords",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "聚合所有文档的关键词（按词频排序）\n\n**项目隔离：强制要求project_id参数**\n\n返回：[{keyword, count, weight}]"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/skill/analysis/{document_id}/",
+        "function": "get_skill_analysis",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取文档的Skill分析结果\n\n返回：skill_results字典"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/aggregate/skills",
+        "function": "get_aggregated_skills",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "聚合所有文档的Skill分析结果\n\n**项目隔离：强制要求project_id参数**\n\n返回：{skill_name: {dimension: {matched_count, contexts[]}..."
+      },
+      {
+        "method": "GET",
+        "path": "/documents/{document_id}/fact-statements/",
+        "function": "get_document_fact_statements",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取文档的所有fact_statements（带时间戳）\n\n返回：[{statement, start_sec, end_sec, confidence_score, speaker}]"
+      },
+      {
+        "method": "GET",
+        "path": "/skills/available",
+        "function": "get_available_skills",
+        "file": "api/skill_config.py",
+        "tags": [
+          "skills"
+        ],
+        "has_docs": true,
+        "docstring": "获取所有可用的Skill列表"
+      },
+      {
+        "method": "GET",
+        "path": "/skills/config/{project_id}",
+        "function": "get_skill_config",
+        "file": "api/skill_config.py",
+        "tags": [
+          "skills"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的Skill配置"
+      },
+      {
+        "method": "GET",
+        "path": "/stats/{project_id}",
+        "function": "get_dashboard_stats",
+        "file": "api/dashboard.py",
+        "tags": [
+          "dashboard"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的Dashboard统计数据\n\n缓存时间: 5分钟\n需要认证: 否\n\n🔥 永久修复：项目不存在时返回空数据而不是 404"
+      },
+      {
+        "method": "GET",
+        "path": "/timeline/{project_id}",
+        "function": "get_project_timeline",
+        "file": "api/dashboard.py",
+        "tags": [
+          "dashboard"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的时间线数据（最近N天的活动）\n\n🔥 永久修复：项目不存在时返回空时间线"
+      },
+      {
+        "method": "GET",
+        "path": "/progress/{project_id}",
+        "function": "get_project_progress",
+        "file": "api/dashboard.py",
+        "tags": [
+          "dashboard"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的整体进度指标\n\n🔥 永久修复：项目不存在时返回空进度数据"
+      },
+      {
+        "method": "GET",
+        "path": "/available-documents/{project_id}/",
+        "function": "get_available_documents",
+        "file": "api/chat_rag.py",
+        "tags": [
+          "chat-rag"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目中可用于RAG检索的文档列表\n\n返回已完成向量化的文档"
+      },
+      {
+        "method": "GET",
+        "path": "/status",
+        "function": "rag_status",
+        "file": "api/chat_rag.py",
+        "tags": [
+          "chat-rag"
+        ],
+        "has_docs": true,
+        "docstring": "检查RAG系统状态"
+      },
+      {
+        "method": "GET",
+        "path": "/sessions/{session_id}",
+        "function": "get_chat_session",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "获取对话会话"
+      },
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/sessions/",
+        "function": "list_project_sessions",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的所有对话会话"
+      },
+      {
+        "method": "GET",
+        "path": "/sessions/{session_id}/messages/",
+        "function": "get_session_messages",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "获取会话的所有消息"
+      },
+      {
+        "method": "GET",
+        "path": "/status",
+        "function": "get_batch_status",
+        "file": "api/batch_processing.py",
+        "tags": [
+          "batch"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的批量处理状态\n\n返回各状态的文档数量"
+      },
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/topic-distribution/",
+        "function": "get_topic_distribution",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "获取主题分布 - 基于SQL COUNT\n\n返回格式：\n{\n    \"project_id\": 1,\n    \"topics\": [\n        {\"topic\": \"食\", \"count\": 4..."
+      },
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/top-entities/",
+        "function": "get_top_entities",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "获取Top实体（人物/地点） - 基于SQL COUNT\n\n返回格式：\n{\n    \"entity_type\": \"person\",\n    \"entities\": [\n        {\"name\"..."
+      },
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/word-count-stats/",
+        "function": "get_word_count_stats",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "获取字数统计 - 基于SQL SUM/AVG"
+      },
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/timeline-distribution/",
+        "function": "get_timeline_distribution",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "获取时间线分布 - 基于SQL GROUP BY\n按文档和时间段统计"
+      }
+    ],
+    "DELETE": [
+      {
+        "method": "DELETE",
+        "path": "/documents/{document_id}/",
+        "function": "delete_document",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "删除文档"
+      },
+      {
+        "method": "DELETE",
+        "path": "/sessions/{session_id}/",
+        "function": "delete_session",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "删除对话会话"
+      }
+    ]
+  },
+  "endpoints_by_tag": {
+    "reports": [
+      {
+        "method": "POST",
+        "path": "/generate",
+        "function": "generate_report",
+        "file": "api/reports_real.py",
+        "tags": [
+          "reports"
+        ],
+        "has_docs": true,
+        "docstring": "生成三层报告\n\n一度报告：基于材料的直接分析（文本摘要 + 关键词）\n二度报告：费孝通框架分析（社会结构与变迁）\n三度报告：综合多维度分析（SOP + 费孝通 + 关键词趋势）"
+      },
+      {
+        "method": "GET",
+        "path": "/preview/{report_level}/",
+        "function": "preview_report",
+        "file": "api/reports_real.py",
+        "tags": [
+          "reports"
+        ],
+        "has_docs": true,
+        "docstring": "预览报告（快速查看可用数据）"
+      }
+    ],
+    "documents": [
+      {
+        "method": "GET",
+        "path": "/documents/projects/{project_id}/documents/",
+        "function": "list_project_documents",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的所有文档"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/{document_id}",
+        "function": "get_document",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取文档详情"
+      },
+      {
+        "method": "DELETE",
+        "path": "/documents/{document_id}/",
+        "function": "delete_document",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "删除文档"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/knowledge-base/status",
+        "function": "get_knowledge_base_status",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取知识库状态\n\n返回：\n- 总文档数\n- 各状态文档数（pending, processing, completed, failed）\n- 总分块数（从metadata中统计）\n- 向量化完成的文档..."
+      },
+      {
+        "method": "GET",
+        "path": "/documents/list/status",
+        "function": "get_documents_status",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取文档处理状态列表（用于前端轮询）\n\n**项目隔离：强制要求project_id参数**\n\n返回每个文档的：id, filename, status, chunk_count, created_at"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/aggregate/keywords",
+        "function": "get_aggregated_keywords",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "聚合所有文档的关键词（按词频排序）\n\n**项目隔离：强制要求project_id参数**\n\n返回：[{keyword, count, weight}]"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/skill/analysis/{document_id}/",
+        "function": "get_skill_analysis",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取文档的Skill分析结果\n\n返回：skill_results字典"
+      },
+      {
+        "method": "GET",
+        "path": "/documents/aggregate/skills",
+        "function": "get_aggregated_skills",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "聚合所有文档的Skill分析结果\n\n**项目隔离：强制要求project_id参数**\n\n返回：{skill_name: {dimension: {matched_count, contexts[]}..."
+      },
+      {
+        "method": "GET",
+        "path": "/documents/{document_id}/fact-statements/",
+        "function": "get_document_fact_statements",
+        "file": "api/documents.py",
+        "tags": [
+          "documents"
+        ],
+        "has_docs": true,
+        "docstring": "获取文档的所有fact_statements（带时间戳）\n\n返回：[{statement, start_sec, end_sec, confidence_score, speaker}]"
+      }
+    ],
+    "skills": [
+      {
+        "method": "GET",
+        "path": "/skills/available",
+        "function": "get_available_skills",
+        "file": "api/skill_config.py",
+        "tags": [
+          "skills"
+        ],
+        "has_docs": true,
+        "docstring": "获取所有可用的Skill列表"
+      },
+      {
+        "method": "GET",
+        "path": "/skills/config/{project_id}",
+        "function": "get_skill_config",
+        "file": "api/skill_config.py",
+        "tags": [
+          "skills"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的Skill配置"
+      },
+      {
+        "method": "POST",
+        "path": "/skills/config",
+        "function": "update_skill_config",
+        "file": "api/skill_config.py",
+        "tags": [
+          "skills"
+        ],
+        "has_docs": true,
+        "docstring": "更新项目的Skill配置\n\n启用/禁用Skill后，需要重新处理文档才能生效"
+      },
+      {
+        "method": "POST",
+        "path": "/skills/toggle/{project_id}/{skill_id}/",
+        "function": "toggle_skill",
+        "file": "api/skill_config.py",
+        "tags": [
+          "skills"
+        ],
+        "has_docs": true,
+        "docstring": "快速开关单个Skill"
+      }
+    ],
+    "dashboard": [
+      {
+        "method": "GET",
+        "path": "/stats/{project_id}",
+        "function": "get_dashboard_stats",
+        "file": "api/dashboard.py",
+        "tags": [
+          "dashboard"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的Dashboard统计数据\n\n缓存时间: 5分钟\n需要认证: 否\n\n🔥 永久修复：项目不存在时返回空数据而不是 404"
+      },
+      {
+        "method": "GET",
+        "path": "/timeline/{project_id}",
+        "function": "get_project_timeline",
+        "file": "api/dashboard.py",
+        "tags": [
+          "dashboard"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的时间线数据（最近N天的活动）\n\n🔥 永久修复：项目不存在时返回空时间线"
+      },
+      {
+        "method": "GET",
+        "path": "/progress/{project_id}",
+        "function": "get_project_progress",
+        "file": "api/dashboard.py",
+        "tags": [
+          "dashboard"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的整体进度指标\n\n🔥 永久修复：项目不存在时返回空进度数据"
+      }
+    ],
+    "chat-rag": [
+      {
+        "method": "POST",
+        "path": "/query",
+        "function": "rag_query",
+        "file": "api/chat_rag.py",
+        "tags": [
+          "chat-rag"
+        ],
+        "has_docs": true,
+        "docstring": "基于RAG的对话查询\n\n流程：\n1. 检查是否有已处理的文档\n2. 使用RAG引擎从ChromaDB检索相关文本块\n3. 如果没有相关数据，直接返回提示\n4. 如果有相关数据，拼接成上下文返回（LLM..."
+      },
+      {
+        "method": "GET",
+        "path": "/available-documents/{project_id}/",
+        "function": "get_available_documents",
+        "file": "api/chat_rag.py",
+        "tags": [
+          "chat-rag"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目中可用于RAG检索的文档列表\n\n返回已完成向量化的文档"
+      },
+      {
+        "method": "GET",
+        "path": "/status",
+        "function": "rag_status",
+        "file": "api/chat_rag.py",
+        "tags": [
+          "chat-rag"
+        ],
+        "has_docs": true,
+        "docstring": "检查RAG系统状态"
+      }
+    ],
+    "chat": [
+      {
+        "method": "POST",
+        "path": "/sessions",
+        "function": "create_chat_session",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "创建对话会话"
+      },
+      {
+        "method": "GET",
+        "path": "/sessions/{session_id}",
+        "function": "get_chat_session",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "获取对话会话"
+      },
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/sessions/",
+        "function": "list_project_sessions",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的所有对话会话"
+      },
+      {
+        "method": "POST",
+        "path": "/sessions/{session_id}/messages",
+        "function": "send_message",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "发送消息并获取AI响应\n\n这是核心对话功能：\n1. 检索项目的长记忆\n2. 加载项目专属的skill框架\n3. 结合文档内容和对话历史\n4. 使用深度思考生成响应\n5. 自动学习并更新记忆"
+      },
+      {
+        "method": "GET",
+        "path": "/sessions/{session_id}/messages/",
+        "function": "get_session_messages",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "获取会话的所有消息"
+      },
+      {
+        "method": "DELETE",
+        "path": "/sessions/{session_id}/",
+        "function": "delete_session",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "删除对话会话"
+      },
+      {
+        "method": "POST",
+        "path": "/sessions/{session_id}/evolve-skill/",
+        "function": "evolve_session_skill",
+        "file": "api/chat.py",
+        "tags": [
+          "chat"
+        ],
+        "has_docs": true,
+        "docstring": "进化会话的技能框架\n\n基于最新的对话历史，自动优化项目的skill框架\n这实现了自我学习和进化功能"
+      }
+    ],
+    "batch": [
+      {
+        "method": "GET",
+        "path": "/status",
+        "function": "get_batch_status",
+        "file": "api/batch_processing.py",
+        "tags": [
+          "batch"
+        ],
+        "has_docs": true,
+        "docstring": "获取项目的批量处理状态\n\n返回各状态的文档数量"
+      },
+      {
+        "method": "POST",
+        "path": "/reprocess-failed",
+        "function": "reprocess_failed_documents",
+        "file": "api/batch_processing.py",
+        "tags": [
+          "batch"
+        ],
+        "has_docs": true,
+        "docstring": "重新处理所有失败的文档"
+      },
+      {
+        "method": "POST",
+        "path": "/process-project",
+        "function": "process_entire_project",
+        "file": "api/batch_processing.py",
+        "tags": [
+          "batch"
+        ],
+        "has_docs": true,
+        "docstring": "处理项目的所有文档\n\n性能优化版本，适合大批量文档"
+      }
+    ],
+    "数据分析": [
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/topic-distribution/",
+        "function": "get_topic_distribution",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "获取主题分布 - 基于SQL COUNT\n\n返回格式：\n{\n    \"project_id\": 1,\n    \"topics\": [\n        {\"topic\": \"食\", \"count\": 4..."
+      },
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/top-entities/",
+        "function": "get_top_entities",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "获取Top实体（人物/地点） - 基于SQL COUNT\n\n返回格式：\n{\n    \"entity_type\": \"person\",\n    \"entities\": [\n        {\"name\"..."
+      },
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/word-count-stats/",
+        "function": "get_word_count_stats",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "获取字数统计 - 基于SQL SUM/AVG"
+      },
+      {
+        "method": "GET",
+        "path": "/projects/{project_id}/timeline-distribution/",
+        "function": "get_timeline_distribution",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "获取时间线分布 - 基于SQL GROUP BY\n按文档和时间段统计"
+      },
+      {
+        "method": "POST",
+        "path": "/projects/{project_id}/generate-report/",
+        "function": "generate_report",
+        "file": "api/analytics.py",
+        "tags": [
+          "数据分析"
+        ],
+        "has_docs": true,
+        "docstring": "生成分析报告 - 反幻觉版本\n\n核心流程：\n1. 生成facts.json（纯数据，无修饰）\n2. 基于模板直接生成报告（不调用LLM）\n3. 幻觉检测（如果调用了LLM）\n4. 验证通过才返回"
+      }
+    ]
+  },
+  "missing_docs": []
+}

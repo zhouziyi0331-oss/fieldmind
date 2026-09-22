@@ -1,0 +1,99 @@
+{
+  "binding_id": "chromadb_vector_binding",
+  "binding_name": "ChromaDB 向量数据库绑定",
+  "version": "1.0",
+  "description": "连接到 ChromaDB 向量数据库，用于语义检索和相似度搜索",
+
+  "channel_type": "vector",
+  "protocol": "http",
+  "engine": "chromadb",
+
+  "connection": {
+    "host": "localhost",
+    "port": 8000,
+    "base_path": "/api/v1",
+    "use_ssl": false,
+    "timeout_seconds": 10
+  },
+
+  "collection": {
+    "name": "fieldmind_chunks",
+    "embedding_dimension": 384,
+    "distance_metric": "cosine",
+    "create_if_not_exists": true
+  },
+
+  "embedding": {
+    "model": "bge-m3",
+    "model_path": "models/bge-m3",
+    "batch_size": 32,
+    "normalize": true,
+    "cache_embeddings": true
+  },
+
+  "search_settings": {
+    "default_top_k": 10,
+    "max_top_k": 100,
+    "min_similarity_threshold": 0.5,
+    "enable_reranking": true,
+    "reranker_model": "bge-reranker-base"
+  },
+
+  "cache": {
+    "enabled": true,
+    "backend": "redis",
+    "ttl_seconds": 1800,
+    "cache_key_prefix": "vector:",
+    "cache_query_results": true,
+    "cache_embeddings": true
+  },
+
+  "fallback": {
+    "enabled": true,
+    "fallback_to": "sqlite_fulltext_binding",
+    "fallback_conditions": [
+      "service_unavailable",
+      "timeout",
+      "embedding_error"
+    ]
+  },
+
+  "health_check": {
+    "enabled": true,
+    "interval_seconds": 60,
+    "check_collection_exists": true,
+    "timeout_ms": 5000
+  },
+
+  "metrics": {
+    "enabled": true,
+    "metrics_to_collect": [
+      "search_count",
+      "search_duration",
+      "embedding_duration",
+      "cache_hit_rate",
+      "avg_similarity_score"
+    ]
+  },
+
+  "query_templates": {
+    "semantic_search": {
+      "description": "语义相似度搜索",
+      "parameters": ["query_text", "top_k", "filter"]
+    },
+    "find_similar_chunks": {
+      "description": "查找相似文本块",
+      "parameters": ["chunk_id", "top_k"]
+    },
+    "hybrid_search": {
+      "description": "混合搜索（向量+关键词）",
+      "parameters": ["query_text", "keywords", "top_k", "vector_weight"]
+    }
+  },
+
+  "notes": [
+    "此绑定用于语义检索相关的视图",
+    "确保 ChromaDB 服务已启动",
+    "bge-m3 模型需要预先下载"
+  ]
+}

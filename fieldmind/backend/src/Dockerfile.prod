@@ -1,0 +1,84 @@
+# FieldMind Backend - Production Dockerfile
+# 生产环境专用，包含更多优化和安全措施
+
+FROM python:3.11-slim as builder
+
+WORKDIR /build
+
+# 安装构建依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    make \
+    libpq-dev \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# 复制依赖文件
+COPY requirements.txt requirements-prod.txt* ./
+
+# 安装生产依赖
+RUN python -m venv /opt/venv && \
+    /opt/venv/bin/pip install --no-cache-dir --upgrade pip && \
+    /opt/venv/bin/pip install --no-cache-dir -r requirements.txt && \
+    if [ -f requirements-prod.txt ]; then /opt/venv/bin/pip install --no-cache-dir -r requirements-prod.txt; fi
+
+# ============================================
+# Production Runtime
+# ============================================
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# 安装运行时依赖和安全工具
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    curl \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/* && \
+    apt-get clean
+
+# 复制虚拟环境
+COPY --from=builder /opt/venv /opt/venv
+
+# 环境变量
+ENV PATH="/opt/venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONPATH=/app \
+    ENVIRONMENT=production
+
+# 创建非root用户（更严格的权限）
+RUN groupadd -g 1000 fieldmind && \
+    useradd -m -u 1000 -g fieldmind fieldmind && \
+    chown -R fieldmind:fieldmind /app
+
+# 复制应用代码
+COPY --chown=fieldmind:fieldmind app ./app
+COPY --chown=fieldmind:fieldmind alembic ./alembic
+COPY --chown=fieldmind:fieldmind alembic.ini ./
+
+# 创建数据目录（生产环境通常挂载外部存储）
+RUN mkdir -p data uploads reports skills logs && \
+    chown -R fieldmind:fieldmind data uploads reports skills logs
+
+# 切换到非root用户
+USER fieldmind
+
+# 健康检查（生产环境更频繁）
+HEALTHCHECK --interval=15s --timeout=5s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# 暴露端口
+EXPOSE 8000
+
+# 生产启动命令（使用Gunicorn + Uvicorn workers）
+CMD ["gunicorn", "app.main:app", \
+     "--worker-class", "uvicorn.workers.UvicornWorker", \
+     "--workers", "4", \
+     "--bind", "0.0.0.0:8000", \
+     "--timeout", "120", \
+     "--keep-alive", "5", \
+     "--access-logfile", "-", \
+     "--error-logfile", "-", \
+     "--log-level", "info"]

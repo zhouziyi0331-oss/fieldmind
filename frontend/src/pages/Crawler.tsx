@@ -36,7 +36,7 @@ export default function Crawler() {
         total: items.length,
         running: items.filter((item: any) => item.status === 'running' || item.is_active).length,
         completed: items.filter((item: any) => item.status === 'completed' || item.status === 'succeeded').length,
-        failed: Math.floor(items.length * 0.6000000000000001),
+        failed: items.filter((item: any) => item.status === 'failed' || item.status === 'error').length,
       }
       setStats(newStats)
     } catch (error: any) {

@@ -1,0 +1,280 @@
+import SwiftUI
+import Foundation
+
+/// 混合模式应用 - 支持原生视图和 WebView 切换
+@MainActor
+final class BackendProcessManager: ObservableObject {
+    static let shared = BackendProcessManager()
+
+    private let runtimeVersion = "fieldmind-native-v3.2-webview"
+    @Published private(set) var isRunning = false
+    private var process: Process?
+    private var healthTask: Task<Void, Never>?
+
+    private init() {}
+
+    private var localBackendPort: String {
+        let configured = UserDefaults.standard.string(forKey: "fieldmind_api_server_url")
+            ?? ProcessInfo.processInfo.environment["FIELDMIND_API_URL"]
+        if let configured,
+           let components = URLComponents(string: configured),
+           let host = components.host?.lowercased(),
+           (host == "127.0.0.1" || host == "localhost" || host == "::1"),
+           let port = components.port {
+            if [8000, 8011, 8012].contains(port) {
+                return "8013"
+            }
+            return "\(port)"
+        }
+        let environmentPort = ProcessInfo.processInfo.environment["FIELDMIND_PORT"] ?? "8013"
+        return ["8000", "8011", "8012"].contains(environmentPort) ? "8013" : environmentPort
+    }
+
+    private var backendBaseURL: String {
+        let configured = APIConfig.serverURL
+        if let components = URLComponents(string: configured),
+           let host = components.host?.lowercased(),
+           (host == "127.0.0.1" || host == "localhost" || host == "::1") {
+            return configured
+        }
+        return "http://127.0.0.1:\(localBackendPort)"
+    }
+
+    func ensureRunning() {
+        healthTask?.cancel()
+        healthTask = Task { [weak self] in
+            guard let self else { return }
+            if await self.isCurrentRuntime() {
+                self.isRunning = true
+                return
+            }
+            await self.stopLegacyListeners()
+            self.startProcess()
+            for _ in 0..<45 {
+                if Task.isCancelled { return }
+                if await self.isCurrentRuntime() {
+                    self.isRunning = true
+                    return
+                }
+                try? await Task.sleep(for: .seconds(1))
+            }
+            self.isRunning = false
+            DebugLogger.shared.log(
+                "后端未能启动",
+                type: .error,
+                details: "地址=\(self.backendBaseURL)",
+                category: "backend.start"
+            )
+        }
+    }
+
+    func restart() {
+        healthTask?.cancel()
+        isRunning = false
+        Task {
+            await stopLegacyListeners()
+            process?.terminate()
+            process = nil
+            ensureRunning()
+        }
+    }
+
+    private func startProcess() {
+        guard process?.isRunning != true else { return }
+
+        let root = URL(fileURLWithPath: "/Users/alwan/FieldMind")
+        let python = root.appendingPathComponent("venv/bin/python").path
+        let workingDirectory = root.appendingPathComponent("backend/src").path
+        guard FileManager.default.isExecutableFile(atPath: python) else {
+            DebugLogger.shared.log("找不到后端 Python", type: .error, details: python, category: "backend.start")
+            return
+        }
+
+        let child = Process()
+        child.executableURL = URL(fileURLWithPath: python)
+        child.arguments = ["-m", "app.main"]
+        child.currentDirectoryURL = URL(fileURLWithPath: workingDirectory)
+        var environment = ProcessInfo.processInfo.environment
+        environment["PORT"] = localBackendPort
+        environment["DEBUG"] = "false"
+        environment["OMP_NUM_THREADS"] = "1"
+        environment["MKL_NUM_THREADS"] = "1"
+        child.environment = environment
+
+        let logDirectory = root.appendingPathComponent("backend/logs")
+        try? FileManager.default.createDirectory(at: logDirectory, withIntermediateDirectories: true)
+        let logURL = logDirectory.appendingPathComponent("backend.app.log")
+        if !FileManager.default.fileExists(atPath: logURL.path) {
+            FileManager.default.createFile(atPath: logURL.path, contents: nil)
+        }
+        if let handle = try? FileHandle(forWritingTo: logURL) {
+            try? handle.seekToEnd()
+            child.standardOutput = handle
+            child.standardError = handle
+        }
+
+        do {
+            try child.run()
+            process = child
+            DebugLogger.shared.log("已启动后端", type: .success, details: "PID=\(child.processIdentifier)\n端口=\(localBackendPort)", category: "backend.start")
+        } catch {
+            DebugLogger.shared.log("启动后端失败", type: .error, details: error.localizedDescription, category: "backend.start")
+        }
+    }
+
+    private func isHealthy() async -> Bool {
+        guard let url = URL(string: "\(backendBaseURL)/api/monitoring/health") else { return false }
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 1.5
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            return (response as? HTTPURLResponse)?.statusCode == 200
+        } catch {
+            return false
+        }
+    }
+
+    private func isCurrentRuntime() async -> Bool {
+        guard await isHealthy() else { return false }
+        return true
+    }
+
+    private func stopLegacyListeners() async {
+        let ports = Array(Set([localBackendPort, "8012", "8011", "8000"]))
+        for port in ports {
+            let pids = await pidsListening(on: port)
+            for pid in pids {
+                terminate(pid: pid)
+            }
+        }
+    }
+
+    private func pidsListening(on port: String) async -> [Int32] {
+        await withCheckedContinuation { continuation in
+            let task = Process()
+            task.executableURL = URL(fileURLWithPath: "/usr/sbin/lsof")
+            task.arguments = ["-tiTCP:\(port)", "-sTCP:LISTEN"]
+            let pipe = Pipe()
+            task.standardOutput = pipe
+            task.standardError = Pipe()
+            do {
+                try task.run()
+                task.waitUntilExit()
+                let data = pipe.fileHandleForReading.readDataToEndOfFile()
+                let output = String(decoding: data, as: UTF8.self)
+                let pids = output
+                    .split(whereSeparator: \.isNewline)
+                    .compactMap { Int32($0.trimmingCharacters(in: .whitespacesAndNewlines)) }
+                continuation.resume(returning: pids)
+            } catch {
+                continuation.resume(returning: [])
+            }
+        }
+    }
+
+    private func terminate(pid: Int32) {
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: "/bin/kill")
+        task.arguments = ["-9", "\(pid)"]
+        do {
+            try task.run()
+            task.waitUntilExit()
+            DebugLogger.shared.log("已清理旧后端进程", type: .warning, details: "PID=\(pid)", category: "backend.start")
+        } catch {
+            DebugLogger.shared.log("清理旧后端进程失败", type: .warning, details: "PID=\(pid)\n错误=\(error.localizedDescription)", category: "backend.start")
+        }
+    }
+}
+
+@main
+struct FieldMindApp: App {
+    @StateObject private var appState = AppState()
+    @StateObject private var toastManager = ToastManager.shared
+    @StateObject private var modalManager = ModalManager.shared
+    @StateObject private var loadingManager = LoadingManager.shared
+    @StateObject private var menuBarManager = MenuBarManager.shared
+    @StateObject private var backendManager = BackendProcessManager.shared
+    @StateObject private var fileAccessManager = FileAccessManager.shared
+
+    // 新增：UI 模式切换
+    @AppStorage("fieldmind_ui_mode") private var uiMode: UIMode = .webview
+
+    var body: some Scene {
+        WindowGroup {
+            Group {
+                switch uiMode {
+                case .native:
+                    // 原生 SwiftUI 界面
+                    MainView()
+                        .environmentObject(appState)
+                        .environmentObject(fileAccessManager)
+                case .webview:
+                    // WebView React 界面
+                    WebViewMainView()
+                        .environmentObject(appState)
+                        .environmentObject(fileAccessManager)
+                }
+            }
+            .frame(minWidth: 1024, minHeight: 768)
+            .toast(manager: toastManager)
+            .modal(manager: modalManager)
+            .loading(manager: loadingManager)
+            .onAppear {
+                backendManager.ensureRunning()
+                menuBarManager.setupMenuBar(appState: appState)
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .showMainWindow)) { _ in
+                NSApp.activate(ignoringOtherApps: true)
+            }
+        }
+        .windowStyle(.hiddenTitleBar)
+        .commands {
+            CommandGroup(replacing: .newItem) {}
+            CommandMenu("视图") {
+                Button("切换到 WebView 模式") {
+                    uiMode = .webview
+                }
+                .keyboardShortcut("w", modifiers: [.command, .shift])
+                .disabled(uiMode == .webview)
+
+                Button("切换到原生模式") {
+                    uiMode = .native
+                }
+                .keyboardShortcut("n", modifiers: [.command, .shift])
+                .disabled(uiMode == .native)
+
+                Divider()
+
+                Button("重新加载前端") {
+                    WebViewManager.shared.reload()
+                }
+                .keyboardShortcut("r", modifiers: [.command, .shift])
+                .disabled(uiMode == .native)
+            }
+            CommandMenu("检验") {
+                Button("打开系统检验") {
+                    NotificationCenter.default.post(name: .showDiagnosticsWindow, object: nil)
+                }
+                .keyboardShortcut("d", modifiers: [.command, .shift])
+            }
+        }
+
+        Window("系统检验", id: "diagnostics") {
+            DebugWindow()
+        }
+        .defaultSize(width: 1100, height: 700)
+        .windowResizability(.contentSize)
+    }
+}
+
+/// UI 模式枚举
+enum UIMode: String, CaseIterable {
+    case native = "原生"
+    case webview = "WebView"
+}
+
+extension Notification.Name {
+    static let showDiagnosticsWindow = Notification.Name("showDiagnosticsWindow")
+    static let showMainWindow = Notification.Name("showMainWindow")
+    static let navigateFromMenuBar = Notification.Name("navigateFromMenuBar")
+}

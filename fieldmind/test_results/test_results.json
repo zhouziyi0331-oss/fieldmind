@@ -1,0 +1,401 @@
+{
+  "timestamp": "2026-09-13T16:04:40.050264",
+  "tests": [
+    {
+      "suite": "Architecture Completeness",
+      "test": "目录存在: knowledge_assets",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "目录存在: api_audit",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "目录存在: unified_api",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "目录存在: consolidated_api",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "目录存在: frontend_integration",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "目录存在: frontend_code",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "文件存在: knowledge_assets/knowledge_patterns_20260913_151640.json",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "文件存在: knowledge_assets/skills_catalog.json",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "文件存在: api_audit/api_catalog.json",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "文件存在: consolidated_api/consolidated_design.json",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "文件存在: frontend_integration/api_client.ts",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "文件存在: frontend_code/src/App.tsx",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Architecture Completeness",
+      "test": "文件存在: frontend_code/package.json",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源数量合理 (20)",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "端点数量达标 (66 ≤ 250)",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 documents 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 health 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 metrics 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 embeddings 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 queries 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 entities 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 relations 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 projects 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 chunks 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 logs 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 roles 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 tasks 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 users 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 insights 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 workflows 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 events 有基础 CRUD",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 teams 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 topics 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 jobs 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "API Design",
+      "test": "资源 tags 缺少基础 CRUD",
+      "status": "WARNING",
+      "message": ""
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "React 应用入口",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "应用主入口",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "API 客户端",
+      "status": "FAILED",
+      "message": "缺少 src/api/client.ts"
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "React Hooks",
+      "status": "FAILED",
+      "message": "缺少 src/hooks/useApi.ts"
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "路由配置",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "布局组件",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "认证状态",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "依赖配置",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "页面组件充足 (8 个)",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "通用组件充足 (6 个)",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Frontend Completeness",
+      "test": "核心依赖完整",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Integration",
+      "test": "API 客户端已生成",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Integration",
+      "test": "BaseApiClient 类存在",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Integration",
+      "test": "UsersClient 类存在",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Integration",
+      "test": "DocumentsClient 类存在",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Integration",
+      "test": "请求拦截器已实现",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Integration",
+      "test": "响应拦截器已实现",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Integration",
+      "test": "useUsers Hook 存在",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Integration",
+      "test": "useDocuments Hook 存在",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Integration",
+      "test": "useProjects Hook 存在",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Documentation",
+      "test": "Week 6-7 总结",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Documentation",
+      "test": "Week 8-9 总结",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Documentation",
+      "test": "Skills 使用指南",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Documentation",
+      "test": "知识资产指南",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Documentation",
+      "test": "API 审计报告",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Documentation",
+      "test": "API 整合报告",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Documentation",
+      "test": "API 迁移指南",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Documentation",
+      "test": "前端集成指南",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Documentation",
+      "test": "前端 README",
+      "status": "PASSED",
+      "message": ""
+    },
+    {
+      "suite": "Code Quality",
+      "test": "前端代码文件充足 (28 个)",
+      "status": "PASSED",
+      "message": ""
+    }
+  ],
+  "summary": {
+    "total": 65,
+    "passed": 53,
+    "failed": 2,
+    "skipped": 0
+  }
+}

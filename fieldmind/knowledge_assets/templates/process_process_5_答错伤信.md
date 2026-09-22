@@ -1,0 +1,34 @@
+# {{skill_title}}
+
+## 适用场景
+{{context}}
+
+## 目标
+{{goal}}
+
+## 关键特征
+
+## 流程步骤
+
+### 步骤 1
+答错伤信任——必须有"不确定就转人工"的兜底开关结论能成.P2 上,从预订型品类试点.4.2 给消费者的四个互动玩法（C 端 × 品牌）—— 这是"青年社区"的社区层AI 捉宠 · 养成互动（软硬件结合）环3 / 环4 · 旗舰玩法机制:每个入驻品牌由 AI 生成一只"品牌精灵"（形象 + 性格 + 品牌故事人格）.线下摊位设精灵据点（NFC 卡片/AR 识别点）,消费者到摊消费或打卡才能"捕捉";线上 AI 让精灵会聊天、会换装、会成长真实价值三个已被验证的机制叠加:Pokemon GO 的地...
+
+### 步骤 2
+Despite these advances, only a handful of multiagent systems have produced results that were testedand confirmed through real-world experiments.Published examples include new proteins designedby ProtAgents; 92 antibody candidates for SARS-CoV-2 from ...
+
+### 步骤 3
+2.6 AI AGENTS | TECHNICAL PERFORMANCE | AI INDEX REPORT 2026100%80%60%40%20%0%2024 2025 2026Figure 2.6.537Figure 2.6.6 3837 Data source: https://cybench.github.io/.38 Data source: https://taubench.com/#leaderboard?benchmark=text.115devlos%dediugnUCyb...
+
+### 步骤 4
+Standard RAG pipelines retrieve individual text chunks based on query similarity, which can struggle whenanswering questions that require synthesizing information across documents.To address the problem, in2024, Microsoft Research introduced Graph RA...
+
+### 步骤 5
+Instead of running software or infrastructure locally, hosted access involves accessing these resources viathe cloud or another remote service, typically over the internet.For example, using GPUs through platforms like AWS, Google Cloud, or Microsoft...
+
+
+## 参考案例
+1. [chk_e8425c2b87aa] 答错伤信任——必须有"不确定就转人工"的兜底开关结论能成
+2. [chk_2bca30df9d97] Despite these advances, only a handful of multiage
+3. [chk_0c81480ad39f] 2
+4. [chk_fd462dddf3ad] Standard RAG pipelines retrieve individual text ch
+5. [chk_d59f151e6f36] Instead of running software or infrastructure loca

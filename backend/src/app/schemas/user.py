@@ -1,5 +1,5 @@
 """用户相关的Pydantic schemas"""
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from datetime import datetime
 from typing import Optional
 from app.models.user import UserRole
@@ -33,14 +33,13 @@ class UserUpdate(BaseModel):
 
 class UserResponse(UserBase):
     """用户响应"""
-    id: str
+    id: str  # UUID字符串
     role: UserRole
     is_active: bool
     created_at: datetime
     last_login: Optional[datetime] = None
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class TokenResponse(BaseModel):

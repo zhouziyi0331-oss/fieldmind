@@ -1,0 +1,303 @@
+import SwiftUI
+
+struct ProjectListView: View {
+    @EnvironmentObject var appState: AppState
+    @StateObject private var viewModel = ProjectViewModel()
+    @State private var showNewProjectSheet = false
+    @State private var searchText = ""
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // 顶部标题栏
+            headerView
+
+            // 搜索栏
+            searchBar
+
+            // 项目列表
+            if viewModel.isLoading {
+                Spacer()
+                ProgressView("加载项目中...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                Spacer()
+            } else if filteredProjects.isEmpty {
+                emptyState
+            } else {
+                projectGrid
+            }
+        }
+        .background(Color(NSColor.windowBackgroundColor))
+        .sheet(isPresented: $showNewProjectSheet) {
+            NewProjectView(isPresented: $showNewProjectSheet)
+                .environmentObject(viewModel)
+        }
+        .onAppear {
+            viewModel.loadProjects()
+        }
+    }
+
+    // MARK: - 顶部标题栏
+    private var headerView: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("项目")
+                    .font(.system(size: 28, weight: .bold))
+                Text("\(viewModel.projects.count) 个项目")
+                    .font(.system(size: 13))
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+
+            Button(action: { showNewProjectSheet = true }) {
+                HStack(spacing: 6) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 13, weight: .semibold))
+                    Text("新建项目")
+                        .font(.system(size: 13, weight: .semibold))
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(Color.blue)
+                .cornerRadius(8)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding()
+        .background(Color(NSColor.controlBackgroundColor))
+    }
+
+    // MARK: - 搜索栏
+    private var searchBar: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.secondary)
+
+            TextField("搜索项目...", text: $searchText)
+                .textFieldStyle(.plain)
+
+            if !searchText.isEmpty {
+                Button(action: { searchText = "" }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.secondary)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+        .padding(10)
+        .background(Color(NSColor.controlBackgroundColor))
+        .cornerRadius(8)
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+    }
+
+    // MARK: - 项目网格
+    private var projectGrid: some View {
+        ScrollView {
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 16) {
+                ForEach(filteredProjects) { project in
+                    ProjectCard(project: project)
+                        .onTapGesture {
+                            selectProject(project)
+                        }
+                }
+            }
+            .padding()
+        }
+    }
+
+    // MARK: - 空状态
+    private var emptyState: some View {
+        VStack(spacing: 20) {
+            Spacer()
+
+            Image(systemName: "folder.badge.plus")
+                .font(.system(size: 60))
+                .foregroundColor(.secondary)
+
+            Text("还没有项目")
+                .font(.system(size: 20, weight: .semibold))
+
+            Text(searchText.isEmpty ? "点击「新建项目」开始你的第一个田野调查项目" : "没有找到匹配的项目")
+                .font(.system(size: 14))
+                .foregroundColor(.secondary)
+
+            if searchText.isEmpty {
+                Button(action: { showNewProjectSheet = true }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "plus")
+                        Text("新建项目")
+                    }
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(Color.blue)
+                    .cornerRadius(8)
+                }
+                .buttonStyle(.plain)
+            }
+
+            Spacer()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    // MARK: - 计算属性
+    private var filteredProjects: [Project] {
+        if searchText.isEmpty {
+            return viewModel.projects
+        } else {
+            return viewModel.projects.filter { project in
+                project.name.localizedCaseInsensitiveContains(searchText) ||
+                (project.description?.localizedCaseInsensitiveContains(searchText) ?? false)
+            }
+        }
+    }
+
+    // MARK: - 方法
+    private func selectProject(_ project: Project) {
+        appState.currentProject = project
+        // TODO: 导航到项目详情页
+    }
+}
+
+// MARK: - 项目卡片
+struct ProjectCard: View {
+    let project: Project
+    @State private var isHovering = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            // 项目图标和状态
+            HStack {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(projectColor.opacity(0.1))
+                        .frame(width: 44, height: 44)
+
+                    Image(systemName: projectIcon)
+                        .font(.system(size: 20))
+                        .foregroundColor(projectColor)
+                }
+
+                Spacer()
+
+                // 状态标签
+                if let status = project.status {
+                    Text(statusText(status))
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(statusColor(status))
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(statusColor(status).opacity(0.1))
+                        .cornerRadius(4)
+                }
+            }
+
+            // 项目名称
+            Text(project.name)
+                .font(.system(size: 16, weight: .semibold))
+                .lineLimit(2)
+                .foregroundColor(.primary)
+
+            // 项目描述
+            if let description = project.description {
+                Text(description)
+                    .font(.system(size: 12))
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
+            }
+
+            Divider()
+
+            // 项目统计
+            HStack(spacing: 16) {
+                StatItem(icon: "doc.fill", count: project.documentCount ?? 0, label: "文档")
+                StatItem(icon: "bubble.left.fill", count: project.chatCount ?? 0, label: "对话")
+            }
+            .font(.system(size: 11))
+
+            // 更新时间
+            if let updatedAt = project.updatedAt {
+                Text("更新于 \(timeAgo(updatedAt))")
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding(16)
+        .background(Color(NSColor.controlBackgroundColor))
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(isHovering ? 0.1 : 0.05), radius: isHovering ? 8 : 4)
+        .scaleEffect(isHovering ? 1.02 : 1.0)
+        .animation(.easeInOut(duration: 0.2), value: isHovering)
+        .onHover { hovering in
+            isHovering = hovering
+        }
+    }
+
+    private var projectColor: Color {
+        // 根据项目名称生成颜色
+        let colors: [Color] = [.blue, .green, .orange, .purple, .pink, .red]
+        let hash = abs(project.name.hashValue)
+        return colors[hash % colors.count]
+    }
+
+    private var projectIcon: String {
+        // 根据项目类型返回图标
+        "folder.fill"
+    }
+
+    private func statusText(_ status: String) -> String {
+        switch status {
+        case "active": return "进行中"
+        case "completed": return "已完成"
+        case "archived": return "已归档"
+        default: return status
+        }
+    }
+
+    private func statusColor(_ status: String) -> Color {
+        switch status {
+        case "active": return .green
+        case "completed": return .blue
+        case "archived": return .gray
+        default: return .secondary
+        }
+    }
+
+    private func timeAgo(_ date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .short
+        formatter.locale = Locale(identifier: "zh_CN")
+        return formatter.localizedString(for: date, relativeTo: Date())
+    }
+}
+
+// MARK: - 统计项
+struct StatItem: View {
+    let icon: String
+    let count: Int
+    let label: String
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Image(systemName: icon)
+                .font(.system(size: 10))
+                .foregroundColor(.secondary)
+            Text("\(count)")
+                .fontWeight(.medium)
+            Text(label)
+                .foregroundColor(.secondary)
+        }
+    }
+}
+
+// MARK: - Project 模型扩展
+extension Project: Identifiable {
+    // 如果 Project 还没有 Identifiable，添加这个扩展
+}
