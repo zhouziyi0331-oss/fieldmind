@@ -1158,23 +1158,29 @@ async def get_project_stats_compat(
 # 5. 知识图谱兼容路由（前端调用 /api/graph/*）
 @app.post("/api/graph/build")
 async def build_graph_compat(
-    request: dict,
+    request: dict = None,
+    project_id: int = Query(default=1),
+    document_ids: list[int] = Query(default=None),
+    force_rebuild: bool = Query(default=False),
     db: Session = Depends(get_db)
 ):
     """兼容路由：前端调用 /api/graph/build"""
     from app.api import knowledge_graph as kg_api
     from fastapi import BackgroundTasks
 
-    project_id = request.get("project_id")
-    document_ids = request.get("document_ids")
+    # 支持两种调用方式：JSON body 或 query parameters
+    if request:
+        project_id = request.get("project_id", project_id)
+        document_ids = request.get("document_ids", document_ids)
+        force_rebuild = request.get("force_rebuild", force_rebuild)
 
     # 调用真实的知识图谱构建API
     try:
         return await kg_api.build_knowledge_graph(
             request=kg_api.BuildGraphRequest(
                 project_id=project_id,
-                document_ids=document_ids,
-                force_rebuild=bool(request.get("force_rebuild", False)),
+                document_ids=document_ids or [],
+                force_rebuild=force_rebuild,
             ),
             background_tasks=BackgroundTasks(),
             db=db,
@@ -1186,7 +1192,7 @@ async def build_graph_compat(
 
 @app.get("/api/graph/statistics")
 async def get_graph_statistics_compat(
-    project_id: int = Query(...),
+    project_id: int = Query(default=1, description="项目ID"),
     db: Session = Depends(get_db)
 ):
     """兼容路由：前端调用 /api/graph/statistics"""

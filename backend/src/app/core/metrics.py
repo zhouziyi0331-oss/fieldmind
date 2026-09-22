@@ -330,6 +330,19 @@ def get_metrics_app():
     return make_asgi_app()
 
 
+def metrics_endpoint():
+    """
+    返回 Prometheus 格式的 metrics 文本
+
+    用于 /metrics 端点
+    """
+    from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
+    from fastapi import Response
+
+    metrics_data = generate_latest()
+    return Response(content=metrics_data, media_type=CONTENT_TYPE_LATEST)
+
+
 # ============================================
 # 初始化应用信息
 # ============================================
