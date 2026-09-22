@@ -67,7 +67,10 @@ def runtime_port() -> int:
 from app.api.v1 import (
     audio, documents as v1_documents, search, rag, workflows as v1_workflows,
     auth, crawler, skills, industry, reports, enhanced_chat,
-    projects as v1_projects, project_chat, project_documents, learning
+    projects as v1_projects, project_chat, project_documents, learning,
+    # 新增: 未注册的核心功能
+    super_agents, tasks, topic_analysis, sop,
+    chunks_quantification, dashboard_optimized
 )
 from app.api import (
     chat,
@@ -76,8 +79,13 @@ from app.api import (
     creative_analysis,
     business_analysis,
     document_processing,
-    conversation_memory
+    conversation_memory,
+    # 新增: 未注册的核心API
+    memory, timeline, tables, proposal, photos,
+    export_summaries, file_summaries, quantification,
+    websocket, monitoring
 )
+from app.api.routes import agent_pipeline
 
 
 @asynccontextmanager
@@ -981,17 +989,36 @@ app.include_router(rag.router, tags=["RAG"])
 app.include_router(learning.router, prefix="/api/v1", tags=["学习引擎"])  # Hermes Learning Engine
 logger.info(f"🔧 [DEBUG] 学习引擎API已注册")
 
+# ============= 新增：未注册的核心API模块 =============
+# 核心功能
+app.include_router(memory.router, prefix="/api/memory", tags=["记忆管理"])
+app.include_router(timeline.router, prefix="/api/timeline", tags=["时间线"])
+app.include_router(tables.router, prefix="/api/tables", tags=["表格处理"])
+app.include_router(proposal.router, prefix="/api/proposal", tags=["方案生成"])
+app.include_router(photos.router, prefix="/api/photos", tags=["图片管理"])
+app.include_router(super_agents.router, prefix="/api/v1/super-agents", tags=["超级Agent"])
+app.include_router(agent_pipeline.router, prefix="/api/agent-pipeline", tags=["Agent流水线"])
+
+# 增强功能
+app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["任务管理"])
+app.include_router(topic_analysis.router, prefix="/api/v1/topic-analysis", tags=["主题分析"])
+app.include_router(sop.router, prefix="/api/v1/sop", tags=["标准作业程序"])
+app.include_router(chunks_quantification.router, prefix="/api/v1/chunks-quantification", tags=["块量化"])
+app.include_router(dashboard_optimized.router, prefix="/api/v1/dashboard-optimized", tags=["优化Dashboard"])
+
+# 工具功能
+app.include_router(export_summaries.router, prefix="/api/export", tags=["导出摘要"])
+app.include_router(file_summaries.router, prefix="/api/file-summaries", tags=["文件摘要"])
+app.include_router(quantification.router, prefix="/api/quantification", tags=["数据量化"])
+app.include_router(websocket.router, prefix="/api/websocket", tags=["WebSocket通信"])
+app.include_router(monitoring.router, prefix="/api/monitoring", tags=["系统监控"])
+
+logger.info(f"✅ 已注册17个新API模块")
+# ============= 结束新增 =============
+
 # 可选但已有实现的功能入口，避免功能文件存在却没有程序入口。
 include_optional_router("app.api.quality", prefix="/api/quality", tags=["质量控制"])
-include_optional_router("app.api.monitoring", prefix="/api")
-include_optional_router("app.api.permissions", prefix="/api")
-include_optional_router("app.api.proposal", prefix="/api")
-include_optional_router("app.api.source_traceback", prefix="/api")
-include_optional_router("app.api.v1.tasks", prefix="/api/v1")
-include_optional_router("app.api.v1.super_agents")
-include_optional_router("app.api.v1.chunks_quantification")
-include_optional_router("app.api.v1.topic_analysis")
-include_optional_router("app.api.quantification")
+# 已直接注册，无需optional: monitoring, proposal, source_traceback, tasks, super_agents, chunks_quantification, topic_analysis, quantification
 
 # 监控和健康检查端点（Day 11增强）
 @app.get("/metrics", include_in_schema=False)
