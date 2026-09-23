@@ -500,8 +500,9 @@ except ImportError as e:
     logger.warning(f"⚠️  Obsidian集成模块导入失败: {e}")
 
 # Dashboard统计路由
-from app.api import dashboard
-app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"])
+# ⚠️ [阶段5清理-第4步] Dashboard功能废弃，注释掉
+# from app.api import dashboard
+# app.include_router(dashboard.router, prefix="/api/dashboard", tags=["Dashboard"])
 
 # 审计日志路由（架构升级 - 阶段2）
 from app.api.v1 import audit
@@ -533,9 +534,10 @@ app.include_router(workflows.router, prefix="/api/v1/workflows", tags=["工作�
 logger.info("✅ 工作流引擎API已注册")
 
 # Dashboard和指标系统路由（架构升级 - 阶段6）
-from app.api.v1 import dashboard as dashboard_v1
-app.include_router(dashboard_v1.router, prefix="/api/v1/dashboard", tags=["Dashboard和指标"])
-logger.info("✅ Dashboard和指标系统API已注册")
+# ⚠️ [阶段5清理-第4步] Dashboard功能废弃，注释掉
+# from app.api.v1 import dashboard as dashboard_v1
+# app.include_router(dashboard_v1.router, prefix="/api/v1/dashboard", tags=["Dashboard和指标"])
+# logger.info("✅ Dashboard和指标系统API已注册")
 
 # 对话记忆路由（架构升级 - 阶段7）
 logger.info("✅ 对话记忆API已注册")
@@ -817,9 +819,10 @@ logger.info("✅ 数据增强API已注册")
 logger.info("✅ 统一插件系统API已注册")
 
 # 工作舱统一服务路由（工作舱核心 - 阶段21）
-from app.api.v1 import workbench
-app.include_router(workbench.router, tags=["工作舱"])
-logger.info("✅ 工作舱统一服务API已注册")
+# ⚠️ [阶段5清理-第4步] 工作舱功能废弃，注释掉
+# from app.api.v1 import workbench
+# app.include_router(workbench.router, tags=["工作舱"])
+# logger.info("✅ 工作舱统一服务API已注册")
 
 
 @app.get("/api/v1/dashboard/stats/{project_id}")
@@ -1017,7 +1020,8 @@ app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["任务管理"])
 # ⚠️ [阶段5清理-第3步] SOP功能废弃，注释掉
 # app.include_router(sop.router, prefix="/api/v1/sop", tags=["标准作业程序"])
 app.include_router(chunks_quantification.router, prefix="/api/v1/chunks-quantification", tags=["块量化"])
-app.include_router(dashboard_optimized.router, prefix="/api/v1/dashboard-optimized", tags=["优化Dashboard"])
+# ⚠️ [阶段5清理-第4步] Dashboard优化版本废弃，注释掉
+# app.include_router(dashboard_optimized.router, prefix="/api/v1/dashboard-optimized", tags=["优化Dashboard"])
 
 # 工具功能
 app.include_router(file_summaries.router, prefix="/api/file-summaries", tags=["文件摘要"])

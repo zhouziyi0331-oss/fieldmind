@@ -1,0 +1,61 @@
+{
+  "step": "第4步",
+  "description": "清理中型v1模块",
+  "deletable": [
+    {
+      "module": "workbench",
+      "count": 19,
+      "type": "工作台/前端展示",
+      "reason": "前端展示功能，可由新前端替代"
+    },
+    {
+      "module": "dashboard",
+      "count": 16,
+      "type": "仪表板",
+      "reason": "仪表板展示，可由统一分析模块替代"
+    }
+  ],
+  "keep": [
+    {
+      "module": "audit",
+      "count": 16,
+      "type": "审计日志",
+      "reason": "审计是重要的合规功能"
+    },
+    {
+      "module": "learning",
+      "count": 15,
+      "type": "学习引擎",
+      "reason": "学习功能可能仍在使用"
+    },
+    {
+      "module": "agents",
+      "count": 15,
+      "type": "Agent管理",
+      "reason": "Agent是核心功能，需要评估"
+    }
+  ],
+  "registrations": [
+    {
+      "line": 504,
+      "module": "dashboard",
+      "content": "app.include_router(dashboard.router, prefix=\"/api/dashboard\", tags=[\"Dashboard\"])"
+    },
+    {
+      "line": 537,
+      "module": "dashboard",
+      "content": "app.include_router(dashboard_v1.router, prefix=\"/api/v1/dashboard\", tags=[\"Dashboard和指标\"])"
+    },
+    {
+      "line": 821,
+      "module": "workbench",
+      "content": "app.include_router(workbench.router, tags=[\"工作舱\"])"
+    },
+    {
+      "line": 1020,
+      "module": "dashboard",
+      "content": "app.include_router(dashboard_optimized.router, prefix=\"/api/v1/dashboard-optimized\", tags=[\"优化Dashboard\"])"
+    }
+  ],
+  "total_deletable": 35
+}
