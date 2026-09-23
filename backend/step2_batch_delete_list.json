@@ -1,0 +1,30 @@
+{
+  "step": "第2步批量删除",
+  "modules": [
+    {
+      "module": "projects",
+      "count": 49,
+      "unified": "统一项目管理",
+      "reason": "已有统一项目管理"
+    },
+    {
+      "module": "analysis",
+      "count": 9,
+      "unified": "统一分析",
+      "reason": "已有统一分析"
+    },
+    {
+      "module": "reports",
+      "count": 3,
+      "unified": "统一报告生成",
+      "reason": "已有统一报告生成"
+    },
+    {
+      "module": "documents",
+      "count": 1,
+      "unified": "统一文档处理",
+      "reason": "已有统一文档处理"
+    }
+  ],
+  "total_endpoints": 62
+}

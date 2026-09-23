@@ -1048,7 +1048,8 @@ async def runtime_version(request: Request):
     return {"version": RUNTIME_VERSION, "port": active_port}
 
 logger.info(f"🔧 [DEBUG] 所有路由注册完成，最终路由数: {len(list(app.routes))}")
-app.include_router(v1_workflows.router, prefix="/api/v1/workflows", tags=["工作流"])
+# ⚠️ [阶段5清理-第2步] v1/workflows已废弃，注释掉
+# app.include_router(v1_workflows.router, prefix="/api/v1/workflows", tags=["工作流"])
 
 
 # ============= 前后端兼容层 =============

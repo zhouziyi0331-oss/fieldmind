@@ -1,0 +1,222 @@
+{
+  "step": "第2步",
+  "module": "v1/projects",
+  "total_endpoints": 49,
+  "unified_endpoints": 18,
+  "actions": [
+    {
+      "function": "其他功能",
+      "count": 38,
+      "routes": [
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/analyze/"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/workflow-status/"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/distill"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/distillation-status"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/invites"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/activity-log"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/permissions/check"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/keyword-relations/build"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/keyword-network/build"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-network"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/main-keywords"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/keyword-network/full-analysis"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/search-suggestions"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/unified-search"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/recommendation-stats"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/batch-recommendations"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/report-network/visualization"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-network/visualization"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-communities/visualization"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/network-statistics/charts"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/report-network/subgraph"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-network/subgraph"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/reports/generate"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/reports/generate-three-layers"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/reports/material-preview"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/reports/outline-preview"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/knowledge-network"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/knowledge-network/nodes/{node_id}"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/enrich"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/enrichment-status"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/{table_id}/"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/{table_id}"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/tables/upload/"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/tables/upload"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/projects/{project_id}/tables/{table_id}/"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/projects/{project_id}/tables/{table_id}"
+        }
+      ]
+    },
+    {
+      "function": "成员管理",
+      "count": 8,
+      "routes": [
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/members"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/members"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/projects/{project_id}/members/{user_id}"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/projects/{project_id}/members/{user_id}"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/members"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/members"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/projects/{project_id}/members/{user_id}"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/projects/{project_id}/members/{user_id}/role"
+        }
+      ]
+    },
+    {
+      "function": "统计信息",
+      "count": 3,
+      "routes": [
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-relations/statistics"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/statistics/"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/statistics"
+        }
+      ]
+    }
+  ]
+}

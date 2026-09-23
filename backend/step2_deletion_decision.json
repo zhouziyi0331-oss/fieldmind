@@ -1,0 +1,253 @@
+{
+  "can_delete": [
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/keyword-relations/statistics",
+      "reason": "统计功能可整合到统一模块"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/tables/statistics/",
+      "reason": "统计功能可整合到统一模块"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/tables/statistics",
+      "reason": "统计功能可整合到统一模块"
+    }
+  ],
+  "need_migrate": [
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/members",
+      "reason": "成员管理功能需要迁移"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/members",
+      "reason": "成员管理功能需要迁移"
+    },
+    {
+      "methods": "PUT",
+      "path": "/api/v1/projects/{project_id}/members/{user_id}",
+      "reason": "成员管理功能需要迁移"
+    },
+    {
+      "methods": "DELETE",
+      "path": "/api/v1/projects/{project_id}/members/{user_id}",
+      "reason": "成员管理功能需要迁移"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/members",
+      "reason": "成员管理功能需要迁移"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/members",
+      "reason": "成员管理功能需要迁移"
+    },
+    {
+      "methods": "DELETE",
+      "path": "/api/v1/projects/{project_id}/members/{user_id}",
+      "reason": "成员管理功能需要迁移"
+    },
+    {
+      "methods": "PUT",
+      "path": "/api/v1/projects/{project_id}/members/{user_id}/role",
+      "reason": "成员管理功能需要迁移"
+    }
+  ],
+  "keep": [
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/analyze/",
+      "reason": "特殊功能，需要评估是否迁移"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/workflow-status/",
+      "reason": "特殊功能，需要评估是否迁移"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/distill",
+      "reason": "特殊功能，需要评估是否迁移"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/distillation-status",
+      "reason": "特殊功能，需要评估是否迁移"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/invites",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/activity-log",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/permissions/check",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/keyword-relations/build",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/keyword-network/build",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/keyword-network",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/main-keywords",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/keyword-network/full-analysis",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/search-suggestions",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/unified-search",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/recommendation-stats",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/batch-recommendations",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/report-network/visualization",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/keyword-network/visualization",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/keyword-communities/visualization",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/network-statistics/charts",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/report-network/subgraph",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/keyword-network/subgraph",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/reports/generate",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/reports/generate-three-layers",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/reports/material-preview",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/reports/outline-preview",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/knowledge-network",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/knowledge-network/nodes/{node_id}",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/enrich",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/enrichment-status",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/tables/",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/tables",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/tables/{table_id}/",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "GET",
+      "path": "/api/v1/projects/{project_id}/tables/{table_id}",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/tables/upload/",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "POST",
+      "path": "/api/v1/projects/{project_id}/tables/upload",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "DELETE",
+      "path": "/api/v1/projects/{project_id}/tables/{table_id}/",
+      "reason": "其他功能，需要评估"
+    },
+    {
+      "methods": "DELETE",
+      "path": "/api/v1/projects/{project_id}/tables/{table_id}",
+      "reason": "其他功能，需要评估"
+    }
+  ]
+}
