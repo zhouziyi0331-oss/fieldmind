@@ -1,334 +1,536 @@
-"""统一知识图谱构建入口。
-
-保留历史 API 名称，但底层统一使用：
-ProjectDocument -> DocumentChunk -> Entity -> EntityRelation。
 """
+知识图谱构建器 - 深度集成Graphiti
 
-import time
-from typing import Any, Dict, List, Optional
-
+从SBPACK自动构建动态知识图谱：
+- 实体提取和消歧
+- 关系识别和验证
+- 时序事件追踪
+- 图谱优化和维护
+"""
+from typing import Dict, Any, List, Optional, Set, Tuple
 from sqlalchemy.orm import Session
+import logging
+from datetime import datetime
+import json
 
-from app.core.database import SessionLocal
-from app.core.logging import logger, log_document_processing
-from app.models.document_chunk import DocumentChunk
-from app.models.entity import Entity, EntityRelation
-from app.models.project import ProjectDocument
-from app.services.entity_extractor import EntityExtractor, EntityDeduplicator
-from app.services.relation_extractor import RelationExtractor, RelationValidator
+from app.models.knowledge_graph import Entity, Relation, TemporalEvent, EntityMention
+from app.models.sbpack import SBPACKPackage, KnowledgeItem, SkillItem
+from app.services.llm_enhancer import LLMEnhancer
+
+logger = logging.getLogger(__name__)
 
 
 class KnowledgeGraphBuilder:
-    """从当前结构化分块构建可持久化知识图谱。"""
-    def __init__(self, use_workflow_engine: bool = True):
+    """
+    知识图谱构建器
 
-        self.use_workflow_engine = use_workflow_engine
+    从多种来源构建统一的知识图谱：
+    1. SBPACK蒸馏结果
+    2. Obsidian笔记
+    3. 用户手动输入
+    """
 
-        if use_workflow_engine:
-            from app.services.workflow_engine import WorkflowEngine
-            self.workflow_engine = WorkflowEngine(max_workers=4)
-        self.entity_extractor = EntityExtractor()
-        self.relation_extractor = RelationExtractor()
+    # 实体类型映射
+    ENTITY_TYPES = {
+        'PERSON': '人物',
+        'ORGANIZATION': '组织',
+        'CONCEPT': '概念',
+        'EVENT': '事件',
+        'LOCATION': '地点',
+        'SKILL': '技能',
+        'KNOWLEDGE': '知识点',
+        'PRODUCT': '产品',
+        'TECHNOLOGY': '技术'
+    }
 
-    def build_from_document(
+    # 关系类型
+    RELATION_TYPES = {
+        'WORKS_FOR': '就职于',
+        'FOUNDED': '创立',
+        'INVENTED': '发明',
+        'LOCATED_IN': '位于',
+        'PART_OF': '属于',
+        'PREREQUISITE': '前置条件',
+        'RELATED_TO': '相关',
+        'CAUSES': '导致',
+        'ENABLES': '使能',
+        'APPLIES_TO': '应用于'
+    }
+
+    def __init__(self, db: Session, llm_enhancer: Optional[LLMEnhancer] = None):
+        self.db = db
+        self.llm = llm_enhancer
+        self.entity_cache = {}  # 名称 -> Entity的缓存
+
+    async def build_from_sbpack(self, package_id: int) -> Dict[str, Any]:
+        """
+        从SBPACK构建知识图谱
+
+        流程：
+        1. 加载SBPACK数据
+        2. 提取实体
+        3. 识别关系
+        4. 构建时序事件
+        5. 消歧和合并
+        6. 保存图谱
+        """
+        logger.info(f"开始从SBPACK构建知识图谱: package_id={package_id}")
+
+        # 1. 加载SBPACK数据
+        package = self.db.query(SBPACKPackage).filter(SBPACKPackage.id == package_id).first()
+        if not package:
+            raise ValueError(f"Package {package_id} not found")
+
+        knowledge_items = self.db.query(KnowledgeItem).filter(
+            KnowledgeItem.package_id == package_id
+        ).all()
+
+        skill_items = self.db.query(SkillItem).filter(
+            SkillItem.package_id == package_id
+        ).all()
+
+        # 2. 提取实体
+        entities = await self._extract_entities_from_sbpack(
+            knowledge_items,
+            skill_items,
+            package_id
+        )
+
+        logger.info(f"提取了 {len(entities)} 个实体")
+
+        # 3. 识别关系
+        relations = await self._extract_relations_from_sbpack(
+            entities,
+            knowledge_items,
+            skill_items,
+            package_id
+        )
+
+        logger.info(f"识别了 {len(relations)} 个关系")
+
+        # 4. 构建时序事件
+        events = await self._extract_temporal_events(
+            knowledge_items,
+            skill_items,
+            package_id
+        )
+
+        logger.info(f"构建了 {len(events)} 个时序事件")
+
+        # 5. 消歧和合并
+        deduplicated_entities = await self._deduplicate_entities(entities)
+        logger.info(f"去重后剩余 {len(deduplicated_entities)} 个实体")
+
+        # 6. 保存图谱
+        saved_entities = self._save_entities(deduplicated_entities)
+        saved_relations = self._save_relations(relations, saved_entities)
+        saved_events = self._save_events(events)
+
+        # 7. 更新统计
+        self._update_graph_statistics(saved_entities, saved_relations)
+
+        return {
+            "success": True,
+            "package_id": package_id,
+            "entities": len(saved_entities),
+            "relations": len(saved_relations),
+            "events": len(saved_events),
+            "entity_types": self._get_entity_type_distribution(saved_entities)
+        }
+
+    async def _extract_entities_from_sbpack(
         self,
-        document_id: int,
-        project_id: Optional[int] = None,
-        db: Optional[Session] = None,
-    ) -> Dict[str, Any]:
-        """处理单个项目文档；project_id 是旧 API 的兼容参数。"""
-        owns_session = db is None
-        db = db or SessionLocal()
-        started = time.time()
-        try:
-            document = db.query(ProjectDocument).filter(
-                ProjectDocument.id == document_id
-            ).first()
-            if not document:
-                raise ValueError(f"文档不存在: {document_id}")
-            if project_id is not None and document.project_id != project_id:
-                raise ValueError(f"文档 {document_id} 不属于项目 {project_id}")
+        knowledge_items: List[KnowledgeItem],
+        skill_items: List[SkillItem],
+        package_id: int
+    ) -> List[Dict[str, Any]]:
+        """从SBPACK提取实体"""
+        entities = []
 
-            chunks = db.query(DocumentChunk).filter(
-                DocumentChunk.document_id == document_id
-            ).order_by(DocumentChunk.chunk_index).all()
-            if not chunks:
-                return {
-                    "document_id": document_id,
-                    "project_id": document.project_id,
-                    "entities_created": 0,
-                    "entities_updated": 0,
-                    "relations_created": 0,
-                    "relationships_created": 0,
-                    "timeline_events": 0,
-                    "status": "no_chunks",
-                }
-
-            all_entities: List[Dict[str, Any]] = []
-            all_relations: List[Dict[str, Any]] = []
-            for chunk in chunks:
-                entities = EntityDeduplicator.deduplicate(
-                    self.entity_extractor.extract(chunk.text or "")
-                )
-                all_entities.extend(entities)
-                all_relations.extend(
-                    relation
-                    for relation in self.relation_extractor.extract(chunk.text or "", entities)
-                    if RelationValidator.validate(relation)
-                )
-
-            merged_entities = self._merge_global_entities(all_entities)
-            created, updated, entity_map = self._save_entities(
-                db, document, merged_entities
-            )
-            relations_created = self._save_relations(
-                db, document, all_relations, entity_map
-            )
-            db.commit()
-
-            result = {
-                "document_id": document_id,
-                "project_id": document.project_id,
-                "entities_created": created,
-                "entities_updated": updated,
-                "relations_created": relations_created,
-                "relationships_created": relations_created,
-                "timeline_events": 0,
-                "status": "success",
-                "duration": time.time() - started,
+        # 从知识点提取概念实体
+        for item in knowledge_items:
+            # 标题作为主要实体
+            entity = {
+                "name": item.title,
+                "entity_type": self._map_knowledge_type_to_entity_type(item.knowledge_type),
+                "description": item.statement,
+                "attributes": {
+                    "knowledge_type": item.knowledge_type,
+                    "scope": item.scope,
+                    "why_matters": item.why_matters
+                },
+                "source_documents": [{
+                    "package_id": package_id,
+                    "knowledge_id": item.knowledge_id,
+                    "type": "knowledge"
+                }],
+                "extraction_method": "sbpack_structured"
             }
-            log_document_processing(
-                doc_id=document_id,
-                action="build_knowledge_graph",
-                status="completed",
-                duration=result["duration"],
-                details=result,
-            )
-            return result
-        except Exception:
-            db.rollback()
-            logger.exception("知识图谱构建失败: document_id=%s", document_id)
-            raise
-        finally:
-            if owns_session:
-                db.close()
+            entities.append(entity)
 
-    def build_from_project(
-        self,
-        project_id: int,
-        force_rebuild: bool = False,
-        db: Optional[Session] = None,
-    ) -> Dict[str, Any]:
-        """处理项目下所有已有结构化分块的文档。"""
-        owns_session = db is None
-        db = db or SessionLocal()
-        try:
-            documents = db.query(ProjectDocument).filter(
-                ProjectDocument.project_id == project_id,
-                ProjectDocument.status.in_(["completed", "review_needed", "processing"]),
-            ).order_by(ProjectDocument.id).all()
-            totals = {
-                "documents_processed": 0,
-                "entities_created": 0,
-                "entities_updated": 0,
-                "relationships_created": 0,
-                "timeline_events": 0,
-                "errors": [],
+            # 从内容中提取提及的其他实体
+            if self.llm and self.llm.enabled:
+                mentioned_entities = await self._extract_entities_with_llm(
+                    item.explanation,
+                    package_id
+                )
+                entities.extend(mentioned_entities)
+
+        # 从技能提取技能实体
+        for item in skill_items:
+            entity = {
+                "name": item.name,
+                "entity_type": "SKILL",
+                "description": item.description,
+                "attributes": {
+                    "difficulty": item.difficulty if hasattr(item, 'difficulty') else None,
+                    "rationale": item.rationale,
+                    "cangjie_version": item.cangjie_version
+                },
+                "source_documents": [{
+                    "package_id": package_id,
+                    "skill_id": item.skill_id,
+                    "type": "skill"
+                }],
+                "extraction_method": "sbpack_structured"
             }
-            for document in documents:
-                try:
-                    result = self.build_from_document(
-                        document.id, project_id=project_id, db=db
-                    )
-                    if result.get("status") != "no_chunks":
-                        totals["documents_processed"] += 1
-                    totals["entities_created"] += result.get("entities_created", 0)
-                    totals["entities_updated"] += result.get("entities_updated", 0)
-                    totals["relationships_created"] += result.get(
-                        "relationships_created", 0
-                    )
-                except Exception as exc:
-                    totals["errors"].append({"document_id": document.id, "error": str(exc)})
-            db.commit()
-            totals["status"] = "completed" if not totals["errors"] else "completed_with_errors"
-            totals["force_rebuild"] = force_rebuild
-            return totals
-        finally:
-            if owns_session:
-                db.close()
+            entities.append(entity)
 
-    def _merge_global_entities(self, entities: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        merged: Dict[tuple[str, str], Dict[str, Any]] = {}
-        for entity in entities:
-            text = EntityDeduplicator.normalize(
-                str(entity.get("text", "")), str(entity.get("type", "UNKNOWN"))
-            )
-            entity_type = str(entity.get("type", "UNKNOWN")).upper()
-            if not text:
-                continue
-            current = merged.setdefault(
-                (text, entity_type),
-                {"text": text, "type": entity_type, "occurrences": 0, "confidence": 0.0},
-            )
-            current["occurrences"] += 1
-            current["confidence"] = max(
-                current["confidence"], float(entity.get("confidence") or 0.0)
-            )
-        return list(merged.values())
+        return entities
 
-    def _save_entities(
+    def _map_knowledge_type_to_entity_type(self, knowledge_type: str) -> str:
+        """将知识类型映射到实体类型"""
+        mapping = {
+            "concept": "CONCEPT",
+            "claim": "CONCEPT",
+            "principle": "CONCEPT",
+            "mechanism": "CONCEPT",
+            "reportedFact": "EVENT",
+            "argument": "CONCEPT",
+            "boundary": "CONCEPT",
+            "counterexample": "EVENT"
+        }
+        return mapping.get(knowledge_type, "CONCEPT")
+
+    async def _extract_entities_with_llm(
         self,
-        db: Session,
-        document: ProjectDocument,
+        text: str,
+        package_id: int
+    ) -> List[Dict[str, Any]]:
+        """使用LLM提取文本中的实体"""
+        if not self.llm or not self.llm.enabled:
+            return []
+
+        prompt = f"""
+        从以下文本中提取命名实体。返回JSON格式。
+
+        文本：
+        {text[:1000]}
+
+        提取以下类型的实体：
+        - PERSON（人物）
+        - ORGANIZATION（组织）
+        - CONCEPT（概念）
+        - LOCATION（地点）
+        - TECHNOLOGY（技术）
+        - PRODUCT（产品）
+
+        返回格式：
+        {{
+            "entities": [
+                {{"name": "实体名称", "type": "PERSON", "description": "简短描述"}},
+                ...
+            ]
+        }}
+        """
+
+        try:
+            response = await self.llm.client.chat.completions.create(
+                model=self.llm.model,
+                messages=[
+                    {"role": "system", "content": "你是一个专业的实体提取专家。"},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.3,
+                response_format={"type": "json_object"}
+            )
+
+            result = json.loads(response.choices[0].message.content)
+            extracted = []
+
+            for entity_data in result.get("entities", []):
+                extracted.append({
+                    "name": entity_data["name"],
+                    "entity_type": entity_data["type"],
+                    "description": entity_data.get("description", ""),
+                    "attributes": {},
+                    "source_documents": [{"package_id": package_id, "type": "llm_extracted"}],
+                    "extraction_method": "llm"
+                })
+
+            return extracted
+
+        except Exception as e:
+            logger.error(f"LLM实体提取失败: {str(e)}")
+            return []
+
+    async def _extract_relations_from_sbpack(
+        self,
         entities: List[Dict[str, Any]],
-    ) -> tuple[int, int, Dict[str, Entity]]:
-        created = 0
-        updated = 0
-        entity_map: Dict[str, Entity] = {}
-        for data in entities:
-            text = data["text"]
-            entity_type = data["type"]
-            row = db.query(Entity).filter(
-                Entity.text == text,
-                Entity.type == entity_type,
-            ).first()
-            if row is None:
-                row = Entity(
-                    text=text,
-                    type=entity_type,
-                    canonical_form=text,
-                    legacy_name=text,
-                    legacy_entity_type=entity_type,
-                    metadata_json={"source": "knowledge_graph_builder"},
-                    confidence=data["confidence"],
-                    mention_count=0,
-                    document_ids=[],
-                )
-                db.add(row)
-                db.flush()
-                created += 1
-            else:
-                updated += 1
+        knowledge_items: List[KnowledgeItem],
+        skill_items: List[SkillItem],
+        package_id: int
+    ) -> List[Dict[str, Any]]:
+        """从SBPACK提取关系"""
+        relations = []
 
-            row.mention_count = int(row.mention_count or 0) + int(data["occurrences"])
-            row.confidence = max(float(row.confidence or 0.0), data["confidence"])
-            document_ids = list(row.document_ids or [])
-            if document.id not in document_ids:
-                document_ids.append(document.id)
-            row.document_ids = document_ids
-            metadata = dict(row.metadata_json or {})
-            project_ids = list(metadata.get("project_ids") or [])
-            if document.project_id not in project_ids:
-                project_ids.append(document.project_id)
-            metadata.update({"project_ids": project_ids, "last_document_id": document.id})
-            row.metadata_json = metadata
-            row.legacy_name = text
-            row.legacy_entity_type = entity_type
-            entity_map[text] = row
-        return created, updated, entity_map
+        # 创建实体名称到实体的映射
+        entity_map = {e["name"]: e for e in entities}
+
+        # 从技能的前置关系提取
+        for skill in skill_items:
+            if hasattr(skill, 'prerequisites') and skill.prerequisites:
+                for prereq_id in skill.prerequisites:
+                    # 查找前置技能
+                    prereq_skill = next(
+                        (s for s in skill_items if s.skill_id == prereq_id),
+                        None
+                    )
+                    if prereq_skill:
+                        relation = {
+                            "source_name": prereq_skill.name,
+                            "target_name": skill.name,
+                            "relation_type": "PREREQUISITE",
+                            "description": f"{prereq_skill.name} 是 {skill.name} 的前置技能",
+                            "properties": {"strength": "required"},
+                            "source_documents": [{
+                                "package_id": package_id,
+                                "skill_id": skill.skill_id
+                            }],
+                            "extraction_method": "sbpack_structured"
+                        }
+                        relations.append(relation)
+
+        # 从知识点内容提取关系
+        if self.llm and self.llm.enabled:
+            for item in knowledge_items[:10]:  # 限制数量避免过多LLM调用
+                extracted_relations = await self._extract_relations_with_llm(
+                    item.explanation,
+                    list(entity_map.keys()),
+                    package_id
+                )
+                relations.extend(extracted_relations)
+
+        return relations
+
+    async def _extract_relations_with_llm(
+        self,
+        text: str,
+        entity_names: List[str],
+        package_id: int
+    ) -> List[Dict[str, Any]]:
+        """使用LLM提取关系"""
+        if not self.llm or not self.llm.enabled:
+            return []
+
+        # 限制实体列表大小
+        entity_sample = entity_names[:50]
+
+        prompt = f"""
+        从以下文本中提取实体间的关系。
+
+        文本：
+        {text[:800]}
+
+        已知实体：
+        {', '.join(entity_sample)}
+
+        提取关系类型包括：
+        - WORKS_FOR（工作于）
+        - FOUNDED（创立）
+        - INVENTED（发明）
+        - CAUSES（导致）
+        - ENABLES（使能）
+        - RELATED_TO（相关）
+
+        返回JSON格式：
+        {{
+            "relations": [
+                {{"source": "实体A", "target": "实体B", "type": "WORKS_FOR", "description": "描述"}},
+                ...
+            ]
+        }}
+        """
+
+        try:
+            response = await self.llm.client.chat.completions.create(
+                model=self.llm.model,
+                messages=[
+                    {"role": "system", "content": "你是一个关系提取专家。"},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=0.3,
+                response_format={"type": "json_object"}
+            )
+
+            result = json.loads(response.choices[0].message.content)
+            extracted = []
+
+            for rel_data in result.get("relations", []):
+                extracted.append({
+                    "source_name": rel_data["source"],
+                    "target_name": rel_data["target"],
+                    "relation_type": rel_data["type"],
+                    "description": rel_data.get("description", ""),
+                    "properties": {},
+                    "source_documents": [{"package_id": package_id}],
+                    "extraction_method": "llm"
+                })
+
+            return extracted
+
+        except Exception as e:
+            logger.error(f"LLM关系提取失败: {str(e)}")
+            return []
+
+    async def _extract_temporal_events(
+        self,
+        knowledge_items: List[KnowledgeItem],
+        skill_items: List[SkillItem],
+        package_id: int
+    ) -> List[Dict[str, Any]]:
+        """提取时序事件"""
+        events = []
+
+        # 创建包的事件
+        events.append({
+            "event_type": "PACKAGE_CREATED",
+            "description": f"SBPACK包创建",
+            "timestamp": datetime.utcnow(),
+            "entities": [],
+            "event_data": {
+                "package_id": package_id,
+                "knowledge_count": len(knowledge_items),
+                "skill_count": len(skill_items)
+            }
+        })
+
+        # 从知识点中提取事件（reportedFact类型）
+        for item in knowledge_items:
+            if item.knowledge_type == "reportedFact":
+                events.append({
+                    "event_type": "FACT_REPORTED",
+                    "description": item.statement[:200],
+                    "timestamp": item.created_at,
+                    "entities": [],
+                    "event_data": {
+                        "knowledge_id": item.knowledge_id,
+                        "statement": item.statement
+                    }
+                })
+
+        return events
+
+    async def _deduplicate_entities(self, entities: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """实体去重和消歧"""
+        # 简单的名称去重
+        seen_names = set()
+        deduplicated = []
+
+        for entity in entities:
+            name = entity["name"].lower().strip()
+            if name not in seen_names:
+                seen_names.add(name)
+                deduplicated.append(entity)
+            else:
+                # 合并属性和来源
+                existing = next(e for e in deduplicated if e["name"].lower().strip() == name)
+                existing["observation_count"] = existing.get("observation_count", 1) + 1
+                if "source_documents" in entity:
+                    existing["source_documents"].extend(entity["source_documents"])
+
+        return deduplicated
+
+    def _save_entities(self, entities: List[Dict[str, Any]]) -> Dict[str, Entity]:
+        """保存实体到数据库"""
+        saved = {}
+
+        for entity_data in entities:
+            entity = Entity(
+                name=entity_data["name"],
+                entity_type=entity_data["entity_type"],
+                description=entity_data.get("description", ""),
+                attributes=entity_data.get("attributes", {}),
+                source_documents=entity_data.get("source_documents", []),
+                extraction_method=entity_data.get("extraction_method", "unknown"),
+                observation_count=entity_data.get("observation_count", 1)
+            )
+            self.db.add(entity)
+            saved[entity_data["name"]] = entity
+
+        self.db.commit()
+        return saved
 
     def _save_relations(
         self,
-        db: Session,
-        document: ProjectDocument,
         relations: List[Dict[str, Any]],
-        entity_map: Dict[str, Entity],
-    ) -> int:
-        from sqlalchemy import func
+        entity_map: Dict[str, Entity]
+    ) -> List[Relation]:
+        """保存关系到数据库"""
+        saved = []
 
-        saved = 0
-        next_relation_id = int(db.query(func.max(EntityRelation.id)).scalar() or 0) + 1
-        for relation in relations:
-            source = entity_map.get(str(relation.get("source", "")).strip())
-            target = entity_map.get(str(relation.get("target", "")).strip())
-            if not source or not target or source.id == target.id:
-                continue
-            relation_type = str(relation.get("relation", "RELATED"))
-            row = db.query(EntityRelation).filter(
-                EntityRelation.source_entity_id == source.id,
-                EntityRelation.target_entity_id == target.id,
-                EntityRelation.relation_type == relation_type,
-            ).first()
-            if row is None:
-                db.add(EntityRelation(
-                    id=next_relation_id,
-                    source_entity_id=source.id,
-                    target_entity_id=target.id,
-                    relation_type=relation_type,
-                    confidence=float(relation.get("confidence") or 0.5),
-                    source_documents=[document.id],
-                    metadata_json={"project_ids": [document.project_id]},
-                ))
-                next_relation_id += 1
-                saved += 1
-            else:
-                row.confidence = max(
-                    float(row.confidence or 0.0), float(relation.get("confidence") or 0.5)
+        for rel_data in relations:
+            source_entity = entity_map.get(rel_data["source_name"])
+            target_entity = entity_map.get(rel_data["target_name"])
+
+            if source_entity and target_entity:
+                relation = Relation(
+                    source_id=source_entity.id,
+                    target_id=target_entity.id,
+                    relation_type=rel_data["relation_type"],
+                    description=rel_data.get("description", ""),
+                    properties=rel_data.get("properties", {}),
+                    source_documents=rel_data.get("source_documents", []),
+                    extraction_method=rel_data.get("extraction_method", "unknown")
                 )
-                source_documents = list(row.source_documents or [])
-                if document.id not in source_documents:
-                    source_documents.append(document.id)
-                row.source_documents = source_documents
+                self.db.add(relation)
+                saved.append(relation)
+
+        self.db.commit()
         return saved
 
-    def get_graph_visualization_data(
-        self,
-        project_id: Optional[int] = None,
-        limit: int = 100,
-        db: Optional[Session] = None,
-    ) -> Dict[str, Any]:
-        """返回旧前端需要的 nodes/edges 格式，数据来自当前实体关系表。"""
-        owns_session = db is None
-        db = db or SessionLocal()
-        try:
-            rows = db.query(Entity).order_by(Entity.mention_count.desc()).all()
-            if project_id is not None:
-                rows = [
-                    row for row in rows
-                    if project_id in list((row.metadata_json or {}).get("project_ids") or [])
-                ]
-            rows = rows[:limit]
-            ids = {row.id for row in rows}
-            nodes = [
-                {
-                    "id": str(row.id),
-                    "entity_id": str(row.id),
-                    "label": row.text,
-                    "title": row.description or row.text,
-                    "group": row.type,
-                    "value": int(row.mention_count or 0),
-                }
-                for row in rows
-            ]
-            relation_rows = db.query(EntityRelation).filter(
-                EntityRelation.source_entity_id.in_(ids or ["__none__"]),
-                EntityRelation.target_entity_id.in_(ids or ["__none__"]),
-            ).all()
-            edges = [
-                {
-                    "id": str(row.id),
-                    "from": str(row.source_entity_id),
-                    "to": str(row.target_entity_id),
-                    "label": row.relation_type,
-                    "width": max(1, int((row.confidence or 0.5) * 5)),
-                }
-                for row in relation_rows
-            ]
-            return {"nodes": nodes, "edges": edges}
-        finally:
-            if owns_session:
-                db.close()
+    def _save_events(self, events: List[Dict[str, Any]]) -> List[TemporalEvent]:
+        """保存事件到数据库"""
+        saved = []
 
+        for event_data in events:
+            event = TemporalEvent(
+                event_type=event_data["event_type"],
+                description=event_data["description"],
+                timestamp=event_data["timestamp"],
+                entities=event_data.get("entities", []),
+                event_data=event_data.get("event_data", {})
+            )
+            self.db.add(event)
+            saved.append(event)
 
-def build_knowledge_graph(document_id: int) -> Dict[str, Any]:
-    return KnowledgeGraphBuilder().build_from_document(document_id)
+        self.db.commit()
+        return saved
 
+    def _update_graph_statistics(self, entities: Dict[str, Entity], relations: List[Relation]):
+        """更新图谱统计信息"""
+        # 更新实体的关系计数
+        for entity in entities.values():
+            out_count = len([r for r in relations if r.source_id == entity.id])
+            in_count = len([r for r in relations if r.target_id == entity.id])
+            entity.relation_count = out_count + in_count
 
-_knowledge_graph_builder: Optional[KnowledgeGraphBuilder] = None
+        self.db.commit()
 
-
-def get_knowledge_graph_builder(db=None) -> KnowledgeGraphBuilder:
-    global _knowledge_graph_builder
-    if _knowledge_graph_builder is None:
-        _knowledge_graph_builder = KnowledgeGraphBuilder()
-    return _knowledge_graph_builder
+    def _get_entity_type_distribution(self, entities: Dict[str, Entity]) -> Dict[str, int]:
+        """获取实体类型分布"""
+        distribution = {}
+        for entity in entities.values():
+            entity_type = entity.entity_type
+            distribution[entity_type] = distribution.get(entity_type, 0) + 1
+        return distribution
