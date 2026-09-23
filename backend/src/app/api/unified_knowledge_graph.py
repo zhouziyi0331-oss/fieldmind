@@ -742,3 +742,270 @@ async def get_relation_types(
         return success_response(data=result, request_id=request_id)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# 补充端点：从旧模块迁移的功能
+# ============================================================================
+
+@router.get("/entities/{entity_id}/detail", response_model=ApiResponse, summary="获取实体详情")
+async def get_entity_detail(
+    request: Request,
+    entity_id: int,
+    db: Session = Depends(get_db)
+):
+    """获取实体详细信息"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from app.models.entity import Entity
+
+        entity = db.query(Entity).filter(Entity.id == entity_id).first()
+        if not entity:
+            raise HTTPException(status_code=404, detail="实体不存在")
+
+        return success_response(
+            data={
+                "id": entity.id,
+                "name": entity.name,
+                "type": entity.type,
+                "properties": entity.properties if hasattr(entity, 'properties') else {},
+                "mention_count": entity.mention_count if hasattr(entity, 'mention_count') else 0,
+                "created_at": entity.created_at.isoformat() if hasattr(entity, 'created_at') else None,
+            },
+            request_id=request_id
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/entities/{entity_id}", response_model=ApiResponse, summary="删除实体")
+async def delete_entity(
+    request: Request,
+    entity_id: int,
+    db: Session = Depends(get_db)
+):
+    """删除指定实体"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from app.models.entity import Entity
+
+        entity = db.query(Entity).filter(Entity.id == entity_id).first()
+        if not entity:
+            raise HTTPException(status_code=404, detail="实体不存在")
+
+        entity_name = entity.name
+        db.delete(entity)
+        db.commit()
+
+        return success_response(
+            message=f"实体 {entity_name} 已删除",
+            request_id=request_id
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/entities/{entity_id}/evidences", response_model=ApiResponse, summary="获取实体证据")
+async def get_entity_evidences(
+    request: Request,
+    entity_id: int,
+    db: Session = Depends(get_db)
+):
+    """获取实体的所有证据"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from app.models.entity import Entity
+
+        entity = db.query(Entity).filter(Entity.id == entity_id).first()
+        if not entity:
+            raise HTTPException(status_code=404, detail="实体不存在")
+
+        # 获取实体的证据
+        evidences = []
+        if hasattr(entity, 'evidences'):
+            for ev in entity.evidences:
+                evidences.append({
+                    "text": ev.text if hasattr(ev, 'text') else str(ev),
+                    "source": ev.source if hasattr(ev, 'source') else None,
+                    "confidence": ev.confidence if hasattr(ev, 'confidence') else None,
+                })
+
+        return success_response(
+            data={
+                "entity_id": entity_id,
+                "entity_name": entity.name,
+                "evidences": evidences,
+                "count": len(evidences)
+            },
+            request_id=request_id
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/categories/{category}/evidences", response_model=ApiResponse, summary="获取分类证据")
+async def get_category_evidences(
+    request: Request,
+    category: str,
+    project_id: int = Query(..., description="项目ID"),
+    db: Session = Depends(get_db)
+):
+    """获取某个分类下所有实体的证据"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from app.models.entity import Entity
+
+        entities = db.query(Entity).filter(
+            Entity.project_id == project_id,
+            Entity.type == category
+        ).all()
+
+        all_evidences = []
+        for entity in entities:
+            if hasattr(entity, 'evidences'):
+                for ev in entity.evidences:
+                    all_evidences.append({
+                        "entity_id": entity.id,
+                        "entity_name": entity.name,
+                        "text": ev.text if hasattr(ev, 'text') else str(ev),
+                        "source": ev.source if hasattr(ev, 'source') else None,
+                    })
+
+        return success_response(
+            data={
+                "category": category,
+                "evidences": all_evidences,
+                "count": len(all_evidences)
+            },
+            request_id=request_id
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/categories/stats", response_model=ApiResponse, summary="获取分类统计")
+async def get_category_stats(
+    request: Request,
+    project_id: int = Query(..., description="项目ID"),
+    db: Session = Depends(get_db)
+):
+    """获取各分类的统计信息"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from app.models.entity import Entity
+        from sqlalchemy import func
+
+        stats = db.query(
+            Entity.type,
+            func.count(Entity.id).label('entity_count')
+        ).filter(
+            Entity.project_id == project_id
+        ).group_by(Entity.type).all()
+
+        result = [
+            {
+                "category": stat[0],
+                "entity_count": stat[1]
+            }
+            for stat in stats
+        ]
+
+        return success_response(
+            data={
+                "stats": result,
+                "total_categories": len(result)
+            },
+            request_id=request_id
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/evidences/{evidence_id}", response_model=ApiResponse, summary="删除证据")
+async def delete_evidence(
+    request: Request,
+    evidence_id: int,
+    db: Session = Depends(get_db)
+):
+    """删除指定证据"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        # 假设有Evidence模型
+        from app.models.entity import Evidence
+
+        evidence = db.query(Evidence).filter(Evidence.id == evidence_id).first()
+        if not evidence:
+            raise HTTPException(status_code=404, detail="证据不存在")
+
+        db.delete(evidence)
+        db.commit()
+
+        return success_response(
+            message="证据已删除",
+            request_id=request_id
+        )
+    except HTTPException:
+        raise
+    except ImportError:
+        raise HTTPException(status_code=501, detail="证据管理功能未实现")
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/documents/{document_id}/entities", response_model=ApiResponse, summary="获取文档实体")
+async def get_document_entities(
+    request: Request,
+    document_id: int,
+    db: Session = Depends(get_db)
+):
+    """获取单个文档的实体"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from app.models.project import ProjectDocument
+        from app.services.knowledge_graph_service import KnowledgeGraphService
+
+        document = db.query(ProjectDocument).filter(ProjectDocument.id == document_id).first()
+        if not document:
+            raise HTTPException(status_code=404, detail="文档不存在")
+
+        if not document.text_content:
+            return success_response(
+                data={"entities": {}, "statistics": {}},
+                message="文档暂无文本内容",
+                request_id=request_id
+            )
+
+        kg_service = KnowledgeGraphService(db)
+        entities = kg_service.extract_entities(document.text_content)
+
+        statistics = {
+            entity_type: len(entity_list)
+            for entity_type, entity_list in entities.items()
+        }
+
+        return success_response(
+            data={
+                "entities": entities,
+                "statistics": statistics
+            },
+            request_id=request_id
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"提取实体失败: {str(e)}")

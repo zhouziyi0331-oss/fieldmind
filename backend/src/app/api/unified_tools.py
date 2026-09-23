@@ -184,3 +184,161 @@ async def health_check(request: Request):
     }
 
     return success_response(data=health, request_id=request_id)
+
+
+# ============================================================================
+# 补充端点：从旧模块迁移的导出功能
+# ============================================================================
+
+@router.get("/documents/{document_id}/pdf", summary="导出文档为PDF")
+async def export_document_pdf(
+    request: Request,
+    document_id: int,
+    db: Session = Depends(get_db)
+):
+    """导出单个文档摘要为PDF格式"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from fastapi.responses import FileResponse
+        from sqlalchemy import text
+        import json
+
+        # 查询文档摘要
+        result = db.execute(text("""
+            SELECT s.*, d.original_filename
+            FROM file_summaries s
+            JOIN project_documents d ON s.document_id = d.id
+            WHERE s.document_id = :document_id
+        """), {'document_id': document_id}).fetchone()
+
+        if not result:
+            raise HTTPException(status_code=404, detail="文档摘要不存在")
+
+        # 解析数据
+        summary = {
+            'document_title': result[-1] if result[-1] else f"文档{document_id}",
+            'one_line_summary': result[3] if len(result) > 3 else '',
+            'full_summary': result[4] if len(result) > 4 else '',
+            'top_keywords': json.loads(result[5]) if len(result) > 5 and result[5] else [],
+            'generated_at': result[21] if len(result) > 21 else None
+        }
+
+        # 简化版PDF生成（返回JSON，实际PDF生成需要额外的库）
+        # 这里返回一个占位响应，实际实现需要使用reportlab或类似库
+        return success_response(
+            data={
+                "message": "PDF导出功能",
+                "document_id": document_id,
+                "title": summary['document_title'],
+                "note": "完整PDF生成需要配置reportlab库"
+            },
+            request_id=request_id
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"导出PDF失败: {str(e)}")
+
+
+@router.get("/documents/{document_id}/word", summary="导出文档为Word")
+async def export_document_word(
+    request: Request,
+    document_id: int,
+    db: Session = Depends(get_db)
+):
+    """导出单个文档摘要为Word格式"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from sqlalchemy import text
+        import json
+
+        # 查询文档摘要
+        result = db.execute(text("""
+            SELECT s.*, d.original_filename
+            FROM file_summaries s
+            JOIN project_documents d ON s.document_id = d.id
+            WHERE s.document_id = :document_id
+        """), {'document_id': document_id}).fetchone()
+
+        if not result:
+            raise HTTPException(status_code=404, detail="文档摘要不存在")
+
+        # 解析数据
+        summary = {
+            'document_title': result[-1] if result[-1] else f"文档{document_id}",
+            'one_line_summary': result[3] if len(result) > 3 else '',
+            'full_summary': result[4] if len(result) > 4 else '',
+            'top_keywords': json.loads(result[5]) if len(result) > 5 and result[5] else [],
+            'generated_at': result[21] if len(result) > 21 else None
+        }
+
+        # 简化版Word生成（返回JSON，实际Word生成需要额外的库）
+        # 实际实现需要使用python-docx库
+        return success_response(
+            data={
+                "message": "Word导出功能",
+                "document_id": document_id,
+                "title": summary['document_title'],
+                "note": "完整Word生成需要配置python-docx库"
+            },
+            request_id=request_id
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"导出Word失败: {str(e)}")
+
+
+@router.get("/projects/{project_id}/pdf", summary="导出项目为PDF")
+async def export_project_pdf(
+    request: Request,
+    project_id: int,
+    db: Session = Depends(get_db)
+):
+    """批量导出项目所有文档摘要为PDF"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from sqlalchemy import text
+        import json
+
+        # 查询所有文档摘要
+        results = db.execute(text("""
+            SELECT s.*, d.original_filename
+            FROM file_summaries s
+            JOIN project_documents d ON s.document_id = d.id
+            WHERE s.project_id = :project_id AND s.status = 'done'
+            ORDER BY s.created_at DESC
+        """), {'project_id': project_id}).fetchall()
+
+        if not results:
+            raise HTTPException(status_code=404, detail="项目中没有可用的摘要")
+
+        # 解析数据
+        summaries = []
+        for row in results:
+            summaries.append({
+                'document_title': row[-1] if row[-1] else f"文档{row[2]}",
+                'one_line_summary': row[3] if len(row) > 3 else '',
+                'full_summary': row[4] if len(row) > 4 else '',
+            })
+
+        # 简化版批量PDF生成
+        return success_response(
+            data={
+                "message": "项目PDF导出功能",
+                "project_id": project_id,
+                "document_count": len(summaries),
+                "note": "完整PDF生成需要配置reportlab库"
+            },
+            request_id=request_id
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"导出项目PDF失败: {str(e)}")

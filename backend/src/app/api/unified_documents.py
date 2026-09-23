@@ -653,3 +653,181 @@ async def search_documents(
         return success_response(data=result, request_id=request_id)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# 补充端点：从旧模块迁移的聚合和状态功能
+# ============================================================================
+
+@router.get("/aggregate/skills", response_model=ApiResponse, summary="聚合技能分析结果")
+async def get_aggregated_skills(
+    request: Request,
+    project_id: int = Query(..., description="项目ID"),
+    db: Session = Depends(get_db)
+):
+    """聚合所有文档的Skill分析结果"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from app.models.project import ProjectDocument
+
+        documents = db.query(ProjectDocument).filter(
+            ProjectDocument.project_id == project_id,
+            ProjectDocument.status == 'completed'
+        ).all()
+
+        aggregated = {}
+
+        for doc in documents:
+            if not doc.extra_data:
+                continue
+
+            skill_results = doc.extra_data.get('skill_results', {})
+
+            for skill_name, skill_data in skill_results.items():
+                if skill_name not in aggregated:
+                    aggregated[skill_name] = {}
+
+                dimensions = skill_data.get('dimensions', {})
+
+                for dim_name, dim_data in dimensions.items():
+                    if dim_name not in aggregated[skill_name]:
+                        aggregated[skill_name][dim_name] = {
+                            'matched_count': 0,
+                            'contexts': [],
+                            'document_ids': []
+                        }
+
+                    aggregated[skill_name][dim_name]['matched_count'] += dim_data.get('matched_count', 0)
+                    aggregated[skill_name][dim_name]['contexts'].extend(dim_data.get('contexts', []))
+                    aggregated[skill_name][dim_name]['document_ids'].append(doc.id)
+
+        return success_response(
+            data=aggregated,
+            request_id=request_id
+        )
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"聚合技能失败: {str(e)}")
+
+
+@router.get("/aggregate/keywords", response_model=ApiResponse, summary="聚合关键词")
+async def get_aggregated_keywords(
+    request: Request,
+    project_id: int = Query(..., description="项目ID"),
+    top_n: int = Query(50, description="返回前N个关键词"),
+    db: Session = Depends(get_db)
+):
+    """聚合所有文档的关键词（按词频排序）"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from app.models.project import ProjectDocument
+
+        documents = db.query(ProjectDocument).filter(
+            ProjectDocument.project_id == project_id,
+            ProjectDocument.status == 'completed'
+        ).all()
+
+        keyword_stats = {}
+
+        for doc in documents:
+            if not doc.extra_data:
+                continue
+                
+            keywords = doc.extra_data.get('keywords', [])
+            
+            for kw in keywords:
+                if isinstance(kw, dict):
+                    word = kw.get('word')
+                    weight = kw.get('weight', 1.0)
+                else:
+                    word = str(kw)
+                    weight = 1.0
+                
+                if not word:
+                    continue
+                
+                if word not in keyword_stats:
+                    keyword_stats[word] = {'count': 0, 'total_weight': 0.0}
+                
+                keyword_stats[word]['count'] += 1
+                keyword_stats[word]['total_weight'] += weight
+
+        result = [
+            {
+                'keyword': word,
+                'count': stats['count'],
+                'weight': round(stats['total_weight'] / stats['count'], 3)
+            }
+            for word, stats in keyword_stats.items()
+        ]
+
+        result.sort(key=lambda x: x['count'], reverse=True)
+        result = result[:top_n]
+
+        return success_response(
+            data={
+                'keywords': result,
+                'total_unique': len(keyword_stats)
+            },
+            request_id=request_id
+        )
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"聚合关键词失败: {str(e)}")
+
+
+@router.get("/knowledge-base/status", response_model=ApiResponse, summary="获取知识库状态")
+async def get_knowledge_base_status(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    """获取知识库状态统计"""
+    request_id = getattr(request.state, "request_id", None)
+
+    try:
+        from app.models.project import ProjectDocument
+        from sqlalchemy import func
+
+        status_counts = db.query(
+            ProjectDocument.status,
+            func.count(ProjectDocument.id)
+        ).group_by(ProjectDocument.status).all()
+
+        status_map = {status: count for status, count in status_counts}
+
+        vectorized_count = 0
+        total_chunks = 0
+
+        completed_docs = db.query(ProjectDocument).filter(
+            ProjectDocument.status == 'completed'
+        ).all()
+
+        for doc in completed_docs:
+            meta = doc.extra_data if doc.extra_data else {}
+
+            if meta.get('pipeline_completed'):
+                vectorized_count += 1
+
+            if 'chunks_count' in meta:
+                total_chunks += meta.get('chunks_count', 0)
+
+        return success_response(
+            data={
+                "total_documents": sum(status_map.values()),
+                "status_breakdown": {
+                    "pending": status_map.get("pending", 0),
+                    "processing": status_map.get("processing", 0),
+                    "completed": status_map.get("completed", 0),
+                    "failed": status_map.get("failed", 0)
+                },
+                "vectorized_documents": vectorized_count,
+                "total_chunks": total_chunks,
+                "ready_for_query": vectorized_count > 0
+            },
+            request_id=request_id
+        )
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"获取知识库状态失败: {str(e)}")
