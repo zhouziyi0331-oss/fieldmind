@@ -87,7 +87,9 @@ from app.api import (
     # 阶段2: 统一模块
     unified_knowledge_graph,
     unified_documents,
-    unified_rag
+    unified_rag,
+    # 阶段3: 第二批统一模块
+    unified_chat
 )
 from app.api.routes import agent_pipeline
 
@@ -408,7 +410,7 @@ logger.info(f"🔧 [DEBUG] project_workflow注册后路由数: {len(list(app.rou
 # 新的项目管理系统（带Mem0长记忆和智能Agent）
 # REMOVED: app.include_router(projects.router, prefix="/api/projects", tags=["项目管理(新)"])  # 重复路由，已使用v1版本
 logger.info(f"🔧 [DEBUG] 准备注册chat路由，当前路由数: {len(list(app.routes))}")
-app.include_router(chat.router, prefix="/api/chat", tags=["智能对话"])
+app.include_router(chat.router, prefix="/api/chat-old", tags=["智能对话(旧)"])
 logger.info(f"🔧 [DEBUG] chat注册后路由数: {len(list(app.routes))}")
 
 # RAG对话路由（真正的向量检索）
@@ -870,6 +872,12 @@ app.include_router(unified_rag.router, tags=["统一RAG检索"])
 logger.info("✅ 统一RAG检索API已注册 (合并5个旧模块)")
 
 # ============================================================================
+# 阶段3: 统一聊天对话模块 (新)
+# ============================================================================
+app.include_router(unified_chat.router, tags=["统一聊天对话"])
+logger.info("✅ 统一聊天对话API已注册 (合并5个旧模块)")
+
+# ============================================================================
 # 知识图谱路由（旧版本 - 保留以兼容，未来将废弃）
 # ============================================================================
 # 知识图谱基础版
@@ -990,16 +998,16 @@ app.include_router(keyword_search.router, prefix="/api/keyword-search", tags=["�
 app.include_router(creative_analysis.router, prefix="/api/creative-analysis", tags=["文创分析"])
 app.include_router(business_analysis.router, prefix="/api/business-analysis", tags=["业态分析"])
 app.include_router(document_processing.router, prefix="/api/document-processing-old", tags=["文档处理流水线(旧)"])
-app.include_router(conversation_memory.router, prefix="/api/conversation-memory", tags=["对话增强记忆"])
+app.include_router(conversation_memory.router, prefix="/api/conversation-memory-old", tags=["对话增强记忆(旧)"])
 
 # 核心功能路由
 app.include_router(v1_projects.router, prefix="/api/v1/projects", tags=["项目管理"])
-app.include_router(project_chat.router, prefix="/api/v1/projects", tags=["项目对话"])
+app.include_router(project_chat.router, prefix="/api/v1/projects", tags=["项目对话(旧)"])
 app.include_router(project_documents.router, prefix="/api/v1/projects", tags=["项目文档"])
 app.include_router(skills.router, prefix="/api/v1/skills", tags=["技能管理"])
 app.include_router(industry.router, prefix="/api/v1/industry", tags=["业态分析"])
 app.include_router(reports.router, prefix="/api/v1/reports", tags=["报告生成"])
-app.include_router(enhanced_chat.router, prefix="/api/v1", tags=["增强对话"])
+app.include_router(enhanced_chat.router, prefix="/api/v1/enhanced-chat-old", tags=["增强对话(旧)"])
 
 # 原有路由
 logger.info(f"🔧 [DEBUG] 注册audio前路由数: {len(list(app.routes))}")
