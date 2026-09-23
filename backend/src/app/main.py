@@ -65,24 +65,17 @@ def runtime_port() -> int:
     return int(getattr(settings, "port", 8000))
 
 from app.api.v1 import (
-    audio, documents as v1_documents, search, rag, workflows as v1_workflows,
-    auth, crawler, skills, industry, reports, enhanced_chat,
-    projects as v1_projects, project_chat, project_documents, learning,
+    audio, documents as v1_documents, search, workflows as v1_workflows,
+    auth, crawler, industry, learning,
     # 新增: 未注册的核心功能
     super_agents, tasks, topic_analysis, sop,
     chunks_quantification, dashboard_optimized
 )
 from app.api import (
-    chat,
-    documents,
     keyword_search,
-    creative_analysis,
-    business_analysis,
-    document_processing,
-    conversation_memory,
     # 新增: 未注册的核心API
     memory, timeline, tables, proposal, photos,
-    export_summaries, file_summaries, quantification,
+    file_summaries, quantification,
     websocket, monitoring,
     # 阶段2: 统一模块
     unified_knowledge_graph,
@@ -416,12 +409,9 @@ logger.info(f"🔧 [DEBUG] project_workflow注册后路由数: {len(list(app.rou
 # 新的项目管理系统（带Mem0长记忆和智能Agent）
 # REMOVED: app.include_router(projects.router, prefix="/api/projects", tags=["项目管理(新)"])  # 重复路由，已使用v1版本
 logger.info(f"🔧 [DEBUG] 准备注册chat路由，当前路由数: {len(list(app.routes))}")
-app.include_router(chat.router, prefix="/api/chat-old", tags=["智能对话(旧)"])
 logger.info(f"🔧 [DEBUG] chat注册后路由数: {len(list(app.routes))}")
 
 # RAG对话路由（真正的向量检索）
-from app.api import chat_rag
-app.include_router(chat_rag.router, prefix="/api/chat-rag-old", tags=["RAG对话(旧)"])
 
 # 报告生成路由（真实数据）
 # from app.api import reports_real
@@ -478,8 +468,6 @@ except ImportError as e:
 
 # Deep RAG查询优化路由
 try:
-    from app.api.v1 import deep_rag_optimization
-    app.include_router(deep_rag_optimization.router, prefix="/api/v1/deep-rag-old", tags=["Deep RAG查询优化(旧)"])
     logger.info("✅ Deep RAG查询优化系统路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  Deep RAG查询优化模块导入失败: {e}")
@@ -546,8 +534,6 @@ app.include_router(dashboard_v1.router, prefix="/api/v1/dashboard", tags=["Dashb
 logger.info("✅ Dashboard和指标系统API已注册")
 
 # 对话记忆路由（架构升级 - 阶段7）
-from app.api.v1 import conversation
-app.include_router(conversation.router, prefix="/api/v1/memory", tags=["对话记忆"])
 logger.info("✅ 对话记忆API已注册")
 
 # 用户分析路由（架构升级 - 阶段8）
@@ -600,8 +586,6 @@ except ImportError as e:
 
 # 知识图谱接口 (旧版本 - 保留兼容)
 try:
-    from app.api.v1 import knowledge_graph
-    app.include_router(knowledge_graph.router, prefix="/api/v1/kg-old", tags=["知识图谱v1(旧)"])
     logger.info("✅ 知识图谱v1路由已注册(旧版)")
 except ImportError as e:
     logger.warning(f"⚠️  知识图谱模块导入失败: {e}")
@@ -680,8 +664,6 @@ except ImportError as e:
 
 # 交互式知识图谱 (旧版本 - 保留兼容)
 try:
-    from app.api import knowledge_graph_p3
-    app.include_router(knowledge_graph_p3.router, prefix="/api/v1/kg-p3-old", tags=["交互式知识图谱(旧)"])
     logger.info("✅ 交互式知识图谱 API 已注册(旧版)")
 except ImportError as e:
     logger.warning(f"⚠️  交互式知识图谱模块导入失败: {e}")
@@ -696,24 +678,18 @@ except ImportError as e:
 
 # RAG 增强（P3原有）
 try:
-    from app.api import rag_p3
-    app.include_router(rag_p3.router, prefix="/api/v1/rag-p3-old", tags=["RAG 增强(旧)"])
     logger.info("✅ RAG 增强 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  RAG 增强模块导入失败: {e}")
 
 # RAG 增强系统（Day 13-15完整实现：评测+引用溯源+Agent）
 try:
-    from app.api.v1 import rag_enhanced
-    app.include_router(rag_enhanced.router, tags=["RAG增强系统(完整)"])
     logger.info("✅ RAG 增强系统（Day 13-15）已注册")
 except ImportError as e:
     logger.warning(f"⚠️  RAG 增强系统模块导入失败: {e}")
 
 # RAG 闭环系统（Agent + 知识库 + 评测体系）
 try:
-    from app.api.v1 import rag_system
-    app.include_router(rag_system.router, tags=["RAG闭环系统"])
     logger.info("✅ RAG 闭环系统（Agent+知识库+评测）已注册")
 except ImportError as e:
     logger.warning(f"⚠️  RAG 闭环系统模块导入失败: {e}")
@@ -791,13 +767,9 @@ app.include_router(pattern_recognition.router, prefix="/api/v1/patterns", tags=[
 logger.info("✅ 模式识别API已注册")
 
 # 技能生成路由（自学习系统 - 阶段15）
-from app.api.v1 import skill_generation
-app.include_router(skill_generation.router, prefix="/api/v1/skill-gen", tags=["技能生成"])
 logger.info("✅ 技能生成API已注册")
 
 # 技能优化路由（自学习系统 - 阶段16）
-from app.api.v1 import skill_optimization
-app.include_router(skill_optimization.router, prefix="/api/v1/skill-opt", tags=["技能优化"])
 logger.info("✅ 技能优化API已注册")
 
 # 反馈闭环路由（自学习系统 - 阶段17）
@@ -860,80 +832,65 @@ from app.api import batch_processing
 app.include_router(batch_processing.router, prefix="/api/batch", tags=["批量处理"])
 
 # ============================================================================
-# 阶段2: 统一知识图谱模块 (新)
+
 # ============================================================================
+# 统一模块注册区域
+# ============================================================================
+
+# 阶段2: 统一知识图谱模块
 app.include_router(unified_knowledge_graph.router, tags=["统一知识图谱"])
 logger.info("✅ 统一知识图谱API已注册 (合并7个旧模块)")
 
-# ============================================================================
-# 阶段2: 统一文档处理模块 (新)
-# ============================================================================
+# 阶段2: 统一文档处理模块
 app.include_router(unified_documents.router, tags=["统一文档处理"])
 logger.info("✅ 统一文档处理API已注册 (合并4个旧模块)")
 
-# ============================================================================
-# 阶段2: 统一RAG检索模块 (新)
-# ============================================================================
+# 阶段2: 统一RAG检索模块
 app.include_router(unified_rag.router, tags=["统一RAG检索"])
 logger.info("✅ 统一RAG检索API已注册 (合并5个旧模块)")
 
-# ============================================================================
-# 阶段3: 统一聊天对话模块 (新)
-# ============================================================================
+# 阶段3: 统一聊天对话模块
 app.include_router(unified_chat.router, tags=["统一聊天对话"])
 logger.info("✅ 统一聊天对话API已注册 (合并5个旧模块)")
 
-# ============================================================================
-# 阶段3: 统一分析模块 (新)
-# ============================================================================
+# 阶段3: 统一分析模块
 app.include_router(unified_analysis.router, tags=["统一分析"])
 logger.info("✅ 统一分析API已注册 (合并3个旧模块)")
 
-# ============================================================================
-# 阶段3: 统一项目管理模块 (新)
-# ============================================================================
+# 阶段3: 统一项目管理模块
 app.include_router(unified_projects.router, tags=["统一项目管理"])
 logger.info("✅ 统一项目管理API已注册 (合并2个旧模块)")
 
-# ============================================================================
-# 阶段4: 统一技能管理模块 (新)
-# ============================================================================
+# 阶段4: 统一技能管理模块
 app.include_router(unified_skills.router, tags=["统一技能管理"])
 logger.info("✅ 统一技能管理API已注册 (合并3个旧模块)")
 
-# ============================================================================
-# 阶段4: 统一报告生成模块 (新)
-# ============================================================================
+# 阶段4: 统一报告生成模块
 app.include_router(unified_reports.router, tags=["统一报告生成"])
 logger.info("✅ 统一报告生成API已注册 (合并2个旧模块)")
 
-# ============================================================================
-# 阶段4: 统一工具模块 (新)
-# ============================================================================
+# 阶段4: 统一工具模块
 app.include_router(unified_tools.router, tags=["统一工具"])
 logger.info("✅ 统一工具API已注册 (合并OCR等工具)")
+
+# ============================================================================
+# 其他API模块
+# ============================================================================
 
 # ============================================================================
 # 知识图谱路由（旧版本 - 保留以兼容，未来将废弃）
 # ============================================================================
 # 知识图谱基础版
-from app.api import knowledge_graph as kg_new
-app.include_router(kg_new.router, prefix="/api/knowledge-graph", tags=["知识图谱(旧)"])
 # 添加 /api/kg 别名路由以兼容前端（注意：与统一版冲突，统一版优先）
-# app.include_router(kg_new.router, prefix="/api/kg", tags=["知识图谱"])
 
 # 知识图谱v2路由（NetworkX增强版）
 try:
-    from app.api.v1 import knowledge_graph_api
-    app.include_router(knowledge_graph_api.router, prefix="/api/knowledge-graph-v2", tags=["知识图谱v2(旧)"])
     logger.info("✅ 知识图谱v2 API已加载")
 except ImportError as e:
     logger.warning(f"⚠️ 知识图谱v2 API未找到: {e}")
 
 # 知识图谱增强版路由（三数据库集成 + Skills集成 + 推理 + 时间线）
 try:
-    from app.api.v1 import knowledge_graph_enhanced
-    app.include_router(knowledge_graph_enhanced.router, prefix="/api/v1/kg-enhanced", tags=["知识图谱增强(旧)"])
     logger.info("✅ 知识图谱增强版 API已加载")
 except ImportError as e:
     logger.warning(f"⚠️ 知识图谱增强版 API未找到: {e}")
@@ -959,12 +916,8 @@ from app.api import memory as memory_new
 app.include_router(memory_new.router, prefix="/api/memory", tags=["记忆管理"])
 
 # 文档处理v2路由（链路十四）
-from app.api import document_processing_v2
-app.include_router(document_processing_v2.router, prefix="/api/document-processing-v2", tags=["文档处理v2-引用溯源"])
 
 # 知识图谱v3路由（链路十六：证据链绑定）
-from app.api import knowledge_graph_v3
-app.include_router(knowledge_graph_v3.router, prefix="/api/knowledge-graph-v3-old", tags=["知识图谱v3-证据链(旧)"])
 logger.info("✅ 知识图谱v3路由已注册(旧版)")
 
 # 🔪 破茧三刀：动态发现API（零硬编码）
@@ -976,12 +929,8 @@ from app.api import federation_api
 app.include_router(federation_api.router, prefix="/api/federation", tags=["🧠数据联邦-关联智能"])
 
 # 分层检索路由（链路十七：报告优先级）
-from app.api import hierarchical_retrieval
-app.include_router(hierarchical_retrieval.router, prefix="/api/hierarchical-retrieval-old", tags=["分层检索-报告优先级(旧)"])
 
 # 数据分析路由（基于SQL聚合，非向量检索）
-from app.api import analytics
-app.include_router(analytics.router, prefix="/api/analytics-old", tags=["数据分析-SQL聚合(旧)"])
 
 # 数据聚合路由（统一数据快照，解决模块间数据不一致）
 from app.api import aggregate
@@ -992,16 +941,12 @@ from app.api import visualize
 app.include_router(visualize.router, prefix="/api/visualize", tags=["数据可视化"])
 
 # 深度RAG对话路由（Phase 3.6）
-from app.api import deep_rag
-app.include_router(deep_rag.router, prefix="/api/deep-rag-old", tags=["深度RAG对话(旧)"])
 
 # WebSocket实时通知路由（Phase 3.7）
 from app.api import websocket as websocket_router
 app.include_router(websocket_router.router, prefix="/api/websocket", tags=["WebSocket实时通知"])
 
 # OCR文本识别路由（Phase 3.8）
-from app.api import ocr
-app.include_router(ocr.router, prefix="/api/ocr", tags=["OCR文本识别"])
 
 # 质量控制路由（Phase 3.9）
 # DISABLED: from app.api import quality
@@ -1029,33 +974,20 @@ app.include_router(tables_api.router, prefix="/api/v1", tags=["表格管理"])
 
 # documents.router 自身已声明 /documents 前缀，这里只补 /api，避免形成
 # /api/documents/documents/upload，保证旧客户端的统一上传入口可用。
-app.include_router(documents.router, prefix="/api/documents-old", tags=["文档管理(旧)"])
 app.include_router(keyword_search.router, prefix="/api/keyword-search", tags=["关键词检索"])
-app.include_router(creative_analysis.router, prefix="/api/creative-analysis-old", tags=["文创分析(旧)"])
-app.include_router(business_analysis.router, prefix="/api/business-analysis-old", tags=["业态分析(旧)"])
-app.include_router(document_processing.router, prefix="/api/document-processing-old", tags=["文档处理流水线(旧)"])
-app.include_router(conversation_memory.router, prefix="/api/conversation-memory-old", tags=["对话增强记忆(旧)"])
 
 # 核心功能路由
-app.include_router(v1_projects.router, prefix="/api/v1/projects-old", tags=["项目管理(旧)"])
-app.include_router(project_chat.router, prefix="/api/v1/projects", tags=["项目对话(旧)"])
-app.include_router(project_documents.router, prefix="/api/v1/projects-old", tags=["项目文档(旧)"])
-app.include_router(skills.router, prefix="/api/v1/skills", tags=["技能管理"])
 app.include_router(industry.router, prefix="/api/v1/industry", tags=["业态分析"])
-app.include_router(reports.router, prefix="/api/v1/reports", tags=["报告生成"])
-app.include_router(enhanced_chat.router, prefix="/api/v1/enhanced-chat-old", tags=["增强对话(旧)"])
 
 # 原有路由
 logger.info(f"🔧 [DEBUG] 注册audio前路由数: {len(list(app.routes))}")
 app.include_router(audio.router, prefix="/api/v1/audio", tags=["音频"])
 logger.info(f"🔧 [DEBUG] 注册audio后路由数: {len(list(app.routes))}")
 # v1_documents.router 自身已声明 /documents 前缀。
-app.include_router(v1_documents.router, prefix="/api/v1", tags=["文档"])
 
 logger.info(f"🔧 [DEBUG] 注册v1_documents后路由数: {len(list(app.routes))}")
 app.include_router(crawler.router, prefix="/api/v1/crawler", tags=["爬虫"])
 app.include_router(search.router, prefix="/api/v1/search", tags=["搜索"])
-app.include_router(rag.router, tags=["RAG"])
 app.include_router(learning.router, prefix="/api/v1", tags=["学习引擎"])  # Hermes Learning Engine
 logger.info(f"🔧 [DEBUG] 学习引擎API已注册")
 
@@ -1077,7 +1009,6 @@ app.include_router(chunks_quantification.router, prefix="/api/v1/chunks-quantifi
 app.include_router(dashboard_optimized.router, prefix="/api/v1/dashboard-optimized", tags=["优化Dashboard"])
 
 # 工具功能
-app.include_router(export_summaries.router, prefix="/api/export", tags=["导出摘要"])
 app.include_router(file_summaries.router, prefix="/api/file-summaries", tags=["文件摘要"])
 app.include_router(quantification.router, prefix="/api/quantification", tags=["数据量化"])
 app.include_router(websocket.router, prefix="/api/websocket", tags=["WebSocket通信"])
@@ -1126,7 +1057,6 @@ from sqlalchemy.orm import Session
 from typing import Optional
 
 # 1. 项目管理无版本号兼容路由（前端调用 /api/projects/）
-app.include_router(v1_projects.router, prefix="/api/projects", tags=["项目管理(兼容)"], include_in_schema=False)
 
 # 2. 项目文档兼容路由
 @app.get("/api/projects/{project_id}/documents")
@@ -1262,7 +1192,6 @@ async def build_graph_compat(
     db: Session = Depends(get_db)
 ):
     """兼容路由：前端调用 /api/graph/build"""
-    from app.api import knowledge_graph as kg_api
     from fastapi import BackgroundTasks
 
     # 支持两种调用方式：JSON body 或 query parameters
@@ -1271,21 +1200,12 @@ async def build_graph_compat(
         document_ids = request.get("document_ids", document_ids)
         force_rebuild = request.get("force_rebuild", force_rebuild)
 
-    # 调用真实的知识图谱构建API
-    try:
-        return await kg_api.build_knowledge_graph(
-            request=kg_api.BuildGraphRequest(
-                project_id=project_id,
-                document_ids=document_ids or [],
-                force_rebuild=force_rebuild,
-            ),
-            background_tasks=BackgroundTasks(),
-            db=db,
-        )
-    except Exception as e:
-        from app.models.project import ProjectDocument
-        logger.error("知识图谱构建兼容入口失败: %s", e, exc_info=True)
-        raise HTTPException(status_code=500, detail=f"知识图谱构建失败: {e}")
+    # 知识图谱构建功能已移至统一知识图谱模块
+    # 使用 /api/kg/build 替代
+    raise HTTPException(
+        status_code=410,
+        detail="此端点已废弃，请使用 /api/kg/build"
+    )
 
 @app.get("/api/graph/statistics")
 async def get_graph_statistics_compat(
