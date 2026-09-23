@@ -89,7 +89,9 @@ from app.api import (
     unified_documents,
     unified_rag,
     # 阶段3: 第二批统一模块
-    unified_chat
+    unified_chat,
+    unified_analysis,
+    unified_projects
 )
 from app.api.routes import agent_pipeline
 
@@ -878,6 +880,18 @@ app.include_router(unified_chat.router, tags=["统一聊天对话"])
 logger.info("✅ 统一聊天对话API已注册 (合并5个旧模块)")
 
 # ============================================================================
+# 阶段3: 统一分析模块 (新)
+# ============================================================================
+app.include_router(unified_analysis.router, tags=["统一分析"])
+logger.info("✅ 统一分析API已注册 (合并3个旧模块)")
+
+# ============================================================================
+# 阶段3: 统一项目管理模块 (新)
+# ============================================================================
+app.include_router(unified_projects.router, tags=["统一项目管理"])
+logger.info("✅ 统一项目管理API已注册 (合并2个旧模块)")
+
+# ============================================================================
 # 知识图谱路由（旧版本 - 保留以兼容，未来将废弃）
 # ============================================================================
 # 知识图谱基础版
@@ -945,7 +959,7 @@ app.include_router(hierarchical_retrieval.router, prefix="/api/hierarchical-retr
 
 # 数据分析路由（基于SQL聚合，非向量检索）
 from app.api import analytics
-app.include_router(analytics.router, prefix="/api/analytics", tags=["数据分析-SQL聚合"])
+app.include_router(analytics.router, prefix="/api/analytics-old", tags=["数据分析-SQL聚合(旧)"])
 
 # 数据聚合路由（统一数据快照，解决模块间数据不一致）
 from app.api import aggregate
@@ -995,15 +1009,15 @@ app.include_router(tables_api.router, prefix="/api/v1", tags=["表格管理"])
 # /api/documents/documents/upload，保证旧客户端的统一上传入口可用。
 app.include_router(documents.router, prefix="/api/documents-old", tags=["文档管理(旧)"])
 app.include_router(keyword_search.router, prefix="/api/keyword-search", tags=["关键词检索"])
-app.include_router(creative_analysis.router, prefix="/api/creative-analysis", tags=["文创分析"])
-app.include_router(business_analysis.router, prefix="/api/business-analysis", tags=["业态分析"])
+app.include_router(creative_analysis.router, prefix="/api/creative-analysis-old", tags=["文创分析(旧)"])
+app.include_router(business_analysis.router, prefix="/api/business-analysis-old", tags=["业态分析(旧)"])
 app.include_router(document_processing.router, prefix="/api/document-processing-old", tags=["文档处理流水线(旧)"])
 app.include_router(conversation_memory.router, prefix="/api/conversation-memory-old", tags=["对话增强记忆(旧)"])
 
 # 核心功能路由
-app.include_router(v1_projects.router, prefix="/api/v1/projects", tags=["项目管理"])
+app.include_router(v1_projects.router, prefix="/api/v1/projects-old", tags=["项目管理(旧)"])
 app.include_router(project_chat.router, prefix="/api/v1/projects", tags=["项目对话(旧)"])
-app.include_router(project_documents.router, prefix="/api/v1/projects", tags=["项目文档"])
+app.include_router(project_documents.router, prefix="/api/v1/projects-old", tags=["项目文档(旧)"])
 app.include_router(skills.router, prefix="/api/v1/skills", tags=["技能管理"])
 app.include_router(industry.router, prefix="/api/v1/industry", tags=["业态分析"])
 app.include_router(reports.router, prefix="/api/v1/reports", tags=["报告生成"])
