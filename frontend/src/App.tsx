@@ -29,6 +29,8 @@ import UserManagement from '@/pages/UserManagement'
 import Login from '@/pages/Login'
 import Settings from '@/pages/Settings'
 import NotFound from '@/pages/NotFound'
+import Distillation from '@/pages/Distillation'
+import DistillationDetail from '@/pages/DistillationDetail'
 
 // Create a client
 const queryClient = new QueryClient({
@@ -238,6 +240,24 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Visualization />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/projects/:projectId/distillation"
+              element={
+                <ProtectedRoute>
+                  <Distillation />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/projects/:projectId/distillation/:unitId"
+              element={
+                <ProtectedRoute>
+                  <DistillationDetail />
                 </ProtectedRoute>
               }
             />
