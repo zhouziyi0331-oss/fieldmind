@@ -1,0 +1,311 @@
+{
+  "step": "第3步",
+  "description": "批量删除小型v1模块",
+  "deletable_modules": [
+    {
+      "module": "analysis",
+      "count": 9,
+      "reason": "已有统一模块"
+    },
+    {
+      "module": "reports",
+      "count": 3,
+      "reason": "已有统一模块"
+    },
+    {
+      "module": "documents",
+      "count": 1,
+      "reason": "已有统一模块"
+    }
+  ],
+  "review_modules": [
+    {
+      "module": "workbench",
+      "count": 19
+    },
+    {
+      "module": "audit",
+      "count": 16
+    },
+    {
+      "module": "dashboard",
+      "count": 16
+    },
+    {
+      "module": "learning",
+      "count": 15
+    },
+    {
+      "module": "agents",
+      "count": 15
+    },
+    {
+      "module": "api",
+      "count": 12
+    },
+    {
+      "module": "annotation",
+      "count": 12
+    },
+    {
+      "module": "tagging",
+      "count": 12
+    },
+    {
+      "module": "distillation",
+      "count": 11
+    },
+    {
+      "module": "feeding",
+      "count": 11
+    },
+    {
+      "module": "sop",
+      "count": 11
+    },
+    {
+      "module": "lineage",
+      "count": 10
+    },
+    {
+      "module": "api-management",
+      "count": 10
+    },
+    {
+      "module": "hermes",
+      "count": 9
+    },
+    {
+      "module": "tasks",
+      "count": 9
+    }
+  ],
+  "total_deletable_endpoints": 13,
+  "registrations": [
+    {
+      "line": 393,
+      "module": "api",
+      "content": "app.include_router(auth.router, prefix=\"/api/v1/auth\", tags=[\"认证(v1)\"])"
+    },
+    {
+      "line": 426,
+      "module": "api",
+      "content": "app.include_router(distillation.router, prefix=\"/api/v1/distillation\", tags=[\"知识蒸馏\"])"
+    },
+    {
+      "line": 426,
+      "module": "distillation",
+      "content": "app.include_router(distillation.router, prefix=\"/api/v1/distillation\", tags=[\"知识蒸馏\"])"
+    },
+    {
+      "line": 432,
+      "module": "api",
+      "content": "app.include_router(hermes.router, prefix=\"/api/v1/hermes\", tags=[\"Hermes学习引擎\"])"
+    },
+    {
+      "line": 440,
+      "module": "api",
+      "content": "app.include_router(skill_recommendations.router, prefix=\"/api/v1/skill-recommendations\", tags=[\"技能推荐\"])"
+    },
+    {
+      "line": 449,
+      "module": "api",
+      "content": "#     app.include_router(chat_enhancement.router, prefix=\"/api/v1/chat-enhancement\", tags=[\"对话增强\"])"
+    },
+    {
+      "line": 457,
+      "module": "api",
+      "content": "app.include_router(websocket_events.router, prefix=\"/api/v1/events\", tags=[\"WebSocket事件\"])"
+    },
+    {
+      "line": 465,
+      "module": "api",
+      "content": "app.include_router(batch_operations.router, prefix=\"/api/v1/batch\", tags=[\"批量处理\"])"
+    },
+    {
+      "line": 487,
+      "module": "api",
+      "content": "app.include_router(entity_extraction.router, prefix=\"/api/v1/entities\", tags=[\"实体提取\"])"
+    },
+    {
+      "line": 512,
+      "module": "audit",
+      "content": "app.include_router(audit_enhancement.router, prefix=\"/api/v1/audit\", tags=[\"审计日志增强\"])"
+    },
+    {
+      "line": 512,
+      "module": "api",
+      "content": "app.include_router(audit_enhancement.router, prefix=\"/api/v1/audit\", tags=[\"审计日志增强\"])"
+    },
+    {
+      "line": 524,
+      "module": "api",
+      "content": "app.include_router(lineage.router, prefix=\"/api/v1/lineage\", tags=[\"数据血缘\"])"
+    },
+    {
+      "line": 529,
+      "module": "api",
+      "content": "app.include_router(workflows.router, prefix=\"/api/v1/workflows\", tags=[\"工作流引擎\"])"
+    },
+    {
+      "line": 534,
+      "module": "dashboard",
+      "content": "app.include_router(dashboard_v1.router, prefix=\"/api/v1/dashboard\", tags=[\"Dashboard和指标\"])"
+    },
+    {
+      "line": 534,
+      "module": "api",
+      "content": "app.include_router(dashboard_v1.router, prefix=\"/api/v1/dashboard\", tags=[\"Dashboard和指标\"])"
+    },
+    {
+      "line": 543,
+      "module": "api",
+      "content": "# app.include_router(user_analysis.router, prefix=\"/api/v1/analysis\", tags=[\"用户分析\"])"
+    },
+    {
+      "line": 548,
+      "module": "learning",
+      "content": "app.include_router(learning.router, prefix=\"/api/v1/learning\", tags=[\"学习日志\"])"
+    },
+    {
+      "line": 548,
+      "module": "api",
+      "content": "app.include_router(learning.router, prefix=\"/api/v1/learning\", tags=[\"学习日志\"])"
+    },
+    {
+      "line": 578,
+      "module": "api",
+      "content": "app.include_router(feeding.router, prefix=\"/api/v1/feeding\", tags=[\"用户喂养\"])"
+    },
+    {
+      "line": 578,
+      "module": "feeding",
+      "content": "app.include_router(feeding.router, prefix=\"/api/v1/feeding\", tags=[\"用户喂养\"])"
+    },
+    {
+      "line": 598,
+      "module": "api",
+      "content": "app.include_router(live_extraction.router, prefix=\"/api/v1/live-extraction\", tags=[\"实时知识提炼\"])"
+    },
+    {
+      "line": 753,
+      "module": "api",
+      "content": "app.include_router(annotation.router, prefix=\"/api/v1/annotation\", tags=[\"用户标注\"])"
+    },
+    {
+      "line": 753,
+      "module": "annotation",
+      "content": "app.include_router(annotation.router, prefix=\"/api/v1/annotation\", tags=[\"用户标注\"])"
+    },
+    {
+      "line": 758,
+      "module": "api",
+      "content": "app.include_router(tagging.router, prefix=\"/api/v1/tagging\", tags=[\"用户标签\"])"
+    },
+    {
+      "line": 758,
+      "module": "tagging",
+      "content": "app.include_router(tagging.router, prefix=\"/api/v1/tagging\", tags=[\"用户标签\"])"
+    },
+    {
+      "line": 763,
+      "module": "api",
+      "content": "app.include_router(execution_tracking.router, prefix=\"/api/v1/execution\", tags=[\"执行追踪\"])"
+    },
+    {
+      "line": 768,
+      "module": "api",
+      "content": "app.include_router(pattern_recognition.router, prefix=\"/api/v1/patterns\", tags=[\"模式识别\"])"
+    },
+    {
+      "line": 779,
+      "module": "api",
+      "content": "app.include_router(feedback_loops.router, prefix=\"/api/v1/feedback\", tags=[\"反馈闭环\"])"
+    },
+    {
+      "line": 784,
+      "module": "learning",
+      "content": "app.include_router(background_learning.router, prefix=\"/api/v1/learning\", tags=[\"后台学习\"])"
+    },
+    {
+      "line": 784,
+      "module": "api",
+      "content": "app.include_router(background_learning.router, prefix=\"/api/v1/learning\", tags=[\"后台学习\"])"
+    },
+    {
+      "line": 789,
+      "module": "api",
+      "content": "app.include_router(experience_graph.router, prefix=\"/api/v1/experience-graph\", tags=[\"经验图谱\"])"
+    },
+    {
+      "line": 794,
+      "module": "api",
+      "content": "app.include_router(unified_plugins.router, prefix=\"/api/v1/plugins\", tags=[\"统一插件\"])"
+    },
+    {
+      "line": 982,
+      "module": "api",
+      "content": "app.include_router(industry.router, prefix=\"/api/v1/industry\", tags=[\"业态分析\"])"
+    },
+    {
+      "line": 986,
+      "module": "api",
+      "content": "app.include_router(audio.router, prefix=\"/api/v1/audio\", tags=[\"音频\"])"
+    },
+    {
+      "line": 991,
+      "module": "api",
+      "content": "app.include_router(crawler.router, prefix=\"/api/v1/crawler\", tags=[\"爬虫\"])"
+    },
+    {
+      "line": 992,
+      "module": "api",
+      "content": "app.include_router(search.router, prefix=\"/api/v1/search\", tags=[\"搜索\"])"
+    },
+    {
+      "line": 1003,
+      "module": "agents",
+      "content": "app.include_router(super_agents.router, prefix=\"/api/v1/super-agents\", tags=[\"超级Agent\"])"
+    },
+    {
+      "line": 1003,
+      "module": "api",
+      "content": "app.include_router(super_agents.router, prefix=\"/api/v1/super-agents\", tags=[\"超级Agent\"])"
+    },
+    {
+      "line": 1007,
+      "module": "api",
+      "content": "app.include_router(tasks.router, prefix=\"/api/v1/tasks\", tags=[\"任务管理\"])"
+    },
+    {
+      "line": 1009,
+      "module": "api",
+      "content": "# app.include_router(topic_analysis.router, prefix=\"/api/v1/topic-analysis\", tags=[\"主题分析\"])"
+    },
+    {
+      "line": 1010,
+      "module": "api",
+      "content": "app.include_router(sop.router, prefix=\"/api/v1/sop\", tags=[\"标准作业程序\"])"
+    },
+    {
+      "line": 1011,
+      "module": "api",
+      "content": "app.include_router(chunks_quantification.router, prefix=\"/api/v1/chunks-quantification\", tags=[\"块量化\"])"
+    },
+    {
+      "line": 1012,
+      "module": "dashboard",
+      "content": "app.include_router(dashboard_optimized.router, prefix=\"/api/v1/dashboard-optimized\", tags=[\"优化Dashboard\"])"
+    },
+    {
+      "line": 1012,
+      "module": "api",
+      "content": "app.include_router(dashboard_optimized.router, prefix=\"/api/v1/dashboard-optimized\", tags=[\"优化Dashboard\"])"
+    },
+    {
+      "line": 1052,
+      "module": "api",
+      "content": "# app.include_router(v1_workflows.router, prefix=\"/api/v1/workflows\", tags=[\"工作流\"])"
+    }
+  ]
+}

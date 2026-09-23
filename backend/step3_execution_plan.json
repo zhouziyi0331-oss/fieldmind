@@ -1,0 +1,76 @@
+{
+  "target_modules": [
+    "annotation",
+    "tagging",
+    "distillation",
+    "feeding",
+    "lineage",
+    "sop",
+    "hermes",
+    "api-management"
+  ],
+  "registrations": [
+    {
+      "line": 426,
+      "module": "distillation",
+      "content": "app.include_router(distillation.router, prefix=\"/api/v1/distillation\", tags=[\"知识蒸馏\"])"
+    },
+    {
+      "line": 432,
+      "module": "hermes",
+      "content": "app.include_router(hermes.router, prefix=\"/api/v1/hermes\", tags=[\"Hermes学习引擎\"])"
+    },
+    {
+      "line": 479,
+      "module": "distillation",
+      "content": "app.include_router(project_distillation.router, tags=[\"项目蒸馏\"])"
+    },
+    {
+      "line": 524,
+      "module": "lineage",
+      "content": "app.include_router(lineage.router, prefix=\"/api/v1/lineage\", tags=[\"数据血缘\"])"
+    },
+    {
+      "line": 578,
+      "module": "feeding",
+      "content": "app.include_router(feeding.router, prefix=\"/api/v1/feeding\", tags=[\"用户喂养\"])"
+    },
+    {
+      "line": 584,
+      "module": "api-management",
+      "content": "app.include_router(api_management.router, prefix=\"/api/v1\", tags=[\"API 管理\"])"
+    },
+    {
+      "line": 753,
+      "module": "annotation",
+      "content": "app.include_router(annotation.router, prefix=\"/api/v1/annotation\", tags=[\"用户标注\"])"
+    },
+    {
+      "line": 758,
+      "module": "tagging",
+      "content": "app.include_router(tagging.router, prefix=\"/api/v1/tagging\", tags=[\"用户标签\"])"
+    },
+    {
+      "line": 993,
+      "module": "hermes",
+      "content": "app.include_router(learning.router, prefix=\"/api/v1\", tags=[\"学习引擎\"])  # Hermes Learning Engine"
+    },
+    {
+      "line": 1010,
+      "module": "sop",
+      "content": "app.include_router(sop.router, prefix=\"/api/v1/sop\", tags=[\"标准作业程序\"])"
+    }
+  ],
+  "lines_to_comment": [
+    426,
+    432,
+    479,
+    524,
+    578,
+    584,
+    753,
+    758,
+    993,
+    1010
+  ]
+}

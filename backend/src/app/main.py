@@ -422,17 +422,19 @@ from app.api import skill_config
 app.include_router(skill_config.router, prefix="/api/skills", tags=["Skill配置"])
 
 # 蒸馏系统路由（第二大脑知识提取）
-from app.api import distillation
-app.include_router(distillation.router, prefix="/api/v1/distillation", tags=["知识蒸馏"])
-logger.info("✅ 知识蒸馏系统路由已注册")
+# ⚠️ [阶段5清理-第3步] 知识蒸馏功能废弃，注释掉
+# from app.api import distillation
+# app.include_router(distillation.router, prefix="/api/v1/distillation", tags=["知识蒸馏"])
+# logger.info("✅ 知识蒸馏系统路由已注册")
 
 # Hermes学习引擎路由
-try:
-    from app.api.v1 import hermes
-    app.include_router(hermes.router, prefix="/api/v1/hermes", tags=["Hermes学习引擎"])
-    logger.info("✅ Hermes学习引擎路由已注册")
-except ImportError as e:
-    logger.warning(f"⚠️  Hermes学习引擎模块导入失败: {e}")
+# ⚠️ [阶段5清理-第3步] Hermes学习引擎废弃，注释掉
+# try:
+#     from app.api.v1 import hermes
+#     app.include_router(hermes.router, prefix="/api/v1/hermes", tags=["Hermes学习引擎"])
+#     logger.info("✅ Hermes学习引擎路由已注册")
+# except ImportError as e:
+#     logger.warning(f"⚠️  Hermes学习引擎模块导入失败: {e}")
 
 # 技能推荐路由
 try:
@@ -520,9 +522,10 @@ app.include_router(permissions.router, prefix="/api/v1", tags=["权限管理"])
 logger.info("✅ 权限管理API已注册")
 
 # 数据血缘路由（架构升级 - 阶段4）
-from app.api.v1 import lineage
-app.include_router(lineage.router, prefix="/api/v1/lineage", tags=["数据血缘"])
-logger.info("✅ 数据血缘API已注册")
+# ⚠️ [阶段5清理-第3步] 数据血缘功能废弃，注释掉
+# from app.api.v1 import lineage
+# app.include_router(lineage.router, prefix="/api/v1/lineage", tags=["数据血缘"])
+# logger.info("✅ 数据血缘API已注册")
 
 # 工作流引擎路由（架构升级 - 阶段5）
 from app.api.v1 import workflows
@@ -575,16 +578,18 @@ logger.info("✅ 知识查询API已注册: /api/knowledge")
 from app.api import reader
 app.include_router(reader.router, tags=["Reader生成"])
 logger.info("✅ Reader生成API已注册: /api/reader")
-app.include_router(feeding.router, prefix="/api/v1/feeding", tags=["用户喂养"])
+# ⚠️ [阶段5清理-第3步] 用户喂养功能废弃，注释掉
+# app.include_router(feeding.router, prefix="/api/v1/feeding", tags=["用户喂养"])
 
 # ============= 新增 API 路由 =============
 # API 管理接口（API 网关）
-try:
-    from app.api.v1 import api_management
-    app.include_router(api_management.router, prefix="/api/v1", tags=["API 管理"])
-    logger.info("✅ API 管理路由已注册")
-except ImportError as e:
-    logger.warning(f"⚠️  API 管理模块导入失败: {e}")
+# ⚠️ [阶段5清理-第3步] API管理功能废弃，注释掉
+# try:
+#     from app.api.v1 import api_management
+#     app.include_router(api_management.router, prefix="/api/v1", tags=["API 管理"])
+#     logger.info("✅ API 管理路由已注册")
+# except ImportError as e:
+#     logger.warning(f"⚠️  API 管理模块导入失败: {e}")
 
 # 知识图谱接口 (旧版本 - 保留兼容)
 try:
@@ -749,14 +754,16 @@ except ImportError as e:
 logger.info("✅ 用户喂养API已注册")
 
 # 用户标注路由（架构升级 - 阶段11）
-from app.api.v1 import annotation
-app.include_router(annotation.router, prefix="/api/v1/annotation", tags=["用户标注"])
-logger.info("✅ 用户标注API已注册")
+# ⚠️ [阶段5清理-第3步] 用户标注功能废弃，注释掉
+# from app.api.v1 import annotation
+# app.include_router(annotation.router, prefix="/api/v1/annotation", tags=["用户标注"])
+# logger.info("✅ 用户标注API已注册")
 
 # 用户标签路由（架构升级 - 阶段12）
-from app.api.v1 import tagging
-app.include_router(tagging.router, prefix="/api/v1/tagging", tags=["用户标签"])
-logger.info("✅ 用户标签API已注册")
+# ⚠️ [阶段5清理-第3步] 用户标签功能废弃，注释掉
+# from app.api.v1 import tagging
+# app.include_router(tagging.router, prefix="/api/v1/tagging", tags=["用户标签"])
+# logger.info("✅ 用户标签API已注册")
 
 # 执行追踪路由（自学习系统 - 阶段13）
 from app.api.v1 import execution_tracking
@@ -1007,7 +1014,8 @@ app.include_router(agent_pipeline.router, prefix="/api/agent-pipeline", tags=["A
 app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["任务管理"])
 # ⚠️ [阶段5清理] 主题分析已迁移到统一分析模块，注释掉v1版本
 # app.include_router(topic_analysis.router, prefix="/api/v1/topic-analysis", tags=["主题分析"])
-app.include_router(sop.router, prefix="/api/v1/sop", tags=["标准作业程序"])
+# ⚠️ [阶段5清理-第3步] SOP功能废弃，注释掉
+# app.include_router(sop.router, prefix="/api/v1/sop", tags=["标准作业程序"])
 app.include_router(chunks_quantification.router, prefix="/api/v1/chunks-quantification", tags=["块量化"])
 app.include_router(dashboard_optimized.router, prefix="/api/v1/dashboard-optimized", tags=["优化Dashboard"])
 
