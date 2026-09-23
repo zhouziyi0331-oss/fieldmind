@@ -86,7 +86,8 @@ from app.api import (
     websocket, monitoring,
     # 阶段2: 统一模块
     unified_knowledge_graph,
-    unified_documents
+    unified_documents,
+    unified_rag
 )
 from app.api.routes import agent_pipeline
 
@@ -412,7 +413,7 @@ logger.info(f"🔧 [DEBUG] chat注册后路由数: {len(list(app.routes))}")
 
 # RAG对话路由（真正的向量检索）
 from app.api import chat_rag
-app.include_router(chat_rag.router, prefix="/api/chat-rag", tags=["RAG对话"])
+app.include_router(chat_rag.router, prefix="/api/chat-rag-old", tags=["RAG对话(旧)"])
 
 # 报告生成路由（真实数据）
 # from app.api import reports_real
@@ -470,7 +471,7 @@ except ImportError as e:
 # Deep RAG查询优化路由
 try:
     from app.api.v1 import deep_rag_optimization
-    app.include_router(deep_rag_optimization.router, prefix="/api/v1/deep-rag", tags=["Deep RAG查询优化"])
+    app.include_router(deep_rag_optimization.router, prefix="/api/v1/deep-rag-old", tags=["Deep RAG查询优化(旧)"])
     logger.info("✅ Deep RAG查询优化系统路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  Deep RAG查询优化模块导入失败: {e}")
@@ -688,7 +689,7 @@ except ImportError as e:
 # RAG 增强（P3原有）
 try:
     from app.api import rag_p3
-    app.include_router(rag_p3.router, prefix="/api/v1", tags=["RAG 增强"])
+    app.include_router(rag_p3.router, prefix="/api/v1/rag-p3-old", tags=["RAG 增强(旧)"])
     logger.info("✅ RAG 增强 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  RAG 增强模块导入失败: {e}")
@@ -863,6 +864,12 @@ app.include_router(unified_documents.router, tags=["统一文档处理"])
 logger.info("✅ 统一文档处理API已注册 (合并4个旧模块)")
 
 # ============================================================================
+# 阶段2: 统一RAG检索模块 (新)
+# ============================================================================
+app.include_router(unified_rag.router, tags=["统一RAG检索"])
+logger.info("✅ 统一RAG检索API已注册 (合并5个旧模块)")
+
+# ============================================================================
 # 知识图谱路由（旧版本 - 保留以兼容，未来将废弃）
 # ============================================================================
 # 知识图谱基础版
@@ -926,7 +933,7 @@ app.include_router(federation_api.router, prefix="/api/federation", tags=["🧠�
 
 # 分层检索路由（链路十七：报告优先级）
 from app.api import hierarchical_retrieval
-app.include_router(hierarchical_retrieval.router, prefix="/api/hierarchical-retrieval", tags=["分层检索-报告优先级"])
+app.include_router(hierarchical_retrieval.router, prefix="/api/hierarchical-retrieval-old", tags=["分层检索-报告优先级(旧)"])
 
 # 数据分析路由（基于SQL聚合，非向量检索）
 from app.api import analytics
@@ -942,7 +949,7 @@ app.include_router(visualize.router, prefix="/api/visualize", tags=["数据可�
 
 # 深度RAG对话路由（Phase 3.6）
 from app.api import deep_rag
-app.include_router(deep_rag.router, prefix="/api/deep-rag", tags=["深度RAG对话"])
+app.include_router(deep_rag.router, prefix="/api/deep-rag-old", tags=["深度RAG对话(旧)"])
 
 # WebSocket实时通知路由（Phase 3.7）
 from app.api import websocket as websocket_router
