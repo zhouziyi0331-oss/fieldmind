@@ -1,0 +1,46 @@
+{
+  "phase1": {
+    "name": "立即删除：明确废弃的API",
+    "actions": [
+      {
+        "action": "DELETE",
+        "count": 0,
+        "description": "删除明确标记为旧版的API"
+      }
+    ]
+  },
+  "phase2": {
+    "name": "合并到统一模块",
+    "actions": [
+      {
+        "from": "v1/documents",
+        "to": "统一文档处理",
+        "count": 1
+      },
+      {
+        "from": "v1/chat",
+        "to": "统一聊天对话",
+        "count": 3
+      },
+      {
+        "from": "v1/projects",
+        "to": "统一项目管理",
+        "count": 49
+      },
+      {
+        "from": "v1/analysis",
+        "to": "统一分析",
+        "count": 9
+      },
+      {
+        "from": "v1/reports",
+        "to": "统一报告生成",
+        "count": 3
+      }
+    ]
+  },
+  "phase3": {
+    "name": "重复功能去重",
+    "actions": []
+  }
+}

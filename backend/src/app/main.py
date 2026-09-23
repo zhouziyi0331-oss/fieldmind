@@ -443,12 +443,13 @@ except ImportError as e:
     logger.warning(f"⚠️  技能推荐模块导入失败: {e}")
 
 # 对话增强路由
-try:
-    from app.api.v1 import chat_enhancement
-    app.include_router(chat_enhancement.router, prefix="/api/v1/chat-enhancement", tags=["对话增强"])
-    logger.info("✅ 对话增强系统路由已注册")
-except ImportError as e:
-    logger.warning(f"⚠️  对话增强模块导入失败: {e}")
+# ⚠️ [阶段5清理] 已迁移到统一聊天模块，注释掉v1版本
+# try:
+#     from app.api.v1 import chat_enhancement
+#     app.include_router(chat_enhancement.router, prefix="/api/v1/chat-enhancement", tags=["对话增强"])
+#     logger.info("✅ 对话增强系统路由已注册")
+# except ImportError as e:
+#     logger.warning(f"⚠️  对话增强模块导入失败: {e}")
 
 # WebSocket事件路由
 try:
@@ -537,9 +538,10 @@ logger.info("✅ Dashboard和指标系统API已注册")
 logger.info("✅ 对话记忆API已注册")
 
 # 用户分析路由（架构升级 - 阶段8）
-from app.api.v1 import user_analysis
-app.include_router(user_analysis.router, prefix="/api/v1/analysis", tags=["用户分析"])
-logger.info("✅ 用户分析API已注册")
+# ⚠️ [阶段5清理] 已迁移到统一分析模块，注释掉v1版本
+# from app.api.v1 import user_analysis
+# app.include_router(user_analysis.router, prefix="/api/v1/analysis", tags=["用户分析"])
+# logger.info("✅ 用户分析API已注册")
 
 # 学习日志路由（架构升级 - 阶段9）
 from app.api.v1 import learning
@@ -1003,7 +1005,8 @@ app.include_router(agent_pipeline.router, prefix="/api/agent-pipeline", tags=["A
 
 # 增强功能
 app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["任务管理"])
-app.include_router(topic_analysis.router, prefix="/api/v1/topic-analysis", tags=["主题分析"])
+# ⚠️ [阶段5清理] 主题分析已迁移到统一分析模块，注释掉v1版本
+# app.include_router(topic_analysis.router, prefix="/api/v1/topic-analysis", tags=["主题分析"])
 app.include_router(sop.router, prefix="/api/v1/sop", tags=["标准作业程序"])
 app.include_router(chunks_quantification.router, prefix="/api/v1/chunks-quantification", tags=["块量化"])
 app.include_router(dashboard_optimized.router, prefix="/api/v1/dashboard-optimized", tags=["优化Dashboard"])

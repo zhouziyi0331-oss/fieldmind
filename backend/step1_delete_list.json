@@ -1,0 +1,114 @@
+{
+  "step": "第1步",
+  "description": "删除明确已迁移的v1端点",
+  "to_delete": [
+    {
+      "module": "documents",
+      "unified_prefix": "/api/documents",
+      "v1_routes": [
+        {
+          "methods": "GET",
+          "path": "/api/v1/documents/{document_id}/recommendations",
+          "name": "get_document_recommendations"
+        }
+      ],
+      "count": 1
+    },
+    {
+      "module": "analysis",
+      "unified_prefix": "/api/analysis",
+      "v1_routes": [
+        {
+          "methods": "POST",
+          "path": "/api/v1/analysis/dimensions",
+          "name": "record_dimension"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/dimensions",
+          "name": "get_user_dimensions"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/dimensions/top/{project_id}",
+          "name": "get_top_interests"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/analysis/patterns",
+          "name": "record_thinking_pattern"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/patterns",
+          "name": "get_thinking_patterns"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/analysis/patterns/{pattern_id}/confidence",
+          "name": "update_pattern_confidence"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/focus/{project_id}",
+          "name": "analyze_user_focus"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/suggestions/{project_id}",
+          "name": "get_personalized_suggestions"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/baseline/{project_id}",
+          "name": "compare_with_baseline"
+        }
+      ],
+      "count": 9
+    },
+    {
+      "module": "reports",
+      "unified_prefix": "/api/reports",
+      "v1_routes": [
+        {
+          "methods": "GET",
+          "path": "/api/v1/reports/{report_id}/recommendations",
+          "name": "get_report_recommendations"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/reports/export",
+          "name": "export_report"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/reports/info",
+          "name": "get_report_system_info"
+        }
+      ],
+      "count": 3
+    },
+    {
+      "module": "chat",
+      "unified_prefix": "/api/chat",
+      "v1_routes": [
+        {
+          "methods": "POST",
+          "path": "/api/v1/chat-enhancement/chat",
+          "name": "enhanced_chat"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/chat-enhancement/insights/{session_id}",
+          "name": "get_conversation_insights"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/chat-enhancement/health",
+          "name": "health_check"
+        }
+      ],
+      "count": 3
+    }
+  ]
+}

@@ -1,0 +1,4785 @@
+{
+  "total_endpoints": 793,
+  "target": 420,
+  "to_remove": 373,
+  "categories": {
+    "统一模块": {
+      "count": 138,
+      "endpoints": [
+        {
+          "methods": "GET",
+          "path": "/api/skills/skills/available",
+          "name": "get_available_skills",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/skills/skills/config/{project_id}",
+          "name": "get_skill_config",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/skills/config",
+          "name": "update_skill_config",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/skills/toggle/{project_id}/{skill_id}/",
+          "name": "toggle_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/kg/build",
+          "name": "build_kg",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/kg/reset/{project_id}",
+          "name": "reset_kg",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/statistics",
+          "name": "get_kg_statistics",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/nodes",
+          "name": "get_nodes",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/nodes/{node_id}",
+          "name": "get_node_detail",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/kg/nodes",
+          "name": "create_node",
+          "action": "KEEP"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/kg/nodes/{node_id}",
+          "name": "update_node",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/kg/nodes/{node_id}",
+          "name": "delete_node",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/edges",
+          "name": "get_edges",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/kg/edges",
+          "name": "create_edge",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/kg/edges/{edge_id}",
+          "name": "delete_edge",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/search",
+          "name": "search_kg",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/subgraph/{node_id}",
+          "name": "get_subgraph",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/visualization/{project_id}",
+          "name": "get_visualization_data",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/types/nodes",
+          "name": "get_node_types",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/types/relations",
+          "name": "get_relation_types",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/entities/{entity_id}/detail",
+          "name": "get_entity_detail",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/kg/entities/{entity_id}",
+          "name": "delete_entity",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/entities/{entity_id}/evidences",
+          "name": "get_entity_evidences",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/categories/{category}/evidences",
+          "name": "get_category_evidences",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/categories/stats",
+          "name": "get_category_stats",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/kg/evidences/{evidence_id}",
+          "name": "delete_evidence",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/kg/documents/{document_id}/entities",
+          "name": "get_document_entities",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/documents/upload",
+          "name": "upload_document",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/documents/upload/batch",
+          "name": "upload_documents_batch",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/documents/process/{document_id}",
+          "name": "process_document_endpoint",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/documents/process/batch",
+          "name": "process_documents_batch",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/documents/list",
+          "name": "list_documents",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/documents/{document_id}",
+          "name": "get_document",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/documents/{document_id}/content",
+          "name": "get_document_content",
+          "action": "KEEP"
+        },
+        {
+          "methods": "PATCH",
+          "path": "/api/documents/{document_id}",
+          "name": "update_document",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/documents/{document_id}",
+          "name": "delete_document",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/documents/statistics/project/{project_id}",
+          "name": "get_project_statistics",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/documents/{document_id}/chunks/statistics",
+          "name": "get_chunks_statistics",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/documents/search",
+          "name": "search_documents",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/documents/aggregate/skills",
+          "name": "get_aggregated_skills",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/documents/aggregate/keywords",
+          "name": "get_aggregated_keywords",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/documents/knowledge-base/status",
+          "name": "get_knowledge_base_status",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/rag/retrieve",
+          "name": "retrieve_documents",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/rag/search",
+          "name": "semantic_search",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/rag/chat",
+          "name": "rag_chat",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/rag/chat/stream",
+          "name": "rag_chat_stream",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/rag/index",
+          "name": "index_documents",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/rag/index/documents/{document_id}",
+          "name": "delete_document_index",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/rag/conversations/{session_id}",
+          "name": "get_conversation",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/rag/conversations/{session_id}",
+          "name": "delete_conversation",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/rag/statistics",
+          "name": "get_statistics",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/rag/health",
+          "name": "health_check",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/rag/compare-strategies",
+          "name": "compare_strategies",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/rag/available-documents/{project_id}",
+          "name": "get_available_documents",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/chat/sessions",
+          "name": "create_session",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chat/sessions",
+          "name": "list_sessions",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chat/sessions/{session_id}",
+          "name": "get_session",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/chat/sessions/{session_id}",
+          "name": "delete_session",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/chat/sessions/{session_id}/messages",
+          "name": "send_message",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chat/sessions/{session_id}/messages",
+          "name": "get_messages",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/chat/enhanced",
+          "name": "enhanced_chat",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/chat/enhanced/stream",
+          "name": "enhanced_chat_stream",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/chat/projects/{project_id}/ask",
+          "name": "project_ask",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chat/projects/{project_id}/context",
+          "name": "get_project_context",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/chat/conversations/search",
+          "name": "search_conversations",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chat/conversations/recent",
+          "name": "get_recent_conversations",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chat/statistics",
+          "name": "get_statistics",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chat/projects/{project_id}/summary",
+          "name": "get_project_summary",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/analysis/projects/{project_id}/creative",
+          "name": "creative_analysis",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/analysis/projects/{project_id}/cultural-elements",
+          "name": "get_cultural_elements",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/analysis/projects/{project_id}/business",
+          "name": "business_analysis",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/analysis/projects/{project_id}/business-formats",
+          "name": "get_business_formats",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/analysis/projects/{project_id}/synergy",
+          "name": "get_synergy_analysis",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/analysis/projects/{project_id}/statistics",
+          "name": "get_project_statistics",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/analysis/projects/{project_id}/topic-distribution",
+          "name": "get_topic_distribution",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/analysis/projects/{project_id}/top-entities",
+          "name": "get_top_entities",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/analysis/projects/{project_id}/word-count",
+          "name": "get_word_count_stats",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/analysis/projects/{project_id}/timeline-distribution",
+          "name": "get_timeline_distribution",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/analysis/projects/{project_id}/analyze",
+          "name": "comprehensive_analysis",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/analysis/projects/{project_id}/reports",
+          "name": "generate_report",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/analysis/projects/{project_id}/reports",
+          "name": "list_reports",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/analysis/projects/compare",
+          "name": "compare_projects",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/projects",
+          "name": "create_project",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects",
+          "name": "list_projects",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects/{project_id}",
+          "name": "get_project",
+          "action": "KEEP"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/projects/{project_id}",
+          "name": "update_project",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/projects/{project_id}",
+          "name": "delete_project",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/projects/{project_id}/archive",
+          "name": "archive_project",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/projects/{project_id}/restore",
+          "name": "restore_project",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects/{project_id}/documents",
+          "name": "list_project_documents",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/projects/{project_id}/documents/upload",
+          "name": "upload_project_document",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects/{project_id}/documents/{document_id}",
+          "name": "get_project_document",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/projects/{project_id}/documents/{document_id}",
+          "name": "delete_project_document",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/projects/{project_id}/contexts",
+          "name": "create_context",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects/{project_id}/contexts",
+          "name": "list_contexts",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects/{project_id}/contexts/{context_id}",
+          "name": "get_context",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects/{project_id}/statistics",
+          "name": "get_project_statistics",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/upload",
+          "name": "upload_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/skills",
+          "name": "list_skills",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/skills/{skill_id}",
+          "name": "get_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/skills/{skill_id}",
+          "name": "delete_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/skills/{skill_id}/activate",
+          "name": "activate_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/skills/{skill_id}/deactivate",
+          "name": "deactivate_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/generate",
+          "name": "generate_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/{skill_id}/deploy",
+          "name": "deploy_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/{skill_id}/test",
+          "name": "test_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/{skill_id}/validate",
+          "name": "validate_skill",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/performance",
+          "name": "analyze_performance",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/skills/performance/{skill_id}/summary",
+          "name": "get_performance_summary",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/skills/recommendations",
+          "name": "get_optimization_recommendations",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/optimizations",
+          "name": "create_optimization",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/skills/optimizations",
+          "name": "list_optimizations",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/optimizations/{optimization_id}/validate",
+          "name": "validate_optimization",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/optimizations/{optimization_id}/apply",
+          "name": "apply_optimization",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/skills/optimizations/{optimization_id}/revert",
+          "name": "revert_optimization",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/skills/available-for-task",
+          "name": "get_available_skills_for_task",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/reports/generate",
+          "name": "generate_report",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/reports/{report_id}",
+          "name": "get_report",
+          "action": "KEEP"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/reports/{report_id}",
+          "name": "delete_report",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/reports/{report_id}/download",
+          "name": "download_report",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/reports/documents/{document_id}/pdf",
+          "name": "export_document_pdf",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/reports/documents/{document_id}/word",
+          "name": "export_document_word",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/reports/projects/{project_id}/pdf",
+          "name": "export_project_pdf",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/reports/summary-document",
+          "name": "generate_summary_document",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/reports",
+          "name": "list_reports",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/tools/ocr/recognize",
+          "name": "ocr_recognize",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/tools/ocr/recognize-pdf",
+          "name": "ocr_recognize_pdf",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/tools/ocr/recognize-batch",
+          "name": "ocr_recognize_batch",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/tools/ocr/quality-check",
+          "name": "ocr_quality_check",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tools/ocr/supported-languages",
+          "name": "get_supported_languages",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tools/ocr/statistics",
+          "name": "get_ocr_statistics",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tools/health",
+          "name": "health_check",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tools/documents/{document_id}/pdf",
+          "name": "export_document_pdf",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tools/documents/{document_id}/word",
+          "name": "export_document_word",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tools/projects/{project_id}/pdf",
+          "name": "export_project_pdf",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects/{project_id}/documents",
+          "name": "get_project_documents_compat",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects/{project_id}/contexts",
+          "name": "get_project_contexts_compat",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/projects/{project_id}/stats",
+          "name": "get_project_stats_compat",
+          "action": "KEEP"
+        }
+      ]
+    },
+    "旧版API": {
+      "count": 435,
+      "endpoints": [
+        {
+          "methods": "POST",
+          "path": "/api/v1/auth/register",
+          "name": "register",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/auth/login",
+          "name": "login",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/auth/logout",
+          "name": "logout",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/auth/me",
+          "name": "get_current_user_info",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/auth/refresh",
+          "name": "refresh_token",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/analyze/",
+          "name": "analyze_project",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/workflow-status/",
+          "name": "get_workflow_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/distillation/upload",
+          "name": "upload_and_distill",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/distillation/url",
+          "name": "distill_from_url",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/distillation/jobs",
+          "name": "list_jobs",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/distillation/jobs/{job_id}",
+          "name": "get_job_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/distillation/jobs/{job_id}/knowledge",
+          "name": "get_job_knowledge",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/distillation/jobs/{job_id}/methods",
+          "name": "get_job_methods",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/distillation/jobs/{job_id}",
+          "name": "delete_job",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/distillation/jobs/{job_id}/start",
+          "name": "start_job",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/distillation/jobs/{job_id}/package",
+          "name": "download_package",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/distillation/projects/{project_id}/distill",
+          "name": "distill_project",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/distillation/stats",
+          "name": "get_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/hermes/experiences",
+          "name": "record_experience",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/hermes/experiences",
+          "name": "get_experiences",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/hermes/suggest-action",
+          "name": "suggest_action",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/hermes/skills",
+          "name": "get_skills",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/hermes/skills/{skill_id}",
+          "name": "get_skill_detail",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/hermes/sync-distillation",
+          "name": "sync_distillation",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/hermes/load-distilled-skills",
+          "name": "load_distilled_skills",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/hermes/stats",
+          "name": "get_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/hermes/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/skill-recommendations/projects/{project_id}/recommendations",
+          "name": "get_project_recommendations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/skill-recommendations/projects/{project_id}/recommendations",
+          "name": "get_project_recommendations_get",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/skill-recommendations/skills/{skill_id}/improvements",
+          "name": "get_skill_improvements",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/skill-recommendations/projects/{project_id}/usage-trends",
+          "name": "get_usage_trends",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/skill-recommendations/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/chat-enhancement/chat",
+          "name": "enhanced_chat",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/chat-enhancement/insights/{session_id}",
+          "name": "get_conversation_insights",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/chat-enhancement/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "",
+          "path": "/api/v1/events/ws",
+          "name": "websocket_endpoint",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/events/ws/stats",
+          "name": "get_websocket_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/events/ws/connections",
+          "name": "get_active_connections",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/events/ws/rooms",
+          "name": "get_active_rooms",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/events/ws/broadcast",
+          "name": "broadcast_message",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/events/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/distill",
+          "name": "distill_project",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/distillation-status",
+          "name": "get_project_distillation_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/entities/documents/{doc_id}/extract",
+          "name": "extract_entities_from_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/entities/projects/{project_id}/extract",
+          "name": "extract_entities_from_project",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/entities/documents/{doc_id}/extract",
+          "name": "extract_document_entities",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/entities/documents/{doc_id}/stats",
+          "name": "get_document_entity_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/obsidian/import",
+          "name": "import_obsidian_vault",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/obsidian/sync",
+          "name": "sync_obsidian_vault",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/obsidian/graph",
+          "name": "get_obsidian_graph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/obsidian/search",
+          "name": "search_obsidian_notes",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/logs",
+          "name": "get_audit_logs",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/resource/{resource_type}/{resource_id}",
+          "name": "get_resource_history",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/user/{user_id}/activity",
+          "name": "get_user_activity",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/statistics",
+          "name": "get_audit_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/audit/cleanup",
+          "name": "cleanup_old_logs",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/audit/logs/with-events",
+          "name": "create_log_with_events",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/audit/anomaly/detect",
+          "name": "detect_anomalies",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/anomaly/rapid-operations/{actor_id}",
+          "name": "check_rapid_operations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/anomaly/failed-operations/{actor_id}",
+          "name": "check_failed_operations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/anomaly/unusual-time",
+          "name": "check_unusual_time_activity",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/anomaly/bulk-deletes/{actor_id}",
+          "name": "check_bulk_deletes",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/audit/reports/compliance",
+          "name": "generate_compliance_report",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/audit/export",
+          "name": "export_audit_logs",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/statistics/timeline",
+          "name": "get_timeline_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audit/statistics/top-actors",
+          "name": "get_top_actors",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/roles",
+          "name": "create_role",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/roles",
+          "name": "list_roles",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/roles/{role_id}",
+          "name": "get_role",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/roles/{role_id}",
+          "name": "update_role",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/roles/{role_id}",
+          "name": "delete_role",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/permissions",
+          "name": "create_permission",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/permissions",
+          "name": "list_permissions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/roles/{role_id}/permissions",
+          "name": "assign_role_permissions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/members",
+          "name": "add_project_member",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/members",
+          "name": "list_project_members",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/projects/{project_id}/members/{user_id}",
+          "name": "update_project_member",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/projects/{project_id}/members/{user_id}",
+          "name": "remove_project_member",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/resources/{resource_type}/{resource_id}/owner",
+          "name": "set_resource_owner",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/resources/{resource_type}/{resource_id}/owner",
+          "name": "get_resource_owner",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/users/{user_id}/permissions",
+          "name": "get_user_permissions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/users/me/permissions",
+          "name": "get_my_permissions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/check",
+          "name": "check_permission",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/lineage/lineage",
+          "name": "create_lineage",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/lineage/lineage/upstream/{target_type}/{target_id}",
+          "name": "get_upstream_lineage",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/lineage/lineage/downstream/{source_type}/{source_id}",
+          "name": "get_downstream_lineage",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/lineage/lineage/graph/{node_type}/{node_id}",
+          "name": "get_lineage_graph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/lineage/lineage/impact/{source_type}/{source_id}",
+          "name": "get_impact_analysis",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/lineage/versions",
+          "name": "create_data_version",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/lineage/versions/{data_type}/{data_id}",
+          "name": "get_data_versions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/lineage/source-files",
+          "name": "register_source_file",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/lineage/source-files/{project_id}",
+          "name": "get_source_files",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/lineage/stats/{project_id}",
+          "name": "get_project_lineage_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/executions",
+          "name": "create_workflow_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/executions/{execution_id}/start",
+          "name": "start_workflow_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/executions/{execution_id}/execute",
+          "name": "execute_workflow",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/executions/{execution_id}/cancel",
+          "name": "cancel_workflow_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/executions/{execution_id}",
+          "name": "get_workflow_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/executions",
+          "name": "list_workflow_executions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/executions/{execution_id}/steps",
+          "name": "get_workflow_steps",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/executions/{execution_id}/progress",
+          "name": "get_workflow_progress",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "",
+          "path": "/api/v1/workflows/executions/{execution_id}/ws",
+          "name": "workflow_progress_websocket",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/templates",
+          "name": "create_workflow_template",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/templates",
+          "name": "list_workflow_templates",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/steps/{step_id}/retry",
+          "name": "retry_workflow_step",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/handlers",
+          "name": "get_registered_handlers",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/dashboard/snapshots",
+          "name": "create_metrics_snapshot",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/snapshots/{project_id}",
+          "name": "get_metrics_snapshots",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/snapshots/{project_id}/trend/{metric_name}",
+          "name": "get_metric_trend",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/dashboard/events",
+          "name": "record_metrics_event",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/events/{project_id}",
+          "name": "get_metrics_events",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/events/{project_id}/statistics",
+          "name": "get_event_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/projects/{project_id}/metrics",
+          "name": "get_project_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/dashboard/projects/{project_id}/metrics/increment",
+          "name": "increment_project_metric",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/dashboard/projects/{project_id}/workload/calculate",
+          "name": "calculate_project_workload",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/projects/{project_id}/workload/history",
+          "name": "get_workload_history",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/dashboard/value-exhibitions",
+          "name": "create_value_exhibition",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/value-exhibitions/{project_id}",
+          "name": "list_value_exhibitions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/dashboard/{project_id}",
+          "name": "get_dashboard_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/analysis/dimensions",
+          "name": "record_dimension",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/dimensions",
+          "name": "get_user_dimensions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/dimensions/top/{project_id}",
+          "name": "get_top_interests",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/analysis/patterns",
+          "name": "record_thinking_pattern",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/patterns",
+          "name": "get_thinking_patterns",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/analysis/patterns/{pattern_id}/confidence",
+          "name": "update_pattern_confidence",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/focus/{project_id}",
+          "name": "analyze_user_focus",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/suggestions/{project_id}",
+          "name": "get_personalized_suggestions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/analysis/baseline/{project_id}",
+          "name": "compare_with_baseline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/learning/logs",
+          "name": "create_learning_log",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/learning/logs",
+          "name": "get_learning_logs",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/learning/logs/{log_id}/apply",
+          "name": "record_application",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/learning/logs/{log_id}/status",
+          "name": "update_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/learning/logs/{log_id}",
+          "name": "delete_learning",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/learning/summary/{project_id}",
+          "name": "get_learning_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/learning/top/{project_id}",
+          "name": "get_top_learnings",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/learning/search",
+          "name": "search_learnings",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/learning/trend/{project_id}",
+          "name": "get_learning_trend",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/files/{file_id}/normalize",
+          "name": "normalize_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/files/{file_id}/normalized",
+          "name": "get_normalized_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/files/{file_id}/dirty-data-report",
+          "name": "get_file_dirty_data_report",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/files/{file_id}/completeness-check",
+          "name": "get_completeness_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/files/batch-normalize",
+          "name": "batch_normalize_documents",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/files/{file_id}/normalization-progress",
+          "name": "get_normalization_progress",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/feeding/sessions",
+          "name": "create_feeding_session",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feeding/sessions",
+          "name": "get_feeding_sessions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/feeding/sessions/{session_id}/apply",
+          "name": "record_application",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/feeding/sessions/{session_id}/importance",
+          "name": "update_importance",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/feeding/sessions/{session_id}",
+          "name": "delete_feeding",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feeding/summary/{project_id}",
+          "name": "get_feeding_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feeding/valuable/{project_id}",
+          "name": "get_valuable_feedings",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feeding/search",
+          "name": "search_feedings",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feeding/trend/{project_id}",
+          "name": "get_feeding_trend",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feeding/corrections/{project_id}",
+          "name": "get_recent_corrections",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feeding/preferences/{project_id}",
+          "name": "get_user_preferences",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api-management/stats",
+          "name": "get_gateway_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api-management/metrics",
+          "name": "get_api_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api-management/logs",
+          "name": "get_request_logs",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/api-management/rate-limit/reset",
+          "name": "reset_rate_limit",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api-management/config",
+          "name": "get_gateway_config",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/api-management/config",
+          "name": "update_gateway_config",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api-management/health",
+          "name": "gateway_health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api-management/endpoints",
+          "name": "list_endpoints",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api-management/errors",
+          "name": "get_recent_errors",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api-management/performance",
+          "name": "get_performance_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/live-extraction/document/{dirty_doc_id}/extract-realtime",
+          "name": "extract_knowledge_realtime",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/live-extraction/document/{dirty_doc_id}/text-preview",
+          "name": "get_document_text_preview",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/data-quality/{project_id}/overview",
+          "name": "get_project_quality_overview",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/data-quality/document/{document_id}",
+          "name": "get_document_quality_detail",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/data-quality/document/{document_id}/retry",
+          "name": "retry_document_processing",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/data-quality/{project_id}/gaps",
+          "name": "get_project_data_gaps",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/data-quality/{project_id}/dashboard",
+          "name": "get_quality_dashboard",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/traceability/trace",
+          "name": "trace_conclusion",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/traceability/chunk/{chunk_id}/context",
+          "name": "get_chunk_context",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/traceability/chunk/{chunk_id}/highlight",
+          "name": "highlight_chunk_in_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/traceability/document/{document_id}/chunks",
+          "name": "get_document_chunks",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/traceability/batch-trace",
+          "name": "batch_trace_conclusions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/members",
+          "name": "get_project_members",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/members",
+          "name": "add_project_member",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/projects/{project_id}/members/{user_id}",
+          "name": "remove_project_member",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/projects/{project_id}/members/{user_id}/role",
+          "name": "change_member_role",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/invites",
+          "name": "create_invite_link",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/activity-log",
+          "name": "get_activity_log",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/permissions/check",
+          "name": "check_user_permission",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/llm/chat",
+          "name": "chat",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/llm/providers",
+          "name": "list_providers",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/llm/usage/stats",
+          "name": "get_usage_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/llm/usage/top-users",
+          "name": "get_top_users",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/llm/usage/top-projects",
+          "name": "get_top_projects",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/llm/budget/status",
+          "name": "get_budget_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/collaboration/documents",
+          "name": "create_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/collaboration/documents/{document_id}",
+          "name": "get_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/collaboration/documents/{document_id}/users",
+          "name": "get_active_users",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/collaboration/documents/{document_id}/cursors",
+          "name": "get_cursors",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/collaboration/stats",
+          "name": "get_collaboration_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "",
+          "path": "/api/v1/collaboration/ws/{document_id}",
+          "name": "websocket_collaboration",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/agents/create",
+          "name": "create_agent",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/agents/{agent_id}",
+          "name": "get_agent",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/agents/",
+          "name": "list_agents",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/agents/{agent_id}",
+          "name": "delete_agent",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/agents/{agent_id}/execute",
+          "name": "execute_agent",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/agents/{agent_id}/pause",
+          "name": "pause_agent",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/agents/{agent_id}/resume",
+          "name": "resume_agent",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/agents/{agent_id}/cancel",
+          "name": "cancel_agent",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/agents/{agent_id}/result",
+          "name": "get_agent_result",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/agents/{agent_id}/statistics",
+          "name": "get_agent_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/agents/coordinate",
+          "name": "coordinate_agents",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/agents/manager/statistics",
+          "name": "get_manager_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/agents/workflows/create",
+          "name": "create_workflow",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/agents/workflows/{workflow_id}/execute",
+          "name": "execute_workflow",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/agents/tools",
+          "name": "list_tools",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/notifications/send",
+          "name": "send_notification",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/notifications/",
+          "name": "get_notifications",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/notifications/unread/count",
+          "name": "get_unread_count",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/notifications/{notification_id}/read",
+          "name": "mark_as_read",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/notifications/read-all",
+          "name": "mark_all_as_read",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/notifications/{notification_id}",
+          "name": "delete_notification",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/notifications/statistics",
+          "name": "get_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/api/report-relations/reports/{report_id}/entities/extract",
+          "name": "extract_report_entities",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api/report-relations/reports/{report_id}/entities",
+          "name": "get_report_entities",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/api/report-relations/projects/{project_id}/build-relations",
+          "name": "build_report_relations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api/report-relations/reports/{report_id}/relations",
+          "name": "get_report_relations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/api/report-relations/projects/{project_id}/build-network",
+          "name": "build_report_network",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api/report-relations/projects/{project_id}/network",
+          "name": "get_report_network",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api/report-relations/projects/{project_id}/network/stats",
+          "name": "get_network_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/api/report-relations/projects/{project_id}/extract-all-entities",
+          "name": "extract_all_report_entities",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/api/report-relations/projects/{project_id}/full-analysis",
+          "name": "full_report_analysis",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api/report-relations/reports/{report_id}/recommendations",
+          "name": "get_report_recommendations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api/report-relations/entity-types",
+          "name": "get_entity_types",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/api/report-relations/relation-types",
+          "name": "get_relation_types",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/keyword-relations/build",
+          "name": "build_keyword_relations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/keyword-network/build",
+          "name": "build_keyword_network",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-network",
+          "name": "get_keyword_network",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/main-keywords",
+          "name": "get_main_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/keywords/{keyword_id}/neighborhood",
+          "name": "get_keyword_neighborhood",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-relations/statistics",
+          "name": "get_keyword_relation_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/keyword-network/full-analysis",
+          "name": "full_keyword_network_analysis",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/reports/{report_id}/recommendations",
+          "name": "get_report_recommendations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/keywords/{keyword_id}/recommendations",
+          "name": "get_keyword_recommendations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/documents/{document_id}/recommendations",
+          "name": "get_document_recommendations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/search-suggestions",
+          "name": "get_search_suggestions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/unified-search",
+          "name": "unified_search",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/recommendation-stats",
+          "name": "get_recommendation_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/batch-recommendations",
+          "name": "batch_recommendations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/report-network/visualization",
+          "name": "get_report_network_visualization",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-network/visualization",
+          "name": "get_keyword_network_visualization",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-communities/visualization",
+          "name": "get_keyword_community_visualization",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/network-statistics/charts",
+          "name": "get_network_statistics_charts",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/report-network/subgraph",
+          "name": "get_report_subgraph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/keyword-network/subgraph",
+          "name": "get_keyword_subgraph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/visualization/formats",
+          "name": "get_supported_formats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/reports/generate",
+          "name": "generate_project_report",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/reports/generate-three-layers",
+          "name": "generate_three_layer_reports",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/reports/export",
+          "name": "export_report",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/reports/material-preview",
+          "name": "preview_report_material",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/reports/outline-preview",
+          "name": "preview_report_outline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/reports/info",
+          "name": "get_report_system_info",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/annotation/annotations",
+          "name": "create_annotation",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/annotation/annotations",
+          "name": "get_annotations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/annotation/annotations/{annotation_id}",
+          "name": "get_annotation",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/annotation/annotations/{annotation_id}",
+          "name": "update_annotation",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/annotation/annotations/{annotation_id}",
+          "name": "delete_annotation",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/annotation/annotations/target/{target_type}/{target_id}",
+          "name": "get_target_annotations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/annotation/statistics/{project_id}",
+          "name": "get_annotation_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/annotation/summary/{project_id}",
+          "name": "get_user_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/annotation/search/{project_id}",
+          "name": "search_annotations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/annotation/trend/{project_id}",
+          "name": "get_annotation_trend",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/annotation/quality-feedback/{project_id}",
+          "name": "get_quality_feedback",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/annotation/corrections/{project_id}",
+          "name": "get_corrections",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/tagging/tags",
+          "name": "create_tag",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/tagging/tags/bulk",
+          "name": "bulk_tag",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tagging/tags",
+          "name": "get_tags",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/tagging/tags/{tag_id}",
+          "name": "delete_tag",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/tagging/tags/target/{target_type}/{target_id}",
+          "name": "remove_tags_from_target",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tagging/tags/target/{target_type}/{target_id}",
+          "name": "get_target_tags",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tagging/tag-names/{project_id}",
+          "name": "get_all_tag_names",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tagging/targets-by-tag/{project_id}/{tag_name}",
+          "name": "get_targets_by_tag",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tagging/statistics/{project_id}",
+          "name": "get_tag_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tagging/summary/{project_id}",
+          "name": "get_user_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tagging/search/{project_id}",
+          "name": "search_tags",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tagging/trend/{project_id}",
+          "name": "get_tag_trend",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/execution/executions",
+          "name": "create_execution_record",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/execution/executions/{execution_id}/progress",
+          "name": "update_execution_progress",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/execution/executions/{execution_id}/complete",
+          "name": "complete_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/execution/executions/{execution_id}/feedback",
+          "name": "submit_user_feedback",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/execution/executions",
+          "name": "get_execution_records",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/execution/patterns",
+          "name": "get_success_patterns",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/patterns/detect",
+          "name": "detect_patterns",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/patterns/match",
+          "name": "match_pattern",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/patterns/patterns",
+          "name": "get_patterns",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/patterns/patterns/{pattern_id}/validate",
+          "name": "validate_pattern",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/patterns/patterns/{pattern_id}/activate",
+          "name": "activate_pattern",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/feedback/loops",
+          "name": "start_feedback_loop",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/feedback/loops/{loop_id}/feedback",
+          "name": "collect_feedback",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/feedback/loops/{loop_id}/learn",
+          "name": "perform_learning",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/feedback/loops/{loop_id}/improve",
+          "name": "propose_improvements",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/feedback/loops/{loop_id}/complete",
+          "name": "complete_loop",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feedback/loops",
+          "name": "get_feedback_loops",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feedback/tasks",
+          "name": "get_improvement_tasks",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/feedback/metrics/{project_id}",
+          "name": "get_loop_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/learning/tasks",
+          "name": "create_learning_task",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/learning/tasks/{task_id}/execute",
+          "name": "execute_learning_task",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/learning/tasks",
+          "name": "get_learning_tasks",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/learning/schedules",
+          "name": "create_learning_schedule",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/learning/insights",
+          "name": "get_learning_insights",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/learning/insights/{insight_id}/review",
+          "name": "review_insight",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/experience-graph/build",
+          "name": "build_experience_graph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/experience-graph/query",
+          "name": "query_experience_knowledge",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/experience-graph/statistics/{project_id}",
+          "name": "get_experience_graph_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/plugins/list",
+          "name": "list_plugins",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/plugins/extensions",
+          "name": "get_supported_extensions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/plugins/plugin/{plugin_name}",
+          "name": "get_plugin_info",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/plugins/process/upload",
+          "name": "process_uploaded_file",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/plugins/process/path",
+          "name": "process_file_by_path",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/plugins/process/batch",
+          "name": "batch_process_files",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/plugins/test/{plugin_name}",
+          "name": "test_plugin",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/plugins/recommend",
+          "name": "recommend_plugin",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/knowledge-network",
+          "name": "get_knowledge_network",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/knowledge-network/nodes/{node_id}",
+          "name": "get_node_detail",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/enrich",
+          "name": "enrich_project_data",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/enrichment-status",
+          "name": "get_enrichment_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workbench/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workbench/services",
+          "name": "list_services",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/nlp/tokenize",
+          "name": "tokenize",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/nlp/keywords",
+          "name": "extract_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/nlp/entities",
+          "name": "extract_entities",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/nlp/summarize",
+          "name": "summarize",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/nlp/sentiment",
+          "name": "sentiment_analysis",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/rag/query",
+          "name": "rag_query",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/rag/index",
+          "name": "index_documents",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/kg/build",
+          "name": "build_knowledge_graph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/kg/query",
+          "name": "query_knowledge_graph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workbench/kg/entity/{entity_id}/neighbors",
+          "name": "get_entity_neighbors",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/document/process",
+          "name": "process_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workbench/document/formats",
+          "name": "get_supported_formats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/crawler/crawl",
+          "name": "crawl_website",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/memory/store",
+          "name": "store_memory",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workbench/memory/search",
+          "name": "search_memory",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workbench/visualization/mindmap",
+          "name": "generate_mind_map",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workbench/overview",
+          "name": "workbench_overview",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/stats/{project_id}",
+          "name": "dashboard_stats_v1",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/timeline/{project_id}",
+          "name": "dashboard_timeline_v1",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard/progress/{project_id}",
+          "name": "dashboard_progress_v1",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/",
+          "name": "list_tables",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables",
+          "name": "list_tables",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/statistics/",
+          "name": "table_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/statistics",
+          "name": "table_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/{table_id}/",
+          "name": "get_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/projects/{project_id}/tables/{table_id}",
+          "name": "get_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/tables/upload/",
+          "name": "upload_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/projects/{project_id}/tables/upload",
+          "name": "upload_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/projects/{project_id}/tables/{table_id}/",
+          "name": "delete_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/projects/{project_id}/tables/{table_id}",
+          "name": "delete_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/industry/categories",
+          "name": "get_industry_categories",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/industry/{category}/details",
+          "name": "get_industry_details",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/industry/{category}/statistics",
+          "name": "get_industry_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/industry/{category}/trends",
+          "name": "get_industry_trends",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/audio/upload",
+          "name": "upload_audio",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audio/status/{task_id}/",
+          "name": "get_audio_processing_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/audio/list",
+          "name": "list_audio_files",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/crawler/crawl",
+          "name": "crawl_url",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/crawler/batch-crawl",
+          "name": "batch_crawl_urls",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/crawler/news",
+          "name": "crawl_news_article",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/crawler/government",
+          "name": "crawl_government_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/crawler/status/{task_id}/",
+          "name": "get_crawl_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/crawler/supported-crawlers",
+          "name": "get_supported_crawlers",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/search/search",
+          "name": "unified_search",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/search/search",
+          "name": "unified_search_post",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/search/search/entity/{entity_name}/graph",
+          "name": "get_entity_relations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/logs",
+          "name": "create_learning_log",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/logs",
+          "name": "get_learning_logs",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/logs/{log_id}/apply",
+          "name": "record_application",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/v1/logs/{log_id}/status",
+          "name": "update_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/logs/{log_id}",
+          "name": "delete_learning",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/summary/{project_id}",
+          "name": "get_learning_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/top/{project_id}",
+          "name": "get_top_learnings",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/search",
+          "name": "search_learnings",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/trend/{project_id}",
+          "name": "get_learning_trend",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/super-agents/api/v1/agents/knowledge/analyze",
+          "name": "knowledge_analyze",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/super-agents/api/v1/agents/search/query",
+          "name": "search_query",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/super-agents/api/v1/agents/summary/generate",
+          "name": "summary_generate",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/super-agents/api/v1/agents/transcript/process",
+          "name": "transcript_process",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/super-agents/api/v1/agents/orchestrate",
+          "name": "orchestrate_agents",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/super-agents/api/v1/agents/status/{execution_id}",
+          "name": "get_execution_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/super-agents/api/v1/agents/health",
+          "name": "agents_health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/tasks/tasks/documents/{document_id}/process",
+          "name": "trigger_document_processing",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tasks/tasks/{task_id}/status",
+          "name": "get_task_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/tasks/tasks/{task_id}/cancel",
+          "name": "cancel_task",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tasks/tasks/active",
+          "name": "list_active_tasks",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tasks/tasks/scheduled",
+          "name": "list_scheduled_tasks",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tasks/tasks/workers",
+          "name": "get_worker_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tasks/tasks/metrics",
+          "name": "get_task_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/tasks/tasks/queues/{queue_name}/length",
+          "name": "get_queue_length",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/v1/tasks/tasks/queues/{queue_name}",
+          "name": "purge_queue",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/topic-analysis/api/topics/extract-keywords",
+          "name": "extract_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/topic-analysis/api/topics/keywords/chunk/{chunk_id}/",
+          "name": "get_chunk_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/topic-analysis/api/topics/keywords/project/{project_id}/",
+          "name": "get_project_top_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/topic-analysis/api/topics/cluster",
+          "name": "cluster_project",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/topic-analysis/api/topics/clusters/{project_id}/",
+          "name": "get_project_clusters",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/topic-analysis/api/topics/clusters/{project_id}/{cluster_id}/chunks/",
+          "name": "get_cluster_chunks",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/topic-analysis/api/topics/auto-analyze/{project_id}/",
+          "name": "auto_analyze_project",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/sop/sop/",
+          "name": "create_sop",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/sop/sop/",
+          "name": "list_sops",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/sop/sop/{sop_id}",
+          "name": "get_sop",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/sop/sop/by-name/{name}",
+          "name": "get_sop_by_name",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PATCH",
+          "path": "/api/v1/sop/sop/{sop_id}",
+          "name": "update_sop",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/sop/sop/{sop_id}/activate",
+          "name": "activate_sop",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/sop/sop/{sop_id}/archive",
+          "name": "archive_sop",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/sop/sop/execute",
+          "name": "execute_sop",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/sop/sop/executions/",
+          "name": "list_executions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/sop/sop/executions/{execution_id}",
+          "name": "get_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/sop/sop/executions/{execution_id}/cancel",
+          "name": "cancel_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/chunks-quantification/api/chunks/{chunk_id}/metrics/",
+          "name": "get_chunk_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/chunks-quantification/api/chunks/document/{document_id}/metrics/",
+          "name": "get_document_chunks_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/chunks-quantification/api/chunks/document/{document_id}/metrics/summary/",
+          "name": "get_document_metrics_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/chunks-quantification/api/chunks/document/{document_id}/emotion-distribution/",
+          "name": "get_emotion_distribution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/chunks-quantification/api/chunks/search",
+          "name": "search_chunks_by_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard-optimized/projects/{project_id}/quality",
+          "name": "get_data_quality_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard-optimized/projects/{project_id}/stats",
+          "name": "get_project_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard-optimized/projects/{project_id}/knowledge-graph",
+          "name": "get_knowledge_graph_cached",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/dashboard-optimized/cache/invalidate",
+          "name": "invalidate_cache",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/dashboard-optimized/cache/stats",
+          "name": "get_cache_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/executions",
+          "name": "create_workflow_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/executions/{execution_id}/start",
+          "name": "start_workflow_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/executions/{execution_id}/execute",
+          "name": "execute_workflow",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/executions/{execution_id}/cancel",
+          "name": "cancel_workflow_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/executions/{execution_id}",
+          "name": "get_workflow_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/executions",
+          "name": "list_workflow_executions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/executions/{execution_id}/steps",
+          "name": "get_workflow_steps",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/executions/{execution_id}/progress",
+          "name": "get_workflow_progress",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "",
+          "path": "/api/v1/workflows/executions/{execution_id}/ws",
+          "name": "workflow_progress_websocket",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/templates",
+          "name": "create_workflow_template",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/templates",
+          "name": "list_workflow_templates",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/v1/workflows/steps/{step_id}/retry",
+          "name": "retry_workflow_step",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/v1/workflows/handlers",
+          "name": "get_registered_handlers",
+          "action": "REVIEW"
+        }
+      ]
+    },
+    "核心功能": {
+      "count": 6,
+      "endpoints": [
+        {
+          "methods": "POST",
+          "path": "/api/auth/register",
+          "name": "register",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/auth/login",
+          "name": "login",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/auth/logout",
+          "name": "logout",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/auth/me",
+          "name": "get_current_user_info",
+          "action": "KEEP"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/auth/refresh",
+          "name": "refresh_token",
+          "action": "KEEP"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/runtime/version",
+          "name": "runtime_version",
+          "action": "KEEP"
+        }
+      ]
+    },
+    "未分类": {
+      "count": 214,
+      "endpoints": [
+        {
+          "methods": "GET",
+          "path": "/api/dashboard/stats/{project_id}",
+          "name": "get_dashboard_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/dashboard/timeline/{project_id}",
+          "name": "get_project_timeline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/dashboard/progress/{project_id}",
+          "name": "get_project_progress",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/keywords/extract",
+          "name": "extract_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/keywords/projects/{project_id}",
+          "name": "get_project_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/keywords/documents/{document_id}",
+          "name": "get_document_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/keywords/search",
+          "name": "search_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/keywords/trending",
+          "name": "get_trending_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/keywords/stats",
+          "name": "get_keyword_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/keywords/{keyword_id}/relations",
+          "name": "get_keyword_relations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/keywords/batch-extract",
+          "name": "batch_extract_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/keywords/tasks/{task_id}",
+          "name": "get_task_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/keywords/categories",
+          "name": "get_categories",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/keywords/analyze-relations/{project_id}",
+          "name": "analyze_relations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/llm-providers/",
+          "name": "get_providers",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/llm-providers/config-guides",
+          "name": "get_config_guides",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/llm-providers/chat",
+          "name": "chat_with_llm",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/llm-providers/strategy",
+          "name": "get_routing_strategy",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/llm-providers/strategy",
+          "name": "update_routing_strategy",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/llm-providers/statistics",
+          "name": "get_llm_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/llm-providers/test/{provider}",
+          "name": "test_provider",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/llm-stats/cost",
+          "name": "get_cost_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/llm-stats/strategy",
+          "name": "set_routing_strategy",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/llm-stats/strategy",
+          "name": "get_routing_strategy",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/batch/process",
+          "name": "batch_process_documents",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/batch/status",
+          "name": "get_batch_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/batch/reprocess-failed",
+          "name": "reprocess_failed_documents",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/batch/process-project",
+          "name": "process_entire_project",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/timeline/build",
+          "name": "build_timeline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/timeline/events",
+          "name": "get_timeline_events",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/timeline/stats",
+          "name": "get_timeline_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/timeline/projects/{project_id}/events/",
+          "name": "get_project_timeline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/timeline/projects/{project_id}/events/grouped/",
+          "name": "get_grouped_timeline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/chronicle/events/{event_id}/analyze",
+          "name": "analyze_event",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/chronicle/batch-analyze",
+          "name": "batch_analyze",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chronicle/projects/{project_id}/years",
+          "name": "get_years",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chronicle/projects/{project_id}/years/{year}",
+          "name": "get_chronicle_by_year",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chronicle/events/{event_id}/narrative",
+          "name": "get_event_narrative",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/chronicle/projects/{project_id}/themes",
+          "name": "get_all_themes",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/workflows/execute",
+          "name": "execute_workflow",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/workflows/{workflow_id}",
+          "name": "get_workflow_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/workflows/",
+          "name": "list_workflows",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/workflows/{workflow_id}/cancel/",
+          "name": "cancel_workflow",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/workflows/templates/list",
+          "name": "list_workflow_templates",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/workflows/stats",
+          "name": "get_workflow_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/workflows/quick/document/{document_id}/",
+          "name": "quick_process_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/workflows/quick/knowledge-graph",
+          "name": "quick_build_knowledge_graph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/workflows/quick/full-analysis",
+          "name": "quick_full_analysis",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/create",
+          "name": "create_memory",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/memory/project/{project_id}",
+          "name": "get_project_memories",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/memory/{memory_id}",
+          "name": "get_memory_detail",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/build-prompt",
+          "name": "build_system_prompt",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/promote",
+          "name": "promote_memory",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/auto-promote/{project_id}/",
+          "name": "auto_promote_memories",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/memory/{memory_id}/",
+          "name": "delete_memory",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/cleanup/{project_id}/",
+          "name": "cleanup_old_memories",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/memory/stats/{project_id}/",
+          "name": "get_memory_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/quick/from-chat",
+          "name": "quick_create_from_chat",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/quick/from-document",
+          "name": "quick_create_from_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/dynamic-discovery/documents/{document_id}",
+          "name": "get_document_discovery",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/dynamic-discovery/projects/{project_id}/summary",
+          "name": "get_project_discovery_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/dynamic-discovery/projects/{project_id}/topics/",
+          "name": "get_all_discovered_topics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/dynamic-discovery/projects/{project_id}/entities/",
+          "name": "get_all_discovered_entities",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/dynamic-discovery/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/objects/{fid}/lineage",
+          "name": "get_object_lineage",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/objects/{fid}",
+          "name": "get_object_full_data",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/projects/{project_id}/objects/",
+          "name": "list_project_objects",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/federation/relations/discover",
+          "name": "discover_relations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/federation/projects/{project_id}/relations/discover-all/",
+          "name": "discover_project_relations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/objects/{fid}/relations/",
+          "name": "get_object_relations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/federation/documents/{document_id}/align-timestamps/",
+          "name": "align_timestamps",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/documents/{document_id}/content-at-time",
+          "name": "get_content_at_time",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/entities/{entity_name}/timeline/",
+          "name": "get_entity_timeline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/entities/{entity_name}/profile/",
+          "name": "get_entity_profile",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/events/{event_summary}/profile/",
+          "name": "get_event_profile",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/documents/{document_id}/timestamp-validation/",
+          "name": "validate_timestamps",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/objects/{fid}/recommend",
+          "name": "get_recommendations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/federation/projects/{project_id}/hot-connections/",
+          "name": "get_hot_connections",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/aggregate/dashboard/{project_id}/",
+          "name": "get_dashboard_aggregate",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/aggregate/quick-stats/{project_id}/",
+          "name": "get_quick_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/visualize/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/visualize/plotly/bar",
+          "name": "create_plotly_bar",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/visualize/plotly/line",
+          "name": "create_plotly_line",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/visualize/plotly/scatter3d",
+          "name": "create_plotly_scatter3d",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/visualize/pyecharts/pie",
+          "name": "create_pyecharts_pie",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/visualize/pyecharts/graph",
+          "name": "create_pyecharts_graph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/visualize/networkx/knowledge-graph",
+          "name": "create_networkx_kg",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/visualize/wordcloud",
+          "name": "create_wordcloud",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/visualize/document-stats",
+          "name": "create_document_stats_viz",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/visualize/knowledge-graph",
+          "name": "create_knowledge_graph_viz",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "",
+          "path": "/api/websocket/ws/{client_id}",
+          "name": "websocket_endpoint",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/broadcast",
+          "name": "broadcast_message",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/rooms/{room_id}/broadcast/",
+          "name": "broadcast_to_room",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/rooms/{room_id}/join/",
+          "name": "join_room_http",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/rooms/{room_id}/leave/",
+          "name": "leave_room_http",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/stats",
+          "name": "get_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/clients/{client_id}/",
+          "name": "get_client_info",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/rooms/{room_id}/",
+          "name": "get_room_info_endpoint",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/events/emit",
+          "name": "emit_event",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/events/history",
+          "name": "get_event_history",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/events/stats",
+          "name": "get_event_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/scheduler/tasks",
+          "name": "create_scheduled_task",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/scheduler/tasks/{task_id}",
+          "name": "get_scheduled_task",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/scheduler/tasks",
+          "name": "list_scheduled_tasks",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/scheduler/tasks/{task_id}",
+          "name": "update_scheduled_task",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/scheduler/tasks/{task_id}",
+          "name": "delete_scheduled_task",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/scheduler/tasks/{task_id}/run",
+          "name": "run_task_manually",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/scheduler/executions",
+          "name": "list_task_executions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/scheduler/executions/{execution_id}",
+          "name": "get_task_execution",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/citations/citations",
+          "name": "create_citation",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/citations/citations",
+          "name": "list_citations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/citations/citations/{citation_id}",
+          "name": "get_citation",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/citations/citations/{citation_id}",
+          "name": "update_citation",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/citations/citations/{citation_id}/",
+          "name": "delete_citation",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/citations/citations/stats/{project_id}",
+          "name": "get_citation_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/citations/citations/batch",
+          "name": "batch_create_citations",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/file-tree/{project_id}",
+          "name": "get_file_tree",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/folders",
+          "name": "create_folder",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "PUT",
+          "path": "/api/files/{file_id}/move/",
+          "name": "move_file",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/files/{file_id}",
+          "name": "delete_file",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/folders",
+          "name": "delete_folder",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/folder-contents",
+          "name": "get_folder_contents",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/photos/upload/",
+          "name": "upload_photo",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/photos/upload",
+          "name": "upload_photo",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/photos/",
+          "name": "list_photos",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/photos",
+          "name": "list_photos",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/photos/stats/{project_id}/",
+          "name": "get_photo_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/photos/stats/{project_id}",
+          "name": "get_photo_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/photos/{photo_id}/",
+          "name": "delete_photo",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/keyword-search/projects/{project_id}/search",
+          "name": "search_by_keyword",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/keyword-search/projects/{project_id}/keywords/top/",
+          "name": "get_top_keywords",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/keyword-search/projects/{project_id}/keywords/timeline/",
+          "name": "get_keyword_timeline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/create",
+          "name": "create_memory",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/memory/project/{project_id}",
+          "name": "get_project_memories",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/memory/{memory_id}",
+          "name": "get_memory_detail",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/build-prompt",
+          "name": "build_system_prompt",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/promote",
+          "name": "promote_memory",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/auto-promote/{project_id}/",
+          "name": "auto_promote_memories",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/memory/{memory_id}/",
+          "name": "delete_memory",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/cleanup/{project_id}/",
+          "name": "cleanup_old_memories",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/memory/stats/{project_id}/",
+          "name": "get_memory_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/quick/from-chat",
+          "name": "quick_create_from_chat",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/memory/quick/from-document",
+          "name": "quick_create_from_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/timeline/build",
+          "name": "build_timeline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/timeline/events",
+          "name": "get_timeline_events",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/timeline/stats",
+          "name": "get_timeline_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/timeline/projects/{project_id}/events/",
+          "name": "get_project_timeline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/timeline/projects/{project_id}/events/grouped/",
+          "name": "get_grouped_timeline",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tables/projects/{project_id}/tables/",
+          "name": "list_tables",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tables/projects/{project_id}/tables",
+          "name": "list_tables",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tables/projects/{project_id}/tables/statistics/",
+          "name": "table_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tables/projects/{project_id}/tables/statistics",
+          "name": "table_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tables/projects/{project_id}/tables/{table_id}/",
+          "name": "get_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/tables/projects/{project_id}/tables/{table_id}",
+          "name": "get_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/tables/projects/{project_id}/tables/upload/",
+          "name": "upload_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/tables/projects/{project_id}/tables/upload",
+          "name": "upload_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/tables/projects/{project_id}/tables/{table_id}/",
+          "name": "delete_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/tables/projects/{project_id}/tables/{table_id}",
+          "name": "delete_table",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/proposal/proposal/projects/{project_id}/generate/",
+          "name": "generate_proposal",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/proposal/proposal/projects/{project_id}/templates/",
+          "name": "get_proposal_templates",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/proposal/proposal/projects/{project_id}/export/",
+          "name": "export_proposal",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/photos/photos/upload/",
+          "name": "upload_photo",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/photos/photos/upload",
+          "name": "upload_photo",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/photos/photos/",
+          "name": "list_photos",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/photos/photos",
+          "name": "list_photos",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/photos/photos/stats/{project_id}/",
+          "name": "get_photo_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/photos/photos/stats/{project_id}",
+          "name": "get_photo_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "DELETE",
+          "path": "/api/photos/photos/{photo_id}/",
+          "name": "delete_photo",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/agent-pipeline/agent-pipeline/process-document",
+          "name": "process_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/agent-pipeline/agent-pipeline/approve/{packet_id}",
+          "name": "approve_packet",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/agent-pipeline/agent-pipeline/reject/{packet_id}",
+          "name": "reject_packet",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/agent-pipeline/agent-pipeline/status/{packet_id}",
+          "name": "get_packet_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/agent-pipeline/agent-pipeline/project/{project_id}/status/",
+          "name": "get_project_status",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/agent-pipeline/agent-pipeline/stages",
+          "name": "get_all_stages",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/file-summaries/file-summaries/projects/{project_id}/summaries",
+          "name": "list_summaries",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/file-summaries/file-summaries/documents/{document_id}/summary",
+          "name": "get_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/file-summaries/file-summaries/documents/{document_id}/regenerate",
+          "name": "regenerate_summary",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/file-summaries/file-summaries/projects/{project_id}/dimensions",
+          "name": "get_dimensions",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/file-summaries/file-summaries/projects/{project_id}/stats",
+          "name": "get_summary_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/quantification/api/quantification/stats/{project_id}",
+          "name": "get_quantification_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/quantification/api/quantification/clusters/{project_id}/",
+          "name": "get_cluster_results",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/quantification/api/quantification/comparisons/{project_id}/",
+          "name": "get_comparison_results",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/quantification/api/quantification/wordcloud/{project_id}/",
+          "name": "get_wordcloud_data",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/quantification/api/quantification/chunk/{chunk_id}/",
+          "name": "get_chunk_quantification",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "",
+          "path": "/api/websocket/ws/{client_id}",
+          "name": "websocket_endpoint",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/broadcast",
+          "name": "broadcast_message",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/rooms/{room_id}/broadcast/",
+          "name": "broadcast_to_room",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/rooms/{room_id}/join/",
+          "name": "join_room_http",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/rooms/{room_id}/leave/",
+          "name": "leave_room_http",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/stats",
+          "name": "get_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/clients/{client_id}/",
+          "name": "get_client_info",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/rooms/{room_id}/",
+          "name": "get_room_info_endpoint",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/websocket/events/emit",
+          "name": "emit_event",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/events/history",
+          "name": "get_event_history",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/events/stats",
+          "name": "get_event_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/websocket/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/monitoring/monitoring/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/monitoring/monitoring/metrics",
+          "name": "get_metrics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/monitoring/monitoring/logs/recent",
+          "name": "get_recent_logs",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/monitoring/monitoring/stats/api",
+          "name": "get_api_stats",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/quality/validate/document",
+          "name": "validate_document",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/quality/validate/ocr",
+          "name": "validate_ocr",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/quality/validate/entities",
+          "name": "validate_entities",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/quality/validate/embedding",
+          "name": "validate_embedding",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/quality/validate/graph",
+          "name": "validate_graph",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/quality/validate/batch",
+          "name": "validate_batch",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/quality/statistics",
+          "name": "get_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/quality/statistics/reset",
+          "name": "reset_statistics",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/quality/issue-types",
+          "name": "get_issue_types",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/quality/quality-levels",
+          "name": "get_quality_levels",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/quality/health",
+          "name": "health_check",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "POST",
+          "path": "/api/graph/build",
+          "name": "build_graph_compat",
+          "action": "REVIEW"
+        },
+        {
+          "methods": "GET",
+          "path": "/api/graph/statistics",
+          "name": "get_graph_statistics_compat",
+          "action": "REVIEW"
+        }
+      ]
+    }
+  }
+}
