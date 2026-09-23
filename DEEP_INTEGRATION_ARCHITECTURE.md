@@ -1,413 +1,512 @@
-# FieldMind 深度整合架构方案
+# FieldMind深度集成架构设计 - Obsidian生态完整融合
 
-## 🎯 核心问题分析
+## 🎯 深度集成目标
 
-### 当前状态
-1. **三个独立程序**：
-   - `/Users/alwan/FieldMind/fieldmind/` - Xcode 主项目（有 AppState）
-   - `/Users/alwan/FieldMind/frontend/fieldmind-native/` - Swift Package（独立的 AppState）
-   - `/Users/alwan/FieldMind/backend/` - Python FastAPI 后端
+将Obsidian releases和obsidian-skills的**完整功能**融入FieldMind，而不是简单的导出工具。
 
-2. **表面整合 vs 深度融合**：
-   - ❌ 简单复制文件 → 功能重复、状态分离
-   - ✅ 需要：架构级融合、统一数据流、共享状态树
+---
 
-3. **现有系统功能**（需要全部保留）：
-   - **项目管理**：Project、Material、Keyword
-   - **文档处理**：上传、解析、标注
-   - **知识图谱**：实体、关系、时间线
-   - **AI 对话**：Chat、Conversations
-   - **分析报告**：调研报告、业态分析
-   - **工作流**：SOP、Workflow、Skill
-   - **可视化**：Dashboard、Vein、Chronicle、GraphExplorer
-   - **质量监控**：Quality Monitor
+## 📦 第一阶段：Obsidian Releases深度集成
 
-## 🏗️ 深度整合架构设计
+### 1.1 Obsidian插件系统核心
 
-### 第一层：统一状态管理（Core Layer）
+**来源**: https://github.com/obsidianmd/obsidian-releases
 
-```swift
-// 唯一的全局状态管理器
-class UnifiedAppState: ObservableObject {
-    // ===== 核心服务 =====
-    @Published var backendService: BackendService
-    @Published var databaseService: DatabaseService
-    @Published var syncService: SyncService
+**核心能力**:
+- 插件生命周期管理
+- 数据持久化机制
+- 视图渲染系统
+- 命令注册和快捷键
+- 设置面板
+- 事件系统
+
+**深度集成方案**:
+
+#### 1.1.1 FieldMind插件引擎
+**新建**: `backend/src/app/core/plugin_engine.py`
+
+```python
+"""
+FieldMind插件引擎 - 完全兼容Obsidian插件规范
+
+不是简单导出，而是在FieldMind内部实现完整的插件系统：
+- 运行时加载用户自定义插件
+- 插件间通信
+- 数据共享
+- 视图扩展
+"""
+
+class FieldMindPluginEngine:
+    def __init__(self):
+        self.plugins = {}
+        self.commands = {}
+        self.views = {}
+        
+    def load_plugin(self, plugin_path: str):
+        """动态加载插件（支持Python和JavaScript）"""
+        pass
+        
+    def register_command(self, command_id: str, handler):
+        """注册命令"""
+        pass
+        
+    def register_view(self, view_type: str, component):
+        """注册自定义视图"""
+        pass
+```
+
+#### 1.1.2 数据存储兼容层
+**新建**: `backend/src/app/core/obsidian_compat.py`
+
+```python
+"""
+Obsidian数据格式完全兼容
+
+FieldMind内部使用Obsidian的数据结构：
+- Markdown文件作为第一公民
+- Frontmatter元数据
+- 双向链接 [[]]
+- 标签系统 #tag
+- 块引用 ^blockid
+"""
+
+class ObsidianDataStore:
+    def __init__(self, vault_path: Path):
+        self.vault_path = vault_path
+        
+    def create_note(self, title: str, content: str, metadata: dict):
+        """创建Obsidian兼容的笔记"""
+        pass
+        
+    def parse_wikilinks(self, content: str) -> List[str]:
+        """解析双向链接"""
+        pass
+        
+    def resolve_block_ref(self, block_id: str):
+        """解析块引用"""
+        pass
+```
+
+#### 1.1.3 实时同步引擎
+**新建**: `backend/src/app/core/obsidian_sync.py`
+
+```python
+"""
+FieldMind ⟷ Obsidian 双向实时同步
+
+不是单向导出，而是：
+- 实时监听Obsidian vault变化
+- 自动同步到FieldMind数据库
+- FieldMind修改实时推送到Obsidian
+- 冲突解决机制
+"""
+
+class ObsidianSyncEngine:
+    def __init__(self, vault_path: Path, db: Session):
+        self.vault_path = vault_path
+        self.db = db
+        self.watcher = None
+        
+    def start_watch(self):
+        """开始监听vault变化"""
+        pass
+        
+    def sync_to_obsidian(self, item_id: int):
+        """将FieldMind数据同步到Obsidian"""
+        pass
+        
+    def sync_from_obsidian(self, file_path: Path):
+        """将Obsidian文件同步到FieldMind"""
+        pass
+```
+
+---
+
+## 📚 第二阶段：Obsidian Skills深度集成
+
+### 2.1 Skills插件核心功能
+
+**来源**: https://github.com/kepano/obsidian-skills
+
+**核心能力**:
+- 技能追踪系统
+- 技能树可视化
+- 技能关系网络
+- 进度追踪
+- 技能标签
+- 技能搜索
+
+**深度集成方案**:
+
+#### 2.1.1 技能系统原生化
+**更新**: `backend/src/app/models/skill.py`
+
+```python
+"""
+将obsidian-skills的数据模型完全融入FieldMind
+
+不是导出到Obsidian，而是FieldMind本身就是技能管理系统
+"""
+
+class SkillNode(Base):
+    """技能节点 - 兼容obsidian-skills格式"""
+    __tablename__ = "skill_nodes"
     
-    // ===== 业务状态 =====
-    // 1. 项目系统
-    @Published var currentProject: Project?
-    @Published var projects: [Project] = []
+    id = Column(Integer, primary_key=True)
+    skill_id = Column(String, unique=True)  # 对应SBPACK的skill_id
     
-    // 2. 知识库系统（Obsidian 风格）
-    @Published var vaultService: KnowledgeVaultService
-    @Published var notes: [Note] = []
+    # obsidian-skills兼容字段
+    name = Column(String, nullable=False)
+    category = Column(String)  # 技能分类
+    level = Column(Integer, default=0)  # 技能等级
+    xp = Column(Integer, default=0)  # 经验值
+    prerequisites = Column(JSON)  # 前置技能
     
-    // 3. 蒸馏系统
-    @Published var distillationJobs: [DistillationJob] = []
-    @Published var knowledgeUnits: [ExtractedKnowledge] = []
-    @Published var methodUnits: [ExtractedMethod] = []
+    # 可视化数据
+    position_x = Column(Float)  # 技能树位置
+    position_y = Column(Float)
+    color = Column(String)  # 节点颜色
+    icon = Column(String)  # 图标
     
-    // 4. 材料管理（原有功能）
-    @Published var materials: [Material] = []
-    @Published var documents: [Document] = []
+    # 关系
+    parent_skills = relationship("SkillRelation", foreign_keys="SkillRelation.target_id")
+    child_skills = relationship("SkillRelation", foreign_keys="SkillRelation.source_id")
+
+
+class SkillRelation(Base):
+    """技能关系 - 构建技能树"""
+    __tablename__ = "skill_relations"
     
-    // 5. 关键词引擎
-    @Published var keywords: [Keyword] = []
-    @Published var entities: [Entity] = []
+    id = Column(Integer, primary_key=True)
+    source_id = Column(Integer, ForeignKey("skill_nodes.id"))
+    target_id = Column(Integer, ForeignKey("skill_nodes.id"))
+    relation_type = Column(String)  # prerequisite, related, unlocks
+    strength = Column(Float)
+
+
+class SkillProgress(Base):
+    """技能进度追踪"""
+    __tablename__ = "skill_progress"
     
-    // 6. AI 对话
-    @Published var conversations: [Conversation] = []
-    @Published var currentChat: Chat?
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    skill_id = Column(Integer, ForeignKey("skill_nodes.id"))
     
-    // 7. 分析与报告
-    @Published var reports: [AnalysisReport] = []
-    @Published var timelines: [Timeline] = []
-    
-    // 8. 工作流系统
-    @Published var workflows: [Workflow] = []
-    @Published var sops: [SOP] = []
-    @Published var skills: [Skill] = []
-    
-    // ===== 数据流管道 =====
-    // 干净数据通道：经过验证的结构化数据
-    var cleanDataPipeline: CleanDataPipeline
-    
-    // 脏数据通道：原始输入、待处理数据
-    var rawDataPipeline: RawDataPipeline
-    
-    // ===== 跨模块关联 =====
-    // 知识单元 ↔ 笔记关联
-    func linkKnowledgeToNote(knowledgeId: UUID, noteId: UUID)
-    
-    // 方法单元 ↔ SOP 关联
-    func linkMethodToSOP(methodId: UUID, sopId: UUID)
-    
-    // 蒸馏结果 ↔ 项目材料关联
-    func linkDistillationToMaterial(jobId: String, materialId: String)
-    
-    // 笔记 ↔ 对话关联
-    func linkNoteToConversation(noteId: UUID, conversationId: String)
-}
+    status = Column(String)  # locked, available, in_progress, mastered
+    progress_percentage = Column(Float, default=0)
+    last_practiced = Column(DateTime)
+    mastery_level = Column(Integer, default=0)
 ```
 
-### 第二层：数据通道系统（Data Pipeline）
+#### 2.1.2 技能树可视化引擎
+**新建**: `backend/src/app/services/skill_tree_builder.py`
 
-#### 干净数据通道（Clean Data）
-```
-原始输入 → 验证 → 标准化 → 存储 → 索引 → 可用
-         ↓
-    [验证规则]
-    - Schema 校验
-    - 类型检查
-    - 完整性验证
-    - 业务规则验证
-```
+```python
+"""
+技能树自动构建和可视化
 
-#### 脏数据通道（Raw Data）
-```
-外部输入 → 队列 → 异步处理 → 清洗 → 转换 → 进入干净通道
-         ↓                    ↓
-    [缓冲区]              [错误处理]
-    - 临时存储            - 重试机制
-    - 批量处理            - 降级策略
-    - 优先级队列          - 日志记录
-```
+从SBPACK技能轨自动生成技能树：
+- 基于技能关系自动布局
+- 前置技能识别
+- 技能等级分层
+- 学习路径推荐
+"""
 
-### 第三层：功能模块深度融合
-
-#### 1. 知识蒸馏 ↔ 材料管理 ↔ 知识库
-```
-上传文档（Material）
-    ↓
-触发蒸馏（Distillation）
-    ↓
-提取知识单元（ExtractedKnowledge）
-    ↓
-自动创建笔记（Note in Vault）
-    ↓
-建立双向链接（Backlinks）
-    ↓
-更新知识图谱（Graph）
-```
-
-#### 2. 方法单元 ↔ SOP ↔ 工作流
-```
-蒸馏提取方法（ExtractedMethod）
-    ↓
-识别可复用模式
-    ↓
-自动生成 SOP 草稿
-    ↓
-编译为工作流步骤（Workflow）
-    ↓
-部署为 Skill
+class SkillTreeBuilder:
+    def __init__(self, db: Session):
+        self.db = db
+        
+    def build_from_sbpack(self, package_id: int) -> Dict[str, Any]:
+        """从SBPACK构建技能树"""
+        # 1. 加载所有技能
+        skills = self.load_skills(package_id)
+        
+        # 2. 分析技能关系
+        relations = self.analyze_relations(skills)
+        
+        # 3. 构建层级结构
+        tree = self.build_hierarchy(skills, relations)
+        
+        # 4. 自动布局
+        layout = self.auto_layout(tree)
+        
+        return layout
+        
+    def analyze_relations(self, skills: List[SkillItem]) -> List[SkillRelation]:
+        """分析技能间关系"""
+        # 基于RIA++的B字段（boundaries）和I字段（interpretation）
+        # 自动识别前置关系
+        pass
+        
+    def recommend_path(self, target_skill_id: int, user_id: int) -> List[int]:
+        """推荐学习路径"""
+        pass
 ```
 
-#### 3. AI 对话 ↔ 笔记 ↔ 项目
-```
-AI 对话中的见解（Conversation）
-    ↓
-一键保存为笔记（Note）
-    ↓
-标记项目关联（Project Tag）
-    ↓
-自动提取关键词（Keyword）
-    ↓
-更新知识脉络（Vein）
-```
+#### 2.1.3 技能进度系统
+**新建**: `backend/src/app/services/skill_progress_tracker.py`
 
-#### 4. 文档 ↔ 实体 ↔ 时间线
-```
-上传文档（Document）
-    ↓
-实体提取（Entity Extraction）
-    ↓
-时间戳识别（Timeline Detection）
-    ↓
-构建编年史（Chronicle）
-    ↓
-知识图谱展示（Graph Explorer）
-```
+```python
+"""
+技能进度追踪和游戏化
 
-### 第四层：统一数据库架构
+将技能学习游戏化：
+- XP系统
+- 成就系统
+- 技能解锁机制
+- 练习提醒
+"""
 
-#### SQLite 表结构整合
-```sql
--- 核心表（保留原有）
-projects
-documents
-materials
-keywords
-entities
-conversations
-timelines
-workflows
-sops
-skills
-
--- 新增表（蒸馏系统）
-distillation_jobs
-extracted_knowledge
-extracted_methods
-knowledge_method_relations
-method_method_relations
-
--- 新增表（知识库）
-notes
-note_links
-note_tags
-graph_nodes
-
--- 关联表（深度整合）
-knowledge_note_links      -- 知识单元 ↔ 笔记
-method_sop_links          -- 方法单元 ↔ SOP
-distillation_material_links -- 蒸馏 ↔ 材料
-note_conversation_links   -- 笔记 ↔ 对话
-note_entity_links         -- 笔记 ↔ 实体
-knowledge_timeline_links  -- 知识 ↔ 时间线
+class SkillProgressTracker:
+    def __init__(self, db: Session):
+        self.db = db
+        
+    def practice_skill(self, user_id: int, skill_id: int, result: Dict):
+        """记录技能练习"""
+        # 更新XP
+        # 检查是否升级
+        # 解锁新技能
+        pass
+        
+    def check_unlocks(self, user_id: int) -> List[int]:
+        """检查可解锁的技能"""
+        pass
+        
+    def get_recommendations(self, user_id: int) -> List[Dict]:
+        """获取推荐练习的技能"""
+        pass
 ```
 
-### 第五层：API 深度集成
+---
 
-#### 统一 API 层
-```swift
-protocol UnifiedAPIService {
-    // 项目管理
-    func listProjects() async throws -> [Project]
-    func createProject(name: String) async throws -> Project
-    
-    // 材料 + 蒸馏（深度融合）
-    func uploadMaterial(fileURL: URL, projectId: String) async throws -> Material
-    func triggerDistillation(materialId: String) async throws -> DistillationJob
-    func getMaterialWithKnowledge(materialId: String) async throws -> MaterialWithKnowledge
-    
-    // 知识库 + 对话（深度融合）
-    func createNoteFromConversation(conversationId: String) async throws -> Note
-    func chatWithContext(message: String, noteIds: [UUID]) async throws -> ChatResponse
-    
-    // 方法 + 工作流（深度融合）
-    func generateSOPFromMethod(methodId: UUID) async throws -> SOP
-    func compileWorkflowFromSOP(sopId: String) async throws -> Workflow
-    
-    // 知识图谱（全局整合）
-    func getUnifiedGraph(projectId: String) async throws -> UnifiedGraph
-    // 包含：实体、笔记、知识单元、方法、时间线的统一图谱
-}
-```
+## 🔗 第三阶段：完整融合架构
 
-### 第六层：前端组件深度融合
+### 3.1 统一数据模型
 
-#### 统一导航系统
-```swift
-enum UnifiedNavigationItem {
-    // 第一级：核心工作区
-    case workspace(WorkspaceTab)
-    
-    // 第二级：功能模块
-    case knowledge(KnowledgeTab)
-    case analysis(AnalysisTab)
-    case workflow(WorkflowTab)
-    case settings(SettingsTab)
-}
-
-enum WorkspaceTab {
-    case overview          // 项目概览
-    case materials         // 材料管理（含蒸馏触发）
-    case vault             // 知识库（含笔记、图谱）
-    case chat              // AI 对话（含笔记生成）
-}
-
-enum KnowledgeTab {
-    case graph             // 知识图谱（统一视图）
-    case timeline          // 时间线
-    case keywords          // 关键词引擎
-    case entities          // 实体管理
-}
-
-enum AnalysisTab {
-    case reports           // 调研报告
-    case dashboard         // 可视化看板
-    case vein              // 知识脉络
-    case chronicle         // 编年史
-}
-
-enum WorkflowTab {
-    case sops              // SOP 管理
-    case workflows         // 工作流
-    case skills            // Skill 生态
-    case quality           // 质量监控
-}
-```
-
-## 🔄 数据流示例
-
-### 完整工作流：从上传到知识网络
+**核心思想**: FieldMind内部数据结构**就是**Obsidian格式
 
 ```
-用户上传 PDF 文档
-    ↓
-1. [RawDataPipeline] 接收文件
-    ↓
-2. [MaterialService] 创建 Material 记录
-    ↓
-3. [DistillationService] 自动触发蒸馏
-    ↓
-4. [Backend] 11 阶段蒸馏流水线
-    ↓
-5. [CleanDataPipeline] 接收蒸馏结果
-    ↓
-6. [KnowledgeVaultService] 创建笔记
-    - 每个知识单元 → 一条笔记
-    - 自动建立双向链接
-    ↓
-7. [EntityService] 提取实体
-    ↓
-8. [TimelineService] 识别时间戳
-    ↓
-9. [GraphService] 更新知识图谱
-    ↓
-10. [UnifiedAppState] 通知所有视图刷新
-    ↓
-用户在知识图谱中看到完整的知识网络
+FieldMind数据库
+    ↕ (实时同步)
+Obsidian Vault文件
+    ↕ (插件扩展)
+用户自定义功能
 ```
 
-## 📋 整合实施步骤
-
-### Phase 1: 架构重构（3天）
-1. ✅ 创建 `UnifiedAppState.swift`
-2. ✅ 实现统一的数据通道系统
-3. ✅ 重构现有服务，统一接口
-4. ✅ 数据库 migration 脚本
-
-### Phase 2: 功能深度融合（5天）
-1. ✅ 材料管理 + 蒸馏系统融合
-2. ✅ 知识库 + 对话系统融合
-3. ✅ 方法单元 + SOP + 工作流融合
-4. ✅ 统一知识图谱视图
-
-### Phase 3: UI/UX 统一（3天）
-1. ✅ 统一导航系统
-2. ✅ 跨模块数据流展示
-3. ✅ 实时状态同步
-4. ✅ 交互一致性优化
-
-### Phase 4: 测试与优化（2天）
-1. ✅ 端到端测试
-2. ✅ 性能优化
-3. ✅ 错误处理
-4. ✅ 文档完善
-
-## 🎯 成功标准
-
-### 功能完整性
-- ✅ 原有所有功能保留
-- ✅ 新增功能深度集成
-- ✅ 跨模块数据流畅通
-
-### 架构统一性
-- ✅ 唯一的状态管理器
-- ✅ 统一的数据通道
-- ✅ 一致的 API 接口
-
-### 用户体验
-- ✅ 功能间无缝切换
-- ✅ 数据自动关联
-- ✅ 操作符合直觉
-
-### 代码质量
-- ✅ 无重复代码
-- ✅ 无冗余文件
-- ✅ 单一 Xcode 项目
-
-## 📂 最终目录结构
+### 3.2 新的架构图
 
 ```
-FieldMind/
-├── fieldmind/                    # 唯一的 Xcode 项目
-│   ├── fieldmind.xcodeproj
-│   └── fieldmind/
-│       ├── App/
-│       │   ├── FieldMindApp.swift        # 应用入口
-│       │   └── UnifiedAppState.swift     # 统一状态管理
-│       ├── Core/
-│       │   ├── DataPipeline/             # 数据通道
-│       │   ├── Services/                 # 统一服务层
-│       │   └── Database/                 # 数据库管理
-│       ├── Features/
-│       │   ├── Projects/                 # 项目管理
-│       │   ├── Materials/                # 材料管理
-│       │   ├── Distillation/             # 知识蒸馏
-│       │   ├── Vault/                    # 知识库
-│       │   ├── Chat/                     # AI 对话
-│       │   ├── Graph/                    # 知识图谱
-│       │   ├── Timeline/                 # 时间线
-│       │   ├── Reports/                  # 报告
-│       │   └── Workflows/                # 工作流
-│       ├── UI/
-│       │   ├── Navigation/               # 统一导航
-│       │   ├── Components/               # 可复用组件
-│       │   └── DesignSystem/             # 设计系统
-│       └── Resources/
-├── backend/                      # Python 后端
-│   └── src/app/
-│       ├── main.py                       # 统一入口
-│       ├── core/                         # 核心配置
-│       ├── models/                       # 数据模型
-│       ├── services/                     # 业务逻辑
-│       └── api/                          # API 路由
-└── docs/                         # 文档
-    ├── ARCHITECTURE.md                   # 架构文档
-    ├── API.md                            # API 文档
-    └── INTEGRATION.md                    # 整合文档
+┌─────────────────────────────────────────────────────────────┐
+│                     FieldMind Core                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐ │
+│  │   Obsidian   │    │    SBPACK    │    │    Skills    │ │
+│  │   Compat     │◄──►│   Engine     │◄──►│    Engine    │ │
+│  │   Layer      │    │              │    │              │ │
+│  └──────────────┘    └──────────────┘    └──────────────┘ │
+│         ▲                    ▲                    ▲         │
+│         │                    │                    │         │
+│         ▼                    ▼                    ▼         │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │            PostgreSQL Database                        │  │
+│  │  - Markdown原生存储                                   │  │
+│  │  - 双向链接图                                         │  │
+│  │  - 技能树结构                                         │  │
+│  │  - 进度追踪                                           │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│                     同步层                                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐ │
+│  │   File       │    │   Real-time  │    │   Conflict   │ │
+│  │   Watcher    │◄──►│   Sync       │◄──►│   Resolver   │ │
+│  └──────────────┘    └──────────────┘    └──────────────┘ │
+│         ▲                                         │         │
+│         └─────────────────────────────────────────┘         │
+│                                                             │
+├─────────────────────────────────────────────────────────────┤
+│                   Obsidian Vault                            │
+│              (本地文件系统 或 云同步)                          │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## 下一步行动
+### 3.3 完整的数据流
 
-1. **立即开始**：创建 `UnifiedAppState.swift`
-2. **数据分析**：完整梳理现有所有数据模型
-3. **API 审计**：列出所有后端 API 端点
-4. **依赖映射**：绘制模块间依赖关系图
-5. **重构计划**：制定详细的代码迁移计划
+```
+1. 用户上传PDF
+   ↓
+2. 蒸馏提取（知识轨+技能轨）
+   ↓
+3. 存储为Markdown格式（在数据库中）
+   ↓
+4. 自动同步到Obsidian vault
+   ↓
+5. 用户在Obsidian中编辑
+   ↓
+6. 实时同步回FieldMind
+   ↓
+7. 触发技能树更新
+   ↓
+8. 更新进度追踪
+```
 
-准备好了吗？我们从 `UnifiedAppState` 开始！
+---
+
+## 📋 完整的新增模块列表
+
+### 核心引擎层
+1. `backend/src/app/core/plugin_engine.py` - 插件引擎
+2. `backend/src/app/core/obsidian_compat.py` - Obsidian兼容层
+3. `backend/src/app/core/obsidian_sync.py` - 实时同步引擎
+4. `backend/src/app/core/markdown_parser.py` - Markdown完整解析器
+5. `backend/src/app/core/wikilink_resolver.py` - 双向链接解析器
+
+### 技能系统层
+6. `backend/src/app/models/skill_node.py` - 技能节点模型
+7. `backend/src/app/models/skill_progress.py` - 进度追踪模型
+8. `backend/src/app/services/skill_tree_builder.py` - 技能树构建器
+9. `backend/src/app/services/skill_progress_tracker.py` - 进度追踪服务
+10. `backend/src/app/services/skill_relation_analyzer.py` - 关系分析器
+
+### API层
+11. `backend/src/app/api/obsidian_sync.py` - 同步API
+12. `backend/src/app/api/skill_tree.py` - 技能树API
+13. `backend/src/app/api/skill_progress.py` - 进度追踪API
+14. `backend/src/app/api/plugins.py` - 插件管理API
+
+### 前端组件
+15. `frontend/src/components/SkillTreeViewer.tsx` - 技能树可视化
+16. `frontend/src/components/SkillProgressPanel.tsx` - 进度面板
+17. `frontend/src/components/ObsidianSyncPanel.tsx` - 同步控制面板
+18. `frontend/src/components/WikiLinkEditor.tsx` - 双向链接编辑器
+19. `frontend/src/components/MarkdownEditor.tsx` - Markdown原生编辑器
+
+### 工具层
+20. `backend/src/app/utils/obsidian_plugin_loader.py` - 插件加载器
+21. `backend/src/app/utils/skill_tree_layout.py` - 技能树布局算法
+22. `backend/src/app/utils/markdown_renderer.py` - Markdown渲染器
+
+---
+
+## 🎯 深度集成的关键特性
+
+### 1. Markdown作为第一公民
+- 数据库直接存储Markdown内容
+- 保留完整的frontmatter
+- 支持所有Obsidian语法
+
+### 2. 双向链接原生支持
+- `[[note name]]` 自动解析和跳转
+- 反向链接自动维护
+- 链接图谱可视化
+
+### 3. 实时双向同步
+- FieldMind编辑 → 自动推送到Obsidian
+- Obsidian编辑 → 自动同步到FieldMind
+- 冲突自动检测和解决
+
+### 4. 插件系统完全兼容
+- 支持加载Obsidian社区插件
+- 用户可以自定义扩展
+- 插件间通信机制
+
+### 5. 技能树原生功能
+- 不是导出，而是内置功能
+- 自动构建技能树
+- 游戏化学习路径
+- 进度追踪和推荐
+
+---
+
+## 📊 实施优先级
+
+### P0 - 基础设施（第一周）
+1. Obsidian兼容层
+2. Markdown解析器
+3. 双向链接解析器
+4. 技能节点数据模型
+
+### P1 - 核心功能（第二周）
+5. 实时同步引擎
+6. 技能树构建器
+7. 进度追踪系统
+8. 前端可视化组件
+
+### P2 - 高级功能（第三周）
+9. 插件引擎
+10. 技能关系分析
+11. 学习路径推荐
+12. 冲突解决机制
+
+---
+
+## 🎓 与现有系统的整合
+
+### 整合点1: SBPACK → 技能树
+```python
+# 从SBPACK自动生成技能树
+builder = SkillTreeBuilder(db)
+tree = builder.build_from_sbpack(package_id)
+
+# 存储为技能节点
+for skill in tree:
+    node = SkillNode(
+        skill_id=skill.skill_id,
+        name=skill.name,
+        prerequisites=skill.extract_prerequisites(),  # 从B字段提取
+        position_x=skill.layout_x,
+        position_y=skill.layout_y
+    )
+    db.add(node)
+```
+
+### 整合点2: 知识点 → Obsidian笔记
+```python
+# 知识点自动转换为Markdown笔记
+for knowledge in knowledge_items:
+    markdown = f"""---
+type: knowledge
+knowledge_type: {knowledge.knowledge_type}
+tags: [知识点, {knowledge.knowledge_type}]
+---
+
+# {knowledge.title}
+
+{knowledge.statement}
+
+## 相关技能
+{generate_skill_links(knowledge.id)}
+"""
+    sync_engine.create_note(knowledge.title, markdown)
+```
+
+### 整合点3: 蒸馏 → 实时同步
+```python
+# 蒸馏完成后自动同步到Obsidian
+@event.listens_for(KnowledgeItem, 'after_insert')
+def sync_new_knowledge(mapper, connection, target):
+    sync_engine.sync_to_obsidian(target.id, 'knowledge')
+
+@event.listens_for(SkillItem, 'after_insert')
+def sync_new_skill(mapper, connection, target):
+    sync_engine.sync_to_obsidian(target.id, 'skill')
+    tree_builder.update_tree(target.package_id)
+```
+
+---
+
+## 🚀 最终效果
+
+用户体验：
+1. 在FieldMind上传书籍 → 自动蒸馏
+2. 蒸馏结果**自动出现在Obsidian vault中**
+3. 在Obsidian编辑笔记 → **实时同步回FieldMind**
+4. FieldMind自动构建技能树
+5. 用户在FieldMind查看技能树和学习进度
+6. 在Obsidian使用所有社区插件增强体验
+7. 一切数据双向同步，无缝集成
+
+这才是**真正的深度集成**！
