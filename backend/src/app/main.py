@@ -83,7 +83,9 @@ from app.api import (
     # 新增: 未注册的核心API
     memory, timeline, tables, proposal, photos,
     export_summaries, file_summaries, quantification,
-    websocket, monitoring
+    websocket, monitoring,
+    # 阶段2: 统一模块
+    unified_knowledge_graph
 )
 from app.api.routes import agent_pipeline
 
@@ -586,11 +588,11 @@ try:
 except ImportError as e:
     logger.warning(f"⚠️  API 管理模块导入失败: {e}")
 
-# 知识图谱接口
+# 知识图谱接口 (旧版本 - 保留兼容)
 try:
     from app.api.v1 import knowledge_graph
-    app.include_router(knowledge_graph.router, prefix="/api/v1", tags=["知识图谱"])
-    logger.info("✅ 知识图谱路由已注册")
+    app.include_router(knowledge_graph.router, prefix="/api/v1/kg-old", tags=["知识图谱v1(旧)"])
+    logger.info("✅ 知识图谱v1路由已注册(旧版)")
 except ImportError as e:
     logger.warning(f"⚠️  知识图谱模块导入失败: {e}")
 
@@ -666,11 +668,11 @@ try:
 except ImportError as e:
     logger.warning(f"⚠️  实时协作编辑模块导入失败: {e}")
 
-# 交互式知识图谱
+# 交互式知识图谱 (旧版本 - 保留兼容)
 try:
     from app.api import knowledge_graph_p3
-    app.include_router(knowledge_graph_p3.router, prefix="/api/v1", tags=["交互式知识图谱"])
-    logger.info("✅ 交互式知识图谱 API 已注册")
+    app.include_router(knowledge_graph_p3.router, prefix="/api/v1/kg-p3-old", tags=["交互式知识图谱(旧)"])
+    logger.info("✅ 交互式知识图谱 API 已注册(旧版)")
 except ImportError as e:
     logger.warning(f"⚠️  交互式知识图谱模块导入失败: {e}")
 
@@ -847,16 +849,25 @@ def dashboard_progress_v1(project_id: int, db=Depends(get_db)):
 from app.api import batch_processing
 app.include_router(batch_processing.router, prefix="/api/batch", tags=["批量处理"])
 
-# 知识图谱路由（链路十一）
+# ============================================================================
+# 阶段2: 统一知识图谱模块 (新)
+# ============================================================================
+app.include_router(unified_knowledge_graph.router, tags=["统一知识图谱"])
+logger.info("✅ 统一知识图谱API已注册 (合并7个旧模块)")
+
+# ============================================================================
+# 知识图谱路由（旧版本 - 保留以兼容，未来将废弃）
+# ============================================================================
+# 知识图谱基础版
 from app.api import knowledge_graph as kg_new
-app.include_router(kg_new.router, prefix="/api/knowledge-graph", tags=["知识图谱"])
-# 添加 /api/kg 别名路由以兼容前端
-app.include_router(kg_new.router, prefix="/api/kg", tags=["知识图谱"])
+app.include_router(kg_new.router, prefix="/api/knowledge-graph", tags=["知识图谱(旧)"])
+# 添加 /api/kg 别名路由以兼容前端（注意：与统一版冲突，统一版优先）
+# app.include_router(kg_new.router, prefix="/api/kg", tags=["知识图谱"])
 
 # 知识图谱v2路由（NetworkX增强版）
 try:
     from app.api.v1 import knowledge_graph_api
-    app.include_router(knowledge_graph_api.router, prefix="/api/knowledge-graph-v2", tags=["知识图谱v2"])
+    app.include_router(knowledge_graph_api.router, prefix="/api/knowledge-graph-v2", tags=["知识图谱v2(旧)"])
     logger.info("✅ 知识图谱v2 API已加载")
 except ImportError as e:
     logger.warning(f"⚠️ 知识图谱v2 API未找到: {e}")
@@ -864,7 +875,7 @@ except ImportError as e:
 # 知识图谱增强版路由（三数据库集成 + Skills集成 + 推理 + 时间线）
 try:
     from app.api.v1 import knowledge_graph_enhanced
-    app.include_router(knowledge_graph_enhanced.router, prefix="/api/v1", tags=["知识图谱增强"])
+    app.include_router(knowledge_graph_enhanced.router, prefix="/api/v1/kg-enhanced", tags=["知识图谱增强(旧)"])
     logger.info("✅ 知识图谱增强版 API已加载")
 except ImportError as e:
     logger.warning(f"⚠️ 知识图谱增强版 API未找到: {e}")
@@ -895,7 +906,8 @@ app.include_router(document_processing_v2.router, prefix="/api/document-processi
 
 # 知识图谱v3路由（链路十六：证据链绑定）
 from app.api import knowledge_graph_v3
-app.include_router(knowledge_graph_v3.router, prefix="/api/knowledge-graph-v3", tags=["知识图谱v3-证据链"])
+app.include_router(knowledge_graph_v3.router, prefix="/api/knowledge-graph-v3-old", tags=["知识图谱v3-证据链(旧)"])
+logger.info("✅ 知识图谱v3路由已注册(旧版)")
 
 # 🔪 破茧三刀：动态发现API（零硬编码）
 from app.api import dynamic_discovery_api
