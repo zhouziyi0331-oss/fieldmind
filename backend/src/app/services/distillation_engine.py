@@ -1,6 +1,8 @@
 """
 蒸馏引擎 - Distillation Engine
 从结构化数据中提炼可复用、可溯源、可调用的知识单元
+
+现在使用Skills系统进行蒸馏，遵循SBPACK 2.0和Cangjie v2.0.0标准
 """
 import json
 import logging
@@ -10,15 +12,19 @@ from sqlalchemy.orm import Session
 from collections import Counter
 
 from app.models.distillation import DistilledUnit, DistilledUnitRelation
+from app.skills.skill_registry import initialize_distillation_skills
 
 logger = logging.getLogger(__name__)
 
 
 class DistillationEngine:
-    """蒸馏引擎 - 6类知识单元的提取"""
+    """蒸馏引擎 - 6类知识单元的提取（Skills驱动）"""
 
     def __init__(self, db: Session):
         self.db = db
+        # 初始化Skills注册表
+        self.skill_registry = initialize_distillation_skills()
+        logger.info(f"Skills注册表初始化完成，已注册 {len(self.skill_registry.list_skills())} 个Skills")
 
     def distill_project(self, project_id: int) -> Dict[str, Any]:
         """
@@ -39,14 +45,14 @@ class DistillationEngine:
             logger.warning(f"项目 {project_id} 没有结构化数据")
             return {"error": "No structured data found"}
 
-        # 2. 提取6类蒸馏产物
+        # 2. 使用Skills系统提取6类蒸馏产物
         results = {
-            "insights": self._extract_insights(project_id, structured_data),
-            "quotes": self._extract_quotes(project_id, structured_data),
-            "models": self._extract_models(project_id, structured_data),
-            "cases": self._extract_cases(project_id, structured_data),
-            "actions": self._extract_actions(project_id, structured_data),
-            "methods": self._extract_methods(project_id, structured_data),
+            "insights": self._extract_with_skill(project_id, "extract_insights", structured_data, "洞察"),
+            "quotes": self._extract_with_skill(project_id, "extract_quotes", structured_data, "原话"),
+            "models": self._extract_with_skill(project_id, "extract_knowledge_points", structured_data, "思维模型"),
+            "cases": self._extract_with_skill(project_id, "extract_cases", structured_data, "案例"),
+            "actions": self._extract_with_skill(project_id, "extract_actions", structured_data, "行动建议"),
+            "methods": self._extract_with_skill(project_id, "extract_cangjie_skills", structured_data, "方法论"),
         }
 
         # 3. 统计结果
@@ -110,10 +116,171 @@ class DistillationEngine:
             "doc_ids": doc_ids
         }
 
-    # ==================== 1. 核心洞察提取 ====================
-    def _extract_insights(self, project_id: int, data: Dict[str, Any]) -> List[DistilledUnit]:
+    def _extract_with_skill(self, project_id: int, skill_name: str,
+                           data: Dict[str, Any], unit_type: str) -> List[DistilledUnit]:
         """
-        提取核心洞察
+        使用指定Skill提取知识单元
+
+        Args:
+            project_id: 项目ID
+            skill_name: Skill名称
+            data: 结构化数据
+            unit_type: 知识单元类型
+
+        Returns:
+            提取的知识单元列表
+        """
+        logger.info(f"使用Skill '{skill_name}' 提取 '{unit_type}'")
+
+        # 获取Skill
+        skill_class = self.skill_registry.get_skill(skill_name)
+        if not skill_class:
+            logger.error(f"Skill '{skill_name}' 未注册")
+            return []
+
+        try:
+            # 实例化Skill
+            skill_instance = skill_class(self.db)
+
+            # 准备数据
+            chunks_data = self._prepare_chunks_data(data.get("chunks", []))
+            entities_data = self._prepare_entities_data(data.get("entities", []))
+            relations_data = self._prepare_relations_data(data.get("relations", []))
+            events_data = self._prepare_events_data(data.get("events", []))
+
+            # 调用Skill提取
+            extracted_results = skill_instance.extract(
+                chunks=chunks_data,
+                entities=entities_data,
+                relations=relations_data,
+                events=events_data
+            )
+
+            logger.info(f"Skill '{skill_name}' 提取了 {len(extracted_results)} 个单元")
+
+            # 转换为DistilledUnit对象并保存到数据库
+            units = []
+            for result in extracted_results:
+                unit = self._create_distilled_unit(project_id, unit_type, result)
+                if unit:
+                    units.append(unit)
+
+            # 批量保存
+            if units:
+                self.db.add_all(units)
+                self.db.commit()
+                logger.info(f"已保存 {len(units)} 个 '{unit_type}' 单元到数据库")
+
+            return units
+
+        except Exception as e:
+            logger.error(f"使用Skill '{skill_name}' 提取失败: {str(e)}", exc_info=True)
+            return []
+
+    def _prepare_chunks_data(self, chunks: List[Any]) -> List[Dict[str, Any]]:
+        """准备chunks数据供Skill使用"""
+        return [
+            {
+                "id": chunk.id,
+                "content": chunk.content,
+                "document_id": chunk.document_id,
+                "chunk_index": chunk.chunk_index
+            }
+            for chunk in chunks
+        ]
+
+    def _prepare_entities_data(self, entities: List[Any]) -> List[Dict[str, Any]]:
+        """准备entities数据供Skill使用"""
+        return [
+            {
+                "id": entity.id,
+                "entity_name": entity.entity_name,
+                "entity_type": entity.entity_type,
+                "confidence": entity.confidence,
+                "chunk_id": getattr(entity, "chunk_id", None)
+            }
+            for entity in entities
+        ]
+
+    def _prepare_relations_data(self, relations: List[Any]) -> List[Dict[str, Any]]:
+        """准备relations数据供Skill使用"""
+        return [
+            {
+                "id": relation.id,
+                "source_entity_id": relation.source_entity_id,
+                "target_entity_id": relation.target_entity_id,
+                "relation_type": relation.relation_type,
+                "confidence": relation.confidence
+            }
+            for relation in relations
+        ]
+
+    def _prepare_events_data(self, events: List[Any]) -> List[Dict[str, Any]]:
+        """准备events数据供Skill使用"""
+        return [
+            {
+                "id": event.id,
+                "event_type": event.event_type,
+                "event_date": event.event_date,
+                "description": event.description,
+                "chunk_id": getattr(event, "chunk_id", None)
+            }
+            for event in events
+        ]
+
+    def _create_distilled_unit(self, project_id: int, unit_type: str,
+                               result: Dict[str, Any]) -> Optional[DistilledUnit]:
+        """
+        从Skill提取结果创建DistilledUnit对象
+
+        Args:
+            project_id: 项目ID
+            unit_type: 单元类型
+            result: Skill提取结果
+
+        Returns:
+            DistilledUnit对象或None
+        """
+        try:
+            # 提取基础字段
+            content = result.get("content", "")
+            if not content:
+                return None
+
+            # 创建DistilledUnit
+            unit = DistilledUnit(
+                project_id=project_id,
+                unit_type=unit_type,
+                content=content,
+                credibility=result.get("credibility", 0.5),
+                confidence=result.get("confidence", 0.5),
+                source_chunks=json.dumps(result.get("source_chunks", [])),
+                extra_data=json.dumps({
+                    "category": result.get("category", ""),
+                    "evidence": result.get("evidence", {}),
+                    "structure": result.get("structure", {}),
+                    "speaker": result.get("speaker", ""),
+                    "emotion": result.get("emotion", ""),
+                    "priority": result.get("priority", ""),
+                    "rationale": result.get("rationale", ""),
+                    "quality_score": result.get("quality_score", 0),
+                    "reusability": result.get("reusability", "")
+                })
+            )
+
+            return unit
+
+        except Exception as e:
+            logger.error(f"创建DistilledUnit失败: {str(e)}", exc_info=True)
+            return None
+
+    # ==================== 保留的旧方法（作为备份）====================
+    # 下面的方法保留作为参考，但不再使用
+
+    # ==================== 1. 核心洞察提取 ====================
+    def _extract_insights_legacy(self, project_id: int, data: Dict[str, Any]) -> List[DistilledUnit]:
+        """
+        提取核心洞察（旧版本，已被Skill替代）
         逻辑: 高频关键词 + 情绪峰值 + 事件密度高的区域
         """
         insights = []
