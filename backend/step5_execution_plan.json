@@ -1,0 +1,90 @@
+{
+  "step": "第5步",
+  "description": "批量删除大型和剩余v1模块",
+  "deletable": [
+    {
+      "module": "audit",
+      "count": 16,
+      "reason": "中型v1模块，16个端点可删除"
+    },
+    {
+      "module": "learning",
+      "count": 15,
+      "reason": "中型v1模块，15个端点可删除"
+    },
+    {
+      "module": "agents",
+      "count": 15,
+      "reason": "中型v1模块，15个端点可删除"
+    },
+    {
+      "module": "api",
+      "count": 12,
+      "reason": "中型v1模块，12个端点可删除"
+    },
+    {
+      "module": "tasks",
+      "count": 9,
+      "reason": "小型v1模块，9个端点可删除"
+    },
+    {
+      "module": "feedback",
+      "count": 8,
+      "reason": "小型v1模块，8个端点可删除"
+    },
+    {
+      "module": "plugins",
+      "count": 8,
+      "reason": "小型v1模块，8个端点可删除"
+    },
+    {
+      "module": "notifications",
+      "count": 7,
+      "reason": "小型v1模块，7个端点可删除"
+    },
+    {
+      "module": "super-agents",
+      "count": 7,
+      "reason": "小型v1模块，7个端点可删除"
+    },
+    {
+      "module": "events",
+      "count": 6,
+      "reason": "小型v1模块，6个端点可删除"
+    },
+    {
+      "module": "roles",
+      "count": 6,
+      "reason": "小型v1模块，6个端点可删除"
+    },
+    {
+      "module": "files",
+      "count": 6,
+      "reason": "小型v1模块，6个端点可删除"
+    },
+    {
+      "module": "llm",
+      "count": 6,
+      "reason": "小型v1模块，6个端点可删除"
+    },
+    {
+      "module": "collaboration",
+      "count": 6,
+      "reason": "小型v1模块，6个端点可删除"
+    },
+    {
+      "module": "execution",
+      "count": 6,
+      "reason": "小型v1模块，6个端点可删除"
+    }
+  ],
+  "review": [
+    {
+      "module": "projects",
+      "count": 49,
+      "reason": "复杂模块，需要仔细评估"
+    }
+  ],
+  "total_deletable": 133,
+  "expected_result": 502
+}

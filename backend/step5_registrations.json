@@ -1,0 +1,437 @@
+{
+  "target_modules": [
+    "audit",
+    "learning",
+    "agents",
+    "api",
+    "tasks",
+    "feedback",
+    "plugins",
+    "notifications",
+    "super-agents",
+    "events",
+    "roles",
+    "files",
+    "llm",
+    "collaboration",
+    "execution"
+  ],
+  "registrations": [
+    {
+      "line": 393,
+      "module": "api",
+      "content": "app.include_router(auth.router, prefix=\"/api/v1/auth\", tags=[\"认证(v1)\"])"
+    },
+    {
+      "line": 397,
+      "module": "api",
+      "content": "app.include_router(auth.router, prefix=\"/api/auth\", tags=[\"认证(兼容)\"], include_in_schema=False)"
+    },
+    {
+      "line": 403,
+      "module": "api",
+      "content": "app.include_router(project_workflow.router, prefix=\"/api/v1\", tags=[\"项目工作流\"])"
+    },
+    {
+      "line": 422,
+      "module": "api",
+      "content": "app.include_router(skill_config.router, prefix=\"/api/skills\", tags=[\"Skill配置\"])"
+    },
+    {
+      "line": 442,
+      "module": "api",
+      "content": "app.include_router(skill_recommendations.router, prefix=\"/api/v1/skill-recommendations\", tags=[\"技能推荐\"])"
+    },
+    {
+      "line": 459,
+      "module": "api",
+      "content": "app.include_router(websocket_events.router, prefix=\"/api/v1/events\", tags=[\"WebSocket事件\"])"
+    },
+    {
+      "line": 467,
+      "module": "api",
+      "content": "app.include_router(batch_operations.router, prefix=\"/api/v1/batch\", tags=[\"批量处理\"])"
+    },
+    {
+      "line": 489,
+      "module": "api",
+      "content": "app.include_router(entity_extraction.router, prefix=\"/api/v1/entities\", tags=[\"实体提取\"])"
+    },
+    {
+      "line": 509,
+      "module": "audit",
+      "content": "app.include_router(audit.router, prefix=\"/api/v1\", tags=[\"审计日志\"])"
+    },
+    {
+      "line": 515,
+      "module": "audit",
+      "content": "app.include_router(audit_enhancement.router, prefix=\"/api/v1/audit\", tags=[\"审计日志增强\"])"
+    },
+    {
+      "line": 522,
+      "module": "api",
+      "content": "app.include_router(permissions.router, prefix=\"/api/v1\", tags=[\"权限管理\"])"
+    },
+    {
+      "line": 533,
+      "module": "api",
+      "content": "app.include_router(workflows.router, prefix=\"/api/v1/workflows\", tags=[\"工作流引擎\"])"
+    },
+    {
+      "line": 553,
+      "module": "learning",
+      "content": "app.include_router(learning.router, prefix=\"/api/v1/learning\", tags=[\"学习日志\"])"
+    },
+    {
+      "line": 605,
+      "module": "api",
+      "content": "app.include_router(live_extraction.router, prefix=\"/api/v1/live-extraction\", tags=[\"实时知识提炼\"])"
+    },
+    {
+      "line": 613,
+      "module": "api",
+      "content": "app.include_router(data_quality.router, prefix=\"/api/v1\", tags=[\"数据质量\"])"
+    },
+    {
+      "line": 621,
+      "module": "api",
+      "content": "app.include_router(traceability.router, prefix=\"/api/v1\", tags=[\"溯源回溯\"])"
+    },
+    {
+      "line": 629,
+      "module": "api",
+      "content": "app.include_router(collaboration.router, prefix=\"/api/v1\", tags=[\"协作与权限\"])"
+    },
+    {
+      "line": 637,
+      "module": "api",
+      "content": "app.include_router(keywords.router, prefix=\"/api\", tags=[\"关键词管理\"])"
+    },
+    {
+      "line": 645,
+      "module": "api",
+      "content": "app.include_router(llm_providers.router, prefix=\"/api\", tags=[\"LLM 提供商管理\"])"
+    },
+    {
+      "line": 653,
+      "module": "api",
+      "content": "app.include_router(llm_stats.router, prefix=\"/api\", tags=[\"LLM 成本统计\"])"
+    },
+    {
+      "line": 661,
+      "module": "api",
+      "content": "app.include_router(llm_p3.router, prefix=\"/api/v1\", tags=[\"LLM 深度集成\"])"
+    },
+    {
+      "line": 669,
+      "module": "api",
+      "content": "app.include_router(collaboration_p3.router, prefix=\"/api/v1\", tags=[\"实时协作编辑\"])"
+    },
+    {
+      "line": 683,
+      "module": "agents",
+      "content": "app.include_router(agents_p3.router, prefix=\"/api/v1\", tags=[\"Agent 系统\"])"
+    },
+    {
+      "line": 709,
+      "module": "api",
+      "content": "app.include_router(notifications_p3.router, prefix=\"/api/v1\", tags=[\"通知系统\"])"
+    },
+    {
+      "line": 718,
+      "module": "api",
+      "content": "app.include_router(report_relations.router, prefix=\"/api/v1\", tags=[\"报告关系网络\"])"
+    },
+    {
+      "line": 726,
+      "module": "api",
+      "content": "app.include_router(keyword_network.router, prefix=\"/api/v1\", tags=[\"关键词网络\"])"
+    },
+    {
+      "line": 734,
+      "module": "api",
+      "content": "app.include_router(recommendations.router, prefix=\"/api/v1\", tags=[\"智能推荐搜索\"])"
+    },
+    {
+      "line": 742,
+      "module": "api",
+      "content": "app.include_router(network_visualization.router, prefix=\"/api/v1\", tags=[\"网络可视化\"])"
+    },
+    {
+      "line": 750,
+      "module": "api",
+      "content": "app.include_router(report_generation.router, prefix=\"/api/v1\", tags=[\"智能报告生成\"])"
+    },
+    {
+      "line": 772,
+      "module": "api",
+      "content": "app.include_router(execution_tracking.router, prefix=\"/api/v1/execution\", tags=[\"执行追踪\"])"
+    },
+    {
+      "line": 777,
+      "module": "api",
+      "content": "app.include_router(pattern_recognition.router, prefix=\"/api/v1/patterns\", tags=[\"模式识别\"])"
+    },
+    {
+      "line": 788,
+      "module": "api",
+      "content": "app.include_router(feedback_loops.router, prefix=\"/api/v1/feedback\", tags=[\"反馈闭环\"])"
+    },
+    {
+      "line": 793,
+      "module": "learning",
+      "content": "app.include_router(background_learning.router, prefix=\"/api/v1/learning\", tags=[\"后台学习\"])"
+    },
+    {
+      "line": 798,
+      "module": "api",
+      "content": "app.include_router(experience_graph.router, prefix=\"/api/v1/experience-graph\", tags=[\"经验图谱\"])"
+    },
+    {
+      "line": 803,
+      "module": "api",
+      "content": "app.include_router(unified_plugins.router, prefix=\"/api/v1/plugins\", tags=[\"统一插件\"])"
+    },
+    {
+      "line": 807,
+      "module": "api",
+      "content": "app.include_router(knowledge_network.router, prefix=\"/api/v1\", tags=[\"知识脉络\"])"
+    },
+    {
+      "line": 817,
+      "module": "api",
+      "content": "app.include_router(data_enrichment.router, prefix=\"/api/v1\", tags=[\"数据增强\"])"
+    },
+    {
+      "line": 844,
+      "module": "api",
+      "content": "app.include_router(batch_processing.router, prefix=\"/api/batch\", tags=[\"批量处理\"])"
+    },
+    {
+      "line": 912,
+      "module": "api",
+      "content": "app.include_router(timeline_new.router, prefix=\"/api/timeline\", tags=[\"时间线\"])"
+    },
+    {
+      "line": 924,
+      "module": "api",
+      "content": "app.include_router(workflows_new.router, prefix=\"/api/workflows\", tags=[\"工作流编排\"])"
+    },
+    {
+      "line": 928,
+      "module": "api",
+      "content": "app.include_router(memory_new.router, prefix=\"/api/memory\", tags=[\"记忆管理\"])"
+    },
+    {
+      "line": 937,
+      "module": "api",
+      "content": "app.include_router(dynamic_discovery_api.router, prefix=\"/api/dynamic-discovery\", tags=[\"🔪破茧三刀-动态发现\"])"
+    },
+    {
+      "line": 941,
+      "module": "api",
+      "content": "app.include_router(federation_api.router, prefix=\"/api/federation\", tags=[\"🧠数据联邦-关联智能\"])"
+    },
+    {
+      "line": 949,
+      "module": "api",
+      "content": "app.include_router(aggregate.router, prefix=\"/api/aggregate\", tags=[\"数据聚合\"])"
+    },
+    {
+      "line": 953,
+      "module": "api",
+      "content": "app.include_router(visualize.router, prefix=\"/api/visualize\", tags=[\"数据可视化\"])"
+    },
+    {
+      "line": 959,
+      "module": "api",
+      "content": "app.include_router(websocket_router.router, prefix=\"/api/websocket\", tags=[\"WebSocket实时通知\"])"
+    },
+    {
+      "line": 973,
+      "module": "api",
+      "content": "app.include_router(citations.router, prefix=\"/api/citations\", tags=[\"引用管理\"])"
+    },
+    {
+      "line": 977,
+      "module": "api",
+      "content": "app.include_router(file_manager.router, prefix=\"/api\", tags=[\"文件管理\"])"
+    },
+    {
+      "line": 981,
+      "module": "api",
+      "content": "app.include_router(photos_router, prefix=\"/api\", tags=[\"照片管理\"])"
+    },
+    {
+      "line": 985,
+      "module": "api",
+      "content": "app.include_router(tables_api.router, prefix=\"/api/v1\", tags=[\"表格管理\"])"
+    },
+    {
+      "line": 989,
+      "module": "api",
+      "content": "app.include_router(keyword_search.router, prefix=\"/api/keyword-search\", tags=[\"关键词检索\"])"
+    },
+    {
+      "line": 992,
+      "module": "api",
+      "content": "app.include_router(industry.router, prefix=\"/api/v1/industry\", tags=[\"业态分析\"])"
+    },
+    {
+      "line": 996,
+      "module": "api",
+      "content": "app.include_router(audio.router, prefix=\"/api/v1/audio\", tags=[\"音频\"])"
+    },
+    {
+      "line": 1001,
+      "module": "api",
+      "content": "app.include_router(crawler.router, prefix=\"/api/v1/crawler\", tags=[\"爬虫\"])"
+    },
+    {
+      "line": 1002,
+      "module": "api",
+      "content": "app.include_router(search.router, prefix=\"/api/v1/search\", tags=[\"搜索\"])"
+    },
+    {
+      "line": 1003,
+      "module": "learning",
+      "content": "app.include_router(learning.router, prefix=\"/api/v1\", tags=[\"学习引擎\"])  # Hermes Learning Engine"
+    },
+    {
+      "line": 1008,
+      "module": "api",
+      "content": "app.include_router(memory.router, prefix=\"/api/memory\", tags=[\"记忆管理\"])"
+    },
+    {
+      "line": 1009,
+      "module": "api",
+      "content": "app.include_router(timeline.router, prefix=\"/api/timeline\", tags=[\"时间线\"])"
+    },
+    {
+      "line": 1010,
+      "module": "api",
+      "content": "app.include_router(tables.router, prefix=\"/api/tables\", tags=[\"表格处理\"])"
+    },
+    {
+      "line": 1011,
+      "module": "api",
+      "content": "app.include_router(proposal.router, prefix=\"/api/proposal\", tags=[\"方案生成\"])"
+    },
+    {
+      "line": 1012,
+      "module": "api",
+      "content": "app.include_router(photos.router, prefix=\"/api/photos\", tags=[\"图片管理\"])"
+    },
+    {
+      "line": 1013,
+      "module": "agents",
+      "content": "app.include_router(super_agents.router, prefix=\"/api/v1/super-agents\", tags=[\"超级Agent\"])"
+    },
+    {
+      "line": 1014,
+      "module": "api",
+      "content": "app.include_router(agent_pipeline.router, prefix=\"/api/agent-pipeline\", tags=[\"Agent流水线\"])"
+    },
+    {
+      "line": 1017,
+      "module": "api",
+      "content": "app.include_router(tasks.router, prefix=\"/api/v1/tasks\", tags=[\"任务管理\"])"
+    },
+    {
+      "line": 1022,
+      "module": "api",
+      "content": "app.include_router(chunks_quantification.router, prefix=\"/api/v1/chunks-quantification\", tags=[\"块量化\"])"
+    },
+    {
+      "line": 1027,
+      "module": "api",
+      "content": "app.include_router(file_summaries.router, prefix=\"/api/file-summaries\", tags=[\"文件摘要\"])"
+    },
+    {
+      "line": 1028,
+      "module": "api",
+      "content": "app.include_router(quantification.router, prefix=\"/api/quantification\", tags=[\"数据量化\"])"
+    },
+    {
+      "line": 1029,
+      "module": "api",
+      "content": "app.include_router(websocket.router, prefix=\"/api/websocket\", tags=[\"WebSocket通信\"])"
+    },
+    {
+      "line": 1030,
+      "module": "api",
+      "content": "app.include_router(monitoring.router, prefix=\"/api/monitoring\", tags=[\"系统监控\"])"
+    }
+  ],
+  "lines_to_delete": [
+    393,
+    397,
+    403,
+    422,
+    442,
+    459,
+    467,
+    489,
+    509,
+    515,
+    522,
+    533,
+    553,
+    605,
+    613,
+    621,
+    629,
+    637,
+    645,
+    653,
+    661,
+    669,
+    683,
+    709,
+    718,
+    726,
+    734,
+    742,
+    750,
+    772,
+    777,
+    788,
+    793,
+    798,
+    803,
+    807,
+    817,
+    844,
+    912,
+    924,
+    928,
+    937,
+    941,
+    949,
+    953,
+    959,
+    973,
+    977,
+    981,
+    985,
+    989,
+    992,
+    996,
+    1001,
+    1002,
+    1003,
+    1008,
+    1009,
+    1010,
+    1011,
+    1012,
+    1013,
+    1014,
+    1017,
+    1022,
+    1027,
+    1028,
+    1029,
+    1030
+  ]
+}

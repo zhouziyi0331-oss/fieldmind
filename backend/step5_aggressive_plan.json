@@ -1,0 +1,200 @@
+{
+  "total": 39,
+  "registrations": [
+    {
+      "line": 403,
+      "content": "app.include_router(project_workflow.router, prefix=\"/api/v1\", tags=[\"项目工作流\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 442,
+      "content": "app.include_router(skill_recommendations.router, prefix=\"/api/v1/skill-recommendations\", tags=[\"技能推荐\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 459,
+      "content": "app.include_router(websocket_events.router, prefix=\"/api/v1/events\", tags=[\"WebSocket事件\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 467,
+      "content": "app.include_router(batch_operations.router, prefix=\"/api/v1/batch\", tags=[\"批量处理\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 489,
+      "content": "app.include_router(entity_extraction.router, prefix=\"/api/v1/entities\", tags=[\"实体提取\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 509,
+      "content": "app.include_router(audit.router, prefix=\"/api/v1\", tags=[\"审计日志\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 515,
+      "content": "app.include_router(audit_enhancement.router, prefix=\"/api/v1/audit\", tags=[\"审计日志增强\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 533,
+      "content": "app.include_router(workflows.router, prefix=\"/api/v1/workflows\", tags=[\"工作流引擎\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 553,
+      "content": "app.include_router(learning.router, prefix=\"/api/v1/learning\", tags=[\"学习日志\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 605,
+      "content": "app.include_router(live_extraction.router, prefix=\"/api/v1/live-extraction\", tags=[\"实时知识提炼\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 613,
+      "content": "app.include_router(data_quality.router, prefix=\"/api/v1\", tags=[\"数据质量\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 621,
+      "content": "app.include_router(traceability.router, prefix=\"/api/v1\", tags=[\"溯源回溯\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 629,
+      "content": "app.include_router(collaboration.router, prefix=\"/api/v1\", tags=[\"协作与权限\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 661,
+      "content": "app.include_router(llm_p3.router, prefix=\"/api/v1\", tags=[\"LLM 深度集成\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 669,
+      "content": "app.include_router(collaboration_p3.router, prefix=\"/api/v1\", tags=[\"实时协作编辑\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 683,
+      "content": "app.include_router(agents_p3.router, prefix=\"/api/v1\", tags=[\"Agent 系统\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 709,
+      "content": "app.include_router(notifications_p3.router, prefix=\"/api/v1\", tags=[\"通知系统\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 718,
+      "content": "app.include_router(report_relations.router, prefix=\"/api/v1\", tags=[\"报告关系网络\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 726,
+      "content": "app.include_router(keyword_network.router, prefix=\"/api/v1\", tags=[\"关键词网络\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 734,
+      "content": "app.include_router(recommendations.router, prefix=\"/api/v1\", tags=[\"智能推荐搜索\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 742,
+      "content": "app.include_router(network_visualization.router, prefix=\"/api/v1\", tags=[\"网络可视化\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 750,
+      "content": "app.include_router(report_generation.router, prefix=\"/api/v1\", tags=[\"智能报告生成\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 772,
+      "content": "app.include_router(execution_tracking.router, prefix=\"/api/v1/execution\", tags=[\"执行追踪\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 777,
+      "content": "app.include_router(pattern_recognition.router, prefix=\"/api/v1/patterns\", tags=[\"模式识别\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 788,
+      "content": "app.include_router(feedback_loops.router, prefix=\"/api/v1/feedback\", tags=[\"反馈闭环\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 793,
+      "content": "app.include_router(background_learning.router, prefix=\"/api/v1/learning\", tags=[\"后台学习\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 798,
+      "content": "app.include_router(experience_graph.router, prefix=\"/api/v1/experience-graph\", tags=[\"经验图谱\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 803,
+      "content": "app.include_router(unified_plugins.router, prefix=\"/api/v1/plugins\", tags=[\"统一插件\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 807,
+      "content": "app.include_router(knowledge_network.router, prefix=\"/api/v1\", tags=[\"知识脉络\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 817,
+      "content": "app.include_router(data_enrichment.router, prefix=\"/api/v1\", tags=[\"数据增强\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 985,
+      "content": "app.include_router(tables_api.router, prefix=\"/api/v1\", tags=[\"表格管理\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 992,
+      "content": "app.include_router(industry.router, prefix=\"/api/v1/industry\", tags=[\"业态分析\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 996,
+      "content": "app.include_router(audio.router, prefix=\"/api/v1/audio\", tags=[\"音频\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 1001,
+      "content": "app.include_router(crawler.router, prefix=\"/api/v1/crawler\", tags=[\"爬虫\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 1002,
+      "content": "app.include_router(search.router, prefix=\"/api/v1/search\", tags=[\"搜索\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 1003,
+      "content": "app.include_router(learning.router, prefix=\"/api/v1\", tags=[\"学习引擎\"])  # Hermes Learning Engine",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 1013,
+      "content": "app.include_router(super_agents.router, prefix=\"/api/v1/super-agents\", tags=[\"超级Agent\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 1017,
+      "content": "app.include_router(tasks.router, prefix=\"/api/v1/tasks\", tags=[\"任务管理\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    },
+    {
+      "line": 1022,
+      "content": "app.include_router(chunks_quantification.router, prefix=\"/api/v1/chunks-quantification\", tags=[\"块量化\"])",
+      "reason": "包含 /api/v1 路径前缀"
+    }
+  ]
+}

@@ -400,7 +400,8 @@ logger.info(f"🔧 [DEBUG] auth兼容路由注册后路由数: {len(list(app.rou
 # 项目工作流路由（P0: 统一分析端点）
 from app.api.v1 import project_workflow
 logger.info("🔧 [DEBUG] 注册project_workflow路由...")
-app.include_router(project_workflow.router, prefix="/api/v1", tags=["项目工作流"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(project_workflow.router, prefix="/api/v1", tags=["项目工作流"])
 logger.info(f"🔧 [DEBUG] project_workflow注册后路由数: {len(list(app.routes))}")
 
 # 认证系统 (新版本，直接使用v1的auth，只是改变前缀)
@@ -439,7 +440,8 @@ app.include_router(skill_config.router, prefix="/api/skills", tags=["Skill配置
 # 技能推荐路由
 try:
     from app.api.v1 import skill_recommendations
-    app.include_router(skill_recommendations.router, prefix="/api/v1/skill-recommendations", tags=["技能推荐"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(skill_recommendations.router, prefix="/api/v1/skill-recommendations", tags=["技能推荐"])
     logger.info("✅ 技能推荐系统路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  技能推荐模块导入失败: {e}")
@@ -456,7 +458,8 @@ except ImportError as e:
 # WebSocket事件路由
 try:
     from app.api.v1 import websocket_events
-    app.include_router(websocket_events.router, prefix="/api/v1/events", tags=["WebSocket事件"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(websocket_events.router, prefix="/api/v1/events", tags=["WebSocket事件"])
     logger.info("✅ WebSocket事件系统路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  WebSocket事件模块导入失败: {e}")
@@ -464,7 +467,8 @@ except ImportError as e:
 # 批量处理路由
 try:
     from app.api.v1 import batch_operations
-    app.include_router(batch_operations.router, prefix="/api/v1/batch", tags=["批量处理"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(batch_operations.router, prefix="/api/v1/batch", tags=["批量处理"])
     logger.info("✅ 批量处理系统路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  批量处理模块导入失败: {e}")
@@ -486,7 +490,8 @@ except ImportError as e:
 # 实体提取路由
 try:
     from app.api import entity_extraction
-    app.include_router(entity_extraction.router, prefix="/api/v1/entities", tags=["实体提取"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(entity_extraction.router, prefix="/api/v1/entities", tags=["实体提取"])
     logger.info("✅ 实体提取路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  实体提取模块导入失败: {e}")
@@ -506,13 +511,15 @@ except ImportError as e:
 
 # 审计日志路由（架构升级 - 阶段2）
 from app.api.v1 import audit
-app.include_router(audit.router, prefix="/api/v1", tags=["审计日志"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(audit.router, prefix="/api/v1", tags=["审计日志"])
 logger.info("✅ 审计日志API已注册")
 
 # 审计日志增强路由（Module 7）
 try:
     from app.api.v1 import audit_enhancement
-    app.include_router(audit_enhancement.router, prefix="/api/v1/audit", tags=["审计日志增强"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(audit_enhancement.router, prefix="/api/v1/audit", tags=["审计日志增强"])
     logger.info("✅ 审计日志增强系统路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  审计日志增强模块导入失败: {e}")
@@ -530,7 +537,8 @@ logger.info("✅ 权限管理API已注册")
 
 # 工作流引擎路由（架构升级 - 阶段5）
 from app.api.v1 import workflows
-app.include_router(workflows.router, prefix="/api/v1/workflows", tags=["工作流引擎"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(workflows.router, prefix="/api/v1/workflows", tags=["工作流引擎"])
 logger.info("✅ 工作流引擎API已注册")
 
 # Dashboard和指标系统路由（架构升级 - 阶段6）
@@ -550,7 +558,8 @@ logger.info("✅ 对话记忆API已注册")
 
 # 学习日志路由（架构升级 - 阶段9）
 from app.api.v1 import learning
-app.include_router(learning.router, prefix="/api/v1/learning", tags=["学习日志"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(learning.router, prefix="/api/v1/learning", tags=["学习日志"])
 logger.info("✅ 学习日志API已注册")
 
 # 用户喂养路由（架构升级 - 阶段10）
@@ -602,7 +611,8 @@ except ImportError as e:
 # 实时知识提炼接口（9步骤管道 SSE）
 try:
     from app.api.v1 import live_extraction
-    app.include_router(live_extraction.router, prefix="/api/v1/live-extraction", tags=["实时知识提炼"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(live_extraction.router, prefix="/api/v1/live-extraction", tags=["实时知识提炼"])
     logger.info("✅ 实时知识提炼路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  实时知识提炼模块导入失败: {e}")
@@ -610,7 +620,8 @@ except ImportError as e:
 # 数据质量监控接口
 try:
     from app.api.v1 import data_quality
-    app.include_router(data_quality.router, prefix="/api/v1", tags=["数据质量"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(data_quality.router, prefix="/api/v1", tags=["数据质量"])
     logger.info("✅ 数据质量路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  数据质量模块导入失败: {e}")
@@ -618,7 +629,8 @@ except ImportError as e:
 # 溯源回溯接口
 try:
     from app.api.v1 import traceability
-    app.include_router(traceability.router, prefix="/api/v1", tags=["溯源回溯"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(traceability.router, prefix="/api/v1", tags=["溯源回溯"])
     logger.info("✅ 溯源回溯路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  溯源回溯模块导入失败: {e}")
@@ -626,7 +638,8 @@ except ImportError as e:
 # 协作与权限接口
 try:
     from app.api.v1 import collaboration
-    app.include_router(collaboration.router, prefix="/api/v1", tags=["协作与权限"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(collaboration.router, prefix="/api/v1", tags=["协作与权限"])
     logger.info("✅ 协作与权限路由已注册")
 except ImportError as e:
     logger.warning(f"⚠️  协作与权限模块导入失败: {e}")
@@ -658,7 +671,8 @@ except ImportError as e:
 # LLM 深度集成
 try:
     from app.api import llm_p3
-    app.include_router(llm_p3.router, prefix="/api/v1", tags=["LLM 深度集成"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(llm_p3.router, prefix="/api/v1", tags=["LLM 深度集成"])
     logger.info("✅ LLM 深度集成 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  LLM 深度集成模块导入失败: {e}")
@@ -666,7 +680,8 @@ except ImportError as e:
 # 实时协作编辑 (CRDT)
 try:
     from app.api import collaboration_p3
-    app.include_router(collaboration_p3.router, prefix="/api/v1", tags=["实时协作编辑"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(collaboration_p3.router, prefix="/api/v1", tags=["实时协作编辑"])
     logger.info("✅ 实时协作编辑 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  实时协作编辑模块导入失败: {e}")
@@ -680,7 +695,8 @@ except ImportError as e:
 # Agent 系统
 try:
     from app.api import agents_p3
-    app.include_router(agents_p3.router, prefix="/api/v1", tags=["Agent 系统"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(agents_p3.router, prefix="/api/v1", tags=["Agent 系统"])
     logger.info("✅ Agent 系统 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  Agent 系统模块导入失败: {e}")
@@ -706,7 +722,8 @@ except ImportError as e:
 # 通知系统
 try:
     from app.api import notifications_p3
-    app.include_router(notifications_p3.router, prefix="/api/v1", tags=["通知系统"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(notifications_p3.router, prefix="/api/v1", tags=["通知系统"])
     logger.info("✅ 通知系统 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  通知系统模块导入失败: {e}")
@@ -715,7 +732,8 @@ except ImportError as e:
 # 报告关系和映射网络
 try:
     from app.api.v1 import report_relations
-    app.include_router(report_relations.router, prefix="/api/v1", tags=["报告关系网络"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(report_relations.router, prefix="/api/v1", tags=["报告关系网络"])
     logger.info("✅ 报告关系网络 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  报告关系网络模块导入失败: {e}")
@@ -723,7 +741,8 @@ except ImportError as e:
 # 关键词网络（主关键词识别、社区检测、网络可视化）
 try:
     from app.api.v1 import keyword_network
-    app.include_router(keyword_network.router, prefix="/api/v1", tags=["关键词网络"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(keyword_network.router, prefix="/api/v1", tags=["关键词网络"])
     logger.info("✅ 关键词网络 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  关键词网络模块导入失败: {e}")
@@ -731,7 +750,8 @@ except ImportError as e:
 # 智能推荐搜索（报告推荐、关键词推荐、文档推荐、搜索建议）
 try:
     from app.api.v1 import recommendations
-    app.include_router(recommendations.router, prefix="/api/v1", tags=["智能推荐搜索"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(recommendations.router, prefix="/api/v1", tags=["智能推荐搜索"])
     logger.info("✅ 智能推荐搜索 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  智能推荐搜索模块导入失败: {e}")
@@ -739,7 +759,8 @@ except ImportError as e:
 # 网络可视化（报告网络、关键词网络多格式可视化）
 try:
     from app.api.v1 import network_visualization
-    app.include_router(network_visualization.router, prefix="/api/v1", tags=["网络可视化"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(network_visualization.router, prefix="/api/v1", tags=["网络可视化"])
     logger.info("✅ 网络可视化 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  网络可视化模块导入失败: {e}")
@@ -747,7 +768,8 @@ except ImportError as e:
 # 三层递进报告生成（田野调查、学术分析、商业分析）
 try:
     from app.api.v1 import report_generation
-    app.include_router(report_generation.router, prefix="/api/v1", tags=["智能报告生成"])
+    # ⚠️ [阶段5清理-第5步] v1模块批量清理
+    # app.include_router(report_generation.router, prefix="/api/v1", tags=["智能报告生成"])
     logger.info("✅ 智能报告生成 API 已注册")
 except ImportError as e:
     logger.warning(f"⚠️  智能报告生成模块导入失败: {e}")
@@ -769,12 +791,14 @@ logger.info("✅ 用户喂养API已注册")
 
 # 执行追踪路由（自学习系统 - 阶段13）
 from app.api.v1 import execution_tracking
-app.include_router(execution_tracking.router, prefix="/api/v1/execution", tags=["执行追踪"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(execution_tracking.router, prefix="/api/v1/execution", tags=["执行追踪"])
 logger.info("✅ 执行追踪API已注册")
 
 # 模式识别路由（自学习系统 - 阶段14）
 from app.api.v1 import pattern_recognition
-app.include_router(pattern_recognition.router, prefix="/api/v1/patterns", tags=["模式识别"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(pattern_recognition.router, prefix="/api/v1/patterns", tags=["模式识别"])
 logger.info("✅ 模式识别API已注册")
 
 # 技能生成路由（自学习系统 - 阶段15）
@@ -785,26 +809,31 @@ logger.info("✅ 技能优化API已注册")
 
 # 反馈闭环路由（自学习系统 - 阶段17）
 from app.api.v1 import feedback_loops
-app.include_router(feedback_loops.router, prefix="/api/v1/feedback", tags=["反馈闭环"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(feedback_loops.router, prefix="/api/v1/feedback", tags=["反馈闭环"])
 logger.info("✅ 反馈闭环API已注册")
 
 # 后台学习路由（自学习系统 - 阶段18）
 from app.api.v1 import background_learning
-app.include_router(background_learning.router, prefix="/api/v1/learning", tags=["后台学习"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(background_learning.router, prefix="/api/v1/learning", tags=["后台学习"])
 logger.info("✅ 后台学习API已注册")
 
 # 经验图谱路由（自学习系统 - 阶段19）
 from app.api.v1 import experience_graph
-app.include_router(experience_graph.router, prefix="/api/v1/experience-graph", tags=["经验图谱"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(experience_graph.router, prefix="/api/v1/experience-graph", tags=["经验图谱"])
 logger.info("✅ 经验图谱API已注册")
 
 # 统一插件系统路由（插件整合 - 阶段20）
 from app.api.v1 import unified_plugins
-app.include_router(unified_plugins.router, prefix="/api/v1/plugins", tags=["统一插件"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(unified_plugins.router, prefix="/api/v1/plugins", tags=["统一插件"])
 
 # 知识脉络路由（知识网络可视化）
 from app.api.v1 import knowledge_network
-app.include_router(knowledge_network.router, prefix="/api/v1", tags=["知识脉络"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(knowledge_network.router, prefix="/api/v1", tags=["知识脉络"])
 logger.info("✅ 知识脉络API已注册")
 
 # 在地业态分析路由（业态推演和可行性评估）
@@ -814,7 +843,8 @@ logger.info("✅ 知识脉络API已注册")
 
 # 数据增强路由（NLP处理和自动分类）
 from app.api.v1 import data_enrichment
-app.include_router(data_enrichment.router, prefix="/api/v1", tags=["数据增强"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(data_enrichment.router, prefix="/api/v1", tags=["数据增强"])
 logger.info("✅ 数据增强API已注册")
 logger.info("✅ 统一插件系统API已注册")
 
@@ -982,25 +1012,31 @@ app.include_router(photos_router, prefix="/api", tags=["照片管理"])
 
 # 表格管理与统一上传共用 project_documents 主表。
 from app.api import tables as tables_api
-app.include_router(tables_api.router, prefix="/api/v1", tags=["表格管理"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(tables_api.router, prefix="/api/v1", tags=["表格管理"])
 
 # documents.router 自身已声明 /documents 前缀，这里只补 /api，避免形成
 # /api/documents/documents/upload，保证旧客户端的统一上传入口可用。
 app.include_router(keyword_search.router, prefix="/api/keyword-search", tags=["关键词检索"])
 
 # 核心功能路由
-app.include_router(industry.router, prefix="/api/v1/industry", tags=["业态分析"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(industry.router, prefix="/api/v1/industry", tags=["业态分析"])
 
 # 原有路由
 logger.info(f"🔧 [DEBUG] 注册audio前路由数: {len(list(app.routes))}")
-app.include_router(audio.router, prefix="/api/v1/audio", tags=["音频"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(audio.router, prefix="/api/v1/audio", tags=["音频"])
 logger.info(f"🔧 [DEBUG] 注册audio后路由数: {len(list(app.routes))}")
 # v1_documents.router 自身已声明 /documents 前缀。
 
 logger.info(f"🔧 [DEBUG] 注册v1_documents后路由数: {len(list(app.routes))}")
-app.include_router(crawler.router, prefix="/api/v1/crawler", tags=["爬虫"])
-app.include_router(search.router, prefix="/api/v1/search", tags=["搜索"])
-app.include_router(learning.router, prefix="/api/v1", tags=["学习引擎"])  # Hermes Learning Engine
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(crawler.router, prefix="/api/v1/crawler", tags=["爬虫"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(search.router, prefix="/api/v1/search", tags=["搜索"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(learning.router, prefix="/api/v1", tags=["学习引擎"])  # Hermes Learning Engine
 logger.info(f"🔧 [DEBUG] 学习引擎API已注册")
 
 # ============= 新增：未注册的核心API模块 =============
@@ -1010,16 +1046,19 @@ app.include_router(timeline.router, prefix="/api/timeline", tags=["时间线"])
 app.include_router(tables.router, prefix="/api/tables", tags=["表格处理"])
 app.include_router(proposal.router, prefix="/api/proposal", tags=["方案生成"])
 app.include_router(photos.router, prefix="/api/photos", tags=["图片管理"])
-app.include_router(super_agents.router, prefix="/api/v1/super-agents", tags=["超级Agent"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(super_agents.router, prefix="/api/v1/super-agents", tags=["超级Agent"])
 app.include_router(agent_pipeline.router, prefix="/api/agent-pipeline", tags=["Agent流水线"])
 
 # 增强功能
-app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["任务管理"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["任务管理"])
 # ⚠️ [阶段5清理] 主题分析已迁移到统一分析模块，注释掉v1版本
 # app.include_router(topic_analysis.router, prefix="/api/v1/topic-analysis", tags=["主题分析"])
 # ⚠️ [阶段5清理-第3步] SOP功能废弃，注释掉
 # app.include_router(sop.router, prefix="/api/v1/sop", tags=["标准作业程序"])
-app.include_router(chunks_quantification.router, prefix="/api/v1/chunks-quantification", tags=["块量化"])
+# ⚠️ [阶段5清理-第5步] v1模块批量清理
+# app.include_router(chunks_quantification.router, prefix="/api/v1/chunks-quantification", tags=["块量化"])
 # ⚠️ [阶段5清理-第4步] Dashboard优化版本废弃，注释掉
 # app.include_router(dashboard_optimized.router, prefix="/api/v1/dashboard-optimized", tags=["优化Dashboard"])
 
