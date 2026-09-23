@@ -85,7 +85,8 @@ from app.api import (
     export_summaries, file_summaries, quantification,
     websocket, monitoring,
     # 阶段2: 统一模块
-    unified_knowledge_graph
+    unified_knowledge_graph,
+    unified_documents
 )
 from app.api.routes import agent_pipeline
 
@@ -856,6 +857,12 @@ app.include_router(unified_knowledge_graph.router, tags=["统一知识图谱"])
 logger.info("✅ 统一知识图谱API已注册 (合并7个旧模块)")
 
 # ============================================================================
+# 阶段2: 统一文档处理模块 (新)
+# ============================================================================
+app.include_router(unified_documents.router, tags=["统一文档处理"])
+logger.info("✅ 统一文档处理API已注册 (合并4个旧模块)")
+
+# ============================================================================
 # 知识图谱路由（旧版本 - 保留以兼容，未来将废弃）
 # ============================================================================
 # 知识图谱基础版
@@ -971,11 +978,11 @@ app.include_router(tables_api.router, prefix="/api/v1", tags=["表格管理"])
 
 # documents.router 自身已声明 /documents 前缀，这里只补 /api，避免形成
 # /api/documents/documents/upload，保证旧客户端的统一上传入口可用。
-app.include_router(documents.router, prefix="/api", tags=["文档管理(新)"])
+app.include_router(documents.router, prefix="/api/documents-old", tags=["文档管理(旧)"])
 app.include_router(keyword_search.router, prefix="/api/keyword-search", tags=["关键词检索"])
 app.include_router(creative_analysis.router, prefix="/api/creative-analysis", tags=["文创分析"])
 app.include_router(business_analysis.router, prefix="/api/business-analysis", tags=["业态分析"])
-app.include_router(document_processing.router, prefix="/api/document-processing", tags=["文档处理流水线"])
+app.include_router(document_processing.router, prefix="/api/document-processing-old", tags=["文档处理流水线(旧)"])
 app.include_router(conversation_memory.router, prefix="/api/conversation-memory", tags=["对话增强记忆"])
 
 # 核心功能路由
