@@ -957,6 +957,11 @@ app.include_router(workflows_new.router, prefix="/api/workflows", tags=["工作�
 from app.api import memory as memory_new
 app.include_router(memory_new.router, prefix="/api/memory", tags=["记忆管理"])
 
+# 🧪 蒸馏功能路由（新增：从结构化数据提炼知识单元）
+from app.api import distillation
+app.include_router(distillation.router, tags=["知识蒸馏"])
+logger.info("✅ 知识蒸馏API已注册 (6类知识单元提取)")
+
 # 文档处理v2路由（链路十四）
 
 # 知识图谱v3路由（链路十六：证据链绑定）
