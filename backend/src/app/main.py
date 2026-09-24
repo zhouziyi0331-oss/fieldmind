@@ -1095,6 +1095,15 @@ async def metrics():
 from app.api import health
 app.include_router(health.router, tags=["健康检查"])
 
+# ==================== 新增集成模块 ====================
+try:
+    from app.api import sbpack, skill_tree, obsidian, rag, llm
+    INTEGRATION_AVAILABLE = True
+except ImportError as e:
+    print(f"⚠️  集成模块未安装: {e}")
+    INTEGRATION_AVAILABLE = False
+
+
 
 @app.get("/api/runtime/version", include_in_schema=False)
 async def runtime_version(request: Request):
@@ -1106,6 +1115,19 @@ async def runtime_version(request: Request):
 logger.info(f"🔧 [DEBUG] 所有路由注册完成，最终路由数: {len(list(app.routes))}")
 # ⚠️ [阶段5清理-第2步] v1/workflows已废弃，注释掉
 # app.include_router(v1_workflows.router, prefix="/api/v1/workflows", tags=["工作流"])
+
+# ==================== 注册集成模块路由 ====================
+if INTEGRATION_AVAILABLE:
+    try:
+        app.include_router(sbpack.router, tags=["SBPACK"])
+        app.include_router(skill_tree.router, tags=["Skill Tree"])
+        app.include_router(obsidian.router, tags=["Obsidian"])
+        app.include_router(rag.router, tags=["RAG"])
+        app.include_router(llm.router, tags=["LLM"])
+        logger.info("✅ 集成模块路由已注册")
+    except Exception as e:
+        logger.error(f"❌ 集成模块注册失败: {e}")
+
 
 
 # ============= 前后端兼容层 =============

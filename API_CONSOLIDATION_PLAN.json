@@ -1,0 +1,6 @@
+{
+  "phase1": "\u5408\u5e76\u6587\u6863\u548c\u77e5\u8bc6API",
+  "phase2": "\u5408\u5e76\u641c\u7d22\u548cAgent API",
+  "phase3": "\u5408\u5e76LLM\u548c\u5176\u4ed6API",
+  "phase4": "\u79fb\u9664\u65e7API\uff0c\u66f4\u65b0\u8def\u7531"
+}

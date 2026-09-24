@@ -1,0 +1,79 @@
+{
+  "目标": "从463个端点精简到250个",
+  "phases": [
+    {
+      "phase": 1,
+      "name": "文档和知识API合并",
+      "merge": [
+        "document_processing_v2",
+        "file_manager",
+        "file_summaries",
+        "obsidian"
+      ],
+      "into": "documents_unified.py",
+      "estimated_endpoints": 45
+    },
+    {
+      "phase": 2,
+      "name": "知识图谱API合并",
+      "merge": [
+        "knowledge_graph_p3",
+        "knowledge_pipeline",
+        "knowledge_query",
+        "entity_extraction"
+      ],
+      "into": "knowledge_unified.py",
+      "estimated_endpoints": 50
+    },
+    {
+      "phase": 3,
+      "name": "RAG和搜索API合并",
+      "merge": [
+        "unified_rag",
+        "search",
+        "semantic_search",
+        "keyword_search"
+      ],
+      "into": "intelligence_unified.py",
+      "estimated_endpoints": 40
+    },
+    {
+      "phase": 4,
+      "name": "Agent和工作流API合并",
+      "merge": [
+        "agents_p3",
+        "super_agents",
+        "tasks",
+        "workflow"
+      ],
+      "into": "orchestration_unified.py",
+      "estimated_endpoints": 50
+    },
+    {
+      "phase": 5,
+      "name": "LLM和AI API合并",
+      "merge": [
+        "llm_p3",
+        "llm_providers",
+        "llm_stats"
+      ],
+      "into": "ai_unified.py",
+      "estimated_endpoints": 35
+    }
+  ],
+  "summary": {
+    "before": {
+      "api_files": 61,
+      "endpoints": 463
+    },
+    "after": {
+      "api_files": 35,
+      "endpoints": 250
+    },
+    "reduction": {
+      "files": 26,
+      "endpoints": 213,
+      "percentage": "46%"
+    }
+  }
+}

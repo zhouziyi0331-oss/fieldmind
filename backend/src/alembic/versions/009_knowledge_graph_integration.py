@@ -13,7 +13,7 @@ from sqlalchemy.dialects import sqlite
 
 # revision identifiers, used by Alembic.
 revision = '009_knowledge_graph_integration'
-down_revision = '008_unified_pipeline'
+down_revision = None  # Fixed: removed broken reference
 branch_labels = None
 depends_on = None
 

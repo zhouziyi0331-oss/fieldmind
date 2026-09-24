@@ -1,0 +1,37 @@
+[
+  {
+    "name": "SBPACK融合到distillation",
+    "source_exists": true,
+    "target_exists": true,
+    "strategy": "endpoint_merge",
+    "action": "ready"
+  },
+  {
+    "name": "RAG融合到unified_rag",
+    "source_exists": true,
+    "target_exists": true,
+    "strategy": "enhanced_mode",
+    "action": "ready"
+  },
+  {
+    "name": "skill_tree融合到unified_skills",
+    "source_exists": true,
+    "target_exists": true,
+    "strategy": "visualization_layer",
+    "action": "ready"
+  },
+  {
+    "name": "obsidian融合到document_processing_v2",
+    "source_exists": true,
+    "target_exists": true,
+    "strategy": "format_extension",
+    "action": "ready"
+  },
+  {
+    "name": "llm融合到llm_p3",
+    "source_exists": true,
+    "target_exists": true,
+    "strategy": "middleware",
+    "action": "ready"
+  }
+]
