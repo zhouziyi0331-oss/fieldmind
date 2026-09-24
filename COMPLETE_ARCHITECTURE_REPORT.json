@@ -1,0 +1,5305 @@
+{
+  "api_modules": {
+    "agents_p3": {
+      "file": "agents_p3.py",
+      "endpoints": [
+        [
+          "POST",
+          "/create"
+        ],
+        [
+          "GET",
+          "/{agent_id}"
+        ],
+        [
+          "GET",
+          "/"
+        ],
+        [
+          "DELETE",
+          "/{agent_id}"
+        ],
+        [
+          "POST",
+          "/{agent_id}/execute"
+        ],
+        [
+          "POST",
+          "/{agent_id}/pause"
+        ],
+        [
+          "POST",
+          "/{agent_id}/resume"
+        ],
+        [
+          "POST",
+          "/{agent_id}/cancel"
+        ],
+        [
+          "GET",
+          "/{agent_id}/result"
+        ],
+        [
+          "GET",
+          "/{agent_id}/statistics"
+        ],
+        [
+          "POST",
+          "/coordinate"
+        ],
+        [
+          "GET",
+          "/manager/statistics"
+        ],
+        [
+          "POST",
+          "/workflows/create"
+        ],
+        [
+          "POST",
+          "/workflows/{workflow_id}/execute"
+        ],
+        [
+          "GET",
+          "/tools"
+        ]
+      ],
+      "endpoint_count": 15,
+      "tags": [
+        "\"agents\""
+      ],
+      "size_kb": 9
+    },
+    "aggregate": {
+      "file": "aggregate.py",
+      "endpoints": [
+        [
+          "GET",
+          "/dashboard/{project_id}/"
+        ],
+        [
+          "GET",
+          "/quick-stats/{project_id}/"
+        ]
+      ],
+      "endpoint_count": 2,
+      "tags": [
+        "\"aggregate\""
+      ],
+      "size_kb": 11
+    },
+    "batch_processing": {
+      "file": "batch_processing.py",
+      "endpoints": [
+        [
+          "POST",
+          "/process"
+        ],
+        [
+          "GET",
+          "/status"
+        ],
+        [
+          "POST",
+          "/reprocess-failed"
+        ],
+        [
+          "POST",
+          "/process-project"
+        ]
+      ],
+      "endpoint_count": 4,
+      "tags": [
+        "\"batch\""
+      ],
+      "size_kb": 10
+    },
+    "chronicle": {
+      "file": "chronicle.py",
+      "endpoints": [
+        [
+          "POST",
+          "/events/{event_id}/analyze"
+        ],
+        [
+          "POST",
+          "/batch-analyze"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/years"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/years/{year}"
+        ],
+        [
+          "GET",
+          "/events/{event_id}/narrative"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/themes"
+        ]
+      ],
+      "endpoint_count": 6,
+      "tags": [
+        "\"编年史\""
+      ],
+      "size_kb": 7
+    },
+    "citations": {
+      "file": "citations.py",
+      "endpoints": [
+        [
+          "POST",
+          "/citations"
+        ],
+        [
+          "GET",
+          "/citations"
+        ],
+        [
+          "GET",
+          "/citations/{citation_id}"
+        ],
+        [
+          "PUT",
+          "/citations/{citation_id}"
+        ],
+        [
+          "DELETE",
+          "/citations/{citation_id}/"
+        ],
+        [
+          "GET",
+          "/citations/stats/{project_id}"
+        ],
+        [
+          "POST",
+          "/citations/batch"
+        ]
+      ],
+      "endpoint_count": 7,
+      "tags": [
+        "\"citations\""
+      ],
+      "size_kb": 12
+    },
+    "collaboration_p3": {
+      "file": "collaboration_p3.py",
+      "endpoints": [
+        [
+          "POST",
+          "/documents"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/users"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/cursors"
+        ],
+        [
+          "GET",
+          "/stats"
+        ]
+      ],
+      "endpoint_count": 5,
+      "tags": [
+        "\"collaboration\""
+      ],
+      "size_kb": 5
+    },
+    "dashboard": {
+      "file": "dashboard.py",
+      "endpoints": [
+        [
+          "GET",
+          "/stats/{project_id}"
+        ],
+        [
+          "GET",
+          "/timeline/{project_id}"
+        ],
+        [
+          "GET",
+          "/progress/{project_id}"
+        ]
+      ],
+      "endpoint_count": 3,
+      "tags": [
+        "\"dashboard\""
+      ],
+      "size_kb": 13
+    },
+    "distillation": {
+      "file": "distillation.py",
+      "endpoints": [
+        [
+          "POST",
+          "/api/projects/{project_id}/distill"
+        ],
+        [
+          "GET",
+          "/api/projects/{project_id}/distilled-units"
+        ],
+        [
+          "GET",
+          "/api/distilled-units/{unit_id}"
+        ],
+        [
+          "GET",
+          "/api/distilled-units/{unit_id}/sources"
+        ],
+        [
+          "DELETE",
+          "/api/distilled-units/{unit_id}"
+        ],
+        [
+          "GET",
+          "/api/projects/{project_id}/distillation/stats"
+        ]
+      ],
+      "endpoint_count": 6,
+      "tags": [],
+      "size_kb": 7
+    },
+    "document_normalization": {
+      "file": "document_normalization.py",
+      "endpoints": [
+        [
+          "POST",
+          "/{file_id}/normalize"
+        ],
+        [
+          "GET",
+          "/{file_id}/normalized"
+        ],
+        [
+          "GET",
+          "/{file_id}/dirty-data-report"
+        ],
+        [
+          "GET",
+          "/{file_id}/completeness-check"
+        ],
+        [
+          "POST",
+          "/batch-normalize"
+        ],
+        [
+          "GET",
+          "/{file_id}/normalization-progress"
+        ]
+      ],
+      "endpoint_count": 6,
+      "tags": [
+        "\"document-normalization\""
+      ],
+      "size_kb": 13
+    },
+    "document_processing_v2": {
+      "file": "document_processing_v2.py",
+      "endpoints": [
+        [
+          "POST",
+          "/process"
+        ],
+        [
+          "POST",
+          "/search-with-citation"
+        ],
+        [
+          "GET",
+          "/chunk/{chunk_id}/"
+        ],
+        [
+          "POST",
+          "/reprocess/{document_id}/"
+        ],
+        [
+          "GET",
+          "/metadata-stats/{project_id}/"
+        ],
+        [
+          "POST",
+          "/process-audio"
+        ],
+        [
+          "GET",
+          "/audio-segment/{chunk_id}/"
+        ]
+      ],
+      "endpoint_count": 7,
+      "tags": [
+        "\"document-processing-v2\""
+      ],
+      "size_kb": 14
+    },
+    "dynamic_discovery_api": {
+      "file": "dynamic_discovery_api.py",
+      "endpoints": [
+        [
+          "GET",
+          "/documents/{document_id}"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/summary"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/topics/"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/entities/"
+        ],
+        [
+          "GET",
+          "/health"
+        ]
+      ],
+      "endpoint_count": 5,
+      "tags": [
+        "\"dynamic-discovery\""
+      ],
+      "size_kb": 10
+    },
+    "entity_extraction": {
+      "file": "entity_extraction.py",
+      "endpoints": [
+        [
+          "POST",
+          "/documents/{doc_id}/extract"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/extract"
+        ],
+        [
+          "POST",
+          "/documents/{doc_id}/extract"
+        ],
+        [
+          "GET",
+          "/documents/{doc_id}/stats"
+        ]
+      ],
+      "endpoint_count": 4,
+      "tags": [
+        "\"实体提取\""
+      ],
+      "size_kb": 8
+    },
+    "federation_api": {
+      "file": "federation_api.py",
+      "endpoints": [
+        [
+          "GET",
+          "/objects/{fid}/lineage"
+        ],
+        [
+          "GET",
+          "/objects/{fid}"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/objects/"
+        ],
+        [
+          "POST",
+          "/relations/discover"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/relations/discover-all/"
+        ],
+        [
+          "GET",
+          "/objects/{fid}/relations/"
+        ],
+        [
+          "POST",
+          "/documents/{document_id}/align-timestamps/"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/content-at-time"
+        ],
+        [
+          "GET",
+          "/entities/{entity_name}/timeline/"
+        ],
+        [
+          "GET",
+          "/entities/{entity_name}/profile/"
+        ],
+        [
+          "GET",
+          "/events/{event_summary}/profile/"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/timestamp-validation/"
+        ],
+        [
+          "GET",
+          "/objects/{fid}/recommend"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/hot-connections/"
+        ]
+      ],
+      "endpoint_count": 14,
+      "tags": [],
+      "size_kb": 9
+    },
+    "file_manager": {
+      "file": "file_manager.py",
+      "endpoints": [
+        [
+          "GET",
+          "/file-tree/{project_id}"
+        ],
+        [
+          "POST",
+          "/folders"
+        ],
+        [
+          "PUT",
+          "/files/{file_id}/move/"
+        ],
+        [
+          "DELETE",
+          "/files/{file_id}"
+        ],
+        [
+          "DELETE",
+          "/folders"
+        ],
+        [
+          "GET",
+          "/folder-contents"
+        ]
+      ],
+      "endpoint_count": 6,
+      "tags": [
+        "\"file-manager\""
+      ],
+      "size_kb": 17
+    },
+    "file_summaries": {
+      "file": "file_summaries.py",
+      "endpoints": [
+        [
+          "GET",
+          "/projects/{project_id}/summaries"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/summary"
+        ],
+        [
+          "POST",
+          "/documents/{document_id}/regenerate"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/dimensions"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/stats"
+        ]
+      ],
+      "endpoint_count": 5,
+      "tags": [
+        "\"File Summaries\""
+      ],
+      "size_kb": 13
+    },
+    "health": {
+      "file": "health.py",
+      "endpoints": [
+        [
+          "GET",
+          "/health"
+        ],
+        [
+          "GET",
+          "/health/detailed"
+        ],
+        [
+          "GET",
+          "/health/ready"
+        ],
+        [
+          "GET",
+          "/health/live"
+        ],
+        [
+          "GET",
+          "/status"
+        ]
+      ],
+      "endpoint_count": 5,
+      "tags": [],
+      "size_kb": 9
+    },
+    "keyword_search": {
+      "file": "keyword_search.py",
+      "endpoints": [
+        [
+          "POST",
+          "/projects/{project_id}/search"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/keywords/top/"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/keywords/timeline/"
+        ]
+      ],
+      "endpoint_count": 3,
+      "tags": [
+        "\"关键词检索\""
+      ],
+      "size_kb": 3
+    },
+    "keywords": {
+      "file": "keywords.py",
+      "endpoints": [
+        [
+          "POST",
+          "/extract"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}"
+        ],
+        [
+          "POST",
+          "/search"
+        ],
+        [
+          "GET",
+          "/trending"
+        ],
+        [
+          "GET",
+          "/stats"
+        ],
+        [
+          "GET",
+          "/{keyword_id}/relations"
+        ],
+        [
+          "POST",
+          "/batch-extract"
+        ],
+        [
+          "GET",
+          "/tasks/{task_id}"
+        ],
+        [
+          "GET",
+          "/categories"
+        ],
+        [
+          "POST",
+          "/analyze-relations/{project_id}"
+        ]
+      ],
+      "endpoint_count": 11,
+      "tags": [
+        "\"关键词管理\""
+      ],
+      "size_kb": 17
+    },
+    "knowledge_graph_p3": {
+      "file": "knowledge_graph_p3.py",
+      "endpoints": [
+        [
+          "POST",
+          "/projects/{project_id}/nodes"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/nodes/{node_id}"
+        ],
+        [
+          "PUT",
+          "/projects/{project_id}/nodes/{node_id}"
+        ],
+        [
+          "DELETE",
+          "/projects/{project_id}/nodes/{node_id}"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/edges"
+        ],
+        [
+          "DELETE",
+          "/projects/{project_id}/edges/{edge_id}"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/visualization"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/nodes/{node_id}/details"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/nodes/{node_id}/neighbors"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/search"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/path"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/statistics"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/export"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/import"
+        ],
+        [
+          "GET",
+          "/types/nodes"
+        ],
+        [
+          "GET",
+          "/types/relations"
+        ]
+      ],
+      "endpoint_count": 16,
+      "tags": [
+        "\"knowledge-graph\""
+      ],
+      "size_kb": 9
+    },
+    "knowledge_pipeline": {
+      "file": "knowledge_pipeline.py",
+      "endpoints": [
+        [
+          "POST",
+          "/start"
+        ],
+        [
+          "GET",
+          "/status/{execution_id}"
+        ],
+        [
+          "GET",
+          "/results/{execution_id}"
+        ],
+        [
+          "POST",
+          "/retry/{execution_id}"
+        ],
+        [
+          "DELETE",
+          "/cancel/{execution_id}"
+        ],
+        [
+          "GET",
+          "/list"
+        ],
+        [
+          "GET",
+          "/statistics/{project_id}"
+        ]
+      ],
+      "endpoint_count": 7,
+      "tags": [
+        "\"Knowledge Pipeline\""
+      ],
+      "size_kb": 13
+    },
+    "knowledge_query": {
+      "file": "knowledge_query.py",
+      "endpoints": [
+        [
+          "GET",
+          "/entities"
+        ],
+        [
+          "GET",
+          "/entities/{entity_id}"
+        ],
+        [
+          "GET",
+          "/relations"
+        ],
+        [
+          "GET",
+          "/events"
+        ],
+        [
+          "GET",
+          "/units"
+        ],
+        [
+          "GET",
+          "/search"
+        ],
+        [
+          "GET",
+          "/ontology/{project_id}"
+        ],
+        [
+          "GET",
+          "/ontology/{project_id}/owl"
+        ],
+        [
+          "GET",
+          "/inferences/{project_id}"
+        ],
+        [
+          "GET",
+          "/conflicts/{project_id}"
+        ]
+      ],
+      "endpoint_count": 10,
+      "tags": [
+        "\"Knowledge\""
+      ],
+      "size_kb": 16
+    },
+    "llm": {
+      "file": "llm.py",
+      "endpoints": [
+        [
+          "POST",
+          "/configure"
+        ],
+        [
+          "POST",
+          "/enhance"
+        ],
+        [
+          "GET",
+          "/status"
+        ]
+      ],
+      "endpoint_count": 3,
+      "tags": [
+        "\"LLM Enhancement\""
+      ],
+      "size_kb": 4
+    },
+    "llm_p3": {
+      "file": "llm_p3.py",
+      "endpoints": [
+        [
+          "POST",
+          "/chat"
+        ],
+        [
+          "GET",
+          "/providers"
+        ],
+        [
+          "GET",
+          "/usage/stats"
+        ],
+        [
+          "GET",
+          "/usage/top-users"
+        ],
+        [
+          "GET",
+          "/usage/top-projects"
+        ],
+        [
+          "GET",
+          "/budget/status"
+        ]
+      ],
+      "endpoint_count": 6,
+      "tags": [
+        "\"llm\""
+      ],
+      "size_kb": 8
+    },
+    "llm_providers": {
+      "file": "llm_providers.py",
+      "endpoints": [
+        [
+          "GET",
+          "/"
+        ],
+        [
+          "GET",
+          "/config-guides"
+        ],
+        [
+          "POST",
+          "/chat"
+        ],
+        [
+          "GET",
+          "/strategy"
+        ],
+        [
+          "POST",
+          "/strategy"
+        ],
+        [
+          "GET",
+          "/statistics"
+        ],
+        [
+          "POST",
+          "/test/{provider}"
+        ]
+      ],
+      "endpoint_count": 7,
+      "tags": [
+        "\"LLM 提供商管理\""
+      ],
+      "size_kb": 9
+    },
+    "llm_stats": {
+      "file": "llm_stats.py",
+      "endpoints": [
+        [
+          "GET",
+          "/cost"
+        ],
+        [
+          "POST",
+          "/strategy"
+        ],
+        [
+          "GET",
+          "/strategy"
+        ]
+      ],
+      "endpoint_count": 3,
+      "tags": [
+        "\"LLM Statistics\""
+      ],
+      "size_kb": 2
+    },
+    "memory": {
+      "file": "memory.py",
+      "endpoints": [
+        [
+          "POST",
+          "/create"
+        ],
+        [
+          "GET",
+          "/project/{project_id}"
+        ],
+        [
+          "GET",
+          "/{memory_id}"
+        ],
+        [
+          "POST",
+          "/build-prompt"
+        ],
+        [
+          "POST",
+          "/promote"
+        ],
+        [
+          "POST",
+          "/auto-promote/{project_id}/"
+        ],
+        [
+          "DELETE",
+          "/{memory_id}/"
+        ],
+        [
+          "POST",
+          "/cleanup/{project_id}/"
+        ],
+        [
+          "GET",
+          "/stats/{project_id}/"
+        ],
+        [
+          "POST",
+          "/quick/from-chat"
+        ],
+        [
+          "POST",
+          "/quick/from-document"
+        ]
+      ],
+      "endpoint_count": 11,
+      "tags": [
+        "\"memory\""
+      ],
+      "size_kb": 13
+    },
+    "monitoring": {
+      "file": "monitoring.py",
+      "endpoints": [
+        [
+          "GET",
+          "/health"
+        ],
+        [
+          "GET",
+          "/metrics"
+        ],
+        [
+          "GET",
+          "/logs/recent"
+        ],
+        [
+          "GET",
+          "/stats/api"
+        ]
+      ],
+      "endpoint_count": 4,
+      "tags": [
+        "\"监控\""
+      ],
+      "size_kb": 8
+    },
+    "monitoring_api": {
+      "file": "monitoring_api.py",
+      "endpoints": [
+        [
+          "GET",
+          "/health"
+        ],
+        [
+          "GET",
+          "/metrics"
+        ],
+        [
+          "GET",
+          "/system-resources"
+        ],
+        [
+          "GET",
+          "/api-stats"
+        ]
+      ],
+      "endpoint_count": 4,
+      "tags": [
+        "\"监控\""
+      ],
+      "size_kb": 4
+    },
+    "notifications_p3": {
+      "file": "notifications_p3.py",
+      "endpoints": [
+        [
+          "POST",
+          "/send"
+        ],
+        [
+          "GET",
+          "/"
+        ],
+        [
+          "GET",
+          "/unread/count"
+        ],
+        [
+          "POST",
+          "/{notification_id}/read"
+        ],
+        [
+          "POST",
+          "/read-all"
+        ],
+        [
+          "DELETE",
+          "/{notification_id}"
+        ],
+        [
+          "GET",
+          "/statistics"
+        ]
+      ],
+      "endpoint_count": 7,
+      "tags": [
+        "\"notifications\""
+      ],
+      "size_kb": 4
+    },
+    "obsidian": {
+      "file": "obsidian.py",
+      "endpoints": [
+        [
+          "POST",
+          "/export/{package_id}"
+        ],
+        [
+          "GET",
+          "/download/{package_id}"
+        ]
+      ],
+      "endpoint_count": 2,
+      "tags": [
+        "\"Obsidian\""
+      ],
+      "size_kb": 1
+    },
+    "obsidian_integration": {
+      "file": "obsidian_integration.py",
+      "endpoints": [
+        [
+          "POST",
+          "/import"
+        ],
+        [
+          "POST",
+          "/sync"
+        ],
+        [
+          "GET",
+          "/graph"
+        ],
+        [
+          "GET",
+          "/search"
+        ]
+      ],
+      "endpoint_count": 4,
+      "tags": [
+        "\"Obsidian集成\""
+      ],
+      "size_kb": 11
+    },
+    "permissions": {
+      "file": "permissions.py",
+      "endpoints": [
+        [
+          "GET",
+          "/all"
+        ],
+        [
+          "GET",
+          "/roles"
+        ],
+        [
+          "GET",
+          "/roles/{role}"
+        ],
+        [
+          "GET",
+          "/me"
+        ],
+        [
+          "GET",
+          "/check/{permission}/"
+        ],
+        [
+          "GET",
+          "/matrix"
+        ]
+      ],
+      "endpoint_count": 6,
+      "tags": [
+        "\"权限管理\""
+      ],
+      "size_kb": 5
+    },
+    "photos": {
+      "file": "photos.py",
+      "endpoints": [
+        [
+          "POST",
+          "/photos/upload"
+        ],
+        [
+          "POST",
+          "/photos/upload/"
+        ],
+        [
+          "GET",
+          "/photos"
+        ],
+        [
+          "GET",
+          "/photos/"
+        ],
+        [
+          "GET",
+          "/photos/stats/{project_id}"
+        ],
+        [
+          "GET",
+          "/photos/stats/{project_id}/"
+        ],
+        [
+          "DELETE",
+          "/photos/{photo_id}/"
+        ]
+      ],
+      "endpoint_count": 7,
+      "tags": [
+        "\"photos\""
+      ],
+      "size_kb": 17
+    },
+    "project_distillation": {
+      "file": "project_distillation.py",
+      "endpoints": [
+        [
+          "POST",
+          "/{project_id}/distill"
+        ],
+        [
+          "GET",
+          "/{project_id}/distillation-status"
+        ]
+      ],
+      "endpoint_count": 2,
+      "tags": [
+        "\"项目蒸馏\""
+      ],
+      "size_kb": 5
+    },
+    "proposal": {
+      "file": "proposal.py",
+      "endpoints": [
+        [
+          "POST",
+          "/projects/{project_id}/generate/"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/templates/"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/export/"
+        ]
+      ],
+      "endpoint_count": 3,
+      "tags": [
+        "\"提案生成\""
+      ],
+      "size_kb": 4
+    },
+    "quality": {
+      "file": "quality.py",
+      "endpoints": [
+        [
+          "POST",
+          "/validate/document"
+        ],
+        [
+          "POST",
+          "/validate/ocr"
+        ],
+        [
+          "POST",
+          "/validate/entities"
+        ],
+        [
+          "POST",
+          "/validate/embedding"
+        ],
+        [
+          "POST",
+          "/validate/graph"
+        ],
+        [
+          "POST",
+          "/validate/batch"
+        ],
+        [
+          "GET",
+          "/statistics"
+        ],
+        [
+          "POST",
+          "/statistics/reset"
+        ],
+        [
+          "GET",
+          "/issue-types"
+        ],
+        [
+          "GET",
+          "/quality-levels"
+        ],
+        [
+          "GET",
+          "/health"
+        ]
+      ],
+      "endpoint_count": 11,
+      "tags": [],
+      "size_kb": 11
+    },
+    "quantification": {
+      "file": "quantification.py",
+      "endpoints": [
+        [
+          "GET",
+          "/stats/{project_id}"
+        ],
+        [
+          "GET",
+          "/clusters/{project_id}/"
+        ],
+        [
+          "GET",
+          "/comparisons/{project_id}/"
+        ],
+        [
+          "GET",
+          "/wordcloud/{project_id}/"
+        ],
+        [
+          "GET",
+          "/chunk/{chunk_id}/"
+        ]
+      ],
+      "endpoint_count": 5,
+      "tags": [
+        "\"quantification\""
+      ],
+      "size_kb": 10
+    },
+    "rag": {
+      "file": "rag.py",
+      "endpoints": [
+        [
+          "POST",
+          "/graph/build"
+        ],
+        [
+          "GET",
+          "/graph/entity/{entity_name}"
+        ],
+        [
+          "POST",
+          "/graph/traverse"
+        ],
+        [
+          "GET",
+          "/graph/stats"
+        ],
+        [
+          "POST",
+          "/vectors/add"
+        ],
+        [
+          "POST",
+          "/vectors/search"
+        ],
+        [
+          "GET",
+          "/vectors/stats"
+        ],
+        [
+          "POST",
+          "/query"
+        ],
+        [
+          "POST",
+          "/query/stream"
+        ],
+        [
+          "POST",
+          "/sessions"
+        ],
+        [
+          "GET",
+          "/sessions/{session_id}"
+        ],
+        [
+          "GET",
+          "/sessions/{session_id}/history"
+        ],
+        [
+          "DELETE",
+          "/sessions/{session_id}"
+        ],
+        [
+          "POST",
+          "/test/retrieve"
+        ]
+      ],
+      "endpoint_count": 14,
+      "tags": [
+        "\"RAG System\""
+      ],
+      "size_kb": 12
+    },
+    "reader": {
+      "file": "reader.py",
+      "endpoints": [
+        [
+          "GET",
+          "/timeline/{document_id}"
+        ],
+        [
+          "GET",
+          "/topics/{document_id}"
+        ],
+        [
+          "GET",
+          "/network/{document_id}"
+        ],
+        [
+          "GET",
+          "/wiki/{document_id}"
+        ],
+        [
+          "GET",
+          "/wiki/{document_id}/{page_id}"
+        ],
+        [
+          "GET",
+          "/wiki/{document_id}/search"
+        ]
+      ],
+      "endpoint_count": 6,
+      "tags": [
+        "\"Reader\""
+      ],
+      "size_kb": 5
+    },
+    "reports_real": {
+      "file": "reports_real.py",
+      "endpoints": [],
+      "endpoint_count": 0,
+      "tags": [],
+      "size_kb": 18
+    },
+    "reports_refactored": {
+      "file": "reports_refactored.py",
+      "endpoints": [],
+      "endpoint_count": 0,
+      "tags": [],
+      "size_kb": 10
+    },
+    "sbpack": {
+      "file": "sbpack.py",
+      "endpoints": [
+        [
+          "POST",
+          "/packages"
+        ],
+        [
+          "GET",
+          "/packages"
+        ],
+        [
+          "GET",
+          "/packages/{package_id}"
+        ],
+        [
+          "GET",
+          "/packages/{package_id}/knowledge"
+        ],
+        [
+          "GET",
+          "/packages/{package_id}/skills"
+        ],
+        [
+          "POST",
+          "/freeze"
+        ],
+        [
+          "POST",
+          "/build"
+        ],
+        [
+          "POST",
+          "/verify"
+        ],
+        [
+          "POST",
+          "/extract/knowledge/{package_id}"
+        ],
+        [
+          "DELETE",
+          "/packages/{package_id}"
+        ]
+      ],
+      "endpoint_count": 10,
+      "tags": [
+        "\"SBPACK\""
+      ],
+      "size_kb": 11
+    },
+    "scheduler": {
+      "file": "scheduler.py",
+      "endpoints": [
+        [
+          "POST",
+          "/tasks"
+        ],
+        [
+          "GET",
+          "/tasks/{task_id}"
+        ],
+        [
+          "GET",
+          "/tasks"
+        ],
+        [
+          "PUT",
+          "/tasks/{task_id}"
+        ],
+        [
+          "DELETE",
+          "/tasks/{task_id}"
+        ],
+        [
+          "POST",
+          "/tasks/{task_id}/run"
+        ],
+        [
+          "GET",
+          "/executions"
+        ],
+        [
+          "GET",
+          "/executions/{execution_id}"
+        ]
+      ],
+      "endpoint_count": 8,
+      "tags": [
+        "\"定时任务\""
+      ],
+      "size_kb": 7
+    },
+    "skill_config": {
+      "file": "skill_config.py",
+      "endpoints": [
+        [
+          "GET",
+          "/available"
+        ],
+        [
+          "GET",
+          "/config/{project_id}"
+        ],
+        [
+          "POST",
+          "/config"
+        ],
+        [
+          "POST",
+          "/toggle/{project_id}/{skill_id}/"
+        ]
+      ],
+      "endpoint_count": 4,
+      "tags": [
+        "\"skills\""
+      ],
+      "size_kb": 7
+    },
+    "skill_tree": {
+      "file": "skill_tree.py",
+      "endpoints": [
+        [
+          "POST",
+          "/tree/build"
+        ],
+        [
+          "GET",
+          "/tree/{package_id}"
+        ],
+        [
+          "GET",
+          "/node/{skill_id}"
+        ],
+        [
+          "POST",
+          "/progress/start"
+        ],
+        [
+          "POST",
+          "/progress/practice"
+        ],
+        [
+          "GET",
+          "/progress/user/{user_id}"
+        ],
+        [
+          "GET",
+          "/progress/skill/{skill_id}/user/{user_id}"
+        ],
+        [
+          "GET",
+          "/recommendations/{user_id}"
+        ],
+        [
+          "GET",
+          "/stats/user/{user_id}"
+        ]
+      ],
+      "endpoint_count": 9,
+      "tags": [
+        "\"Skill Tree & Progress\""
+      ],
+      "size_kb": 9
+    },
+    "source_traceback": {
+      "file": "source_traceback.py",
+      "endpoints": [
+        [
+          "POST",
+          "/analyses"
+        ],
+        [
+          "GET",
+          "/analyses/{analysis_id}/"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/analyses/"
+        ],
+        [
+          "GET",
+          "/statements/{statement_id}/sources/"
+        ],
+        [
+          "POST",
+          "/sources/{source_id}/verify/"
+        ],
+        [
+          "GET",
+          "/chunks/{chunk_id}/detail/"
+        ],
+        [
+          "DELETE",
+          "/analyses/{analysis_id}/"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/statistics/"
+        ]
+      ],
+      "endpoint_count": 8,
+      "tags": [
+        "\"材料溯源\""
+      ],
+      "size_kb": 10
+    },
+    "tables": {
+      "file": "tables.py",
+      "endpoints": [
+        [
+          "GET",
+          "/projects/{project_id}/tables"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/tables/"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/tables/statistics"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/tables/statistics/"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/tables/{table_id}"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/tables/{table_id}/"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/tables/upload"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/tables/upload/"
+        ],
+        [
+          "DELETE",
+          "/projects/{project_id}/tables/{table_id}"
+        ],
+        [
+          "DELETE",
+          "/projects/{project_id}/tables/{table_id}/"
+        ]
+      ],
+      "endpoint_count": 10,
+      "tags": [
+        "\"表格管理\""
+      ],
+      "size_kb": 8
+    },
+    "timeline": {
+      "file": "timeline.py",
+      "endpoints": [
+        [
+          "POST",
+          "/build"
+        ],
+        [
+          "GET",
+          "/events"
+        ],
+        [
+          "GET",
+          "/stats"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/events/"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/events/grouped/"
+        ]
+      ],
+      "endpoint_count": 5,
+      "tags": [
+        "\"timeline\"",
+        "\"auto-extracted\", f\"project-{request.project_id}\""
+      ],
+      "size_kb": 15
+    },
+    "unified_analysis": {
+      "file": "unified_analysis.py",
+      "endpoints": [
+        [
+          "POST",
+          "/projects/{project_id}/creative"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/cultural-elements"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/business"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/business-formats"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/synergy"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/statistics"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/topic-distribution"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/top-entities"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/word-count"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/timeline-distribution"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/analyze"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/reports"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/reports"
+        ],
+        [
+          "POST",
+          "/projects/compare"
+        ]
+      ],
+      "endpoint_count": 14,
+      "tags": [
+        "\"统一分析\""
+      ],
+      "size_kb": 13
+    },
+    "unified_chat": {
+      "file": "unified_chat.py",
+      "endpoints": [
+        [
+          "POST",
+          "/sessions"
+        ],
+        [
+          "GET",
+          "/sessions"
+        ],
+        [
+          "GET",
+          "/sessions/{session_id}"
+        ],
+        [
+          "DELETE",
+          "/sessions/{session_id}"
+        ],
+        [
+          "POST",
+          "/sessions/{session_id}/messages"
+        ],
+        [
+          "GET",
+          "/sessions/{session_id}/messages"
+        ],
+        [
+          "POST",
+          "/enhanced"
+        ],
+        [
+          "POST",
+          "/enhanced/stream"
+        ],
+        [
+          "POST",
+          "/projects/{project_id}/ask"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/context"
+        ],
+        [
+          "POST",
+          "/conversations/search"
+        ],
+        [
+          "GET",
+          "/conversations/recent"
+        ],
+        [
+          "GET",
+          "/statistics"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/summary"
+        ]
+      ],
+      "endpoint_count": 14,
+      "tags": [
+        "\"统一聊天对话\""
+      ],
+      "size_kb": 17
+    },
+    "unified_documents": {
+      "file": "unified_documents.py",
+      "endpoints": [
+        [
+          "POST",
+          "/upload"
+        ],
+        [
+          "POST",
+          "/upload/batch"
+        ],
+        [
+          "POST",
+          "/process/{document_id}"
+        ],
+        [
+          "POST",
+          "/process/batch"
+        ],
+        [
+          "GET",
+          "/list"
+        ],
+        [
+          "GET",
+          "/{document_id}"
+        ],
+        [
+          "GET",
+          "/{document_id}/content"
+        ],
+        [
+          "PATCH",
+          "/{document_id}"
+        ],
+        [
+          "DELETE",
+          "/{document_id}"
+        ],
+        [
+          "GET",
+          "/statistics/project/{project_id}"
+        ],
+        [
+          "GET",
+          "/{document_id}/chunks/statistics"
+        ],
+        [
+          "POST",
+          "/search"
+        ],
+        [
+          "GET",
+          "/aggregate/skills"
+        ],
+        [
+          "GET",
+          "/aggregate/keywords"
+        ],
+        [
+          "GET",
+          "/knowledge-base/status"
+        ]
+      ],
+      "endpoint_count": 15,
+      "tags": [
+        "\"统一文档处理\""
+      ],
+      "size_kb": 26
+    },
+    "unified_knowledge_graph": {
+      "file": "unified_knowledge_graph.py",
+      "endpoints": [
+        [
+          "POST",
+          "/build"
+        ],
+        [
+          "DELETE",
+          "/reset/{project_id}"
+        ],
+        [
+          "GET",
+          "/statistics"
+        ],
+        [
+          "GET",
+          "/nodes"
+        ],
+        [
+          "GET",
+          "/nodes/{node_id}"
+        ],
+        [
+          "POST",
+          "/nodes"
+        ],
+        [
+          "PUT",
+          "/nodes/{node_id}"
+        ],
+        [
+          "DELETE",
+          "/nodes/{node_id}"
+        ],
+        [
+          "GET",
+          "/edges"
+        ],
+        [
+          "POST",
+          "/edges"
+        ],
+        [
+          "DELETE",
+          "/edges/{edge_id}"
+        ],
+        [
+          "GET",
+          "/search"
+        ],
+        [
+          "GET",
+          "/subgraph/{node_id}"
+        ],
+        [
+          "GET",
+          "/visualization/{project_id}"
+        ],
+        [
+          "GET",
+          "/types/nodes"
+        ],
+        [
+          "GET",
+          "/types/relations"
+        ],
+        [
+          "GET",
+          "/entities/{entity_id}/detail"
+        ],
+        [
+          "DELETE",
+          "/entities/{entity_id}"
+        ],
+        [
+          "GET",
+          "/entities/{entity_id}/evidences"
+        ],
+        [
+          "GET",
+          "/categories/{category}/evidences"
+        ],
+        [
+          "GET",
+          "/categories/stats"
+        ],
+        [
+          "DELETE",
+          "/evidences/{evidence_id}"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/entities"
+        ]
+      ],
+      "endpoint_count": 23,
+      "tags": [
+        "\"统一知识图谱\""
+      ],
+      "size_kb": 31
+    },
+    "unified_projects": {
+      "file": "unified_projects.py",
+      "endpoints": [
+        [
+          "GET",
+          "/{project_id}"
+        ],
+        [
+          "PUT",
+          "/{project_id}"
+        ],
+        [
+          "DELETE",
+          "/{project_id}"
+        ],
+        [
+          "POST",
+          "/{project_id}/archive"
+        ],
+        [
+          "POST",
+          "/{project_id}/restore"
+        ],
+        [
+          "GET",
+          "/{project_id}/documents"
+        ],
+        [
+          "POST",
+          "/{project_id}/documents/upload"
+        ],
+        [
+          "GET",
+          "/{project_id}/documents/{document_id}"
+        ],
+        [
+          "DELETE",
+          "/{project_id}/documents/{document_id}"
+        ],
+        [
+          "POST",
+          "/{project_id}/contexts"
+        ],
+        [
+          "GET",
+          "/{project_id}/contexts"
+        ],
+        [
+          "GET",
+          "/{project_id}/contexts/{context_id}"
+        ],
+        [
+          "GET",
+          "/{project_id}/statistics"
+        ]
+      ],
+      "endpoint_count": 13,
+      "tags": [
+        "\"统一项目管理\""
+      ],
+      "size_kb": 17
+    },
+    "unified_rag": {
+      "file": "unified_rag.py",
+      "endpoints": [
+        [
+          "POST",
+          "/retrieve"
+        ],
+        [
+          "POST",
+          "/search"
+        ],
+        [
+          "POST",
+          "/chat"
+        ],
+        [
+          "POST",
+          "/chat/stream"
+        ],
+        [
+          "POST",
+          "/index"
+        ],
+        [
+          "DELETE",
+          "/index/documents/{document_id}"
+        ],
+        [
+          "GET",
+          "/conversations/{session_id}"
+        ],
+        [
+          "DELETE",
+          "/conversations/{session_id}"
+        ],
+        [
+          "GET",
+          "/statistics"
+        ],
+        [
+          "GET",
+          "/health"
+        ],
+        [
+          "POST",
+          "/compare-strategies"
+        ],
+        [
+          "GET",
+          "/available-documents/{project_id}"
+        ]
+      ],
+      "endpoint_count": 12,
+      "tags": [
+        "\"统一RAG检索\""
+      ],
+      "size_kb": 15
+    },
+    "unified_reports": {
+      "file": "unified_reports.py",
+      "endpoints": [
+        [
+          "POST",
+          "/generate"
+        ],
+        [
+          "GET",
+          "/{report_id}"
+        ],
+        [
+          "DELETE",
+          "/{report_id}"
+        ],
+        [
+          "GET",
+          "/{report_id}/download"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/pdf"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/word"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/pdf"
+        ],
+        [
+          "POST",
+          "/summary-document"
+        ]
+      ],
+      "endpoint_count": 8,
+      "tags": [
+        "\"统一报告生成\""
+      ],
+      "size_kb": 8
+    },
+    "unified_skills": {
+      "file": "unified_skills.py",
+      "endpoints": [
+        [
+          "POST",
+          "/upload"
+        ],
+        [
+          "GET",
+          "/{skill_id}"
+        ],
+        [
+          "DELETE",
+          "/{skill_id}"
+        ],
+        [
+          "PUT",
+          "/{skill_id}/activate"
+        ],
+        [
+          "PUT",
+          "/{skill_id}/deactivate"
+        ],
+        [
+          "POST",
+          "/generate"
+        ],
+        [
+          "POST",
+          "/{skill_id}/deploy"
+        ],
+        [
+          "POST",
+          "/{skill_id}/test"
+        ],
+        [
+          "POST",
+          "/{skill_id}/validate"
+        ],
+        [
+          "POST",
+          "/performance"
+        ],
+        [
+          "GET",
+          "/performance/{skill_id}/summary"
+        ],
+        [
+          "GET",
+          "/recommendations"
+        ],
+        [
+          "POST",
+          "/optimizations"
+        ],
+        [
+          "GET",
+          "/optimizations"
+        ],
+        [
+          "POST",
+          "/optimizations/{optimization_id}/validate"
+        ],
+        [
+          "POST",
+          "/optimizations/{optimization_id}/apply"
+        ],
+        [
+          "POST",
+          "/optimizations/{optimization_id}/revert"
+        ],
+        [
+          "GET",
+          "/available-for-task"
+        ]
+      ],
+      "endpoint_count": 18,
+      "tags": [
+        "\"统一技能管理\""
+      ],
+      "size_kb": 14
+    },
+    "unified_tools": {
+      "file": "unified_tools.py",
+      "endpoints": [
+        [
+          "POST",
+          "/ocr/recognize"
+        ],
+        [
+          "POST",
+          "/ocr/recognize-pdf"
+        ],
+        [
+          "POST",
+          "/ocr/recognize-batch"
+        ],
+        [
+          "POST",
+          "/ocr/quality-check"
+        ],
+        [
+          "GET",
+          "/ocr/supported-languages"
+        ],
+        [
+          "GET",
+          "/ocr/statistics"
+        ],
+        [
+          "GET",
+          "/health"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/pdf"
+        ],
+        [
+          "GET",
+          "/documents/{document_id}/word"
+        ],
+        [
+          "GET",
+          "/projects/{project_id}/pdf"
+        ]
+      ],
+      "endpoint_count": 10,
+      "tags": [
+        "\"统一工具\""
+      ],
+      "size_kb": 11
+    },
+    "visualize": {
+      "file": "visualize.py",
+      "endpoints": [
+        [
+          "GET",
+          "/health"
+        ],
+        [
+          "POST",
+          "/plotly/bar"
+        ],
+        [
+          "POST",
+          "/plotly/line"
+        ],
+        [
+          "POST",
+          "/plotly/scatter3d"
+        ],
+        [
+          "POST",
+          "/pyecharts/pie"
+        ],
+        [
+          "POST",
+          "/pyecharts/graph"
+        ],
+        [
+          "POST",
+          "/networkx/knowledge-graph"
+        ],
+        [
+          "POST",
+          "/wordcloud"
+        ],
+        [
+          "POST",
+          "/document-stats"
+        ],
+        [
+          "POST",
+          "/knowledge-graph"
+        ]
+      ],
+      "endpoint_count": 10,
+      "tags": [],
+      "size_kb": 11
+    },
+    "websocket": {
+      "file": "websocket.py",
+      "endpoints": [
+        [
+          "POST",
+          "/broadcast"
+        ],
+        [
+          "POST",
+          "/rooms/{room_id}/broadcast/"
+        ],
+        [
+          "POST",
+          "/rooms/{room_id}/join/"
+        ],
+        [
+          "POST",
+          "/rooms/{room_id}/leave/"
+        ],
+        [
+          "GET",
+          "/stats"
+        ],
+        [
+          "GET",
+          "/clients/{client_id}/"
+        ],
+        [
+          "GET",
+          "/rooms/{room_id}/"
+        ],
+        [
+          "POST",
+          "/events/emit"
+        ],
+        [
+          "GET",
+          "/events/history"
+        ],
+        [
+          "GET",
+          "/events/stats"
+        ],
+        [
+          "GET",
+          "/health"
+        ]
+      ],
+      "endpoint_count": 11,
+      "tags": [],
+      "size_kb": 10
+    },
+    "workflows": {
+      "file": "workflows.py",
+      "endpoints": [
+        [
+          "POST",
+          "/execute"
+        ],
+        [
+          "GET",
+          "/{workflow_id}"
+        ],
+        [
+          "GET",
+          "/"
+        ],
+        [
+          "POST",
+          "/{workflow_id}/cancel/"
+        ],
+        [
+          "GET",
+          "/templates/list"
+        ],
+        [
+          "GET",
+          "/stats"
+        ],
+        [
+          "POST",
+          "/quick/document/{document_id}/"
+        ],
+        [
+          "POST",
+          "/quick/knowledge-graph"
+        ],
+        [
+          "POST",
+          "/quick/full-analysis"
+        ]
+      ],
+      "endpoint_count": 9,
+      "tags": [
+        "\"workflows\""
+      ],
+      "size_kb": 13
+    }
+  },
+  "service_modules": {
+    "adaptive_analyzer": {
+      "file": "adaptive_analyzer.py",
+      "classes": [
+        "AdaptiveAnalyzer"
+      ],
+      "functions": 9,
+      "size_kb": 12
+    },
+    "advanced_knowledge_graph": {
+      "file": "advanced_knowledge_graph.py",
+      "classes": [
+        "AdvancedKnowledgeGraphBuilder",
+        "SemanticSimilarityAnalyzer"
+      ],
+      "functions": 14,
+      "size_kb": 9
+    },
+    "annotation_service": {
+      "file": "annotation_service.py",
+      "classes": [
+        "AnnotationService"
+      ],
+      "functions": 13,
+      "size_kb": 12
+    },
+    "anti_hallucination_report": {
+      "file": "anti_hallucination_report.py",
+      "classes": [
+        "HallucinationDetector",
+        "AntiHallucinationReportGenerator"
+      ],
+      "functions": 11,
+      "size_kb": 11
+    },
+    "audio_chunker": {
+      "file": "audio_chunker.py",
+      "classes": [
+        "AudioChunker"
+      ],
+      "functions": 6,
+      "size_kb": 5
+    },
+    "audio_processor": {
+      "file": "audio_processor.py",
+      "classes": [
+        "AudioProcessor"
+      ],
+      "functions": 16,
+      "size_kb": 21
+    },
+    "audit_enhancement_service": {
+      "file": "audit_enhancement_service.py",
+      "classes": [
+        "AuditDecorator",
+        "AnomalyDetector",
+        "ComplianceReporter",
+        "AuditExporter",
+        "AuditEnhancementService"
+      ],
+      "functions": 16,
+      "size_kb": 19
+    },
+    "audit_service": {
+      "file": "audit_service.py",
+      "classes": [
+        "AuditService"
+      ],
+      "functions": 7,
+      "size_kb": 9
+    },
+    "auto_processing_trigger": {
+      "file": "auto_processing_trigger.py",
+      "classes": [
+        "AutoProcessingTrigger"
+      ],
+      "functions": 4,
+      "size_kb": 3
+    },
+    "background_learner": {
+      "file": "background_learner.py",
+      "classes": [
+        "BackgroundLearner"
+      ],
+      "functions": 15,
+      "size_kb": 15
+    },
+    "background_tasks": {
+      "file": "background_tasks.py",
+      "classes": [
+        "DocumentProcessor"
+      ],
+      "functions": 25,
+      "size_kb": 19
+    },
+    "background_tasks_refactored": {
+      "file": "background_tasks_refactored.py",
+      "classes": [
+        "DocumentProcessor"
+      ],
+      "functions": 23,
+      "size_kb": 15
+    },
+    "batch_processing": {
+      "file": "batch_processing.py",
+      "classes": [
+        "BatchProcessingService"
+      ],
+      "functions": 9,
+      "size_kb": 10
+    },
+    "batch_processor": {
+      "file": "batch_processor.py",
+      "classes": [
+        "BatchProcessor"
+      ],
+      "functions": 11,
+      "size_kb": 7
+    },
+    "boundary2_validator": {
+      "file": "boundary2_validator.py",
+      "classes": [
+        "Boundary2Validator"
+      ],
+      "functions": 10,
+      "size_kb": 21
+    },
+    "business_analysis_service": {
+      "file": "business_analysis_service.py",
+      "classes": [
+        "BusinessAnalysisService"
+      ],
+      "functions": 10,
+      "size_kb": 14
+    },
+    "business_dimension_classifier": {
+      "file": "business_dimension_classifier.py",
+      "classes": [
+        "class",
+        "BusinessDimensionClassifier"
+      ],
+      "functions": 12,
+      "size_kb": 12
+    },
+    "cache_service": {
+      "file": "cache_service.py",
+      "classes": [
+        "CacheService",
+        "CacheKeys"
+      ],
+      "functions": 19,
+      "size_kb": 8
+    },
+    "chat_enhancement_service": {
+      "file": "chat_enhancement_service.py",
+      "classes": [
+        "ChatEnhancementService"
+      ],
+      "functions": 10,
+      "size_kb": 10
+    },
+    "chat_service": {
+      "file": "chat_service.py",
+      "classes": [
+        "ChatService"
+      ],
+      "functions": 18,
+      "size_kb": 15
+    },
+    "chinese_nlp_service": {
+      "file": "chinese_nlp_service.py",
+      "classes": [
+        "ChineseNLPService"
+      ],
+      "functions": 13,
+      "size_kb": 15
+    },
+    "chromadb_sync_service": {
+      "file": "chromadb_sync_service.py",
+      "classes": [
+        "ChromaDBSyncService"
+      ],
+      "functions": 15,
+      "size_kb": 12
+    },
+    "chronicle_service": {
+      "file": "chronicle_service.py",
+      "classes": [
+        "ChronicleService"
+      ],
+      "functions": 8,
+      "size_kb": 12
+    },
+    "chunk_metrics_calculator": {
+      "file": "chunk_metrics_calculator.py",
+      "classes": [
+        "import",
+        "class",
+        "ChunkMetricsCalculator"
+      ],
+      "functions": 21,
+      "size_kb": 22
+    },
+    "chunk_semantic_enhancer": {
+      "file": "chunk_semantic_enhancer.py",
+      "classes": [
+        "ChunkSemanticEnhancer"
+      ],
+      "functions": 12,
+      "size_kb": 15
+    },
+    "chunking_lineage_recorder": {
+      "file": "chunking_lineage_recorder.py",
+      "classes": [
+        "ChunkingLineageRecorder"
+      ],
+      "functions": 7,
+      "size_kb": 8
+    },
+    "chunking_service": {
+      "file": "chunking_service.py",
+      "classes": [
+        "ChunkingService"
+      ],
+      "functions": 14,
+      "size_kb": 10
+    },
+    "code_review_service": {
+      "file": "code_review_service.py",
+      "classes": [
+        "CodeReviewService"
+      ],
+      "functions": 11,
+      "size_kb": 11
+    },
+    "cognee_service": {
+      "file": "cognee_service.py",
+      "classes": [
+        "CogneeService"
+      ],
+      "functions": 10,
+      "size_kb": 11
+    },
+    "collaboration_service": {
+      "file": "collaboration_service.py",
+      "classes": [
+        "ProjectRole",
+        "PermissionType",
+        "CollaborationService"
+      ],
+      "functions": 9,
+      "size_kb": 10
+    },
+    "conversation_history_manager": {
+      "file": "conversation_history_manager.py",
+      "classes": [
+        "ConversationHistoryManager"
+      ],
+      "functions": 9,
+      "size_kb": 4
+    },
+    "conversation_memory_service": {
+      "file": "conversation_memory_service.py",
+      "classes": [
+        "ConversationMemoryService"
+      ],
+      "functions": 13,
+      "size_kb": 19
+    },
+    "conversation_service": {
+      "file": "conversation_service.py",
+      "classes": [
+        "ConversationMemoryService"
+      ],
+      "functions": 8,
+      "size_kb": 8
+    },
+    "core_keyword_extractor": {
+      "file": "core_keyword_extractor.py",
+      "classes": [
+        "CoreKeywordExtractor"
+      ],
+      "functions": 9,
+      "size_kb": 11
+    },
+    "correlation_recommender": {
+      "file": "correlation_recommender.py",
+      "classes": [
+        "CorrelationRecommender"
+      ],
+      "functions": 11,
+      "size_kb": 11
+    },
+    "creative_analysis_service": {
+      "file": "creative_analysis_service.py",
+      "classes": [
+        "CreativeAnalysisService"
+      ],
+      "functions": 8,
+      "size_kb": 11
+    },
+    "cross_document_entity_resolver": {
+      "file": "cross_document_entity_resolver.py",
+      "classes": [
+        "CrossDocumentEntityResolver"
+      ],
+      "functions": 7,
+      "size_kb": 9
+    },
+    "data_contract_validator": {
+      "file": "data_contract_validator.py",
+      "classes": [
+        "SourceLevel",
+        "DataQualityLevel",
+        "CleanDataContract",
+        "DirtyToCleanConverter",
+        "PipelineGate"
+      ],
+      "functions": 8,
+      "size_kb": 9
+    },
+    "data_curation": {
+      "file": "data_curation.py",
+      "classes": [
+        "TextCleaner",
+        "TopicClassifier",
+        "EntityExtractor",
+        "DataCurationPipeline",
+        "Deduplicator"
+      ],
+      "functions": 12,
+      "size_kb": 7
+    },
+    "data_federation_service": {
+      "file": "data_federation_service.py",
+      "classes": [
+        "DataFederationService"
+      ],
+      "functions": 11,
+      "size_kb": 11
+    },
+    "data_quality_checker": {
+      "file": "data_quality_checker.py",
+      "classes": [
+        "DataQualityChecker"
+      ],
+      "functions": 7,
+      "size_kb": 8
+    },
+    "data_quality_service": {
+      "file": "data_quality_service.py",
+      "classes": [
+        "DocumentStatus",
+        "ProcessingStep",
+        "DataQualityService"
+      ],
+      "functions": 7,
+      "size_kb": 12
+    },
+    "deep_rag_optimization_service": {
+      "file": "deep_rag_optimization_service.py",
+      "classes": [
+        "QueryCache",
+        "QueryOptimizer",
+        "SourceSelector",
+        "DeepRAGOptimizationService"
+      ],
+      "functions": 23,
+      "size_kb": 21
+    },
+    "deep_rag_service": {
+      "file": "deep_rag_service.py",
+      "classes": [
+        "DeepRAGService"
+      ],
+      "functions": 14,
+      "size_kb": 25
+    },
+    "dialect_normalization_service": {
+      "file": "dialect_normalization_service.py",
+      "classes": [
+        "DialectNormalizationService"
+      ],
+      "functions": 9,
+      "size_kb": 13
+    },
+    "distillation_engine": {
+      "file": "distillation_engine.py",
+      "classes": [
+        "DistillationEngine"
+      ],
+      "functions": 20,
+      "size_kb": 41
+    },
+    "distillation_service": {
+      "file": "distillation_service.py",
+      "classes": [
+        "DistillationService"
+      ],
+      "functions": 12,
+      "size_kb": 14
+    },
+    "dlt_pipeline": {
+      "file": "dlt_pipeline.py",
+      "classes": [
+        "DltPipelineWrapper"
+      ],
+      "functions": 15,
+      "size_kb": 12
+    },
+    "document_auto_analysis": {
+      "file": "document_auto_analysis.py",
+      "classes": [
+        "DocumentAutoAnalysisEngine"
+      ],
+      "functions": 13,
+      "size_kb": 18
+    },
+    "document_chunker": {
+      "file": "document_chunker.py",
+      "classes": [
+        "DocumentChunker"
+      ],
+      "functions": 9,
+      "size_kb": 14
+    },
+    "document_chunker_sources": {
+      "file": "document_chunker_sources.py",
+      "classes": [
+        "DocumentChunkerSourcesWrapper"
+      ],
+      "functions": 11,
+      "size_kb": 8
+    },
+    "document_chunker_v2": {
+      "file": "document_chunker_v2.py",
+      "classes": [
+        "DocumentChunkerV2"
+      ],
+      "functions": 10,
+      "size_kb": 14
+    },
+    "document_converter": {
+      "file": "document_converter.py",
+      "classes": [
+        "DocumentConverter"
+      ],
+      "functions": 5,
+      "size_kb": 2
+    },
+    "document_converter_v2": {
+      "file": "document_converter_v2.py",
+      "classes": [
+        "UnstructuredConverter"
+      ],
+      "functions": 6,
+      "size_kb": 8
+    },
+    "document_network_builder": {
+      "file": "document_network_builder.py",
+      "classes": [
+        "DocumentNetworkBuilder"
+      ],
+      "functions": 7,
+      "size_kb": 12
+    },
+    "document_parser": {
+      "file": "document_parser.py",
+      "classes": [
+        "DocumentParser"
+      ],
+      "functions": 14,
+      "size_kb": 19
+    },
+    "document_processing_integration": {
+      "file": "document_processing_integration.py",
+      "classes": [
+        "DocumentProcessingIntegration"
+      ],
+      "functions": 4,
+      "size_kb": 4
+    },
+    "document_processing_pipeline": {
+      "file": "document_processing_pipeline.py",
+      "classes": [
+        "DocumentProcessingPipeline"
+      ],
+      "functions": 21,
+      "size_kb": 38
+    },
+    "document_processing_pipeline_complete": {
+      "file": "document_processing_pipeline_complete.py",
+      "classes": [
+        "DocumentProcessingError",
+        "ChunkingError",
+        "VectorizationError",
+        "StorageError",
+        "DocumentProcessingPipeline"
+      ],
+      "functions": 23,
+      "size_kb": 58
+    },
+    "document_processing_pipeline_v2": {
+      "file": "document_processing_pipeline_v2.py",
+      "classes": [
+        "DocumentProcessingPipelineV2"
+      ],
+      "functions": 5,
+      "size_kb": 9
+    },
+    "document_relation_discovery": {
+      "file": "document_relation_discovery.py",
+      "classes": [
+        "DocumentRelationDiscovery"
+      ],
+      "functions": 10,
+      "size_kb": 10
+    },
+    "document_structure_analyzer": {
+      "file": "document_structure_analyzer.py",
+      "classes": [
+        "ElementType",
+        "class",
+        "class",
+        "DocumentStructureAnalyzer"
+      ],
+      "functions": 16,
+      "size_kb": 17
+    },
+    "domain_tagging_service": {
+      "file": "domain_tagging_service.py",
+      "classes": [
+        "DomainTaggingService"
+      ],
+      "functions": 12,
+      "size_kb": 16
+    },
+    "dynamic_discovery": {
+      "file": "dynamic_discovery.py",
+      "classes": [
+        "DynamicDiscoveryEngine"
+      ],
+      "functions": 12,
+      "size_kb": 18
+    },
+    "dynamic_report_generator": {
+      "file": "dynamic_report_generator.py",
+      "classes": [
+        "DynamicReportGenerator"
+      ],
+      "functions": 14,
+      "size_kb": 14
+    },
+    "embedding_service_v2": {
+      "file": "embedding_service_v2.py",
+      "classes": [
+        "FlagEmbeddingService",
+        "FlagEmbeddings"
+      ],
+      "functions": 9,
+      "size_kb": 6
+    },
+    "enhanced_batch_service": {
+      "file": "enhanced_batch_service.py",
+      "classes": [
+        "EnhancedBatchService"
+      ],
+      "functions": 13,
+      "size_kb": 10
+    },
+    "enhanced_chat_service": {
+      "file": "enhanced_chat_service.py",
+      "classes": [
+        "ContextBuilder",
+        "PromptBuilder",
+        "ResponseFormatter",
+        "EnhancedChatService"
+      ],
+      "functions": 18,
+      "size_kb": 12
+    },
+    "enhanced_chat_service_refactored": {
+      "file": "enhanced_chat_service_refactored.py",
+      "classes": [
+        "ContextBuilder",
+        "PromptBuilder",
+        "ResponseFormatter",
+        "EnhancedChatService"
+      ],
+      "functions": 18,
+      "size_kb": 12
+    },
+    "enhanced_chat_service_v2": {
+      "file": "enhanced_chat_service_v2.py",
+      "classes": [
+        "EnhancedChatServiceV2"
+      ],
+      "functions": 25,
+      "size_kb": 24
+    },
+    "entity_categorizer": {
+      "file": "entity_categorizer.py",
+      "classes": [
+        "EntityCategorizer"
+      ],
+      "functions": 5,
+      "size_kb": 6
+    },
+    "entity_disambiguation_service": {
+      "file": "entity_disambiguation_service.py",
+      "classes": [
+        "EntityDisambiguationService"
+      ],
+      "functions": 10,
+      "size_kb": 11
+    },
+    "entity_extraction": {
+      "file": "entity_extraction.py",
+      "classes": [
+        "EntityExtractionService"
+      ],
+      "functions": 6,
+      "size_kb": 8
+    },
+    "entity_extraction_service": {
+      "file": "entity_extraction_service.py",
+      "classes": [
+        "EntityExtractionService"
+      ],
+      "functions": 16,
+      "size_kb": 23
+    },
+    "entity_extractor": {
+      "file": "entity_extractor.py",
+      "classes": [
+        "EntityExtractor",
+        "EntityDeduplicator"
+      ],
+      "functions": 6,
+      "size_kb": 5
+    },
+    "entity_recognition_service": {
+      "file": "entity_recognition_service.py",
+      "classes": [
+        "EntityRecognitionService"
+      ],
+      "functions": 15,
+      "size_kb": 18
+    },
+    "entity_service": {
+      "file": "entity_service.py",
+      "classes": [
+        "EntityService"
+      ],
+      "functions": 5,
+      "size_kb": 8
+    },
+    "event_bus": {
+      "file": "event_bus.py",
+      "classes": [
+        "EventBus",
+        "EventTypes"
+      ],
+      "functions": 15,
+      "size_kb": 10
+    },
+    "event_emitter": {
+      "file": "event_emitter.py",
+      "classes": [
+        "EventEmitter",
+        "EventTypes"
+      ],
+      "functions": 11,
+      "size_kb": 9
+    },
+    "evidence_extractor": {
+      "file": "evidence_extractor.py",
+      "classes": [
+        "EvidenceExtractor"
+      ],
+      "functions": 9,
+      "size_kb": 10
+    },
+    "excel_converter": {
+      "file": "excel_converter.py",
+      "classes": [
+        "ExcelConverter",
+        "CSVConverter"
+      ],
+      "functions": 7,
+      "size_kb": 7
+    },
+    "execution_analyzer": {
+      "file": "execution_analyzer.py",
+      "classes": [
+        "ExecutionAnalyzer"
+      ],
+      "functions": 17,
+      "size_kb": 17
+    },
+    "experience_graph_service": {
+      "file": "experience_graph_service.py",
+      "classes": [
+        "ExperienceGraphService"
+      ],
+      "functions": 10,
+      "size_kb": 13
+    },
+    "fact_statement_populator": {
+      "file": "fact_statement_populator.py",
+      "classes": [
+        "FactStatementPopulator"
+      ],
+      "functions": 9,
+      "size_kb": 11
+    },
+    "facts_anchor": {
+      "file": "facts_anchor.py",
+      "classes": [
+        "FactsAnchorGenerator"
+      ],
+      "functions": 3,
+      "size_kb": 8
+    },
+    "feedback_loop_manager": {
+      "file": "feedback_loop_manager.py",
+      "classes": [
+        "FeedbackLoopManager"
+      ],
+      "functions": 20,
+      "size_kb": 18
+    },
+    "feeding_service": {
+      "file": "feeding_service.py",
+      "classes": [
+        "UserFeedingService"
+      ],
+      "functions": 13,
+      "size_kb": 11
+    },
+    "file_classifier": {
+      "file": "file_classifier.py",
+      "classes": [
+        "FileClassifier"
+      ],
+      "functions": 9,
+      "size_kb": 9
+    },
+    "file_upload": {
+      "file": "file_upload.py",
+      "classes": [
+        "FileUploadService"
+      ],
+      "functions": 11,
+      "size_kb": 13
+    },
+    "file_upload_service": {
+      "file": "file_upload_service.py",
+      "classes": [
+        "FileUploadService"
+      ],
+      "functions": 5,
+      "size_kb": 6
+    },
+    "fulltext_search_service": {
+      "file": "fulltext_search_service.py",
+      "classes": [
+        "FullTextSearchService"
+      ],
+      "functions": 6,
+      "size_kb": 6
+    },
+    "graph_construction_service": {
+      "file": "graph_construction_service.py",
+      "classes": [
+        "NodeCreationResult",
+        "EdgeCreationResult",
+        "GraphConstructionResult",
+        "GraphConstructionService"
+      ],
+      "functions": 24,
+      "size_kb": 32
+    },
+    "graph_database_integration": {
+      "file": "graph_database_integration.py",
+      "classes": [
+        "DatabaseBackend",
+        "OperationType",
+        "GraphDatabaseIntegration"
+      ],
+      "functions": 20,
+      "size_kb": 17
+    },
+    "graph_database_integration_v2": {
+      "file": "graph_database_integration_v2.py",
+      "classes": [
+        "DatabaseBackend",
+        "OperationType",
+        "QualityTier",
+        "GraphDatabaseIntegrationV2"
+      ],
+      "functions": 22,
+      "size_kb": 28
+    },
+    "graph_reasoning_service": {
+      "file": "graph_reasoning_service.py",
+      "classes": [
+        "GraphReasoningService"
+      ],
+      "functions": 9,
+      "size_kb": 22
+    },
+    "graphiti_service": {
+      "file": "graphiti_service.py",
+      "classes": [
+        "GraphitiService"
+      ],
+      "functions": 10,
+      "size_kb": 14
+    },
+    "graphrag_service": {
+      "file": "graphrag_service.py",
+      "classes": [
+        "GraphRAGService"
+      ],
+      "functions": 7,
+      "size_kb": 11
+    },
+    "hermes_learning_engine": {
+      "file": "hermes_learning_engine.py",
+      "classes": [
+        "LearningType",
+        "FeedbackScore",
+        "class",
+        "class",
+        "HermesLearningEngine"
+      ],
+      "functions": 15,
+      "size_kb": 14
+    },
+    "hierarchical_retriever": {
+      "file": "hierarchical_retriever.py",
+      "classes": [
+        "HierarchicalRetriever"
+      ],
+      "functions": 8,
+      "size_kb": 8
+    },
+    "hybrid_retriever": {
+      "file": "hybrid_retriever.py",
+      "classes": [
+        "GraphQueryEngine",
+        "HybridRetriever"
+      ],
+      "functions": 17,
+      "size_kb": 15
+    },
+    "hybrid_search_service": {
+      "file": "hybrid_search_service.py",
+      "classes": [
+        "HybridSearchService"
+      ],
+      "functions": 11,
+      "size_kb": 13
+    },
+    "ingestion_metadata_enhancer": {
+      "file": "ingestion_metadata_enhancer.py",
+      "classes": [
+        "DataClassification",
+        "ProcessingStatus",
+        "IngestionMetadataEnhancer"
+      ],
+      "functions": 10,
+      "size_kb": 13
+    },
+    "input_processor": {
+      "file": "input_processor.py",
+      "classes": [
+        "InputProcessor"
+      ],
+      "functions": 16,
+      "size_kb": 16
+    },
+    "intelligent_agent": {
+      "file": "intelligent_agent.py",
+      "classes": [
+        "IntelligentAgent"
+      ],
+      "functions": 11,
+      "size_kb": 21
+    },
+    "internvl_service": {
+      "file": "internvl_service.py",
+      "classes": [
+        "InternVLService"
+      ],
+      "functions": 9,
+      "size_kb": 9
+    },
+    "keyword_extraction": {
+      "file": "keyword_extraction.py",
+      "classes": [
+        "KeywordExtractionService"
+      ],
+      "functions": 16,
+      "size_kb": 14
+    },
+    "keyword_network_builder": {
+      "file": "keyword_network_builder.py",
+      "classes": [
+        "KeywordNetworkBuilder"
+      ],
+      "functions": 10,
+      "size_kb": 15
+    },
+    "keyword_relation_builder": {
+      "file": "keyword_relation_builder.py",
+      "classes": [
+        "KeywordRelationBuilder"
+      ],
+      "functions": 10,
+      "size_kb": 13
+    },
+    "keyword_search_service": {
+      "file": "keyword_search_service.py",
+      "classes": [
+        "KeywordSearchService"
+      ],
+      "functions": 10,
+      "size_kb": 13
+    },
+    "keyword_service": {
+      "file": "keyword_service.py",
+      "classes": [
+        "KeywordService"
+      ],
+      "functions": 10,
+      "size_kb": 14
+    },
+    "khoj_service": {
+      "file": "khoj_service.py",
+      "classes": [
+        "KhojService"
+      ],
+      "functions": 9,
+      "size_kb": 10
+    },
+    "knowledge_enhancement_service": {
+      "file": "knowledge_enhancement_service.py",
+      "classes": [
+        "KnowledgeEnhancementService"
+      ],
+      "functions": 9,
+      "size_kb": 16
+    },
+    "knowledge_graph_builder": {
+      "file": "knowledge_graph_builder.py",
+      "classes": [
+        "KnowledgeGraphBuilder"
+      ],
+      "functions": 14,
+      "size_kb": 17
+    },
+    "knowledge_graph_enhanced": {
+      "file": "knowledge_graph_enhanced.py",
+      "classes": [
+        "EntityExtractor",
+        "RelationExtractor",
+        "KnowledgeGraphEnhancer"
+      ],
+      "functions": 18,
+      "size_kb": 15
+    },
+    "knowledge_graph_service": {
+      "file": "knowledge_graph_service.py",
+      "classes": [
+        "Entity",
+        "Relation",
+        "KnowledgeGraphService"
+      ],
+      "functions": 33,
+      "size_kb": 38
+    },
+    "knowledge_track_extractor": {
+      "file": "knowledge_track_extractor.py",
+      "classes": [
+        "KnowledgeTrackExtractor"
+      ],
+      "functions": 13,
+      "size_kb": 15
+    },
+    "lance_vector_store": {
+      "file": "lance_vector_store.py",
+      "classes": [
+        "LanceVectorStore"
+      ],
+      "functions": 7,
+      "size_kb": 9
+    },
+    "learning_service": {
+      "file": "learning_service.py",
+      "classes": [
+        "LearningLogService"
+      ],
+      "functions": 10,
+      "size_kb": 11
+    },
+    "lightrag_service": {
+      "file": "lightrag_service.py",
+      "classes": [
+        "LightRAGService"
+      ],
+      "functions": 9,
+      "size_kb": 9
+    },
+    "lineage_service": {
+      "file": "lineage_service.py",
+      "classes": [
+        "DataLineageService"
+      ],
+      "functions": 15,
+      "size_kb": 18
+    },
+    "lineage_tracker": {
+      "file": "lineage_tracker.py",
+      "classes": [
+        "LineageTracker"
+      ],
+      "functions": 5,
+      "size_kb": 9
+    },
+    "llm_adapter": {
+      "file": "llm_adapter.py",
+      "classes": [
+        "FieldMindLLMAdapter"
+      ],
+      "functions": 7,
+      "size_kb": 7
+    },
+    "llm_enhanced_extractor": {
+      "file": "llm_enhanced_extractor.py",
+      "classes": [
+        "LLMEnhancedExtractor"
+      ],
+      "functions": 5,
+      "size_kb": 5
+    },
+    "llm_enhancer": {
+      "file": "llm_enhancer.py",
+      "classes": [
+        "LLMEnhancer"
+      ],
+      "functions": 9,
+      "size_kb": 12
+    },
+    "llm_report_generator": {
+      "file": "llm_report_generator.py",
+      "classes": [
+        "LLMReportGenerator"
+      ],
+      "functions": 5,
+      "size_kb": 11
+    },
+    "long_memory_service": {
+      "file": "long_memory_service.py",
+      "classes": [
+        "LongMemoryService"
+      ],
+      "functions": 8,
+      "size_kb": 8
+    },
+    "markitdown_converter": {
+      "file": "markitdown_converter.py",
+      "classes": [
+        "EnhancedDocumentConverter"
+      ],
+      "functions": 3,
+      "size_kb": 2
+    },
+    "mem0_service": {
+      "file": "mem0_service.py",
+      "classes": [
+        "Mem0Service"
+      ],
+      "functions": 8,
+      "size_kb": 7
+    },
+    "memory_injector": {
+      "file": "memory_injector.py",
+      "classes": [
+        "MemoryInjector"
+      ],
+      "functions": 10,
+      "size_kb": 11
+    },
+    "memory_service": {
+      "file": "memory_service.py",
+      "classes": [
+        "MemoryService"
+      ],
+      "functions": 9,
+      "size_kb": 10
+    },
+    "metadata_collector": {
+      "file": "metadata_collector.py",
+      "classes": [
+        "MetadataCollector"
+      ],
+      "functions": 6,
+      "size_kb": 5
+    },
+    "metric_calculator": {
+      "file": "metric_calculator.py",
+      "classes": [
+        "MetricCalculator"
+      ],
+      "functions": 9,
+      "size_kb": 10
+    },
+    "metrics_service": {
+      "file": "metrics_service.py",
+      "classes": [
+        "MetricsService"
+      ],
+      "functions": 15,
+      "size_kb": 19
+    },
+    "multi_provider_llm_manager": {
+      "file": "multi_provider_llm_manager.py",
+      "classes": [
+        "LLMProvider",
+        "RoutingStrategy",
+        "MultiProviderLLMManager"
+      ],
+      "functions": 12,
+      "size_kb": 14
+    },
+    "multi_vector_generator": {
+      "file": "multi_vector_generator.py",
+      "classes": [
+        "MultiVectorGenerator"
+      ],
+      "functions": 16,
+      "size_kb": 15
+    },
+    "multimodal_alignment": {
+      "file": "multimodal_alignment.py",
+      "classes": [
+        "MultimodalAlignmentService"
+      ],
+      "functions": 7,
+      "size_kb": 13
+    },
+    "multimodal_processor": {
+      "file": "multimodal_processor.py",
+      "classes": [
+        "UnifiedContent",
+        "MultiModalProcessor"
+      ],
+      "functions": 12,
+      "size_kb": 9
+    },
+    "neo4j_adapter": {
+      "file": "neo4j_adapter.py",
+      "classes": [
+        "Neo4jAdapter",
+        "HybridKnowledgeGraphService"
+      ],
+      "functions": 13,
+      "size_kb": 9
+    },
+    "neo4j_sync_service": {
+      "file": "neo4j_sync_service.py",
+      "classes": [
+        "Neo4jSyncService"
+      ],
+      "functions": 16,
+      "size_kb": 14
+    },
+    "network_visualization_service": {
+      "file": "network_visualization_service.py",
+      "classes": [
+        "NetworkVisualizationService"
+      ],
+      "functions": 15,
+      "size_kb": 21
+    },
+    "obsidian_exporter": {
+      "file": "obsidian_exporter.py",
+      "classes": [
+        "ObsidianExporter",
+        "SBPACKReaderPlugin"
+      ],
+      "functions": 11,
+      "size_kb": 11
+    },
+    "ocr_quality_checker": {
+      "file": "ocr_quality_checker.py",
+      "classes": [
+        "QualityIssue",
+        "OCRQualityReport",
+        "OCRQualityChecker"
+      ],
+      "functions": 18,
+      "size_kb": 16
+    },
+    "ocr_service": {
+      "file": "ocr_service.py",
+      "classes": [
+        "OCRService"
+      ],
+      "functions": 7,
+      "size_kb": 11
+    },
+    "optimized_document_pipeline": {
+      "file": "optimized_document_pipeline.py",
+      "classes": [
+        "OptimizedDocumentPipeline"
+      ],
+      "functions": 16,
+      "size_kb": 12
+    },
+    "optimized_vectorization_service": {
+      "file": "optimized_vectorization_service.py",
+      "classes": [
+        "OptimizedVectorizationService"
+      ],
+      "functions": 10,
+      "size_kb": 9
+    },
+    "pattern_detector": {
+      "file": "pattern_detector.py",
+      "classes": [
+        "PatternDetector"
+      ],
+      "functions": 18,
+      "size_kb": 18
+    },
+    "pdf_enhanced_service": {
+      "file": "pdf_enhanced_service.py",
+      "classes": [
+        "PDFEnhancedService"
+      ],
+      "functions": 15,
+      "size_kb": 10
+    },
+    "permission_service": {
+      "file": "permission_service.py",
+      "classes": [
+        "PermissionService"
+      ],
+      "functions": 16,
+      "size_kb": 15
+    },
+    "pipeline_status": {
+      "file": "pipeline_status.py",
+      "classes": [
+        "PipelineArchitecture",
+        "PipelineStatus"
+      ],
+      "functions": 8,
+      "size_kb": 9
+    },
+    "production_auditor": {
+      "file": "production_auditor.py",
+      "classes": [
+        "ProductionAuditor"
+      ],
+      "functions": 15,
+      "size_kb": 14
+    },
+    "project_document_upload": {
+      "file": "project_document_upload.py",
+      "classes": [
+        "ProjectDocumentUploadWrapper"
+      ],
+      "functions": 10,
+      "size_kb": 10
+    },
+    "prometheus_service": {
+      "file": "prometheus_service.py",
+      "classes": [
+        "PrometheusService"
+      ],
+      "functions": 14,
+      "size_kb": 11
+    },
+    "proposal_generator_service": {
+      "file": "proposal_generator_service.py",
+      "classes": [
+        "ProposalGeneratorService"
+      ],
+      "functions": 20,
+      "size_kb": 26
+    },
+    "quivr_service": {
+      "file": "quivr_service.py",
+      "classes": [
+        "QuivrService"
+      ],
+      "functions": 12,
+      "size_kb": 15
+    },
+    "rag_engine_adapter": {
+      "file": "rag_engine_adapter.py",
+      "classes": [
+        "RAGEngineAdapter"
+      ],
+      "functions": 4,
+      "size_kb": 4
+    },
+    "rag_generator": {
+      "file": "rag_generator.py",
+      "classes": [
+        "RAGGenerator"
+      ],
+      "functions": 11,
+      "size_kb": 12
+    },
+    "rag_retrieval_service": {
+      "file": "rag_retrieval_service.py",
+      "classes": [
+        "import",
+        "class",
+        "class",
+        "RAGRetrievalService"
+      ],
+      "functions": 7,
+      "size_kb": 12
+    },
+    "ragflow_service": {
+      "file": "ragflow_service.py",
+      "classes": [
+        "RAGFlowService"
+      ],
+      "functions": 7,
+      "size_kb": 6
+    },
+    "relation_discovery": {
+      "file": "relation_discovery.py",
+      "classes": [
+        "RelationDiscoveryEngine"
+      ],
+      "functions": 8,
+      "size_kb": 13
+    },
+    "relation_extraction_service": {
+      "file": "relation_extraction_service.py",
+      "classes": [
+        "RelationExtractionService"
+      ],
+      "functions": 12,
+      "size_kb": 20
+    },
+    "relation_extractor": {
+      "file": "relation_extractor.py",
+      "classes": [
+        "RelationExtractor",
+        "RelationValidator"
+      ],
+      "functions": 7,
+      "size_kb": 6
+    },
+    "report_governance_summary_generator": {
+      "file": "report_governance_summary_generator.py",
+      "classes": [
+        "class",
+        "class",
+        "class",
+        "class",
+        "class",
+        "class",
+        "ReportGovernanceSummaryGenerator"
+      ],
+      "functions": 11,
+      "size_kb": 23
+    },
+    "report_relation_builder": {
+      "file": "report_relation_builder.py",
+      "classes": [
+        "ReportRelationBuilder"
+      ],
+      "functions": 19,
+      "size_kb": 21
+    },
+    "report_template_system": {
+      "file": "report_template_system.py",
+      "classes": [
+        "ReportSection",
+        "ExecutiveSummarySection",
+        "FactLayerSection",
+        "InsightLayerSection",
+        "BusinessLayerSection",
+        "AppendixSection",
+        "ReportTemplate",
+        "FieldWorkReportTemplate",
+        "CompanyBrainReportTemplate",
+        "MarketResearchReportTemplate",
+        "ReportTemplateFactory"
+      ],
+      "functions": 31,
+      "size_kb": 15
+    },
+    "reranker_service": {
+      "file": "reranker_service.py",
+      "classes": [
+        "RerankerService",
+        "CohereReranker"
+      ],
+      "functions": 8,
+      "size_kb": 6
+    },
+    "sbpack_builder": {
+      "file": "sbpack_builder.py",
+      "classes": [
+        "SBPACKBuilder"
+      ],
+      "functions": 10,
+      "size_kb": 15
+    },
+    "sbpack_validator": {
+      "file": "sbpack_validator.py",
+      "classes": [
+        "SBPACKValidator"
+      ],
+      "functions": 12,
+      "size_kb": 11
+    },
+    "scheduler": {
+      "file": "scheduler.py",
+      "classes": [
+        "SchedulerService"
+      ],
+      "functions": 18,
+      "size_kb": 11
+    },
+    "scheduler_executor": {
+      "file": "scheduler_executor.py",
+      "classes": [
+        "SchedulerExecutor"
+      ],
+      "functions": 8,
+      "size_kb": 12
+    },
+    "semantic_chunker": {
+      "file": "semantic_chunker.py",
+      "classes": [
+        "SemanticChunker",
+        "TextCleaner"
+      ],
+      "functions": 8,
+      "size_kb": 8
+    },
+    "semantic_embedding": {
+      "file": "semantic_embedding.py",
+      "classes": [
+        "logger",
+        "EmbeddingUnavailable",
+        "class",
+        "SemanticEmbeddingService"
+      ],
+      "functions": 20,
+      "size_kb": 14
+    },
+    "sentry_service": {
+      "file": "sentry_service.py",
+      "classes": [
+        "SentryService",
+        "_DummyTransaction"
+      ],
+      "functions": 20,
+      "size_kb": 9
+    },
+    "skill_evolution_service": {
+      "file": "skill_evolution_service.py",
+      "classes": [
+        "SkillEvolutionService"
+      ],
+      "functions": 16,
+      "size_kb": 19
+    },
+    "skill_generator": {
+      "file": "skill_generator.py",
+      "classes": [
+        "SkillGenerator"
+      ],
+      "functions": 18,
+      "size_kb": 17
+    },
+    "skill_loader": {
+      "file": "skill_loader.py",
+      "classes": [
+        "SkillFileHandler",
+        "SkillLoader"
+      ],
+      "functions": 15,
+      "size_kb": 7
+    },
+    "skill_optimizer": {
+      "file": "skill_optimizer.py",
+      "classes": [
+        "SkillOptimizer"
+      ],
+      "functions": 17,
+      "size_kb": 18
+    },
+    "skill_progress_tracker": {
+      "file": "skill_progress_tracker.py",
+      "classes": [
+        "SkillProgressTracker"
+      ],
+      "functions": 19,
+      "size_kb": 16
+    },
+    "skill_recommendation_service": {
+      "file": "skill_recommendation_service.py",
+      "classes": [
+        "SkillRecommendationService"
+      ],
+      "functions": 10,
+      "size_kb": 13
+    },
+    "skill_sandbox": {
+      "file": "skill_sandbox.py",
+      "classes": [
+        "SkillSandbox",
+        "NetworkBlocker",
+        "SkillExecutionContext"
+      ],
+      "functions": 18,
+      "size_kb": 14
+    },
+    "skill_service": {
+      "file": "skill_service.py",
+      "classes": [
+        "SkillService",
+        "is"
+      ],
+      "functions": 9,
+      "size_kb": 6
+    },
+    "skill_track_extractor": {
+      "file": "skill_track_extractor.py",
+      "classes": [
+        "SkillTrackExtractor"
+      ],
+      "functions": 25,
+      "size_kb": 24
+    },
+    "skill_tree_builder": {
+      "file": "skill_tree_builder.py",
+      "classes": [
+        "SkillTreeBuilder"
+      ],
+      "functions": 16,
+      "size_kb": 15
+    },
+    "skills_integration_service": {
+      "file": "skills_integration_service.py",
+      "classes": [
+        "AssociationType",
+        "SkillType",
+        "Association",
+        "SkillGraphLink",
+        "DocumentGraphLink",
+        "TripleInteractionResult",
+        "SkillsIntegrationService"
+      ],
+      "functions": 11,
+      "size_kb": 25
+    },
+    "smart_recommendation_service": {
+      "file": "smart_recommendation_service.py",
+      "classes": [
+        "SmartRecommendationService"
+      ],
+      "functions": 16,
+      "size_kb": 21
+    },
+    "sop_service": {
+      "file": "sop_service.py",
+      "classes": [
+        "SOPService"
+      ],
+      "functions": 17,
+      "size_kb": 13
+    },
+    "source_traceback_service": {
+      "file": "source_traceback_service.py",
+      "classes": [
+        "SourceTracebackService"
+      ],
+      "functions": 8,
+      "size_kb": 13
+    },
+    "source_tracker": {
+      "file": "source_tracker.py",
+      "classes": [
+        "SourceTracker"
+      ],
+      "functions": 8,
+      "size_kb": 11
+    },
+    "structured_extractor": {
+      "file": "structured_extractor.py",
+      "classes": [
+        "TemporalExtractor",
+        "EventExtractor",
+        "RelationExtractor",
+        "StructuredExtractor"
+      ],
+      "functions": 5,
+      "size_kb": 9
+    },
+    "structured_processor": {
+      "file": "structured_processor.py",
+      "classes": [
+        "StructuredProcessor"
+      ],
+      "functions": 10,
+      "size_kb": 17
+    },
+    "structured_table_parser": {
+      "file": "structured_table_parser.py",
+      "classes": [
+        "CellData",
+        "SheetStructure",
+        "StructuredTableParser"
+      ],
+      "functions": 16,
+      "size_kb": 22
+    },
+    "summary_generator": {
+      "file": "summary_generator.py",
+      "classes": [
+        "FileSummaryGenerator"
+      ],
+      "functions": 17,
+      "size_kb": 30
+    },
+    "super_agents_service_v2": {
+      "file": "super_agents_service_v2.py",
+      "classes": [
+        "SuperAgentsServiceV2"
+      ],
+      "functions": 14,
+      "size_kb": 11
+    },
+    "sync_manager": {
+      "file": "sync_manager.py",
+      "classes": [
+        "SyncServiceManager"
+      ],
+      "functions": 8,
+      "size_kb": 8
+    },
+    "synthesis_neo4j_service": {
+      "file": "synthesis_neo4j_service.py",
+      "classes": [
+        "from",
+        "class",
+        "class",
+        "class",
+        "class",
+        "SynthesisNeo4jService"
+      ],
+      "functions": 11,
+      "size_kb": 19
+    },
+    "table_processor": {
+      "file": "table_processor.py",
+      "classes": [
+        "TableProcessor"
+      ],
+      "functions": 13,
+      "size_kb": 14
+    },
+    "tagging_service": {
+      "file": "tagging_service.py",
+      "classes": [
+        "TaggingService"
+      ],
+      "functions": 14,
+      "size_kb": 14
+    },
+    "temporal_extractor": {
+      "file": "temporal_extractor.py",
+      "classes": [
+        "TemporalExtractor"
+      ],
+      "functions": 10,
+      "size_kb": 15
+    },
+    "text_quantification": {
+      "file": "text_quantification.py",
+      "classes": [
+        "TextQuantificationService"
+      ],
+      "functions": 9,
+      "size_kb": 8
+    },
+    "text_stats": {
+      "file": "text_stats.py",
+      "classes": [
+        "TextStatsWrapper"
+      ],
+      "functions": 6,
+      "size_kb": 2
+    },
+    "text_structurization_quantifier": {
+      "file": "text_structurization_quantifier.py",
+      "classes": [
+        "logger",
+        "class",
+        "TextStructurizationQuantifier"
+      ],
+      "functions": 14,
+      "size_kb": 10
+    },
+    "tfidf_keyword_extractor": {
+      "file": "tfidf_keyword_extractor.py",
+      "classes": [
+        "TFIDFKeywordExtractor"
+      ],
+      "functions": 8,
+      "size_kb": 10
+    },
+    "tfidf_vectorization": {
+      "file": "tfidf_vectorization.py",
+      "classes": [
+        "TfidfVectorizationService"
+      ],
+      "functions": 6,
+      "size_kb": 6
+    },
+    "thinking_pattern_service": {
+      "file": "thinking_pattern_service.py",
+      "classes": [
+        "ThinkingPatternService"
+      ],
+      "functions": 16,
+      "size_kb": 19
+    },
+    "three_layer_report_system": {
+      "file": "three_layer_report_system.py",
+      "classes": [
+        "Level1ReportGenerator",
+        "Level3ReportGenerator",
+        "ThreeLayerReportService"
+      ],
+      "functions": 27,
+      "size_kb": 16
+    },
+    "timeline_event_builder": {
+      "file": "timeline_event_builder.py",
+      "classes": [
+        "TimelineEventBuilder"
+      ],
+      "functions": 8,
+      "size_kb": 7
+    },
+    "timeline_integration_service": {
+      "file": "timeline_integration_service.py",
+      "classes": [
+        "TimelineEvent",
+        "SuccessionChain",
+        "TimelineQueryResult",
+        "TimelineVisualizationExport",
+        "TimelineIntegrationService"
+      ],
+      "functions": 9,
+      "size_kb": 17
+    },
+    "topic_clustering_service": {
+      "file": "topic_clustering_service.py",
+      "classes": [
+        "TopicClusteringService"
+      ],
+      "functions": 9,
+      "size_kb": 12
+    },
+    "traceability_service": {
+      "file": "traceability_service.py",
+      "classes": [
+        "TraceabilityService"
+      ],
+      "functions": 9,
+      "size_kb": 10
+    },
+    "translation_service": {
+      "file": "translation_service.py",
+      "classes": [
+        "TranslationService"
+      ],
+      "functions": 6,
+      "size_kb": 6
+    },
+    "unified_ai_service": {
+      "file": "unified_ai_service.py",
+      "classes": [
+        "UnifiedAIService",
+        "BasicChat",
+        "BasicAgents",
+        "BasicRAG"
+      ],
+      "functions": 28,
+      "size_kb": 13
+    },
+    "unified_kg_builder": {
+      "file": "unified_kg_builder.py",
+      "classes": [
+        "UnifiedKnowledgeGraphBuilder"
+      ],
+      "functions": 12,
+      "size_kb": 18
+    },
+    "unified_pipeline_coordinator": {
+      "file": "unified_pipeline_coordinator.py",
+      "classes": [
+        "DataContractViolation",
+        "PipelineGateRejection",
+        "PipelineExecutionError",
+        "UnifiedPipelineCoordinator"
+      ],
+      "functions": 23,
+      "size_kb": 29
+    },
+    "unified_search": {
+      "file": "unified_search.py",
+      "classes": [
+        "UnifiedSearchService"
+      ],
+      "functions": 9,
+      "size_kb": 10
+    },
+    "unified_skill_system_v2": {
+      "file": "unified_skill_system_v2.py",
+      "classes": [
+        "UnifiedSkillSystemV2"
+      ],
+      "functions": 20,
+      "size_kb": 13
+    },
+    "unified_skills_service": {
+      "file": "unified_skills_service.py",
+      "classes": [
+        "UnifiedSkillsService"
+      ],
+      "functions": 18,
+      "size_kb": 13
+    },
+    "user_analysis_service": {
+      "file": "user_analysis_service.py",
+      "classes": [
+        "UserAnalysisService"
+      ],
+      "functions": 10,
+      "size_kb": 12
+    },
+    "vector_fusion_service": {
+      "file": "vector_fusion_service.py",
+      "classes": [
+        "VectorFusionService"
+      ],
+      "functions": 12,
+      "size_kb": 16
+    },
+    "vector_index_service": {
+      "file": "vector_index_service.py",
+      "classes": [
+        "VectorIndexService"
+      ],
+      "functions": 12,
+      "size_kb": 9
+    },
+    "vector_store": {
+      "file": "vector_store.py",
+      "classes": [
+        "VectorStore",
+        "EmbeddingModel"
+      ],
+      "functions": 16,
+      "size_kb": 14
+    },
+    "vector_store_service": {
+      "file": "vector_store_service.py",
+      "classes": [
+        "VectorStoreService"
+      ],
+      "functions": 12,
+      "size_kb": 8
+    },
+    "vectorization_service_complete": {
+      "file": "vectorization_service_complete.py",
+      "classes": [
+        "VectorizationService"
+      ],
+      "functions": 9,
+      "size_kb": 16
+    },
+    "vectorization_text_builder": {
+      "file": "vectorization_text_builder.py",
+      "classes": [
+        "VectorizationTextBuilder"
+      ],
+      "functions": 11,
+      "size_kb": 12
+    },
+    "video_processor": {
+      "file": "video_processor.py",
+      "classes": [
+        "VideoProcessor"
+      ],
+      "functions": 12,
+      "size_kb": 12
+    },
+    "vision_service": {
+      "file": "vision_service.py",
+      "classes": [
+        "VisionService"
+      ],
+      "functions": 8,
+      "size_kb": 5
+    },
+    "visualization_service": {
+      "file": "visualization_service.py",
+      "classes": [
+        "VisualizationService"
+      ],
+      "functions": 16,
+      "size_kb": 19
+    },
+    "websocket_event_service": {
+      "file": "websocket_event_service.py",
+      "classes": [
+        "WebSocketEventService"
+      ],
+      "functions": 28,
+      "size_kb": 13
+    },
+    "websocket_manager": {
+      "file": "websocket_manager.py",
+      "classes": [
+        "ConnectionManager"
+      ],
+      "functions": 16,
+      "size_kb": 10
+    },
+    "workflow_chain": {
+      "file": "workflow_chain.py",
+      "classes": [
+        "WorkflowChainOrchestrator"
+      ],
+      "functions": 21,
+      "size_kb": 31
+    },
+    "workflow_engine": {
+      "file": "workflow_engine.py",
+      "classes": [
+        "TaskStatus",
+        "WorkflowStatus",
+        "class",
+        "class",
+        "class",
+        "class",
+        "WorkflowEngine"
+      ],
+      "functions": 11,
+      "size_kb": 10
+    },
+    "workflow_handlers": {
+      "file": "workflow_handlers.py",
+      "classes": [
+        "WorkflowStepHandlers"
+      ],
+      "functions": 10,
+      "size_kb": 12
+    },
+    "workflow_service": {
+      "file": "workflow_service.py",
+      "classes": [
+        "WorkflowService"
+      ],
+      "functions": 16,
+      "size_kb": 16
+    },
+    "workflow_templates": {
+      "file": "workflow_templates.py",
+      "classes": [
+        "WorkflowTemplates"
+      ],
+      "functions": 25,
+      "size_kb": 22
+    }
+  },
+  "model_modules": {
+    "analysis": {
+      "file": "analysis.py",
+      "models": [
+        "AnalysisResult",
+        "AnalysisStatement",
+        "StatementSource",
+        "SourceVerification"
+      ],
+      "model_count": 4,
+      "size_kb": 3
+    },
+    "analysis_report": {
+      "file": "analysis_report.py",
+      "models": [
+        "AnalysisReport"
+      ],
+      "model_count": 1,
+      "size_kb": 2
+    },
+    "audit_log": {
+      "file": "audit_log.py",
+      "models": [
+        "AuditLog"
+      ],
+      "model_count": 1,
+      "size_kb": 2
+    },
+    "background_learning": {
+      "file": "background_learning.py",
+      "models": [
+        "BackgroundLearningTask",
+        "LearningCheckpoint",
+        "LearningSchedule",
+        "LearningInsight"
+      ],
+      "model_count": 4,
+      "size_kb": 8
+    },
+    "batch_operation": {
+      "file": "batch_operation.py",
+      "models": [
+        "BatchOperation"
+      ],
+      "model_count": 1,
+      "size_kb": 1
+    },
+    "chat": {
+      "file": "chat.py",
+      "models": [
+        "ChatSession",
+        "ChatMessage"
+      ],
+      "model_count": 2,
+      "size_kb": 2
+    },
+    "chunk_entity": {
+      "file": "chunk_entity.py",
+      "models": [
+        "ChunkEntity"
+      ],
+      "model_count": 1,
+      "size_kb": 2
+    },
+    "citation": {
+      "file": "citation.py",
+      "models": [
+        "Citation",
+        "DocumentCitation"
+      ],
+      "model_count": 2,
+      "size_kb": 2
+    },
+    "collaboration": {
+      "file": "collaboration.py",
+      "models": [
+        "ProjectMember",
+        "ProjectInvite",
+        "ProjectActivityLog"
+      ],
+      "model_count": 3,
+      "size_kb": 2
+    },
+    "context": {
+      "file": "context.py",
+      "models": [
+        "Context"
+      ],
+      "model_count": 1,
+      "size_kb": 2
+    },
+    "data_lineage": {
+      "file": "data_lineage.py",
+      "models": [
+        "DataLineage",
+        "DataVersion",
+        "SourceFile",
+        "LineageQuery"
+      ],
+      "model_count": 4,
+      "size_kb": 7
+    },
+    "distillation": {
+      "file": "distillation.py",
+      "models": [
+        "DistilledUnit",
+        "DistilledUnitRelation"
+      ],
+      "model_count": 2,
+      "size_kb": 2
+    },
+    "document": {
+      "file": "document.py",
+      "models": [
+        "Document"
+      ],
+      "model_count": 1,
+      "size_kb": 4
+    },
+    "document_chunk": {
+      "file": "document_chunk.py",
+      "models": [
+        "DocumentChunk"
+      ],
+      "model_count": 1,
+      "size_kb": 9
+    },
+    "document_chunks": {
+      "file": "document_chunks.py",
+      "models": [],
+      "model_count": 0,
+      "size_kb": 0
+    },
+    "document_metadata": {
+      "file": "document_metadata.py",
+      "models": [
+        "DocumentMetadata"
+      ],
+      "model_count": 1,
+      "size_kb": 1
+    },
+    "document_relation": {
+      "file": "document_relation.py",
+      "models": [
+        "DocumentRelation"
+      ],
+      "model_count": 1,
+      "size_kb": 1
+    },
+    "enriched_chunk": {
+      "file": "enriched_chunk.py",
+      "models": [],
+      "model_count": 0,
+      "size_kb": 9
+    },
+    "entity": {
+      "file": "entity.py",
+      "models": [
+        "Entity",
+        "DocumentEntity",
+        "EntityRelation"
+      ],
+      "model_count": 3,
+      "size_kb": 7
+    },
+    "entity_alignment": {
+      "file": "entity_alignment.py",
+      "models": [
+        "EntityAlignment"
+      ],
+      "model_count": 1,
+      "size_kb": 1
+    },
+    "entity_evidence": {
+      "file": "entity_evidence.py",
+      "models": [
+        "EntityEvidence"
+      ],
+      "model_count": 1,
+      "size_kb": 3
+    },
+    "execution_record": {
+      "file": "execution_record.py",
+      "models": [
+        "ExecutionRecord",
+        "SuccessPattern"
+      ],
+      "model_count": 2,
+      "size_kb": 6
+    },
+    "fact_statement": {
+      "file": "fact_statement.py",
+      "models": [],
+      "model_count": 0,
+      "size_kb": 0
+    },
+    "federation": {
+      "file": "federation.py",
+      "models": [
+        "FieldMindObject",
+        "ObjectRelation",
+        "FactStatement"
+      ],
+      "model_count": 3,
+      "size_kb": 6
+    },
+    "feedback_loop": {
+      "file": "feedback_loop.py",
+      "models": [
+        "FeedbackLoop",
+        "FeedbackAnalysis",
+        "ImprovementTask",
+        "LoopMetrics"
+      ],
+      "model_count": 4,
+      "size_kb": 10
+    },
+    "generated_skill": {
+      "file": "generated_skill.py",
+      "models": [
+        "GeneratedSkill",
+        "SkillTestResult",
+        "SkillValidationFeedback"
+      ],
+      "model_count": 3,
+      "size_kb": 7
+    },
+    "governance": {
+      "file": "governance.py",
+      "models": [
+        "MetricDictionary",
+        "LineageEdge",
+        "MetricCalculationHistory",
+        "QualityRule",
+        "QualityCheckResult",
+        "ChangeEvent",
+        "GovernanceMetadata"
+      ],
+      "model_count": 7,
+      "size_kb": 7
+    },
+    "industry": {
+      "file": "industry.py",
+      "models": [
+        "IndustryCategory"
+      ],
+      "model_count": 1,
+      "size_kb": 1
+    },
+    "keyword": {
+      "file": "keyword.py",
+      "models": [
+        "Keyword",
+        "DocumentKeyword",
+        "KeywordRelation",
+        "KeywordExtractionTask"
+      ],
+      "model_count": 4,
+      "size_kb": 6
+    },
+    "knowledge": {
+      "file": "knowledge.py",
+      "models": [
+        "PipelineExecution",
+        "KnowledgeEntity",
+        "KnowledgeRelation",
+        "KnowledgeEvent",
+        "KnowledgeConcept",
+        "KnowledgeRelationType",
+        "KnowledgeAxiom",
+        "KnowledgeOntology",
+        "InferenceFinding",
+        "KnowledgeConflict",
+        "KnowledgeUnit",
+        "ReaderView",
+        "WikiPage"
+      ],
+      "model_count": 13,
+      "size_kb": 12
+    },
+    "knowledge_graph": {
+      "file": "knowledge_graph.py",
+      "models": [
+        "Entity",
+        "Relation",
+        "TemporalEvent",
+        "EntityMention",
+        "EntityCluster",
+        "GraphSnapshot",
+        "VectorChunk",
+        "VectorIndex",
+        "RAGSession",
+        "RAGQuery"
+      ],
+      "model_count": 10,
+      "size_kb": 13
+    },
+    "metrics": {
+      "file": "metrics.py",
+      "models": [
+        "MetricsSnapshot",
+        "WorkloadCalculation",
+        "ValueExhibition",
+        "ProjectMetrics",
+        "MetricsEvent"
+      ],
+      "model_count": 5,
+      "size_kb": 8
+    },
+    "pattern_library": {
+      "file": "pattern_library.py",
+      "models": [
+        "PatternLibrary",
+        "PatternMatch",
+        "PatternCluster"
+      ],
+      "model_count": 3,
+      "size_kb": 7
+    },
+    "permission": {
+      "file": "permission.py",
+      "models": [
+        "Role",
+        "Permission",
+        "ProjectMember",
+        "ResourceOwnership"
+      ],
+      "model_count": 4,
+      "size_kb": 6
+    },
+    "phase5": {
+      "file": "phase5.py",
+      "models": [
+        "ReportAnalysisCache",
+        "SynthesisResult",
+        "ReportLayer"
+      ],
+      "model_count": 3,
+      "size_kb": 5
+    },
+    "pipeline_state": {
+      "file": "pipeline_state.py",
+      "models": [],
+      "model_count": 0,
+      "size_kb": 0
+    },
+    "project": {
+      "file": "project.py",
+      "models": [
+        "Project",
+        "ProjectDocument",
+        "ProjectDocumentAsset",
+        "ProjectDocumentTag",
+        "ProjectContext",
+        "ProjectChatSession",
+        "ProjectChatMessage",
+        "ProjectMemory"
+      ],
+      "model_count": 8,
+      "size_kb": 13
+    },
+    "rag_query": {
+      "file": "rag_query.py",
+      "models": [
+        "RAGQuery",
+        "RAGFeedback"
+      ],
+      "model_count": 2,
+      "size_kb": 1
+    },
+    "relationship": {
+      "file": "relationship.py",
+      "models": [],
+      "model_count": 0,
+      "size_kb": 0
+    },
+    "report": {
+      "file": "report.py",
+      "models": [
+        "Report"
+      ],
+      "model_count": 1,
+      "size_kb": 1
+    },
+    "report_relation": {
+      "file": "report_relation.py",
+      "models": [
+        "ReportRelation",
+        "ReportEntity",
+        "ReportEntityRelation",
+        "ReportNetworkNode",
+        "ReportNetworkEdge"
+      ],
+      "model_count": 5,
+      "size_kb": 9
+    },
+    "sbpack": {
+      "file": "sbpack.py",
+      "models": [
+        "SBPACKPackage",
+        "KnowledgeItem",
+        "SkillItem",
+        "KnowledgeSkillRelation",
+        "ProducerSnapshot"
+      ],
+      "model_count": 5,
+      "size_kb": 8
+    },
+    "scheduled_task": {
+      "file": "scheduled_task.py",
+      "models": [
+        "ScheduledTask",
+        "ScheduledTaskExecution"
+      ],
+      "model_count": 2,
+      "size_kb": 2
+    },
+    "skill": {
+      "file": "skill.py",
+      "models": [
+        "Skill",
+        "SkillValidation"
+      ],
+      "model_count": 2,
+      "size_kb": 3
+    },
+    "skill_optimization": {
+      "file": "skill_optimization.py",
+      "models": [
+        "SkillOptimization",
+        "PerformanceMetric",
+        "OptimizationRecommendation"
+      ],
+      "model_count": 3,
+      "size_kb": 8
+    },
+    "skill_system": {
+      "file": "skill_system.py",
+      "models": [
+        "SkillNode",
+        "SkillRelation",
+        "SkillProgress",
+        "SkillAchievement",
+        "UserAchievement",
+        "SkillPath",
+        "ObsidianNote",
+        "WikiLink"
+      ],
+      "model_count": 8,
+      "size_kb": 9
+    },
+    "skill_version": {
+      "file": "skill_version.py",
+      "models": [
+        "SkillVersion"
+      ],
+      "model_count": 1,
+      "size_kb": 5
+    },
+    "sop": {
+      "file": "sop.py",
+      "models": [
+        "SOP",
+        "SOPExecution",
+        "SOPTemplate"
+      ],
+      "model_count": 3,
+      "size_kb": 4
+    },
+    "structured_insight": {
+      "file": "structured_insight.py",
+      "models": [
+        "StructuredInsight",
+        "TopicStatistics",
+        "EntityStatistics"
+      ],
+      "model_count": 3,
+      "size_kb": 3
+    },
+    "support_models": {
+      "file": "support_models.py",
+      "models": [
+        "Embedding",
+        "ProcessingTask",
+        "QualityReport"
+      ],
+      "model_count": 3,
+      "size_kb": 6
+    },
+    "tag": {
+      "file": "tag.py",
+      "models": [
+        "Tag",
+        "DocumentTag"
+      ],
+      "model_count": 2,
+      "size_kb": 2
+    },
+    "thinking_pattern": {
+      "file": "thinking_pattern.py",
+      "models": [
+        "ThinkingPattern",
+        "SkillKnowledgeBase",
+        "DomainKnowledge"
+      ],
+      "model_count": 3,
+      "size_kb": 11
+    },
+    "timeline": {
+      "file": "timeline.py",
+      "models": [
+        "TimelineEvent"
+      ],
+      "model_count": 1,
+      "size_kb": 2
+    },
+    "unified_models": {
+      "file": "unified_models.py",
+      "models": [
+        "DocumentStructure",
+        "EntityUnified",
+        "EventUnified",
+        "RelationshipUnified",
+        "OntologyConcept",
+        "InferenceResult",
+        "KnowledgeUnit",
+        "ReaderTemplate",
+        "WikiPage",
+        "KnowledgeGraphNode",
+        "KnowledgeGraphEdge",
+        "SystemEvent",
+        "UnifiedMetadata"
+      ],
+      "model_count": 13,
+      "size_kb": 15
+    },
+    "unified_pipeline": {
+      "file": "unified_pipeline.py",
+      "models": [
+        "DirtyChannelDocument",
+        "CleanChannelEvent",
+        "CleanChannelEntity",
+        "CleanChannelRelation",
+        "NineStepPipelineStatus",
+        "UnifiedProcessingRoute"
+      ],
+      "model_count": 6,
+      "size_kb": 6
+    },
+    "user": {
+      "file": "user.py",
+      "models": [
+        "User"
+      ],
+      "model_count": 1,
+      "size_kb": 1
+    },
+    "user_engagement": {
+      "file": "user_engagement.py",
+      "models": [
+        "ConversationMemory",
+        "UserAnalysisDimension",
+        "UserThinkingPattern",
+        "UserFeedingSession",
+        "UserAnnotation",
+        "UserTagging",
+        "LearningLog",
+        "AIQuestion"
+      ],
+      "model_count": 8,
+      "size_kb": 12
+    },
+    "workflow": {
+      "file": "workflow.py",
+      "models": [
+        "Workflow",
+        "WorkflowExecution"
+      ],
+      "model_count": 2,
+      "size_kb": 3
+    },
+    "workflow_execution": {
+      "file": "workflow_execution.py",
+      "models": [
+        "WorkflowExecution",
+        "WorkflowStep",
+        "WorkflowTemplate"
+      ],
+      "model_count": 3,
+      "size_kb": 6
+    }
+  },
+  "integration_status": {
+    "SBPACK系统": {
+      "api": true,
+      "services": [
+        "knowledge_track_extractor",
+        "skill_track_extractor",
+        "sbpack_builder",
+        "sbpack_validator",
+        "production_auditor",
+        "input_processor"
+      ],
+      "models": true,
+      "core": []
+    },
+    "技能树系统": {
+      "api": true,
+      "services": [
+        "skill_tree_builder",
+        "skill_progress_tracker"
+      ],
+      "models": true,
+      "core": []
+    },
+    "Obsidian集成": {
+      "api": true,
+      "services": [
+        "obsidian_exporter"
+      ],
+      "models": false,
+      "core": [
+        "obsidian_compat",
+        "obsidian_sync"
+      ]
+    },
+    "RAG系统": {
+      "api": true,
+      "services": [
+        "knowledge_graph_builder",
+        "vector_store",
+        "hybrid_retriever",
+        "rag_generator"
+      ],
+      "models": true,
+      "core": []
+    },
+    "LLM增强": {
+      "api": true,
+      "services": [
+        "llm_enhancer"
+      ],
+      "models": false,
+      "core": []
+    }
+  },
+  "feature_map": {
+    "文档处理": {
+      "apis": [
+        "document_normalization",
+        "document_processing_v2",
+        "file_manager",
+        "file_summaries",
+        "unified_documents"
+      ],
+      "services": [
+        "cross_document_entity_resolver",
+        "document_auto_analysis",
+        "document_chunker",
+        "document_chunker_sources",
+        "document_chunker_v2",
+        "document_converter",
+        "document_converter_v2",
+        "document_network_builder",
+        "document_parser",
+        "document_processing_integration",
+        "document_processing_pipeline",
+        "document_processing_pipeline_complete",
+        "document_processing_pipeline_v2",
+        "document_relation_discovery",
+        "document_structure_analyzer",
+        "file_classifier",
+        "file_upload",
+        "file_upload_service",
+        "optimized_document_pipeline",
+        "pdf_enhanced_service",
+        "project_document_upload"
+      ]
+    },
+    "向量搜索": {
+      "apis": [],
+      "services": [
+        "embedding_service_v2",
+        "lance_vector_store",
+        "multi_vector_generator",
+        "optimized_vectorization_service",
+        "semantic_embedding",
+        "tfidf_vectorization",
+        "vector_fusion_service",
+        "vector_index_service",
+        "vector_store",
+        "vector_store_service",
+        "vectorization_service_complete",
+        "vectorization_text_builder"
+      ]
+    },
+    "知识管理": {
+      "apis": [
+        "knowledge_graph_p3",
+        "knowledge_pipeline",
+        "knowledge_query",
+        "reports_refactored",
+        "unified_knowledge_graph"
+      ],
+      "services": [
+        "advanced_knowledge_graph",
+        "background_tasks_refactored",
+        "enhanced_chat_service_refactored",
+        "fact_statement_populator",
+        "facts_anchor",
+        "knowledge_enhancement_service",
+        "knowledge_graph_builder",
+        "knowledge_graph_enhanced",
+        "knowledge_graph_service",
+        "knowledge_track_extractor"
+      ]
+    },
+    "Agent系统": {
+      "apis": [
+        "agents_p3",
+        "workflows"
+      ],
+      "services": [
+        "background_tasks",
+        "background_tasks_refactored",
+        "intelligent_agent",
+        "super_agents_service_v2",
+        "workflow_chain",
+        "workflow_engine",
+        "workflow_handlers",
+        "workflow_service",
+        "workflow_templates"
+      ]
+    },
+    "用户管理": {
+      "apis": [
+        "permissions"
+      ],
+      "services": [
+        "permission_service",
+        "user_analysis_service"
+      ]
+    },
+    "项目管理": {
+      "apis": [
+        "project_distillation",
+        "unified_projects"
+      ],
+      "services": [
+        "project_document_upload"
+      ]
+    },
+    "数据分析": {
+      "apis": [
+        "unified_analysis"
+      ],
+      "services": [
+        "business_analysis_service",
+        "creative_analysis_service",
+        "document_auto_analysis",
+        "user_analysis_service"
+      ]
+    },
+    "RAG问答": {
+      "apis": [
+        "knowledge_query",
+        "rag",
+        "unified_chat",
+        "unified_rag"
+      ],
+      "services": [
+        "chat_enhancement_service",
+        "chat_service",
+        "deep_rag_optimization_service",
+        "deep_rag_service",
+        "enhanced_chat_service",
+        "enhanced_chat_service_refactored",
+        "enhanced_chat_service_v2",
+        "graphrag_service",
+        "lightrag_service",
+        "rag_engine_adapter",
+        "rag_generator",
+        "rag_retrieval_service",
+        "ragflow_service"
+      ]
+    },
+    "SBPACK": {
+      "apis": [
+        "distillation",
+        "project_distillation",
+        "sbpack"
+      ],
+      "services": [
+        "distillation_engine",
+        "distillation_service",
+        "sbpack_builder",
+        "sbpack_validator"
+      ]
+    },
+    "技能系统": {
+      "apis": [
+        "skill_config",
+        "skill_tree",
+        "unified_skills"
+      ],
+      "services": [
+        "hermes_learning_engine",
+        "learning_service",
+        "skill_evolution_service",
+        "skill_generator",
+        "skill_loader",
+        "skill_optimizer",
+        "skill_progress_tracker",
+        "skill_recommendation_service",
+        "skill_sandbox",
+        "skill_service",
+        "skill_track_extractor",
+        "skill_tree_builder",
+        "skills_integration_service",
+        "unified_skill_system_v2",
+        "unified_skills_service"
+      ]
+    },
+    "Obsidian": {
+      "apis": [
+        "obsidian",
+        "obsidian_integration"
+      ],
+      "services": [
+        "chromadb_sync_service",
+        "neo4j_sync_service",
+        "obsidian_exporter",
+        "sync_manager"
+      ]
+    },
+    "知识图谱": {
+      "apis": [
+        "entity_extraction",
+        "knowledge_graph_p3",
+        "unified_knowledge_graph"
+      ],
+      "services": [
+        "advanced_knowledge_graph",
+        "correlation_recommender",
+        "cross_document_entity_resolver",
+        "document_relation_discovery",
+        "entity_categorizer",
+        "entity_disambiguation_service",
+        "entity_extraction",
+        "entity_extraction_service",
+        "entity_extractor",
+        "entity_recognition_service",
+        "entity_service",
+        "experience_graph_service",
+        "graph_construction_service",
+        "graph_database_integration",
+        "graph_database_integration_v2",
+        "graph_reasoning_service",
+        "graphiti_service",
+        "graphrag_service",
+        "keyword_relation_builder",
+        "knowledge_graph_builder",
+        "knowledge_graph_enhanced",
+        "knowledge_graph_service",
+        "relation_discovery",
+        "relation_extraction_service",
+        "relation_extractor",
+        "report_relation_builder"
+      ]
+    }
+  }
+}
