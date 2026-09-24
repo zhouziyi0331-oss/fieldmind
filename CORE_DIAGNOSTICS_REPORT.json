@@ -1,0 +1,36 @@
+{
+  "summary": {
+    "backend": {
+      "models": 60,
+      "services": 232,
+      "apis": 61
+    },
+    "frontend": {
+      "tsx_files": 131
+    }
+  },
+  "critical_issues": [],
+  "warnings": [
+    {
+      "type": "unregistered_modules",
+      "modules": [
+        "sbpack",
+        "skill_tree",
+        "obsidian",
+        "rag",
+        "llm"
+      ],
+      "message": "New integration modules not registered in main.py"
+    }
+  ],
+  "recommendations": [
+    {
+      "type": "create_integration_files",
+      "files": [
+        "integration_config.py",
+        "dependencies.py"
+      ],
+      "action": "Run install_integration.py to create these files"
+    }
+  ]
+}
